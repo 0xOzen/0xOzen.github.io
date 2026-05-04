@@ -22,8 +22,8 @@
       --border: rgba(255, 255, 255, 0.12);
       --border-strong: rgba(210, 91, 55, 0.36);
       --text: #f4f0ec;
-      --muted: rgba(189, 184, 178, 0.78);
-      --soft: rgba(125, 121, 116, 0.92);
+      --muted: rgba(216, 211, 204, 0.86);
+      --soft: rgba(172, 166, 158, 0.95);
       --green: #d97845;
       --green-2: #a83224;
       --green-3: #5c2a1e;
@@ -529,6 +529,43 @@
     .layer-card ul { margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; color: var(--muted); font-size: 14px; line-height: 1.45; }
     .layer-card li::before { content: "•"; color: var(--green); margin-right: 8px; }
 
+    .adoption-teaser {
+      background:
+        radial-gradient(circle at 78% 18%, rgba(102, 58, 243, 0.16), transparent 28%),
+        radial-gradient(circle at 18% 74%, rgba(255,99,99,0.10), transparent 30%),
+        linear-gradient(180deg, rgba(255,255,255,0.058), rgba(255,255,255,0.024));
+    }
+
+    .teaser-command {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: center;
+      padding: clamp(22px, 4vw, 34px);
+      border-radius: 34px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(7,8,10,0.50);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 22px 70px rgba(0,0,0,0.34);
+    }
+
+    .teaser-command strong {
+      display: block;
+      margin-top: 12px;
+      max-width: 760px;
+      font-size: clamp(28px, 4vw, 52px);
+      line-height: .96;
+      letter-spacing: -0.06em;
+      font-weight: 500;
+    }
+
+    .teaser-command p {
+      max-width: 760px;
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.68;
+    }
+
     .text-link { color: #d97845; border-bottom: 1px solid rgba(217,120,69,0.35); }
 
 
@@ -560,7 +597,7 @@
       .hero-grid { grid-template-columns: 1fr; }
       .stage { min-height: 480px; }
       .section-head { grid-template-columns: 1fr; gap: 18px; }
-      .grid.three, .grid.two, .milestones, .archive-grid, .layer-grid, .series-strip { grid-template-columns: 1fr; }
+      .grid.three, .grid.two, .milestones, .archive-grid, .layer-grid, .series-strip, .teaser-command { grid-template-columns: 1fr; }
       .timeline-panel { min-height: auto; padding: 24px; }
       .timeline-line, .here { display: none; }
     }
@@ -599,7 +636,7 @@
         <a href="#work">Work</a>
         <a href="#portfolio">Portfolio</a>
         <a href="writing-archive.html">Writing</a>
-        <a href="#adoption">Adoption</a>
+        <a href="department-adoption.html">Adoption</a>
         <a href="#contact" class="button primary">Contact</a>
       </nav>
     </div>
@@ -713,7 +750,7 @@
             <div class="label">Writing</div>
             <h2>Latest LinkedIn writing.</h2>
           </div>
-          <p class="section-copy">The homepage now shows the latest three public writing notes. The full archive has a dedicated command-center page for Daily Signal posts, weekly Signal vs. Noise issues and department adoption lenses.</p>
+          <p class="section-copy">The homepage shows only the latest three public writing summaries. The full archive has a dedicated command-center page for Daily Signal posts, weekly Signal vs. Noise issues and department adoption lenses; full post bodies and source links can be attached after you provide them.</p>
         </div>
 
         <div class="archive-grid latest-grid" aria-label="Latest LinkedIn writing">
@@ -734,59 +771,24 @@
         <div class="section-head">
           <div>
             <div class="label">Department adoption map</div>
-            <h2>AI adoption recommendations by operating layer.</h2>
+            <h2>Operating-layer recommendations now live on a dedicated page.</h2>
           </div>
-          <p class="section-copy">The department lens turns LinkedIn writing into an adoption map: every department needs useful automation, but also ownership, permission boundaries, review loops and evidence.</p>
+          <p class="section-copy">The homepage stays focused: a short preview here, full department recommendations on the adoption page. That keeps the portfolio readable while preserving a deeper operating model for hiring and advisory conversations.</p>
         </div>
-        <div class="adoption-panel">
-          <div class="label">Connected adoption diagram</div>
-          <p class="section-copy">Inspired by roadmap and node-canvas interfaces: a central adoption operating layer connects six department clusters through workflow ownership, approvals, evidence and escalation paths.</p>
-          <div class="diagram-shell" aria-label="AI adoption department connection diagram">
-            <svg class="adoption-diagram" viewBox="0 0 1180 620" role="img" aria-labelledby="diagramTitle diagramDesc" xmlns="http://www.w3.org/2000/svg">
-              <title id="diagramTitle">Department AI adoption connection map</title>
-              <desc id="diagramDesc">A dark node-based diagram showing six department clusters connected to a central AI adoption operating layer.</desc>
-              <defs>
-                <radialGradient id="adBg" cx="58%" cy="42%" r="70%"><stop offset="0%" stop-color="#25120d"/><stop offset="48%" stop-color="#0e0f0f"/><stop offset="100%" stop-color="#050606"/></radialGradient>
-                <pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="1.4" cy="1.4" r="1" fill="rgba(244,240,236,0.08)"/></pattern>
-                <linearGradient id="nodeActive" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d97845"/><stop offset="52%" stop-color="#a83224"/><stop offset="100%" stop-color="#24100c"/></linearGradient>
-                <linearGradient id="nodeDark" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#252625"/><stop offset="100%" stop-color="#151616"/></linearGradient>
-                <filter id="nodeShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000" flood-opacity="0.48"/></filter>
-                <filter id="emberGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="blur"/><feColorMatrix in="blur" type="matrix" values="1 0 0 0 0.85 0 0.35 0 0 0.22 0 0 0.14 0 0.10 0 0 0 0.72 0"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-              </defs>
-              <rect width="1180" height="620" fill="url(#adBg)"/>
-              <rect width="1180" height="620" fill="url(#dots)" opacity="0.58"/>
-              <circle cx="590" cy="290" r="220" fill="#c43222" opacity="0.08"/>
-              <g fill="none" stroke-linecap="round" stroke-width="1.8">
-                <path d="M390 190 C465 205 485 252 525 282" stroke="rgba(244,240,236,0.22)"/>
-                <path d="M790 190 C715 205 695 252 655 282" stroke="rgba(244,240,236,0.22)"/>
-                <path d="M332 355 C430 360 485 335 525 318" stroke="#d97845" opacity="0.78" filter="url(#emberGlow)"/>
-                <path d="M848 355 C750 360 695 335 655 318" stroke="#d97845" opacity="0.78" filter="url(#emberGlow)"/>
-                <path d="M470 492 C510 430 538 384 560 340" stroke="rgba(244,240,236,0.20)"/>
-                <path d="M710 492 C670 430 642 384 620 340" stroke="rgba(244,240,236,0.20)"/>
-              </g>
-              <g filter="url(#nodeShadow)">
-                <rect x="492" y="246" width="196" height="118" rx="24" fill="url(#nodeActive)" stroke="rgba(255,255,255,0.16)"/>
-                <text x="590" y="292" text-anchor="middle" fill="#fff" font-size="18" font-weight="600">AI adoption</text>
-                <text x="590" y="318" text-anchor="middle" fill="rgba(255,255,255,0.78)" font-size="13">operating layer</text>
-                <text x="590" y="342" text-anchor="middle" fill="rgba(255,255,255,0.62)" font-size="11">ownership · approvals · evidence</text>
-              </g>
-              <g font-size="13" fill="#f4f0ec" filter="url(#nodeShadow)">
-                <g transform="translate(160 118)"><rect width="230" height="92" rx="18" fill="url(#nodeDark)" stroke="rgba(255,255,255,0.10)"/><circle cx="24" cy="28" r="6" fill="#d97845"/><text x="44" y="32" font-weight="600">Leadership Layer</text><text x="24" y="62" fill="rgba(189,184,178,0.82)" font-size="11">decisions · strategy · escalation</text></g>
-                <g transform="translate(790 118)"><rect width="230" height="92" rx="18" fill="url(#nodeDark)" stroke="rgba(255,255,255,0.10)"/><circle cx="24" cy="28" r="6" fill="#d97845"/><text x="44" y="32" font-weight="600">Money Layer</text><text x="24" y="62" fill="rgba(189,184,178,0.82)" font-size="11">finance · procurement · audit</text></g>
-                <g transform="translate(102 318)"><rect width="230" height="92" rx="18" fill="url(#nodeDark)" stroke="rgba(255,255,255,0.10)"/><circle cx="24" cy="28" r="6" fill="#d97845"/><text x="44" y="32" font-weight="600">People & Trust</text><text x="24" y="62" fill="rgba(189,184,178,0.82)" font-size="11">HR · legal · compliance</text></g>
-                <g transform="translate(848 318)"><rect width="230" height="92" rx="18" fill="url(#nodeDark)" stroke="rgba(255,255,255,0.10)"/><circle cx="24" cy="28" r="6" fill="#d97845"/><text x="44" y="32" font-weight="600">Market Layer</text><text x="24" y="62" fill="rgba(189,184,178,0.82)" font-size="11">marketing · sales · PR</text></g>
-                <g transform="translate(240 470)"><rect width="230" height="92" rx="18" fill="url(#nodeDark)" stroke="rgba(255,255,255,0.10)"/><circle cx="24" cy="28" r="6" fill="#d97845"/><text x="44" y="32" font-weight="600">Operating Layer</text><text x="24" y="62" fill="rgba(189,184,178,0.82)" font-size="11">ops · supply · support · quality</text></g>
-                <g transform="translate(710 470)"><rect width="230" height="92" rx="18" fill="url(#nodeDark)" stroke="rgba(255,255,255,0.10)"/><circle cx="24" cy="28" r="6" fill="#d97845"/><text x="44" y="32" font-weight="600">Build & Intelligence</text><text x="24" y="62" fill="rgba(189,184,178,0.82)" font-size="11">product · data · engineering</text></g>
-              </g>
-              <g transform="translate(130 66)" opacity="0.72"><line x1="0" y1="0" x2="920" y2="0" stroke="rgba(244,240,236,0.20)"/><g stroke="rgba(244,240,236,0.18)"><line x1="0" y1="-8" x2="0" y2="8"/><line x1="184" y1="-8" x2="184" y2="8"/><line x1="368" y1="-8" x2="368" y2="8"/><line x1="552" y1="-8" x2="552" y2="8"/><line x1="736" y1="-8" x2="736" y2="8"/><line x1="920" y1="-8" x2="920" y2="8"/></g><circle cx="460" cy="0" r="6" fill="#d97845" filter="url(#emberGlow)"/><text x="460" y="-22" text-anchor="middle" fill="#f4f0ec" font-size="12">adoption map</text></g>
-            </svg>
+        <div class="adoption-panel adoption-teaser">
+          <div class="teaser-command">
+            <div>
+              <div class="label">Route</div>
+              <strong>AI adoption recommendations by operating layer</strong>
+              <p>Leadership, money, people and trust, market, operations, and build/intelligence layers each need different ownership, approval and evidence patterns.</p>
+            </div>
+            <a class="button primary" href="department-adoption.html">Open adoption page</a>
           </div>
           <div class="layer-grid">
-            <article class="layer-card"><strong>Start with ownership</strong><p>Every AI workflow needs a human owner, a target outcome and a clear escalation path before automation scales.</p></article>
-            <article class="layer-card"><strong>Add permission boundaries</strong><p>Define what AI can read, suggest, prepare, send, approve or never touch without human review.</p></article>
-            <article class="layer-card"><strong>Keep evidence visible</strong><p>Adoption becomes safer when teams can inspect sources, decisions, logs, exceptions and quality checks.</p></article>
+            <article class="layer-card"><strong>Six operating layers</strong><p>A compact map of where AI touches strategy, money, trust, market motion, operations, and product/data/engineering work.</p></article>
+            <article class="layer-card"><strong>Control points first</strong><p>The detailed page keeps the emphasis on ownership, permission boundaries, review loops, evidence and escalation.</p></article>
+            <article class="layer-card"><strong>Expandable later</strong><p>When the full post sources arrive, this page can connect every recommendation back to the relevant LinkedIn writing block.</p></article>
           </div>
-          <p class="section-copy">See the detailed page: <a class="text-link" href="department-adoption.html">Department AI adoption recommendations</a>.</p>
         </div>
       </div>
     </section>
