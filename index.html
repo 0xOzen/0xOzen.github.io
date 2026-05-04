@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ali Osman Ozen | AI Adoption Architect</title>
+  <meta name="description" content="Ali Osman Ozen is an AI Adoption Architect based in Cologne, focused on practical AI adoption, workflow design, governance and technology-to-business translation." />
+  <meta name="author" content="Ali Osman Ozen" />
+  <meta property="og:title" content="Ali Osman Ozen | AI Adoption Architect" />
+  <meta property="og:description" content="Practical portfolio for AI adoption, workflow design, governance and transformation roles." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#080909" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080909;
+      --bg-2: #0e0f0f;
+      --surface: rgba(35, 35, 34, 0.72);
+      --surface-strong: rgba(168, 50, 36, 0.20);
+      --border: rgba(255, 255, 255, 0.12);
+      --border-strong: rgba(210, 91, 55, 0.36);
+      --text: #f4f0ec;
+      --muted: rgba(189, 184, 178, 0.78);
+      --soft: rgba(125, 121, 116, 0.92);
+      --green: #d97845;
+      --green-2: #a83224;
+      --green-3: #5c2a1e;
+      --shadow: 0 40px 120px rgba(0, 0, 0, 0.55);
+      --radius-xl: 42px;
+      --radius-lg: 28px;
+      --radius-md: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(196, 50, 34, 0.18), transparent 30%),
+        radial-gradient(circle at 76% 12%, rgba(217, 100, 55, 0.18), transparent 36%),
+        radial-gradient(circle at 55% 80%, rgba(168, 106, 69, 0.12), transparent 35%),
+        linear-gradient(180deg, var(--bg-2) 0%, #080909 58%, #050606 100%);
+      color: var(--text);
+      font-family: "Geist", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-feature-settings: "liga" 1;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background-image: radial-gradient(rgba(244, 240, 236, 0.12) 1px, transparent 1px);
+      background-size: 22px 22px;
+      opacity: 0.16;
+      mask-image: linear-gradient(to bottom, black, transparent 84%);
+      pointer-events: none;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,0.72), transparent 42%, rgba(0,0,0,0.52)),
+        radial-gradient(circle at 50% 0%, transparent 0%, rgba(0,0,0,0.22) 55%, rgba(0,0,0,0.62) 100%);
+      pointer-events: none;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1160px, calc(100% - 48px)); margin: 0 auto; }
+
+    header {
+      position: fixed;
+      top: 18px;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      pointer-events: none;
+    }
+
+    .nav {
+      width: min(740px, calc(100% - 32px));
+      margin: 0 auto;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 7px 8px 7px 18px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(14, 15, 15, 0.66);
+      backdrop-filter: blur(22px);
+      box-shadow: 0 16px 60px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.08);
+      pointer-events: auto;
+    }
+
+    .brand { font-weight: 500; letter-spacing: -0.02em; white-space: nowrap; }
+    .navlinks { display: flex; align-items: center; gap: 4px; font-size: 13px; color: var(--muted); }
+    .navlinks a { padding: 9px 12px; border-radius: 999px; transition: background .18s ease, color .18s ease; }
+    .navlinks a:hover { color: var(--text); background: rgba(255,255,255,0.07); }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 18px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(18px);
+      transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-strong);
+      background: rgba(255,255,255,0.10);
+      box-shadow: 0 18px 48px rgba(0,0,0,0.35);
+    }
+
+    .button.primary {
+      background: linear-gradient(135deg, var(--green), var(--green-2));
+      color: #160806;
+      border-color: rgba(217,120,69,0.52);
+      box-shadow: 0 0 40px rgba(196, 50, 34, 0.34), 0 16px 48px rgba(0,0,0,0.42);
+    }
+
+    .button:focus-visible,
+    a:focus-visible {
+      outline: 2px solid var(--green);
+      outline-offset: 4px;
+    }
+
+    main { overflow: hidden; }
+    .hero { min-height: 100vh; display: grid; align-items: center; padding: 136px 0 96px; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(360px, 0.82fr); gap: 60px; align-items: center; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      color: rgba(244,240,236,0.78);
+      font-size: 13px;
+      backdrop-filter: blur(18px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 18px rgba(217,120,69,0.92); }
+
+    h1 {
+      margin: 24px 0 0;
+      max-width: 780px;
+      font-size: clamp(46px, 7.8vw, 104px);
+      line-height: .88;
+      letter-spacing: -0.075em;
+      font-weight: 500;
+    }
+
+    .lead {
+      margin: 28px 0 0;
+      max-width: 670px;
+      font-size: clamp(18px, 2.2vw, 22px);
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.11);
+      background: rgba(255,255,255,0.045);
+      color: var(--soft);
+      font-size: 13px;
+      backdrop-filter: blur(14px);
+    }
+
+    .stage {
+      position: relative;
+      min-height: 540px;
+      border-radius: 56px;
+      background:
+        radial-gradient(circle at 52% 42%, rgba(255,255,255,0.18), transparent 18%),
+        radial-gradient(circle at 48% 50%, rgba(196,50,34,0.22), transparent 36%),
+        linear-gradient(135deg, rgba(92, 42, 30, 0.46), rgba(8, 9, 9, 0.78));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+
+    .stage::before {
+      content: "";
+      position: absolute;
+      inset: 42px 54px 132px 54px;
+      border-radius: 46px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(4, 8, 6, 0.46);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 24px 90px rgba(0,0,0,0.42);
+    }
+
+    .doc-stack {
+      position: absolute;
+      left: 50%;
+      top: 92px;
+      width: 168px;
+      height: 220px;
+      transform: translateX(-50%);
+    }
+
+    .doc {
+      position: absolute;
+      inset: 0;
+      border-radius: 16px 16px 10px 10px;
+      background: linear-gradient(180deg, #f4f0ec, #9d9188);
+      box-shadow: 0 26px 70px rgba(0,0,0,0.34);
+    }
+
+    .doc:nth-child(1) { transform: translateX(-22px) rotate(-5deg); opacity: .62; }
+    .doc:nth-child(2) { transform: translateX(18px) rotate(5deg); opacity: .78; }
+    .doc:nth-child(3) { transform: translateY(-8px); }
+    .doc::before, .doc::after {
+      content: "";
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      height: 9px;
+      border-radius: 999px;
+      background: rgba(61, 39, 32, 0.24);
+    }
+    .doc::before { top: 58px; }
+    .doc::after { top: 84px; right: 54px; }
+
+    .glass-card {
+      position: absolute;
+      left: 50%;
+      bottom: 70px;
+      width: min(440px, calc(100% - 48px));
+      min-height: 190px;
+      transform: translateX(-50%);
+      border-radius: 42px;
+      border: 1px solid rgba(210,91,55,0.35);
+      background:
+        radial-gradient(circle at 52% 48%, rgba(255,255,255,0.34), transparent 30%),
+        linear-gradient(112deg, rgba(168, 50, 36, 0.42), rgba(255,255,255,0.08) 50%, rgba(8, 9, 9, 0.84));
+      backdrop-filter: blur(30px);
+      box-shadow: 0 30px 90px rgba(0,0,0,0.58), inset 0 1px 0 rgba(255,255,255,0.14), 0 0 80px rgba(196,50,34,0.22);
+      padding: 28px 34px;
+    }
+
+    .glass-top { display: flex; justify-content: space-between; color: rgba(244,240,236,0.78); font-family: "Geist Mono", ui-monospace, monospace; font-size: 13px; }
+    .glass-title { position: absolute; left: 34px; right: 34px; bottom: 30px; display: flex; justify-content: space-between; align-items: end; gap: 18px; }
+    .glass-title strong { font-size: clamp(28px, 4vw, 42px); line-height: .95; letter-spacing: -0.055em; font-weight: 400; }
+    .glass-title span { color: var(--muted); font-size: 14px; }
+
+    section { padding: 92px 0; }
+    .section-head { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 56px; align-items: start; margin-bottom: 28px; }
+    .label { font-family: "Geist Mono", ui-monospace, monospace; text-transform: uppercase; color: var(--soft); font-size: 12px; letter-spacing: .12em; }
+    h2 { margin: 10px 0 0; font-size: clamp(34px, 5vw, 62px); line-height: .94; letter-spacing: -0.06em; font-weight: 500; }
+    .section-copy { margin: 12px 0 0; color: var(--muted); font-size: 17px; line-height: 1.7; }
+
+    .grid { display: grid; gap: 18px; }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .card {
+      position: relative;
+      min-height: 220px;
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, rgba(255,255,255,0.075), rgba(255,255,255,0.035));
+      backdrop-filter: blur(22px);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.32), inset 0 1px 0 rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      width: 170px;
+      height: 170px;
+      right: -70px;
+      bottom: -80px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(217,120,69,0.26), transparent 68%);
+      opacity: .72;
+    }
+
+    .card h3 { margin: 34px 0 0; max-width: 300px; font-size: 24px; line-height: 1.1; letter-spacing: -0.035em; font-weight: 500; }
+    .card p { margin: 14px 0 0; color: var(--muted); line-height: 1.68; }
+    .mono { font-family: "Geist Mono", ui-monospace, monospace; font-size: 12px; color: var(--soft); letter-spacing: .04em; }
+    .orb { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--green), var(--green-3)); box-shadow: 0 0 28px rgba(217,120,69,0.40); }
+
+    .timeline-panel {
+      position: relative;
+      margin-top: 34px;
+      min-height: 360px;
+      border-radius: 48px;
+      border: 1px solid var(--border);
+      background:
+        radial-gradient(circle at 70% 35%, rgba(196,50,34,0.18), transparent 28%),
+        linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.025));
+      backdrop-filter: blur(22px);
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.08);
+      overflow: hidden;
+      padding: 44px;
+    }
+
+    .timeline-line {
+      position: absolute;
+      left: 44px;
+      right: 44px;
+      bottom: 92px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(244,240,236,0.14), transparent);
+    }
+
+    .timeline-line::before {
+      content: "";
+      position: absolute;
+      inset: -10px 0;
+      background-image: repeating-linear-gradient(90deg, rgba(244,240,236,0.18) 0 1px, transparent 1px 48px);
+      opacity: .44;
+    }
+
+    .milestones { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; position: relative; z-index: 2; }
+    .milestone {
+      min-height: 170px;
+      border-radius: 26px;
+      padding: 22px;
+      border: 1px solid rgba(255,255,255,0.11);
+      background: rgba(255,255,255,0.045);
+      box-shadow: 0 18px 60px rgba(0,0,0,0.25);
+    }
+    .milestone.active {
+      background: linear-gradient(180deg, rgba(217,120,69,0.90), rgba(168,50,36,0.78));
+      color: #160806;
+      border-color: rgba(226,106,60,0.48);
+      box-shadow: 0 0 58px rgba(196,50,34,0.30), 0 28px 80px rgba(0,0,0,0.40);
+    }
+    .milestone.active .mono, .milestone.active p { color: rgba(22,8,6,0.72); }
+    .milestone h3 { margin: 40px 0 0; font-size: 22px; letter-spacing: -0.035em; }
+    .milestone p { margin: 10px 0 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
+    .here {
+      position: absolute;
+      left: 50%;
+      bottom: 74px;
+      transform: translateX(-50%);
+      z-index: 3;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: var(--green);
+      color: #160806;
+      font-size: 12px;
+      font-weight: 600;
+      box-shadow: 0 0 30px rgba(217,120,69,0.44);
+    }
+
+    .background-list { display: grid; gap: 12px; }
+    .row {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 24px;
+      padding: 22px 0;
+      border-top: 1px solid rgba(255,255,255,0.10);
+    }
+    .row strong { display: block; font-weight: 500; }
+    .row span { display: block; margin-top: 6px; color: var(--muted); }
+
+    .footer {
+      padding: 96px 0;
+      background:
+        radial-gradient(circle at 30% 0%, rgba(196,50,34,0.22), transparent 34%),
+        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.62));
+    }
+    .footer-card {
+      border-radius: 48px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.055);
+      backdrop-filter: blur(24px);
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.08);
+      padding: clamp(30px, 6vw, 58px);
+    }
+    .footer p { color: var(--muted); max-width: 700px; }
+
+    @media (max-width: 960px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .stage { min-height: 480px; }
+      .section-head { grid-template-columns: 1fr; gap: 18px; }
+      .grid.three, .grid.two, .milestones { grid-template-columns: 1fr; }
+      .timeline-panel { min-height: auto; padding: 24px; }
+      .timeline-line, .here { display: none; }
+    }
+
+    @media (max-width: 700px) {
+      .wrap { width: min(100% - 32px, 1160px); }
+      .nav { justify-content: center; }
+      .brand { display: none; }
+      .navlinks a:not(.button) { padding: 9px 8px; }
+      .hero { padding-top: 118px; }
+      h1 { letter-spacing: -0.06em; }
+      .row { grid-template-columns: 1fr; gap: 8px; }
+      .stage { min-height: 420px; border-radius: 36px; }
+      .stage::before { inset: 34px 28px 118px 28px; border-radius: 34px; }
+      .glass-card { border-radius: 32px; }
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ali Osman Ozen",
+    "jobTitle": "AI Adoption Architect",
+    "address": { "@type": "PostalAddress", "addressLocality": "Cologne", "addressCountry": "DE" },
+    "url": "https://0xozen.github.io/",
+    "sameAs": ["https://linkedin.com/in/0xozen", "https://github.com/0xOzen"],
+    "knowsAbout": ["AI adoption", "agent governance", "digital transformation", "RWA tokenization", "workflow automation", "project management"]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="brand" href="#top">Ali Osman Ozen</a>
+      <nav class="navlinks" aria-label="Primary navigation">
+        <a href="#work">Work</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#writing">Writing</a>
+        <a href="#contact" class="button primary">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow"><span class="status-dot"></span> AI adoption architect · Cologne, Germany</div>
+          <h1>AI adoption needs an operating model, not just tools.</h1>
+          <p class="lead">I help teams turn emerging technology into controlled workflows, clear responsibilities, useful documentation and adoption plans that survive contact with real operations.</p>
+          <div class="cta-row">
+            <a class="button primary" href="mailto:ali.ozen@rwth-aachen.de">Email me</a>
+            <a class="button" href="https://linkedin.com/in/0xozen">LinkedIn</a>
+            <a class="button" href="https://github.com/0xOzen">GitHub</a>
+          </div>
+          <div class="tag-row">
+            <span class="tag">AI adoption</span>
+            <span class="tag">Workflow design</span>
+            <span class="tag">Governance</span>
+            <span class="tag">Transformation</span>
+          </div>
+        </div>
+
+        <div class="stage" aria-label="Abstract glass portfolio interface">
+          <div class="doc-stack" aria-hidden="true">
+            <div class="doc"></div>
+            <div class="doc"></div>
+            <div class="doc"></div>
+          </div>
+          <div class="glass-card">
+            <div class="glass-top"><span>01</span><span>Portfolio</span></div>
+            <div class="glass-title"><strong>Adoption<br>Systems</strong><span>2026</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="label">Positioning</div>
+            <h2>A practical portfolio for AI adoption and transformation roles.</h2>
+          </div>
+          <p class="section-copy">I focus on the type of work that makes technology useful: turning complex systems into clear workflows, governance, communication and execution plans that teams can actually use.</p>
+        </div>
+        <div class="grid three">
+          <article class="card">
+            <div class="orb"></div>
+            <h3>AI adoption</h3>
+            <p>Map use cases, approval gates, responsible handoffs, monitoring needs and rollout steps for AI-assisted work.</p>
+          </article>
+          <article class="card">
+            <div class="orb"></div>
+            <h3>Operations and product thinking</h3>
+            <p>Translate messy workflows into priorities, requirements, documentation, execution plans and measurable next actions.</p>
+          </article>
+          <article class="card">
+            <div class="orb"></div>
+            <h3>Emerging technology strategy</h3>
+            <p>Connect AI, automation, blockchain and digital transformation topics to business value, risk and adoption reality.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="label">Portfolio</div>
+            <h2>Capability areas for hiring conversations.</h2>
+          </div>
+          <p class="section-copy">A concise overview of the portfolio themes I want to be known for: adoption, workflow clarity, business translation and execution.</p>
+        </div>
+        <div class="timeline-panel">
+          <div class="milestones">
+            <article class="milestone active">
+              <div class="mono">Current focus</div>
+              <h3>AI operating model design</h3>
+              <p>Decision rules, approval paths, review loops and visibility for responsible AI-assisted work.</p>
+            </article>
+            <article class="milestone">
+              <div class="mono">Workflow clarity</div>
+              <h3>Process mapping and automation</h3>
+              <p>Breaking complex work into clear ownership, templates, data flows and repeatable habits.</p>
+            </article>
+            <article class="milestone">
+              <div class="mono">Business translation</div>
+              <h3>Technology-to-value communication</h3>
+              <p>Explaining technical ideas so product, operations, leadership and non-technical teams can act.</p>
+            </article>
+            <article class="milestone">
+              <div class="mono">Execution</div>
+              <h3>Program and stakeholder management</h3>
+              <p>Coordinating scope, priorities, reporting and delivery across technical and operational contexts.</p>
+            </article>
+          </div>
+          <div class="timeline-line" aria-hidden="true"></div>
+          <div class="here">Available for selected roles</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="writing">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="label">Writing</div>
+            <h2>Clear thinking in public.</h2>
+          </div>
+          <p class="section-copy">I use writing to understand where AI is moving, what organizations need to change and how new technology can be explained without hype.</p>
+        </div>
+        <div class="grid two">
+          <article class="card">
+            <div class="orb"></div>
+            <h3>AI adoption analysis</h3>
+            <p>Short-form and long-form thinking on practical AI use, enterprise agents, governance, workflows and organizational readiness.</p>
+          </article>
+          <article class="card">
+            <div class="orb"></div>
+            <h3>Strategic communication</h3>
+            <p>Turning research, market signals and technical concepts into useful narratives for teams, decision makers and hiring conversations.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="label">Background</div>
+            <h2>A broad path with one clear thread.</h2>
+          </div>
+          <p class="section-copy">My background combines engineering, project management, emerging technology, research and hands-on systems thinking. The common thread is making complex work understandable, structured and executable.</p>
+        </div>
+        <div class="background-list">
+          <div class="row"><div class="mono">Current focus</div><div><strong>AI adoption and transformation</strong><span>Operating models, workflow design, agent governance, documentation and practical rollout planning.</span></div></div>
+          <div class="row"><div class="mono">Technology</div><div><strong>Emerging technology and digital assets</strong><span>Business-facing work around blockchain, tokenization, market structure and technology adoption.</span></div></div>
+          <div class="row"><div class="mono">Operations</div><div><strong>Project and stakeholder management</strong><span>Experience coordinating institutional projects, reporting cycles, stakeholders and measurable delivery work.</span></div></div>
+          <div class="row"><div class="mono">Education</div><div><strong>Management and Engineering</strong><span>Technical, entrepreneurial and business education with focus on innovation and technology strategy.</span></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact" class="footer">
+    <div class="wrap">
+      <div class="footer-card">
+        <div class="label">Contact</div>
+        <h2>Interested in AI adoption that survives contact with real operations?</h2>
+        <p>Reach me for AI adoption, governance, workflow design, digital transformation, product operations and emerging technology strategy roles.</p>
+        <div class="cta-row">
+          <a class="button primary" href="mailto:ali.ozen@rwth-aachen.de">ali.ozen@rwth-aachen.de</a>
+          <a class="button" href="https://linkedin.com/in/0xozen">LinkedIn</a>
+          <a class="button" href="https://github.com/0xOzen">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
