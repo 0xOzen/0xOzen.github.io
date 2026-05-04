@@ -3,38 +3,459 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Department AI Adoption Recommendations | Ali Osman Ozen</title>
-  <meta name="description" content="Department-level AI adoption recommendations for leadership, finance, trust, market, operations, product, engineering and data teams." />
+  <title>Department AI Adoption Map | Ali Osman Ozen</title>
+  <meta name="description" content="A detailed department-level AI adoption map based on Daily Signal and Signal vs. Noise writing themes: authority, workflow control, governance, evidence and operating boundaries." />
   <meta name="theme-color" content="#0b0b0b" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#0b0b0b;--bg2:#111318;--text:#f5f7fb;--muted:rgba(220,228,240,.88);--soft:rgba(174,185,201,.98);--accent:#479ffa;--accent2:#1d6fd6;--border:rgba(255,255,255,.12);--border2:rgba(71,159,250,.40);--shadow:0 40px 120px rgba(0,0,0,.55)}
-    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;min-height:100vh;background:radial-gradient(circle at 18% 18%,rgba(71,159,250,.16),transparent 30%),radial-gradient(circle at 76% 12%,rgba(255,161,108,.13),transparent 36%),linear-gradient(180deg,var(--bg2),#0b0b0b 58%,#050506);color:var(--text);font-family:"Geist",system-ui,sans-serif;line-height:1.5;overflow-x:hidden} body:before{content:"";position:fixed;inset:0;z-index:-1;background-image:radial-gradient(rgba(244,240,236,.12) 1px,transparent 1px);background-size:22px 22px;opacity:.16;mask-image:linear-gradient(to bottom,black,transparent 84%)}
-    a{color:inherit;text-decoration:none}.wrap{width:min(1160px,calc(100% - 48px));margin:0 auto}.nav{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:10;width:min(780px,calc(100% - 32px));height:54px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:7px 8px 7px 18px;border:1px solid var(--border);border-radius:999px;background:rgba(14,15,15,.66);backdrop-filter:blur(22px);box-shadow:0 16px 60px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.08)}.brand{font-weight:500}.navlinks{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--muted)}.navlinks a{padding:9px 12px;border-radius:999px}.navlinks a:hover,.navlinks a[href="department-adoption.html"]{background:rgba(71,159,250,.12);color:var(--text)}
-    .button{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 18px;border-radius:999px;font-size:14px;font-weight:500;border:1px solid var(--border);background:rgba(255,255,255,.06);backdrop-filter:blur(18px)}.button.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#03101f;border-color:rgba(71,159,250,.58);box-shadow:0 0 40px rgba(71,159,250,.30),0 16px 48px rgba(0,0,0,.42)}
-    main{padding-top:136px}.hero{padding:70px 0 42px}.eyebrow{display:inline-flex;gap:9px;padding:7px 12px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.06);color:rgba(220,228,240,.82);font-size:13px}.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 18px rgba(71,159,250,.88);margin-top:6px}h1{max-width:980px;margin:24px 0 0;font-size:clamp(46px,7vw,96px);line-height:.9;letter-spacing:-.075em;font-weight:500}.lead{max-width:760px;margin:28px 0 0;font-size:clamp(18px,2vw,22px);line-height:1.65;color:var(--muted)}.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
-    section{padding:76px 0}.section-head{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:56px;align-items:start;margin-bottom:28px}.label{font-family:"Geist Mono",ui-monospace,monospace;text-transform:uppercase;color:var(--soft);font-size:12px;letter-spacing:.12em}h2{margin:10px 0 0;font-size:clamp(34px,5vw,62px);line-height:.94;letter-spacing:-.06em;font-weight:500}.section-copy{margin:12px 0 0;color:var(--muted);font-size:17px;line-height:1.7}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{border-radius:28px;border:1px solid var(--border);background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.032));backdrop-filter:blur(22px);box-shadow:0 24px 80px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.08);padding:24px;min-height:250px}.card strong{display:block;font-size:22px;line-height:1.08;letter-spacing:-.035em;font-weight:500}.card ul{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:10px;color:var(--muted);font-size:14px;line-height:1.45}.card li:before{content:"•";color:var(--accent);margin-right:8px}.diagram-shell{margin-top:28px;border-radius:36px;border:1px solid rgba(255,255,255,.10);background:#0b0b0b;overflow:auto;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 30px 90px rgba(0,0,0,.45)}svg{display:block;width:100%;min-width:980px;height:auto;font-family:"Geist",system-ui,sans-serif}.footer{padding:96px 0;background:radial-gradient(circle at 30% 0%,rgba(71,159,250,.18),transparent 34%),linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.62))}.footer-card{border-radius:48px;border:1px solid var(--border);background:rgba(255,255,255,.055);backdrop-filter:blur(24px);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.08);padding:clamp(30px,6vw,58px)}.footer p{color:var(--muted);max-width:700px}
-    @media(max-width:960px){.section-head,.grid{grid-template-columns:1fr}.nav{justify-content:center}.brand{display:none}h1{letter-spacing:-.06em}}
+    :root{
+      --bg:#0b0b0b;
+      --bg2:#111318;
+      --panel:#12161e;
+      --panel2:#0e1219;
+      --text:#f5f7fb;
+      --muted:rgba(220,228,240,.88);
+      --soft:rgba(174,185,201,.98);
+      --accent:#479ffa;
+      --accent2:#1d6fd6;
+      --warm:#ffa16c;
+      --green:#62d6a8;
+      --violet:#a88cff;
+      --rose:#ff7f9c;
+      --border:rgba(255,255,255,.12);
+      --border2:rgba(71,159,250,.40);
+      --shadow:0 40px 120px rgba(0,0,0,.55);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-height:100vh;
+      background:
+        radial-gradient(circle at 18% 14%,rgba(71,159,250,.17),transparent 28%),
+        radial-gradient(circle at 78% 8%,rgba(255,161,108,.12),transparent 34%),
+        radial-gradient(circle at 52% 52%,rgba(168,140,255,.08),transparent 38%),
+        linear-gradient(180deg,var(--bg2),#0b0b0b 58%,#050506);
+      color:var(--text);
+      font-family:"Geist",system-ui,sans-serif;
+      line-height:1.5;
+      overflow-x:hidden;
+    }
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      background-image:radial-gradient(rgba(244,248,255,.13) 1px,transparent 1px);
+      background-size:22px 22px;
+      opacity:.18;
+      mask-image:linear-gradient(to bottom,black,transparent 84%);
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(1180px,calc(100% - 48px));margin:0 auto}
+    .nav{
+      position:fixed;
+      top:18px;
+      left:50%;
+      transform:translateX(-50%);
+      z-index:20;
+      width:min(780px,calc(100% - 32px));
+      min-height:54px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding:7px 8px 7px 18px;
+      border:1px solid var(--border);
+      border-radius:999px;
+      background:rgba(14,15,15,.66);
+      backdrop-filter:blur(22px);
+      box-shadow:0 16px 60px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.08);
+    }
+    .brand{font-weight:500;letter-spacing:-.02em}
+    .navlinks{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--muted)}
+    .navlinks a{padding:9px 12px;border-radius:999px}
+    .navlinks a:hover,.navlinks a[aria-current="page"]{background:rgba(71,159,250,.12);color:var(--text)}
+    .button{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      min-height:42px;
+      padding:0 18px;
+      border-radius:999px;
+      font-size:14px;
+      font-weight:500;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.06);
+      backdrop-filter:blur(18px);
+      transition:transform .2s ease,border-color .2s ease,background .2s ease;
+    }
+    .button:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.09)}
+    .button.primary{
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      color:#03101f;
+      border-color:rgba(71,159,250,.58);
+      box-shadow:0 0 40px rgba(71,159,250,.30),0 16px 48px rgba(0,0,0,.42);
+    }
+    main{padding-top:132px}
+    section{padding:72px 0}
+    .hero{padding:72px 0 36px}
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      padding:7px 12px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.06);
+      color:rgba(220,228,240,.84);
+      font-size:13px;
+    }
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 18px rgba(71,159,250,.88)}
+    h1{
+      max-width:1050px;
+      margin:24px 0 0;
+      font-size:clamp(48px,7.4vw,104px);
+      line-height:.88;
+      letter-spacing:-.078em;
+      font-weight:500;
+    }
+    .lead{max-width:820px;margin:28px 0 0;font-size:clamp(18px,2vw,22px);line-height:1.65;color:var(--muted)}
+    .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+    .source-strip{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin-top:34px;
+    }
+    .source-card,.metric,.insight,.map-card,.timeline-step,.matrix-card,.card{
+      border:1px solid var(--border);
+      background:linear-gradient(135deg,rgba(255,255,255,.078),rgba(255,255,255,.032));
+      backdrop-filter:blur(22px);
+      box-shadow:0 24px 80px rgba(0,0,0,.30),inset 0 1px 0 rgba(255,255,255,.08);
+    }
+    .source-card{border-radius:22px;padding:18px;min-height:138px}
+    .kicker,.label{font-family:"Geist Mono",ui-monospace,monospace;text-transform:uppercase;letter-spacing:.12em;font-size:11px;color:var(--soft)}
+    .source-card strong{display:block;margin-top:12px;font-size:23px;line-height:1;letter-spacing:-.045em;font-weight:500}
+    .source-card span{display:block;margin-top:10px;color:var(--muted);font-size:13px;line-height:1.45}
+    .section-head{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:56px;align-items:start;margin-bottom:28px}
+    h2{margin:10px 0 0;font-size:clamp(34px,5vw,64px);line-height:.94;letter-spacing:-.062em;font-weight:500}
+    h3{margin:0;font-size:23px;line-height:1.08;letter-spacing:-.04em;font-weight:500}
+    .section-copy{margin:12px 0 0;color:var(--muted);font-size:17px;line-height:1.7}
+    .diagram-shell{
+      margin-top:28px;
+      border-radius:36px;
+      border:1px solid rgba(255,255,255,.10);
+      background:#0b0b0b;
+      overflow:auto;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 30px 90px rgba(0,0,0,.45);
+    }
+    svg{display:block;width:100%;min-width:1040px;height:auto;font-family:"Geist",system-ui,sans-serif}
+    .insight-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:14px;margin-top:24px}
+    .insight{border-radius:30px;padding:26px;min-height:260px}
+    .insight p,.map-card p,.timeline-step p,.matrix-card p,.card p{color:var(--muted);margin:12px 0 0;font-size:15px;line-height:1.62}
+    .signal-list{display:grid;gap:10px;margin:18px 0 0;padding:0;list-style:none;color:var(--muted);font-size:14px;line-height:1.45}
+    .signal-list li{position:relative;padding-left:22px}
+    .signal-list li:before{content:"";position:absolute;left:0;top:.62em;width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px rgba(71,159,250,.75)}
+    .ladder{display:grid;gap:10px;margin-top:20px}
+    .rung{display:grid;grid-template-columns:112px 1fr auto;gap:12px;align-items:center;padding:13px 14px;border-radius:18px;background:rgba(255,255,255,.052);border:1px solid rgba(255,255,255,.09)}
+    .rung strong{font-family:"Geist Mono",ui-monospace,monospace;font-size:12px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
+    .rung span{color:var(--muted);font-size:13px}
+    .risk{font-family:"Geist Mono",ui-monospace,monospace;font-size:11px;color:#07111e;background:var(--warm);padding:4px 8px;border-radius:999px;white-space:nowrap}
+    .map-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:26px}
+    .map-card{border-radius:28px;padding:24px;min-height:290px;position:relative;overflow:hidden}
+    .map-card:after{content:"";position:absolute;inset:auto -40px -60px auto;width:150px;height:150px;border-radius:50%;background:rgba(71,159,250,.11);filter:blur(6px)}
+    .map-card .tag{display:inline-flex;margin-bottom:14px;padding:6px 9px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.045);font-family:"Geist Mono",ui-monospace,monospace;font-size:11px;color:var(--soft);text-transform:uppercase;letter-spacing:.1em}
+    .map-card ul,.card ul{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:10px;color:var(--muted);font-size:14px;line-height:1.45}
+    .map-card li,.card li{position:relative;padding-left:20px}
+    .map-card li:before,.card li:before{content:"•";position:absolute;left:0;color:var(--accent)}
+    .control-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:26px}
+    .metric{border-radius:24px;padding:18px;min-height:184px}
+    .metric .num{font-family:"Geist Mono",ui-monospace,monospace;color:var(--accent);font-size:13px;margin-bottom:18px}
+    .bar{height:8px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:18px}
+    .bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--warm));box-shadow:0 0 20px rgba(71,159,250,.34)}
+    .matrix-wrap{margin-top:28px;border:1px solid var(--border);border-radius:30px;overflow:auto;background:rgba(255,255,255,.04);box-shadow:0 28px 90px rgba(0,0,0,.34)}
+    table{width:100%;min-width:980px;border-collapse:collapse;font-size:14px;color:var(--muted)}
+    th,td{padding:16px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;vertical-align:top}
+    th{font-family:"Geist Mono",ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--soft);background:rgba(255,255,255,.035)}
+    tr:last-child td{border-bottom:0}
+    .pill{display:inline-flex;align-items:center;border-radius:999px;padding:5px 9px;font-family:"Geist Mono",ui-monospace,monospace;font-size:11px;color:#07111e;background:var(--accent);margin:2px 4px 2px 0;white-space:nowrap}
+    .pill.warm{background:var(--warm)}.pill.green{background:var(--green)}.pill.violet{background:var(--violet)}.pill.rose{background:var(--rose)}
+    .timeline{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:28px}
+    .timeline-step{border-radius:30px;padding:26px;min-height:260px}
+    .step-num{font-family:"Geist Mono",ui-monospace,monospace;font-size:13px;color:var(--accent);margin-bottom:16px}
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:26px}
+    .card{border-radius:28px;padding:24px;min-height:250px}
+    .footer{padding:96px 0;background:radial-gradient(circle at 30% 0%,rgba(71,159,250,.18),transparent 34%),linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.62))}
+    .footer-card{border-radius:48px;border:1px solid var(--border);background:rgba(255,255,255,.055);backdrop-filter:blur(24px);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.08);padding:clamp(30px,6vw,58px)}
+    .footer p{color:var(--muted);max-width:700px}
+    @media(max-width:980px){
+      .section-head,.insight-grid,.map-grid,.control-grid,.timeline,.grid,.source-strip{grid-template-columns:1fr}
+      .nav{justify-content:center}.brand{display:none}h1{letter-spacing:-.06em}
+      .rung{grid-template-columns:1fr}.risk{justify-self:start}
+    }
+    @media(max-width:620px){.wrap{width:min(100% - 28px,1180px)}main{padding-top:118px}.navlinks{font-size:12px}.navlinks a{padding:8px 9px}.button{padding:0 14px}.hero{padding-top:42px}}
   </style>
 </head>
 <body>
-  <header><div class="nav"><a class="brand" href="index.html">Ali Osman Ozen</a><nav class="navlinks"><a href="index.html">Home</a><a href="writing-archive.html">Writing</a><a href="department-adoption.html">Adoption</a><a href="index.html#contact" class="button primary">Contact</a></nav></div></header>
+  <header>
+    <div class="nav">
+      <a class="brand" href="index.html">Ali Osman Ozen</a>
+      <nav class="navlinks" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a href="writing-archive.html">Writing</a>
+        <a href="department-adoption.html" aria-current="page">Adoption</a>
+        <a href="index.html#contact" class="button primary">Contact</a>
+      </nav>
+    </div>
+  </header>
+
   <main>
-    <section class="hero"><div class="wrap"><div class="eyebrow"><span class="dot"></span> Department AI adoption map</div><h1>AI adoption has to be designed department by department.</h1><p class="lead">A useful AI rollout is not a single tool decision. It is a connected operating model across leadership, money, trust, market, operations, product, engineering and data work.</p><div class="cta-row"><a class="button primary" href="mailto:ali.ozen@rwth-aachen.de">Email me</a><a class="button" href="index.html">Back to portfolio</a></div></div></section>
-    <section><div class="wrap"><div class="section-head"><div><div class="label">Connection diagram</div><h2>One adoption layer, six operating layers.</h2></div><p class="section-copy">The diagram connects department clusters through the same adoption spine: ownership, permission boundaries, approvals, evidence, escalation and learning loops.</p></div><div class="diagram-shell">
-      <svg viewBox="0 0 1180 620" role="img" aria-labelledby="diagramTitle diagramDesc" xmlns="http://www.w3.org/2000/svg"><title id="diagramTitle">Department AI adoption connection map</title><desc id="diagramDesc">Six department clusters connected to a central AI adoption operating layer.</desc><defs><radialGradient id="bg" cx="58%" cy="42%" r="70%"><stop offset="0%" stop-color="#101827"/><stop offset="48%" stop-color="#111318"/><stop offset="100%" stop-color="#050506"/></radialGradient><pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="1.4" cy="1.4" r="1" fill="rgba(220,228,240,0.09)"/></pattern><linearGradient id="active" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#479ffa"/><stop offset="52%" stop-color="#1d6fd6"/><stop offset="100%" stop-color="#081727"/></linearGradient><linearGradient id="dark" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#191b20"/><stop offset="100%" stop-color="#111318"/></linearGradient><filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000" flood-opacity="0.48"/></filter><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="blur"/><feColorMatrix in="blur" type="matrix" values="1 0 0 0 0.85 0 0.35 0 0 0.22 0 0 0.14 0 0.10 0 0 0 0.72 0"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="1180" height="620" fill="url(#bg)"/><rect width="1180" height="620" fill="url(#dots)" opacity="0.58"/><circle cx="590" cy="290" r="220" fill="#479ffa" opacity="0.08"/><g fill="none" stroke-linecap="round" stroke-width="1.8"><path d="M390 190 C465 205 485 252 525 282" stroke="rgba(244,240,236,0.22)"/><path d="M790 190 C715 205 695 252 655 282" stroke="rgba(244,240,236,0.22)"/><path d="M332 355 C430 360 485 335 525 318" stroke="#479ffa" opacity="0.78" filter="url(#glow)"/><path d="M848 355 C750 360 695 335 655 318" stroke="#479ffa" opacity="0.78" filter="url(#glow)"/><path d="M470 492 C510 430 538 384 560 340" stroke="rgba(244,240,236,0.20)"/><path d="M710 492 C670 430 642 384 620 340" stroke="rgba(244,240,236,0.20)"/></g><g filter="url(#shadow)"><rect x="492" y="246" width="196" height="118" rx="24" fill="url(#active)" stroke="rgba(255,255,255,0.16)"/><text x="590" y="292" text-anchor="middle" fill="#fff" font-size="18" font-weight="600">AI adoption</text><text x="590" y="318" text-anchor="middle" fill="rgba(255,255,255,0.78)" font-size="13">operating layer</text><text x="590" y="342" text-anchor="middle" fill="rgba(255,255,255,0.62)" font-size="11">ownership · approvals · evidence</text></g><g font-size="13" fill="#f5f7fb" filter="url(#shadow)"><g transform="translate(160 118)"><rect width="230" height="92" rx="18" fill="url(#dark)" stroke="rgba(255,255,255,0.10)"/><circle cx="24" cy="28" r="6" fill="#479ffa"/><text x="44" y="32" font-weight="600">Leadership Layer</text><text x="24" y="62" fill="rgba(220,228,240,0.76)" font-size="11">decisions · strategy · escalation</text></g><g transform="translate(790 118)"><rect width="230" height="92" rx="18" fill="url(#dark)" stroke="rgba(255,255,255,0.10)"/><circle cx="24" cy="28" r="6" fill="#479ffa"/><text x="44" y="32" font-weight="600">Money Layer</text><text x="24" y="62" fill="rgba(220,228,240,0.76)" font-size="11">finance · procurement · audit</text></g><g transform="translate(102 318)"><rect width="230" height="92" rx="18" fill="url(#dark)" stroke="rgba(255,255,255,0.10)"/><circle cx="24" cy="28" r="6" fill="#479ffa"/><text x="44" y="32" font-weight="600">People & Trust</text><text x="24" y="62" fill="rgba(220,228,240,0.76)" font-size="11">HR · legal · compliance</text></g><g transform="translate(848 318)"><rect width="230" height="92" rx="18" fill="url(#dark)" stroke="rgba(255,255,255,0.10)"/><circle cx="24" cy="28" r="6" fill="#479ffa"/><text x="44" y="32" font-weight="600">Market Layer</text><text x="24" y="62" fill="rgba(220,228,240,0.76)" font-size="11">marketing · sales · PR</text></g><g transform="translate(240 470)"><rect width="230" height="92" rx="18" fill="url(#dark)" stroke="rgba(255,255,255,0.10)"/><circle cx="24" cy="28" r="6" fill="#479ffa"/><text x="44" y="32" font-weight="600">Operating Layer</text><text x="24" y="62" fill="rgba(220,228,240,0.76)" font-size="11">ops · supply · support · quality</text></g><g transform="translate(710 470)"><rect width="230" height="92" rx="18" fill="url(#dark)" stroke="rgba(255,255,255,0.10)"/><circle cx="24" cy="28" r="6" fill="#479ffa"/><text x="44" y="32" font-weight="600">Build & Intelligence</text><text x="24" y="62" fill="rgba(220,228,240,0.76)" font-size="11">product · data · engineering</text></g></g></svg>
-    </div></div></section>
-    <section><div class="wrap"><div class="section-head"><div><div class="label">Recommendations</div><h2>Practical adoption moves by department.</h2></div><p class="section-copy">The goal is not to automate everything. The goal is to prepare better work, route it to the right human, keep records and learn from exceptions.</p></div><div class="grid">
-      <article class="card"><strong>Leadership Layer</strong><ul><li>Create an AI decision cockpit for active initiatives, risks and owners.</li><li>Define what agents report upward and when they escalate.</li><li>Keep decision logs for strategic assumptions and approvals.</li></ul></article>
-      <article class="card"><strong>Money Layer</strong><ul><li>Start with invoice, vendor, forecast or procurement preparation.</li><li>Require human approval before commitments or money movement.</li><li>Track spend, model cost, exceptions and audit evidence.</li></ul></article>
-      <article class="card"><strong>People & Trust Layer</strong><ul><li>Map employee data boundaries before using AI in HR or legal work.</li><li>Create policy review and compliance evidence workflows.</li><li>Train teams on what AI may suggest and what humans must decide.</li></ul></article>
-      <article class="card"><strong>Market Layer</strong><ul><li>Use AI for research, segmentation, proposal drafts and CRM hygiene.</li><li>Put brand, legal and accuracy review before external messaging.</li><li>Measure quality by pipeline movement, not content volume alone.</li></ul></article>
-      <article class="card"><strong>Operating Layer</strong><ul><li>Use agents to triage tickets, monitor queues and prepare exceptions.</li><li>Define SLA, incident and escalation visibility.</li><li>Start with slow or repetitive workflows where review is easy.</li></ul></article>
-      <article class="card"><strong>Build & Intelligence Layer</strong><ul><li>Coordinate coding, data, product and research agents with evaluation gates.</li><li>Reuse knowledge across workflows instead of repeating context.</li><li>Govern tool access, runtime permissions and experiment records.</li></ul></article>
-    </div></div></section>
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow"><span class="dot"></span> Department AI adoption map · Daily Signal synthesis</div>
+        <h1>AI adoption becomes real when authority is designed.</h1>
+        <p class="lead">This page turns the Daily Signal and Signal vs. Noise writing themes into a practical operating map: where AI enters work, which department owns the workflow, what level of autonomy is safe, and which controls make the work reviewable.</p>
+        <div class="cta-row">
+          <a class="button primary" href="#operating-map">Open the map</a>
+          <a class="button" href="writing-archive.html">Read the writing archive</a>
+        </div>
+        <div class="source-strip" aria-label="Writing source summary">
+          <article class="source-card"><div class="kicker">Source base</div><strong>8 notes</strong><span>Daily Signal posts from Apr 28-May 4 plus weekly Signal vs. Noise synthesis.</span></article>
+          <article class="source-card"><div class="kicker">Central theme</div><strong>Authority</strong><span>The question moves from “can AI help?” to “what is AI allowed to do?”</span></article>
+          <article class="source-card"><div class="kicker">Adoption unit</div><strong>Workflow</strong><span>AI value appears when customer, supplier, ticket, file, record and decision movement is controlled.</span></article>
+          <article class="source-card"><div class="kicker">Control spine</div><strong>6 gates</strong><span>Owner, boundary, permission, approval, evidence and recovery.</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="operating-map">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="label">Operating map</div><h2>One agent control plane across six department layers.</h2></div>
+          <p class="section-copy">The writing pattern is consistent: AI is leaving the chat box and entering revenue, operations, trust, engineering, finance and leadership workflows. The adoption layer has to connect those departments without hiding ownership.</p>
+        </div>
+        <div class="diagram-shell">
+          <svg viewBox="0 0 1240 820" role="img" aria-labelledby="mapTitle mapDesc" xmlns="http://www.w3.org/2000/svg">
+            <title id="mapTitle">Department AI adoption control plane map</title>
+            <desc id="mapDesc">Six department layers connected through a central AI authority boundary and control plane.</desc>
+            <defs>
+              <radialGradient id="bg" cx="54%" cy="42%" r="70%"><stop offset="0%" stop-color="#121c2e"/><stop offset="55%" stop-color="#111318"/><stop offset="100%" stop-color="#050506"/></radialGradient>
+              <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="rgba(220,228,240,.10)" stroke-width=".7"/></pattern>
+              <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#479ffa"/><stop offset="1" stop-color="#1d6fd6"/></linearGradient>
+              <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1a1f2b"/><stop offset="1" stop-color="#0e1219"/></linearGradient>
+              <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#000" flood-opacity=".5"/></filter>
+              <filter id="glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#479ffa"/></marker>
+            </defs>
+            <rect width="1240" height="820" fill="url(#bg)"/>
+            <rect width="1240" height="820" fill="url(#grid)" opacity=".7"/>
+            <circle cx="620" cy="360" r="250" fill="#479ffa" opacity=".06"/>
+            <circle cx="620" cy="360" r="168" fill="none" stroke="rgba(71,159,250,.28)" stroke-width="1.5" stroke-dasharray="8 10"/>
+            <circle cx="620" cy="360" r="258" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="1"/>
+
+            <g fill="none" stroke="#479ffa" stroke-width="2" stroke-linecap="round" opacity=".74" marker-end="url(#arrow)">
+              <path d="M412 192 C485 215 520 260 555 302"/>
+              <path d="M828 192 C755 215 720 260 685 302"/>
+              <path d="M355 392 C435 392 493 376 540 360"/>
+              <path d="M885 392 C805 392 747 376 700 360"/>
+              <path d="M420 632 C492 560 530 496 562 420"/>
+              <path d="M820 632 C748 560 710 496 678 420"/>
+            </g>
+
+            <g filter="url(#shadow)">
+              <rect x="470" y="246" width="300" height="228" rx="34" fill="url(#blue)"/>
+              <rect x="488" y="264" width="264" height="192" rx="26" fill="rgba(5,13,24,.86)" stroke="rgba(255,255,255,.18)"/>
+              <text x="620" y="305" text-anchor="middle" fill="#f5f7fb" font-size="15" font-weight="600">AI ADOPTION CONTROL PLANE</text>
+              <text x="620" y="336" text-anchor="middle" fill="rgba(220,228,240,.88)" font-size="13">authority boundary + operating evidence</text>
+              <g font-size="12" fill="rgba(245,247,251,.94)" font-family="Geist Mono, monospace">
+                <text x="530" y="382">OWNER</text><text x="630" y="382">PERMISSION</text>
+                <text x="530" y="412">APPROVAL</text><text x="630" y="412">EVIDENCE</text>
+                <text x="530" y="442">ESCALATION</text><text x="630" y="442">RECOVERY</text>
+              </g>
+            </g>
+
+            <g filter="url(#shadow)">
+              <rect x="90" y="88" width="280" height="150" rx="26" fill="url(#panel)" stroke="rgba(71,159,250,.34)"/>
+              <text x="118" y="130" fill="#479ffa" font-size="12" font-family="Geist Mono, monospace">MONDAY</text>
+              <text x="118" y="162" fill="#f5f7fb" font-size="23" font-weight="500">Leadership</text>
+              <text x="118" y="194" fill="rgba(220,228,240,.86)" font-size="13">Visibility, operating model, decision logs</text>
+
+              <rect x="870" y="88" width="280" height="150" rx="26" fill="url(#panel)" stroke="rgba(255,161,108,.36)"/>
+              <text x="898" y="130" fill="#ffa16c" font-size="12" font-family="Geist Mono, monospace">MONEY LAYER</text>
+              <text x="898" y="162" fill="#f5f7fb" font-size="23" font-weight="500">Finance & Procurement</text>
+              <text x="898" y="194" fill="rgba(220,228,240,.86)" font-size="13">Spend, supplier work, approvals, audit</text>
+
+              <rect x="80" y="318" width="300" height="150" rx="26" fill="url(#panel)" stroke="rgba(98,214,168,.36)"/>
+              <text x="108" y="360" fill="#62d6a8" font-size="12" font-family="Geist Mono, monospace">MARKET LAYER</text>
+              <text x="108" y="392" fill="#f5f7fb" font-size="23" font-weight="500">Revenue & CX</text>
+              <text x="108" y="424" fill="rgba(220,228,240,.86)" font-size="13">Signals, CRM, proposals, customer handoffs</text>
+
+              <rect x="860" y="318" width="300" height="150" rx="26" fill="url(#panel)" stroke="rgba(168,140,255,.38)"/>
+              <text x="888" y="360" fill="#a88cff" font-size="12" font-family="Geist Mono, monospace">TRUST LAYER</text>
+              <text x="888" y="392" fill="#f5f7fb" font-size="23" font-weight="500">People, Legal, Security</text>
+              <text x="888" y="424" fill="rgba(220,228,240,.86)" font-size="13">Identity, policy, account control, recovery</text>
+
+              <rect x="90" y="590" width="290" height="150" rx="26" fill="url(#panel)" stroke="rgba(71,159,250,.34)"/>
+              <text x="118" y="632" fill="#479ffa" font-size="12" font-family="Geist Mono, monospace">OPERATING LAYER</text>
+              <text x="118" y="664" fill="#f5f7fb" font-size="23" font-weight="500">Operations & Service</text>
+              <text x="118" y="696" fill="rgba(220,228,240,.86)" font-size="13">Queues, exceptions, SLAs, workflow movement</text>
+
+              <rect x="860" y="590" width="290" height="150" rx="26" fill="url(#panel)" stroke="rgba(255,127,156,.38)"/>
+              <text x="888" y="632" fill="#ff7f9c" font-size="12" font-family="Geist Mono, monospace">BUILD LAYER</text>
+              <text x="888" y="664" fill="#f5f7fb" font-size="23" font-weight="500">Product, Eng, Data</text>
+              <text x="888" y="696" fill="rgba(220,228,240,.86)" font-size="13">Repos, evals, tests, release gates</text>
+            </g>
+
+            <g font-family="Geist Mono, monospace" font-size="13" fill="rgba(220,228,240,.9)">
+              <text x="486" y="556">AUTONOMY LADDER</text>
+              <text x="486" y="584">suggest → prepare → modify → trigger → commit</text>
+              <text x="486" y="628">Each higher level requires stronger control.</text>
+            </g>
+            <g transform="translate(710 532)">
+              <rect x="0" y="0" width="94" height="28" rx="14" fill="rgba(71,159,250,.22)" stroke="rgba(71,159,250,.55)"/><text x="47" y="18" text-anchor="middle" fill="#f5f7fb" font-size="11">VISIBLE</text>
+              <rect x="104" y="0" width="100" height="28" rx="14" fill="rgba(255,161,108,.20)" stroke="rgba(255,161,108,.52)"/><text x="154" y="18" text-anchor="middle" fill="#f5f7fb" font-size="11">CONTROLLED</text>
+              <rect x="214" y="0" width="104" height="28" rx="14" fill="rgba(98,214,168,.18)" stroke="rgba(98,214,168,.48)"/><text x="266" y="18" text-anchor="middle" fill="#f5f7fb" font-size="11">LEARNING</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="label">Writing synthesis</div><h2>The posts point to five adoption shifts.</h2></div>
+          <p class="section-copy">The map is not a generic department list. It comes from a repeated pattern in the daily and weekly writing: AI adoption starts as output, then becomes workflow movement, then becomes authority, evidence and recovery.</p>
+        </div>
+        <div class="insight-grid">
+          <article class="insight">
+            <h3>Signal pattern from the writing archive</h3>
+            <ul class="signal-list">
+              <li>Revenue AI moves from content generation into customer signal routing, CRM updates, proposals and support handoffs.</li>
+              <li>Operations and procurement agents move closer to approvals, supplier workflows, ERP-connected sourcing and exception handling.</li>
+              <li>Trust and security become adoption layers because agents touch accounts, memory, documents, payment paths and permissions.</li>
+              <li>Product and engineering teams move from model access toward AI inside terminals, repositories, tests, evals and release workflows.</li>
+              <li>Leadership needs visibility into where AI enters work, what it can do, who approves it and how the company recovers when it is wrong.</li>
+            </ul>
+          </article>
+          <article class="insight">
+            <h3>Autonomy ladder</h3>
+            <p>Every department should classify AI use by the level of authority granted, not by the tool name.</p>
+            <div class="ladder" aria-label="AI autonomy ladder">
+              <div class="rung"><strong>Suggest</strong><span>Summarize, draft, classify, analyze.</span><em class="risk">low</em></div>
+              <div class="rung"><strong>Prepare</strong><span>Create a next action for human review.</span><em class="risk">medium</em></div>
+              <div class="rung"><strong>Modify</strong><span>Change a file, record, ticket or CRM field.</span><em class="risk">high</em></div>
+              <div class="rung"><strong>Trigger</strong><span>Start a workflow, escalate, notify, route.</span><em class="risk">high</em></div>
+              <div class="rung"><strong>Commit</strong><span>Spend, approve, deploy or contact externally.</span><em class="risk">critical</em></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="label">Department adaptation map</div><h2>Department-by-department recommendations.</h2></div>
+          <p class="section-copy">Each layer has a different first pilot, a different control question and a different proof of value. The common thread is controlled workflow movement.</p>
+        </div>
+        <div class="map-grid">
+          <article class="map-card"><span class="tag">Leadership / Strategy</span><h3>Make agent work visible before scaling it.</h3><p>Leadership should treat AI as an operating-model question, not a collection of disconnected pilots.</p><ul><li>Maintain an AI initiative cockpit with owner, risk, autonomy level and review cadence.</li><li>Require decision logs for workflows where AI prepares or influences strategic choices.</li><li>Define which exceptions reach executives and which remain at department level.</li></ul></article>
+          <article class="map-card"><span class="tag">Revenue / Market</span><h3>Move from content volume to signal routing.</h3><p>Marketing, sales and CX gain leverage when AI connects customer signals to next actions.</p><ul><li>Pilot account context preparation, CRM hygiene and support-to-sales handoff summaries.</li><li>Route proposals through brand, legal and finance review before external use.</li><li>Measure quality by pipeline movement and renewal risk visibility, not output count.</li></ul></article>
+          <article class="map-card"><span class="tag">Operations / Service</span><h3>Use AI where exceptions are visible.</h3><p>Operations should start with workflow preparation, triage and escalation rather than hidden automation.</p><ul><li>Map queues, bottlenecks, SLAs and handoffs before selecting tools.</li><li>Let agents prepare decisions, compare options and detect exceptions before humans approve.</li><li>Track every escalation with owner, reason, time saved and failure mode.</li></ul></article>
+          <article class="map-card"><span class="tag">Finance / Procurement</span><h3>Protect spend authority with explicit gates.</h3><p>Money workflows are high leverage because they are repetitive, evidence-heavy and risk-sensitive.</p><ul><li>Start with invoice preparation, vendor comparison, tail-spend analysis or forecast briefs.</li><li>Separate recommendation, approval and commitment rights.</li><li>Log source evidence, model cost, approval path and recovery owner.</li></ul></article>
+          <article class="map-card"><span class="tag">People / Legal / Trust</span><h3>Treat agents as identities, not just tools.</h3><p>Trust becomes operational when AI accounts can access memory, documents, files and delegated actions.</p><ul><li>Define onboarding, role-change and offboarding rules for AI accounts and agents.</li><li>Document what AI may suggest, prepare, send, buy or trigger.</li><li>Create audit and recovery procedures before expanding access.</li></ul></article>
+          <article class="map-card"><span class="tag">Product / Engineering / Data</span><h3>Turn velocity into disciplined operating loops.</h3><p>Developer and product AI needs scope, tests, evals, code review and rollback, not just faster generation.</p><ul><li>Classify AI workflows by file access, command access, repo scope and deployment authority.</li><li>Make evals and review gates part of the release workflow.</li><li>Preserve artifacts: prompt context, diff, test result, reviewer and rollback path.</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="label">Control scorecard</div><h2>Five controls determine whether adoption can scale.</h2></div>
+          <p class="section-copy">The weekly synthesis repeatedly returns to the same control stack: visible work, explicit boundaries, human approvals, evidence trails and recovery loops.</p>
+        </div>
+        <div class="control-grid" aria-label="AI adoption control scorecard">
+          <article class="metric"><div class="num">01</div><h3>Visibility</h3><p>Which workflows contain AI, which agents exist, and where do they operate?</p><div class="bar"><i style="width:92%"></i></div></article>
+          <article class="metric"><div class="num">02</div><h3>Boundary</h3><p>What can AI read, write, trigger, change or never touch?</p><div class="bar"><i style="width:86%"></i></div></article>
+          <article class="metric"><div class="num">03</div><h3>Approval</h3><p>When is a human checkpoint required before movement or commitment?</p><div class="bar"><i style="width:88%"></i></div></article>
+          <article class="metric"><div class="num">04</div><h3>Evidence</h3><p>Where are inputs, outputs, decisions, logs and review notes preserved?</p><div class="bar"><i style="width:82%"></i></div></article>
+          <article class="metric"><div class="num">05</div><h3>Recovery</h3><p>How can access be revoked, actions reversed and workflows improved after failure?</p><div class="bar"><i style="width:78%"></i></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="label">Adoption matrix</div><h2>Where to start, what to control, how to prove value.</h2></div>
+          <p class="section-copy">This matrix turns the department map into a practical conversation guide for pilots, hiring interviews and advisory discussions.</p>
+        </div>
+        <div class="matrix-wrap">
+          <table>
+            <thead>
+              <tr><th>Layer</th><th>Best first pilot</th><th>Safe autonomy level</th><th>Primary control</th><th>Proof of value</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Leadership</td><td>AI initiative cockpit and risk review brief.</td><td><span class="pill">Suggest</span><span class="pill green">Prepare</span></td><td>Named owner and decision log.</td><td>Faster review cadence, fewer invisible pilots.</td></tr>
+              <tr><td>Revenue / CX</td><td>Account context, CRM updates, support-to-sales handoff.</td><td><span class="pill green">Prepare</span><span class="pill warm">Modify</span></td><td>External message and data-use approval.</td><td>Better follow-up quality, cleaner CRM, visible renewal risks.</td></tr>
+              <tr><td>Operations</td><td>Queue triage, exception detection, SLA summaries.</td><td><span class="pill green">Prepare</span><span class="pill warm">Trigger</span></td><td>Escalation path and exception owner.</td><td>Shorter cycle time, fewer stuck handoffs.</td></tr>
+              <tr><td>Finance / Procurement</td><td>Invoice preparation, vendor comparison, tail spend review.</td><td><span class="pill">Suggest</span><span class="pill green">Prepare</span></td><td>Approval before commitment or spend.</td><td>Audit-ready evidence, reduced manual chase work.</td></tr>
+              <tr><td>Trust / Legal / Security</td><td>AI account inventory, permission map, policy review workflow.</td><td><span class="pill">Suggest</span><span class="pill green">Prepare</span></td><td>Identity, permission, recovery procedure.</td><td>Known agent inventory, lower shadow-agent risk.</td></tr>
+              <tr><td>Product / Eng / Data</td><td>Controlled coding workflow with tests, evals and review gates.</td><td><span class="pill green">Prepare</span><span class="pill warm">Modify</span><span class="pill rose">Trigger</span></td><td>Scope, sandbox, test, review, rollback.</td><td>Higher delivery velocity without hidden authority.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="label">90-day rollout</div><h2>A practical rollout sequence for accountable adoption.</h2></div>
+          <p class="section-copy">The goal is not to automate everything quickly. The goal is to learn where AI can move work safely while making the controls reusable across departments.</p>
+        </div>
+        <div class="timeline">
+          <article class="timeline-step"><div class="step-num">0-30 DAYS</div><h3>Map and classify</h3><p>Create an inventory of AI use, workflows, data access, department owners and autonomy levels. Pick one pilot where review is easy and failure is recoverable.</p><ul class="signal-list"><li>Agent/tool inventory</li><li>Workflow map</li><li>Autonomy classification</li></ul></article>
+          <article class="timeline-step"><div class="step-num">31-60 DAYS</div><h3>Pilot with gates</h3><p>Run one department pilot with explicit boundaries: what AI can read, prepare, modify or trigger, and which actions require approval.</p><ul class="signal-list"><li>Approval checkpoints</li><li>Evidence logging</li><li>Escalation rules</li></ul></article>
+          <article class="timeline-step"><div class="step-num">61-90 DAYS</div><h3>Standardize and scale</h3><p>Convert the pilot into reusable adoption patterns: control templates, scorecards, review cadence, training notes and rollback procedures.</p><ul class="signal-list"><li>Reusable playbooks</li><li>Cross-department dashboard</li><li>Learning loop and recovery drills</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="label">Interview-ready framing</div><h2>The core adoption argument in one sentence.</h2></div>
+          <p class="section-copy">AI adoption is no longer mainly a model-selection problem. It is an operating-design problem: what AI can do, under whose authority, with what evidence, and how the organization recovers when it is wrong.</p>
+        </div>
+        <div class="grid">
+          <article class="card"><h3>For hiring conversations</h3><p>Use this map to explain how you think across business, operations, technology and governance without sounding theoretical.</p><ul><li>Shows department empathy</li><li>Connects AI to work movement</li><li>Frames risk as design work</li></ul></article>
+          <article class="card"><h3>For advisory conversations</h3><p>Use the control plane to help teams choose pilots that create evidence without creating unmanaged authority.</p><ul><li>Starts with workflow mapping</li><li>Defines approval gates early</li><li>Creates reusable adoption patterns</li></ul></article>
+          <article class="card"><h3>For content continuity</h3><p>Each future Daily Signal can attach to the map: one signal, one department, one workflow change, one operator takeaway.</p><ul><li>Daily writing feeds the map</li><li>Weekly synthesis updates the thesis</li><li>Portfolio page becomes a living operating model</li></ul></article>
+        </div>
+      </div>
+    </section>
   </main>
-  <footer class="footer"><div class="wrap"><div class="footer-card"><div class="label">Contact</div><h2>Need an adoption map for a real team?</h2><p>I can help translate AI possibilities into workflow ownership, control points, pilots and communication that teams can use.</p><div class="cta-row"><a class="button primary" href="mailto:ali.ozen@rwth-aachen.de">ali.ozen@rwth-aachen.de</a><a class="button" href="https://linkedin.com/in/0xozen">LinkedIn</a><a class="button" href="https://github.com/0xOzen">GitHub</a></div></div></div></footer>
+
+  <footer class="footer" id="contact">
+    <div class="wrap">
+      <div class="footer-card">
+        <div class="label">Contact</div>
+        <h2>Need an adoption map for a real team?</h2>
+        <p>I can help translate AI possibilities into workflow ownership, control points, pilots and communication that teams can use.</p>
+        <div class="cta-row">
+          <a class="button primary" href="mailto:ali.ozen@rwth-aachen.de">ali.ozen@rwth-aachen.de</a>
+          <a class="button" href="https://linkedin.com/in/0xozen">LinkedIn</a>
+          <a class="button" href="https://github.com/0xOzen">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
