@@ -465,8 +465,28 @@
     }
 
     .archive-card strong { margin-top: 22px; font-size: 20px; line-height: 1.1; }
-    .archive-card p { margin: 12px 0 0; font-size: 14px; }
-    .archive-card .lens { margin-top: 18px; color: var(--soft); font-family: "Geist Mono", ui-monospace, monospace; font-size: 11px; line-height: 1.45; }
+    .archive-card p { margin: 12px 0 0; font-size: 14px; color: rgba(216,211,204,0.84); }
+    .archive-card .lens { margin-top: 18px; color: rgba(189,184,178,0.90); font-family: "Geist Mono", ui-monospace, monospace; font-size: 11px; line-height: 1.45; }
+
+    .read-cue {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 18px;
+      color: #d97845;
+      font-family: "Geist Mono", ui-monospace, monospace;
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .read-cue span {
+      transition: transform .18s ease;
+    }
+
+    .archive-card:hover .read-cue span {
+      transform: translate(2px, -2px);
+    }
 
     .adoption-panel {
       position: relative;
@@ -511,6 +531,31 @@
 
     .text-link { color: #d97845; border-bottom: 1px solid rgba(217,120,69,0.35); }
 
+
+    .archive-card {
+      display: block;
+      color: inherit;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
+    }
+
+    .archive-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(217,120,69,0.48);
+      background: linear-gradient(135deg, rgba(255,255,255,0.095), rgba(255,255,255,0.038));
+      box-shadow: 0 28px 90px rgba(0,0,0,0.42), 0 0 34px rgba(196,50,34,0.12), inset 0 1px 0 rgba(255,255,255,0.10);
+    }
+
+    .archive-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .latest-grid .archive-card {
+      min-height: 250px;
+    }
+
     @media (max-width: 960px) {
       .hero-grid { grid-template-columns: 1fr; }
       .stage { min-height: 480px; }
@@ -553,7 +598,7 @@
       <nav class="navlinks" aria-label="Primary navigation">
         <a href="#work">Work</a>
         <a href="#portfolio">Portfolio</a>
-        <a href="#writing">Writing</a>
+        <a href="writing-archive.html">Writing</a>
         <a href="#adoption">Adoption</a>
         <a href="#contact" class="button primary">Contact</a>
       </nav>
@@ -666,35 +711,19 @@
         <div class="section-head">
           <div>
             <div class="label">Writing</div>
-            <h2>LinkedIn writing archive.</h2>
+            <h2>Latest LinkedIn writing.</h2>
           </div>
-          <p class="section-copy">A public-facing block for the weekly and daily AI adoption writing system: short Daily Signal posts for operational lenses, and Signal vs. Noise issues for deeper weekly synthesis.</p>
+          <p class="section-copy">The homepage now shows the latest three public writing notes. The full archive has a dedicated command-center page for Daily Signal posts, weekly Signal vs. Noise issues and department adoption lenses.</p>
         </div>
 
-        <div class="series-strip">
-          <article class="series-card">
-            <div class="orb"></div>
-            <strong>Daily Signal</strong>
-            <p>Short LinkedIn micro-briefs tracking how AI enters real company operations, one department or operating layer at a time.</p>
-          </article>
-          <article class="series-card">
-            <div class="orb"></div>
-            <strong>Signal vs. Noise</strong>
-            <p>Weekly synthesis that separates adoption signal from market noise, with a focus on governance, workflow authority and operational readiness.</p>
-          </article>
+        <div class="archive-grid latest-grid" aria-label="Latest LinkedIn writing">
+          <a class="archive-card" href="writing-archive.html#operational-work-surfaces"><span class="date">2026-05-04 · Daily</span><strong>Operational Work Surfaces</strong><p>Enterprise AI shifts from model announcements into work surfaces, control planes and real operating questions.</p><div class="lens">Enterprise adoption lens</div><div class="read-cue">Read note <span>↗</span></div></a>
+          <a class="archive-card" href="writing-archive.html#authority-became-the-bottleneck"><span class="date">Issue 6 · Weekly</span><strong>Authority Became the Bottleneck</strong><p>AI distribution changed. The next adoption question is under what authority a system should be allowed to act.</p><div class="lens">Signal vs. Noise</div><div class="read-cue">Read note <span>↗</span></div></a>
+          <a class="archive-card" href="writing-archive.html#agent-control-plane"><span class="date">2026-05-03 · Daily</span><strong>Agent Control Plane</strong><p>The strongest signal is the rise of memory, permissions, evidence, evaluation, cost and accountability around AI work.</p><div class="lens">Cross-department synthesis</div><div class="read-cue">Read note <span>↗</span></div></a>
         </div>
-
-        <div class="archive-grid" aria-label="LinkedIn writing archive">
-          <article class="archive-card"><span class="date">2026-04-28 · Daily</span><strong>Revenue Workflow Control</strong><p>Revenue AI moves from content generation into workflow control: research, CRM updates, proposal preparation and review loops.</p><div class="lens">Market Layer / Revenue Signal</div></article>
-          <article class="archive-card"><span class="date">2026-04-29 · Daily</span><strong>Operations Workflow Control</strong><p>The next adoption wave is not better chat. It is operational control across procurement, finance, HR, IT and security.</p><div class="lens">Operations / Procurement / Finance / HR / IT / Security</div></article>
-          <article class="archive-card"><span class="date">2026-04-30 · Daily</span><strong>Trust Layer Account Security</strong><p>AI adoption moves from tool access to controlled delegation, with identity, account security, approvals and recovery paths.</p><div class="lens">People / Legal / Compliance / Trust</div></article>
-          <article class="archive-card"><span class="date">2026-05-01 · Daily</span><strong>Developer Control</strong><p>Product and engineering teams need controlled developer workflows, reusable knowledge, evaluation gates and tool permission boundaries.</p><div class="lens">Build & Intelligence Layer</div></article>
-          <article class="archive-card"><span class="date">2026-05-02 · Daily</span><strong>Delegated Authority Phase</strong><p>AI adoption moves from tool usage into delegated authority. The bottleneck becomes where AI is allowed to act.</p><div class="lens">Cross-department synthesis</div></article>
-          <article class="archive-card"><span class="date">2026-05-02 · Weekly Bridge</span><strong>Workflow Authority</strong><p>Daily signals connect into one pattern: isolated assistance is becoming delegated workflow authority.</p><div class="lens">Weekly bridge / Synthesis</div></article>
-          <article class="archive-card"><span class="date">2026-05-03 · Daily</span><strong>Agent Control Plane</strong><p>The strongest signal is the rise of memory, permissions, evidence, evaluation, cost and accountability around AI work.</p><div class="lens">Cross-department synthesis</div></article>
-          <article class="archive-card"><span class="date">2026-05-04 · Daily</span><strong>Operational Work Surfaces</strong><p>Enterprise AI shifts from model announcements into work surfaces, control planes and real operating questions.</p><div class="lens">Enterprise adoption lens</div></article>
-          <article class="archive-card"><span class="date">Issue 5 · Weekly</span><strong>The Agentic Enterprise</strong><p>The agentic enterprise arrived, and the governance problem arrived with it.</p><div class="lens">Signal vs. Noise</div></article>
-          <article class="archive-card"><span class="date">Issue 6 · Weekly</span><strong>Authority Became the Bottleneck</strong><p>AI distribution changed. The next adoption question is under what authority a system should be allowed to act.</p><div class="lens">Signal vs. Noise</div></article>
+        <div class="archive-actions">
+          <a class="button primary" href="writing-archive.html">Open full writing archive</a>
+          <a class="button" href="department-adoption.html">Department adoption page</a>
         </div>
       </div>
     </section>

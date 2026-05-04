@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LinkedIn Writing Archive | Ali Osman Ozen</title>
+  <meta name="description" content="Public LinkedIn writing archive for Ali Osman Ozen: Daily Signal posts, Signal vs. Noise weekly synthesis and AI adoption recommendations." />
+  <meta name="theme-color" content="#07080a" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07080a;
+      --bg-2: #0e0f0f;
+      --panel: rgba(16, 17, 17, 0.82);
+      --surface: rgba(255,255,255,0.052);
+      --surface-2: rgba(255,255,255,0.032);
+      --border: rgba(255,255,255,0.10);
+      --border-hot: rgba(217,120,69,0.42);
+      --text: #f4f0ec;
+      --muted: rgba(206, 201, 194, 0.74);
+      --soft: rgba(156, 151, 145, 0.82);
+      --accent: #d97845;
+      --accent-2: #a83224;
+      --red: #ff6363;
+      --shadow: 0 42px 120px rgba(0,0,0,0.58);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 10%, rgba(255,99,99,0.12), transparent 28%),
+        radial-gradient(circle at 76% 8%, rgba(217,120,69,0.16), transparent 34%),
+        linear-gradient(180deg, #0e0f0f 0%, #07080a 52%, #050606 100%);
+      font-family: "Geist", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-feature-settings: "cv01", "ss03", "liga" 1;
+      line-height: 1.5;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 44px 44px;
+      opacity: 0.28;
+      mask-image: linear-gradient(to bottom, black, transparent 86%);
+      pointer-events: none;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
+    .nav {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 40;
+      width: min(830px, calc(100% - 32px));
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 7px 8px 7px 18px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(7, 8, 10, 0.76);
+      backdrop-filter: blur(22px);
+      box-shadow: 0 16px 60px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+    .brand { font-weight: 500; letter-spacing: -0.02em; white-space: nowrap; }
+    .navlinks { display: flex; align-items: center; gap: 4px; font-size: 13px; color: var(--muted); }
+    .navlinks a { padding: 9px 12px; border-radius: 999px; transition: background .18s ease, color .18s ease; }
+    .navlinks a:hover { color: var(--text); background: rgba(255,255,255,0.07); }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 18px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: rgba(255,255,255,0.055);
+      backdrop-filter: blur(18px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.22);
+      transition: transform .18s ease, border-color .18s ease, background .18s ease, opacity .18s ease;
+    }
+    .button:hover { transform: translateY(-2px); border-color: var(--border-hot); background: rgba(255,255,255,0.09); }
+    .button.primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #150706; border-color: rgba(217,120,69,0.58); box-shadow: 0 0 40px rgba(196,50,34,0.28), inset 0 1px 0 rgba(255,255,255,0.18); }
+    a:focus-visible, .button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+    main { padding-top: 128px; }
+    .hero { padding: 84px 0 44px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--border); background: rgba(255,255,255,0.055); color: rgba(244,240,236,0.76); font-size: 13px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.08); }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); box-shadow: 0 0 18px rgba(255,99,99,0.82); }
+    h1 { margin: 24px 0 0; max-width: 940px; font-size: clamp(48px, 8vw, 108px); line-height: .88; letter-spacing: -0.076em; font-weight: 500; }
+    .lead { margin: 28px 0 0; max-width: 780px; font-size: clamp(18px, 2.1vw, 22px); line-height: 1.65; color: var(--muted); }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .command-shell {
+      margin-top: 42px;
+      border-radius: 32px;
+      border: 1px solid var(--border);
+      background:
+        radial-gradient(circle at 72% 18%, rgba(217,120,69,0.14), transparent 28%),
+        linear-gradient(180deg, rgba(255,255,255,0.056), rgba(255,255,255,0.026));
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+    .command-top { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 16px 18px; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(7,8,10,0.54); }
+    .traffic { display: flex; gap: 7px; }
+    .traffic span { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.18); }
+    .traffic span:first-child { background: var(--red); }
+    .traffic span:nth-child(2) { background: var(--accent); }
+    .traffic span:nth-child(3) { background: rgba(244,240,236,0.42); }
+    .command-title { font-family: "Geist Mono", ui-monospace, monospace; color: var(--soft); font-size: 12px; letter-spacing: .10em; text-transform: uppercase; }
+    .shortcut { font-family: "Geist Mono", ui-monospace, monospace; font-size: 12px; color: var(--muted); padding: 6px 9px; border-radius: 7px; background: linear-gradient(180deg,#121212,#0d0d0d); border: 1px solid rgba(255,255,255,0.10); box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.32); }
+    .series-row { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1px; background: rgba(255,255,255,0.08); }
+    .series-tile { padding: 24px; background: rgba(7,8,10,0.54); }
+    .series-tile strong { display: block; font-size: 20px; letter-spacing: -0.035em; font-weight: 500; }
+    .series-tile p { color: var(--muted); line-height: 1.62; margin: 10px 0 0; font-size: 14px; }
+    section.archive { padding: 44px 0 92px; }
+    .archive-head { display: grid; grid-template-columns: minmax(0,.78fr) minmax(0,1.22fr); gap: 42px; margin-bottom: 24px; align-items: end; }
+    .label { font-family: "Geist Mono", ui-monospace, monospace; text-transform: uppercase; color: var(--soft); font-size: 12px; letter-spacing: .12em; }
+    h2 { margin: 10px 0 0; font-size: clamp(34px, 5vw, 62px); line-height: .94; letter-spacing: -0.06em; font-weight: 500; }
+    .section-copy { color: var(--muted); line-height: 1.7; font-size: 17px; }
+    .writing-list { display: grid; gap: 14px; }
+    .writing-entry {
+      display: grid;
+      grid-template-columns: 74px minmax(0,1fr) minmax(280px,.42fr);
+      gap: 18px;
+      align-items: stretch;
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      background: linear-gradient(135deg, var(--surface), var(--surface-2));
+      box-shadow: 0 24px 80px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.08);
+      padding: 14px;
+      scroll-margin-top: 96px;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .writing-entry:hover { transform: translateY(-2px); border-color: var(--border-hot); background: linear-gradient(135deg, rgba(255,255,255,0.072), rgba(255,255,255,0.035)); }
+    .writing-entry:target { border-color: rgba(255,99,99,0.62); box-shadow: 0 0 0 1px rgba(255,99,99,0.16), 0 28px 90px rgba(0,0,0,0.40), inset 0 1px 0 rgba(255,255,255,0.10); }
+    .entry-anchor { display: grid; place-items: center; border-radius: 18px; background: rgba(255,255,255,0.045); border: 1px solid rgba(255,255,255,0.08); font-family: "Geist Mono", ui-monospace, monospace; color: var(--accent); font-size: 13px; }
+    .entry-main { padding: 12px 0; }
+    .entry-meta { display: flex; flex-wrap: wrap; gap: 8px; }
+    .entry-meta span { font-family: "Geist Mono", ui-monospace, monospace; color: rgba(244,240,236,0.72); font-size: 11px; padding: 6px 8px; border: 1px solid rgba(255,255,255,0.08); border-radius: 999px; background: rgba(255,255,255,0.035); }
+    .entry-main h3 { margin: 18px 0 0; font-size: clamp(26px, 3vw, 38px); line-height: .98; letter-spacing: -0.055em; font-weight: 500; }
+    .entry-main p { margin: 14px 0 0; color: var(--muted); line-height: 1.68; font-size: 15px; max-width: 720px; }
+    .insight { margin-top: 16px; display: grid; gap: 7px; padding: 14px; border-radius: 18px; border: 1px solid rgba(217,120,69,0.26); background: rgba(217,120,69,0.08); }
+    .insight strong { font-family: "Geist Mono", ui-monospace, monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .10em; color: var(--accent); }
+    .insight span { color: var(--muted); font-size: 14px; line-height: 1.55; }
+
+    .entry-link { display: inline-flex; align-items: center; gap: 7px; margin-top: 16px; color: var(--accent); font-family: "Geist Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .entry-link span { transition: transform .18s ease; }
+    .entry-link:hover span { transform: translate(2px, -2px); }
+    .series-tile { display: block; color: inherit; transition: background .18s ease, opacity .18s ease; position: relative; }
+    .series-tile::after { content: "Open ↗"; display: inline-flex; margin-top: 14px; color: var(--accent); font-family: "Geist Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .series-tile:hover { background: rgba(255,255,255,0.066); }
+    .entry-actions { border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); background: rgba(7,8,10,0.44); padding: 18px; }
+    .entry-actions ul { margin: 14px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; color: var(--muted); font-size: 14px; line-height: 1.45; }
+    .entry-actions li::before { content: ">"; color: var(--accent); margin-right: 8px; font-family: "Geist Mono", ui-monospace, monospace; }
+    .footer { padding: 86px 0 96px; background: radial-gradient(circle at 30% 0%,rgba(196,50,34,.22),transparent 34%),linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.62)); }
+    .footer-card { border-radius: 42px; border: 1px solid var(--border); background: rgba(255,255,255,.055); backdrop-filter: blur(24px); box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,.08); padding: clamp(30px,6vw,58px); }
+    .footer p { color: var(--muted); max-width: 720px; }
+    @media(max-width:960px) {
+      .archive-head, .writing-entry, .series-row { grid-template-columns: 1fr; }
+      .entry-anchor { min-height: 48px; justify-content: start; padding-left: 16px; }
+      .nav { justify-content: center; }
+      .brand { display: none; }
+    }
+    @media(max-width:700px) {
+      .wrap { width: min(100% - 32px, 1180px); }
+      .navlinks a { padding: 9px 8px; }
+      h1 { letter-spacing: -0.06em; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="brand" href="index.html">Ali Osman Ozen</a>
+      <nav class="navlinks" aria-label="Primary navigation">
+        <a href="index.html#work">Work</a>
+        <a href="index.html#portfolio">Portfolio</a>
+        <a href="writing-archive.html">Writing</a>
+        <a href="department-adoption.html">Adoption</a>
+        <a href="index.html#contact" class="button primary">Contact</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow"><span class="dot"></span> Public LinkedIn writing archive</div>
+        <h1>AI adoption notes, organized like a command center.</h1>
+        <p class="lead">Daily and weekly writing distilled into a readable archive: operational signals, governance questions, workflow authority and department-level adoption moves.</p>
+        <div class="cta-row">
+          <a class="button primary" href="https://linkedin.com/in/0xozen">Open LinkedIn</a>
+          <a class="button" href="index.html#writing">Back to latest writing</a>
+        </div>
+        <div class="command-shell" aria-label="Writing archive command panel">
+          <div class="command-top"><div class="traffic"><span></span><span></span><span></span></div><div class="command-title">Archive index</div><div class="shortcut">10 notes</div></div>
+          <div class="series-row">
+            <a class="series-tile" href="#operational-work-surfaces"><strong>Daily Signal</strong><p>Short operational signals about where AI enters real work.</p></a>
+            <a class="series-tile" href="#authority-became-the-bottleneck"><strong>Signal vs. Noise</strong><p>Weekly synthesis separating adoption signal from market noise.</p></a>
+            <a class="series-tile" href="department-adoption.html"><strong>Department lens</strong><p>Recommendations for ownership, approvals, evidence and escalation.</p></a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="archive">
+      <div class="wrap">
+        <div class="archive-head">
+          <div><div class="label">Full archive</div><h2>Writing blocks for hiring and adoption conversations.</h2></div>
+          <p class="section-copy">Each block is intentionally public-safe: title, adoption signal, operating lens and practical moves. Exact LinkedIn post URLs can be attached later when the published links are available.</p>
+        </div>
+        <div class="writing-list">
+        <article id="operational-work-surfaces" class="writing-entry">
+          <a class="entry-anchor" href="#operational-work-surfaces" aria-label="Link to Operational Work Surfaces">#01</a>
+          <div class="entry-main">
+            <div class="entry-meta"><span>2026-05-04</span><span>Daily</span><span>Enterprise adoption lens</span></div>
+            <h3>Operational Work Surfaces</h3>
+            <p>Enterprise AI shifts from model announcements into work surfaces, control planes and real operating questions.</p>
+            <div class="insight"><strong>Adoption signal</strong><span>The value moves closer to the actual surface where work is assigned, reviewed, approved and remembered.</span></div>
+            <a class="entry-link" href="#operational-work-surfaces">Section link <span>↗</span></a>
+          </div>
+          <div class="entry-actions">
+            <div class="command-title">Recommended moves</div>
+            <ul><li>Map which team surface owns the work</li><li>Define approval checkpoints before external output</li><li>Track evidence instead of only output volume</li></ul>
+          </div>
+        </article>
+        <article id="authority-became-the-bottleneck" class="writing-entry">
+          <a class="entry-anchor" href="#authority-became-the-bottleneck" aria-label="Link to Authority Became the Bottleneck">#02</a>
+          <div class="entry-main">
+            <div class="entry-meta"><span>Issue 6</span><span>Weekly</span><span>Signal vs. Noise</span></div>
+            <h3>Authority Became the Bottleneck</h3>
+            <p>AI distribution changed. The next adoption question is under what authority a system should be allowed to act.</p>
+            <div class="insight"><strong>Adoption signal</strong><span>Models are no longer the only adoption question. Authority, permission boundaries and accountable escalation become the bottleneck.</span></div>
+            <a class="entry-link" href="#authority-became-the-bottleneck">Section link <span>↗</span></a>
+          </div>
+          <div class="entry-actions">
+            <div class="command-title">Recommended moves</div>
+            <ul><li>Separate suggestion rights from action rights</li><li>Create evidence trails for delegated work</li><li>Review authority rules by department</li></ul>
+          </div>
+        </article>
+        <article id="agent-control-plane" class="writing-entry">
+          <a class="entry-anchor" href="#agent-control-plane" aria-label="Link to Agent Control Plane">#03</a>
+          <div class="entry-main">
+            <div class="entry-meta"><span>2026-05-03</span><span>Daily</span><span>Cross-department synthesis</span></div>
+            <h3>Agent Control Plane</h3>
+            <p>The strongest signal is the rise of memory, permissions, evidence, evaluation, cost and accountability around AI work.</p>
+            <div class="insight"><strong>Adoption signal</strong><span>AI adoption needs a control plane that connects memory, tools, human review and operating evidence.</span></div>
+            <a class="entry-link" href="#agent-control-plane">Section link <span>↗</span></a>
+          </div>
+          <div class="entry-actions">
+            <div class="command-title">Recommended moves</div>
+            <ul><li>Inventory memory and tool access</li><li>Add evaluation gates before scale</li><li>Make cost and accountability visible</li></ul>
+          </div>
+        </article>
+        <article id="workflow-authority" class="writing-entry">
+          <a class="entry-anchor" href="#workflow-authority" aria-label="Link to Workflow Authority">#04</a>
+          <div class="entry-main">
+            <div class="entry-meta"><span>2026-05-02</span><span>Weekly Bridge</span><span>Weekly bridge / Synthesis</span></div>
+            <h3>Workflow Authority</h3>
+            <p>Daily signals connect into one pattern: isolated assistance is becoming delegated workflow authority.</p>
+            <div class="insight"><strong>Adoption signal</strong><span>The operating question becomes how much work AI can prepare, route or execute before a human must approve.</span></div>
+            <a class="entry-link" href="#workflow-authority">Section link <span>↗</span></a>
+          </div>
+          <div class="entry-actions">
+            <div class="command-title">Recommended moves</div>
+            <ul><li>Name the owner for each workflow</li><li>Write the escalation rule before automating</li><li>Measure movement through the workflow</li></ul>
+          </div>
+        </article>
+        <article id="delegated-authority-phase" class="writing-entry">
+          <a class="entry-anchor" href="#delegated-authority-phase" aria-label="Link to Delegated Authority Phase">#05</a>
+          <div class="entry-main">
+            <div class="entry-meta"><span>2026-05-02</span><span>Daily</span><span>Cross-department synthesis</span></div>
+            <h3>Delegated Authority Phase</h3>
+            <p>AI adoption moves from tool usage into delegated authority. The bottleneck becomes where AI is allowed to act.</p>
+            <div class="insight"><strong>Adoption signal</strong><span>Adoption pressure increases when teams ask not what AI can write, but what AI can safely do.</span></div>
+            <a class="entry-link" href="#delegated-authority-phase">Section link <span>↗</span></a>
+          </div>
+          <div class="entry-actions">
+            <div class="command-title">Recommended moves</div>
+            <ul><li>Classify low-risk actions first</li><li>Create approval levels by consequence</li><li>Keep exception handling visible</li></ul>
+          </div>
+        </article>
+        <article id="developer-control" class="writing-entry">
+          <a class="entry-anchor" href="#developer-control" aria-label="Link to Developer Control">#06</a>
+          <div class="entry-main">
+            <div class="entry-meta"><span>2026-05-01</span><span>Daily</span><span>Build & Intelligence Layer</span></div>
+            <h3>Developer Control</h3>
+            <p>Product and engineering teams need controlled developer workflows, reusable knowledge, evaluation gates and tool permission boundaries.</p>
+            <div class="insight"><strong>Adoption signal</strong><span>Developer AI creates leverage only when context, permissions, tests and review loops become part of the system.</span></div>
+            <a class="entry-link" href="#developer-control">Section link <span>↗</span></a>
+          </div>
+          <div class="entry-actions">
+            <div class="command-title">Recommended moves</div>
+            <ul><li>Require tests or review gates</li><li>Reuse shared context instead of repeating prompts</li><li>Limit tool access by task type</li></ul>
+          </div>
+        </article>
+        <article id="trust-layer-account-security" class="writing-entry">
+          <a class="entry-anchor" href="#trust-layer-account-security" aria-label="Link to Trust Layer Account Security">#07</a>
+          <div class="entry-main">
+            <div class="entry-meta"><span>2026-04-30</span><span>Daily</span><span>People / Legal / Compliance / Trust</span></div>
+            <h3>Trust Layer Account Security</h3>
+            <p>AI adoption moves from tool access to controlled delegation, with identity, account security, approvals and recovery paths.</p>
+            <div class="insight"><strong>Adoption signal</strong><span>Trust work needs explicit boundaries because AI can touch identity, policy, records and sensitive operational context.</span></div>
+            <a class="entry-link" href="#trust-layer-account-security">Section link <span>↗</span></a>
+          </div>
+          <div class="entry-actions">
+            <div class="command-title">Recommended moves</div>
+            <ul><li>Map sensitive data boundaries</li><li>Define account recovery paths</li><li>Keep policy evidence attached to actions</li></ul>
+          </div>
+        </article>
+        <article id="operations-workflow-control" class="writing-entry">
+          <a class="entry-anchor" href="#operations-workflow-control" aria-label="Link to Operations Workflow Control">#08</a>
+          <div class="entry-main">
+            <div class="entry-meta"><span>2026-04-29</span><span>Daily</span><span>Operations / Procurement / Finance / HR / IT / Security</span></div>
+            <h3>Operations Workflow Control</h3>
+            <p>The next adoption wave is not better chat. It is operational control across procurement, finance, HR, IT and security.</p>
+            <div class="insight"><strong>Adoption signal</strong><span>Operations teams need controlled preparation, triage and exception handling more than another general chat surface.</span></div>
+            <a class="entry-link" href="#operations-workflow-control">Section link <span>↗</span></a>
+          </div>
+          <div class="entry-actions">
+            <div class="command-title">Recommended moves</div>
+            <ul><li>Start with repeated queue work</li><li>Route exceptions to named owners</li><li>Measure cycle-time movement</li></ul>
+          </div>
+        </article>
+        <article id="revenue-workflow-control" class="writing-entry">
+          <a class="entry-anchor" href="#revenue-workflow-control" aria-label="Link to Revenue Workflow Control">#09</a>
+          <div class="entry-main">
+            <div class="entry-meta"><span>2026-04-28</span><span>Daily</span><span>Market Layer / Revenue Signal</span></div>
+            <h3>Revenue Workflow Control</h3>
+            <p>Revenue AI moves from content generation into workflow control: research, CRM updates, proposal preparation and review loops.</p>
+            <div class="insight"><strong>Adoption signal</strong><span>Revenue adoption improves when AI prepares better sales work and keeps CRM, proposal and review evidence connected.</span></div>
+            <a class="entry-link" href="#revenue-workflow-control">Section link <span>↗</span></a>
+          </div>
+          <div class="entry-actions">
+            <div class="command-title">Recommended moves</div>
+            <ul><li>Connect research to CRM hygiene</li><li>Review external messaging before send</li><li>Measure pipeline movement, not content volume</li></ul>
+          </div>
+        </article>
+        <article id="the-agentic-enterprise" class="writing-entry">
+          <a class="entry-anchor" href="#the-agentic-enterprise" aria-label="Link to The Agentic Enterprise">#10</a>
+          <div class="entry-main">
+            <div class="entry-meta"><span>Issue 5</span><span>Weekly</span><span>Signal vs. Noise</span></div>
+            <h3>The Agentic Enterprise</h3>
+            <p>The agentic enterprise arrived, and the governance problem arrived with it.</p>
+            <div class="insight"><strong>Adoption signal</strong><span>Enterprise adoption becomes real when agents enter workflows, but governance must arrive at the same time.</span></div>
+            <a class="entry-link" href="#the-agentic-enterprise">Section link <span>↗</span></a>
+          </div>
+          <div class="entry-actions">
+            <div class="command-title">Recommended moves</div>
+            <ul><li>Treat governance as product infrastructure</li><li>Define human review points</li><li>Keep adoption evidence visible to leadership</li></ul>
+          </div>
+        </article>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer" id="contact">
+    <div class="wrap">
+      <div class="footer-card">
+        <div class="label">Contact</div>
+        <h2>Want to discuss practical AI adoption?</h2>
+        <p>I can help translate AI possibilities into workflow ownership, control points, pilots and communication that teams can use.</p>
+        <div class="cta-row"><a class="button primary" href="mailto:ali.ozen@rwth-aachen.de">ali.ozen@rwth-aachen.de</a><a class="button" href="https://linkedin.com/in/0xozen">LinkedIn</a><a class="button" href="https://github.com/0xOzen">GitHub</a></div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
