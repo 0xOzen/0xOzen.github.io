@@ -1,383 +1,783 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="linear">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>LinkedIn Writing Archive | Ali Osman Ozen</title>
+  <title>Writing Archive - Daily Signal &amp; Signal vs. Noise | Ali Osman Ozen</title>
   <meta name="description" content="Public LinkedIn writing archive for Ali Osman Ozen: Daily Signal posts, Signal vs. Noise weekly synthesis and AI adoption recommendations." />
-  <meta name="theme-color" content="#0b0b0b" />
+  <meta property="og:title" content="Writing Archive - AI adoption notes" />
+  <meta property="og:description" content="Daily and weekly writing distilled into a readable archive: operational signals, governance questions, workflow authority and department-level adoption moves." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://0xozen.github.io/writing-archive.html" />
+  <meta property="og:image" content="https://0xozen.github.io/assets/og-image.svg" />
+  <meta property="og:image:type" content="image/svg+xml" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Writing Archive - AI adoption notes" />
+  <meta name="twitter:description" content="Daily and weekly writing distilled into a readable archive." />
+  <meta name="twitter:image" content="https://0xozen.github.io/assets/og-image.svg" />
+  <link rel="canonical" href="https://0xozen.github.io/writing-archive.html" />
+  <meta name="theme-color" content="#08090a" id="theme-color-meta" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%235e6ad2'/><stop offset='1' stop-color='%238b5cf6'/></linearGradient></defs><rect width='32' height='32' rx='6' fill='url(%23g)'/><path d='M9 22V10h4l3 8 3-8h4v12h-3v-7l-2.5 7h-3L12 15v7z' fill='%23f7f8f8'/></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'cursor' || t === 'linear') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
   <style>
-    :root {
-      --bg: #0b0b0b;
-      --bg-2: #111318;
-      --panel: rgba(16, 17, 17, 0.82);
-      --surface: rgba(255,255,255,0.052);
-      --surface-2: rgba(255,255,255,0.032);
-      --border: rgba(255,255,255,0.10);
-      --border-hot: rgba(71,159,250,0.44);
-      --text: #f5f7fb;
-      --muted: rgba(220, 228, 240, 0.88);
-      --soft: rgba(174, 185, 201, 0.98);
-      --accent: #479ffa;
-      --accent-2: #1d6fd6;
-      --red: #ffa16c;
-      --shadow: 0 42px 120px rgba(0,0,0,0.58);
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 18% 10%, rgba(255,161,108,0.10), transparent 28%),
-        radial-gradient(circle at 76% 8%, rgba(71,159,250,0.16), transparent 34%),
-        linear-gradient(180deg, #111318 0%, #0b0b0b 52%, #050506 100%);
-      font-family: "Geist", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-feature-settings: "cv01", "ss03", "liga" 1;
-      line-height: 1.5;
-    }
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
-      background-size: 44px 44px;
-      opacity: 0.28;
-      mask-image: linear-gradient(to bottom, black, transparent 86%);
-      pointer-events: none;
-    }
-    a { color: inherit; text-decoration: none; }
-    .wrap { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
-    .nav {
-      position: fixed;
-      top: 18px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 40;
-      width: min(830px, calc(100% - 32px));
-      height: 54px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 7px 8px 7px 18px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: rgba(7, 8, 10, 0.76);
-      backdrop-filter: blur(22px);
-      box-shadow: 0 16px 60px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.08);
-    }
-    .brand { font-weight: 500; letter-spacing: -0.02em; white-space: nowrap; }
-    .navlinks { display: flex; align-items: center; gap: 4px; font-size: 13px; color: var(--muted); }
-    .navlinks a { padding: 9px 12px; border-radius: 999px; transition: background .18s ease, color .18s ease; }
-    .navlinks a:hover, .navlinks a[href="writing-archive.html"] { color: var(--text); background: rgba(71,159,250,0.12); }
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 42px;
-      padding: 0 18px;
-      border-radius: 999px;
-      font-size: 14px;
-      font-weight: 500;
-      border: 1px solid var(--border);
-      color: var(--text);
-      background: rgba(255,255,255,0.055);
-      backdrop-filter: blur(18px);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.22);
-      transition: transform .18s ease, border-color .18s ease, background .18s ease, opacity .18s ease;
-    }
-    .button:hover { transform: translateY(-2px); border-color: var(--border-hot); background: rgba(255,255,255,0.09); }
-    .button.primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #03101f; border-color: rgba(71,159,250,0.58); box-shadow: 0 0 40px rgba(71,159,250,0.28), inset 0 1px 0 rgba(255,255,255,0.18); }
-    a:focus-visible, .button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
-    main { padding-top: 128px; }
-    .hero { padding: 84px 0 44px; }
-    .eyebrow { display: inline-flex; align-items: center; gap: 9px; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--border); background: rgba(255,255,255,0.055); color: rgba(220,228,240,0.82); font-size: 13px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.08); }
-    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); box-shadow: 0 0 18px rgba(255,161,108,0.78); }
-    h1 { margin: 24px 0 0; max-width: 940px; font-size: clamp(48px, 8vw, 108px); line-height: .88; letter-spacing: -0.076em; font-weight: 500; }
-    .lead { margin: 28px 0 0; max-width: 780px; font-size: clamp(18px, 2.1vw, 22px); line-height: 1.65; color: var(--muted); }
-    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-    .command-shell {
-      margin-top: 42px;
-      border-radius: 32px;
-      border: 1px solid var(--border);
-      background:
-        radial-gradient(circle at 72% 18%, rgba(71,159,250,0.14), transparent 28%),
-        linear-gradient(180deg, rgba(255,255,255,0.056), rgba(255,255,255,0.026));
-      box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.08);
-      overflow: hidden;
-    }
-    .command-top { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 16px 18px; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(7,8,10,0.54); }
-    .traffic { display: flex; gap: 7px; }
-    .traffic span { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.18); }
-    .traffic span:first-child { background: var(--red); }
-    .traffic span:nth-child(2) { background: var(--accent); }
-    .traffic span:nth-child(3) { background: rgba(220,228,240,0.50); }
-    .command-title { font-family: "Geist Mono", ui-monospace, monospace; color: var(--soft); font-size: 12px; letter-spacing: .10em; text-transform: uppercase; }
-    .shortcut { font-family: "Geist Mono", ui-monospace, monospace; font-size: 12px; color: var(--muted); padding: 6px 9px; border-radius: 7px; background: linear-gradient(180deg,#121212,#0d0d0d); border: 1px solid rgba(255,255,255,0.10); box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.32); }
-    .series-row { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1px; background: rgba(255,255,255,0.08); }
-    .source-note { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 13px 16px; border-top: 1px solid rgba(255,255,255,0.08); background: rgba(102,58,243,0.08); color: var(--muted); font-size: 13px; line-height: 1.45; }
-    .source-note span { font-family: "Geist Mono", ui-monospace, monospace; color: var(--accent); font-size: 11px; letter-spacing: .10em; text-transform: uppercase; white-space: nowrap; }
-    .series-tile { padding: 24px; background: rgba(7,8,10,0.54); }
-    .series-tile strong { display: block; font-size: 20px; letter-spacing: -0.035em; font-weight: 500; }
-    .series-tile p { color: var(--muted); line-height: 1.62; margin: 10px 0 0; font-size: 14px; }
-    section.archive { padding: 44px 0 92px; }
-    .archive-head { display: grid; grid-template-columns: minmax(0,.78fr) minmax(0,1.22fr); gap: 42px; margin-bottom: 24px; align-items: end; }
-    .label { font-family: "Geist Mono", ui-monospace, monospace; text-transform: uppercase; color: var(--soft); font-size: 12px; letter-spacing: .12em; }
-    h2 { margin: 10px 0 0; font-size: clamp(34px, 5vw, 62px); line-height: .94; letter-spacing: -0.06em; font-weight: 500; }
-    .section-copy { color: var(--muted); line-height: 1.7; font-size: 17px; }
-    .writing-list { display: grid; gap: 14px; }
-    .writing-entry {
-      display: grid;
-      grid-template-columns: 74px minmax(0,1fr) minmax(280px,.42fr);
-      gap: 18px;
-      align-items: stretch;
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      background: linear-gradient(135deg, var(--surface), var(--surface-2));
-      box-shadow: 0 24px 80px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.08);
-      padding: 14px;
-      scroll-margin-top: 96px;
-      transition: transform .18s ease, border-color .18s ease, background .18s ease;
-    }
-    .writing-entry:hover { transform: translateY(-2px); border-color: var(--border-hot); background: linear-gradient(135deg, rgba(255,255,255,0.072), rgba(255,255,255,0.035)); }
-    .writing-entry:target { border-color: rgba(255,161,108,0.62); box-shadow: 0 0 0 1px rgba(255,161,108,0.16), 0 28px 90px rgba(0,0,0,0.40), inset 0 1px 0 rgba(255,255,255,0.10); }
-    .entry-anchor { display: grid; place-items: center; border-radius: 18px; background: rgba(255,255,255,0.045); border: 1px solid rgba(255,255,255,0.08); font-family: "Geist Mono", ui-monospace, monospace; color: var(--accent); font-size: 13px; }
-    .entry-main { padding: 12px 0; }
-    .entry-meta { display: flex; flex-wrap: wrap; gap: 8px; }
-    .entry-meta span { font-family: "Geist Mono", ui-monospace, monospace; color: rgba(220,228,240,0.78); font-size: 11px; padding: 6px 8px; border: 1px solid rgba(255,255,255,0.08); border-radius: 999px; background: rgba(255,255,255,0.035); }
-    .entry-main h3 { margin: 18px 0 0; font-size: clamp(26px, 3vw, 38px); line-height: .98; letter-spacing: -0.055em; font-weight: 500; }
-    .entry-main p { margin: 14px 0 0; color: var(--muted); line-height: 1.68; font-size: 15px; max-width: 720px; }
-    .insight { margin-top: 16px; display: grid; gap: 7px; padding: 14px; border-radius: 18px; border: 1px solid rgba(71,159,250,0.26); background: rgba(71,159,250,0.08); }
-    .insight strong { font-family: "Geist Mono", ui-monospace, monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .10em; color: var(--accent); }
-    .insight span { color: var(--muted); font-size: 14px; line-height: 1.55; }
+    :root, [data-theme="linear"] {
+      --pitch-black:#08090a; --graphite:#0f1011; --deep-slate:#161718; --charcoal:#23252a; --muted-ash:#323334; --gunmetal:#383b3f;
+      --fog:#62666d; --storm:#8a8f98; --light-steel:#d0d6e0; --porcelain:#f7f8f8;
+      --neon-lime:#e4f222; --aether-blue:#5e6ad2; --cyan-spark:#02b8cc; --amethyst:#8b5cf6; --emerald:#27a644; --warning-red:#eb5757;
 
-    .entry-link { display: inline-flex; align-items: center; gap: 7px; min-height: 34px; margin-top: 16px; padding: 0 2px; color: var(--accent); font-family: "Geist Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
-    .entry-link span { transition: transform .18s ease; }
-    .entry-link:hover span { transform: translate(2px, -2px); }
-    .series-tile { display: block; color: inherit; transition: background .18s ease, opacity .18s ease; position: relative; }
-    .series-tile::after { content: "Open ↗"; display: inline-flex; margin-top: 14px; color: var(--accent); font-family: "Geist Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
-    .series-tile:hover { background: rgba(255,255,255,0.066); }
-    .entry-actions { border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); background: rgba(7,8,10,0.44); padding: 18px; }
-    .entry-actions ul { margin: 14px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; color: var(--muted); font-size: 14px; line-height: 1.45; }
-    .entry-actions li::before { content: ">"; color: var(--accent); margin-right: 8px; font-family: "Geist Mono", ui-monospace, monospace; }
-    .footer { padding: 86px 0 96px; background: radial-gradient(circle at 30% 0%,rgba(71,159,250,.18),transparent 34%),linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.62)); }
-    .footer-card { border-radius: 42px; border: 1px solid var(--border); background: rgba(255,255,255,.055); backdrop-filter: blur(24px); box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,.08); padding: clamp(30px,6vw,58px); }
-    .footer p { color: var(--muted); max-width: 720px; }
-    @media(max-width:960px) {
-      .archive-head, .writing-entry, .series-row { grid-template-columns: 1fr; }
-      .entry-anchor { min-height: 48px; justify-content: start; padding-left: 16px; }
-      .nav { justify-content: center; }
-      .brand { display: none; }
+      --bg:var(--pitch-black); --surface-1:var(--graphite); --surface-2:var(--deep-slate); --surface-3:var(--charcoal);
+      --border:var(--charcoal); --border-soft:var(--muted-ash);
+      --text-1:var(--porcelain); --text-2:var(--light-steel); --text-3:var(--storm); --text-4:var(--fog);
+      --accent:var(--aether-blue); --accent-2:var(--amethyst); --info:var(--cyan-spark); --success:var(--emerald); --danger:var(--warning-red);
+      --cta-bg:var(--neon-lime); --cta-bg-hover:#eef82e; --cta-text:var(--pitch-black);
+      --grid-stroke:rgba(255,255,255,0.025); --glow-1:rgba(94,106,210,0.10); --glow-2:rgba(2,184,204,0.06);
+      --shadow-sm:rgba(0,0,0,0.4) 0 2px 4px 0; --shadow-xl:rgba(8,9,10,0.6) 0 4px 32px 0;
+
+      --font-sans:"Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --r-tag:2px; --r-md:6px; --r-lg:12px; --r-pill:9999px;
+      --traffic-1:#ff5f56; --traffic-2:#ffbd2e; --traffic-3:#27c93f;
     }
-    @media(max-width:700px) {
-      .wrap { width: min(100% - 32px, 1180px); }
-      .navlinks a { padding: 9px 8px; }
-      h1 { letter-spacing: -0.06em; }
+    [data-theme="stripe"] {
+      --platinum-white:#ffffff; --porcelain-white:#f8fafd; --powder-blue:#e5edf5; --stone-gray:#d8d6df;
+      --midnight-ink:#061b31; --slate-blue:#50617a; --ghost-gray:#64748d;
+      --deep-violet:#533afd; --washed-violet:#b9b9f9; --soft-violet:#8087ff; --vibrant-orange:#ff6118; --accent-green:#81b81a;
+
+      --bg:var(--platinum-white); --surface-1:var(--porcelain-white); --surface-2:var(--powder-blue); --surface-3:#dde6f0;
+      --border:var(--stone-gray); --border-soft:#c1bfca;
+      --text-1:var(--midnight-ink); --text-2:var(--slate-blue); --text-3:var(--ghost-gray); --text-4:#8a96a7;
+      --accent:var(--deep-violet); --accent-2:var(--soft-violet); --info:var(--accent-green); --success:var(--accent-green); --danger:var(--vibrant-orange);
+      --cta-bg:var(--deep-violet); --cta-bg-hover:#4731e0; --cta-text:var(--platinum-white);
+      --grid-stroke:rgba(6,27,49,0.04); --glow-1:rgba(83,58,253,0.10); --glow-2:rgba(128,135,255,0.08);
+      --shadow-sm:rgba(23,23,23,0.06) 0 3px 6px 0;
+      --shadow-xl:rgba(50,50,93,0.12) 0 16px 32px 0, rgba(0,0,0,0.04) 0 4px 12px 0;
+      --traffic-1:#ed6a5e; --traffic-2:#f5bf4f; --traffic-3:#61c554;
+    }
+    [data-theme="cursor"] {
+      --canvas-parchment:#f7f7f4; --pebble-gray:#ebeae3; --highlight-beige:#d8d6cb;
+      --inkwell:#262510; --deep-shadow:#141414; --muted-stone:#7a7974;
+      --onyx-outline:#f54e00; --chartreuse-alert:#4ade80; --goldenrod-accent:#c08532; --forest-green-action:#34785c;
+
+      --bg:var(--canvas-parchment); --surface-1:#ffffff; --surface-2:var(--pebble-gray); --surface-3:var(--highlight-beige);
+      --border:rgba(38,37,16,0.10); --border-soft:rgba(38,37,16,0.18);
+      --text-1:var(--inkwell); --text-2:#3a3825; --text-3:var(--muted-stone); --text-4:#9b9a92;
+      --accent:var(--onyx-outline); --accent-2:var(--goldenrod-accent); --info:var(--forest-green-action); --success:var(--forest-green-action); --danger:#c0392b;
+      --cta-bg:var(--inkwell); --cta-bg-hover:#1c1b0a; --cta-text:var(--canvas-parchment);
+      --grid-stroke:rgba(38,37,16,0.04); --glow-1:rgba(245,78,0,0.08); --glow-2:rgba(192,133,50,0.06);
+      --shadow-sm:rgba(0,0,0,0.06) 0 1px 2px 0, rgba(0,0,0,0.04) 0 4px 12px -4px;
+      --shadow-xl:rgba(0,0,0,0.10) 0 14px 32px 0, rgba(0,0,0,0.06) 0 28px 70px 0;
+      --traffic-1:#ed6a5e; --traffic-2:#f5bf4f; --traffic-3:#61c554;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; min-height:100vh; background:var(--bg); color:var(--text-1);
+      font-family:var(--font-sans); font-size:14px; line-height:1.5; letter-spacing:-0.13px;
+      font-feature-settings:"cv01","ss03","liga" 1; -webkit-font-smoothing:antialiased;
+      transition: background-color .25s ease, color .25s ease;
+    }
+    body::before{content:"";position:fixed;inset:0;z-index:-2;
+      background-image:linear-gradient(var(--grid-stroke) 1px,transparent 1px),linear-gradient(90deg,var(--grid-stroke) 1px,transparent 1px);
+      background-size:56px 56px; mask-image:radial-gradient(circle at 50% 0%,black 0%,transparent 78%); pointer-events:none;
+    }
+    body::after{content:"";position:fixed;inset:0;z-index:-1;
+      background:radial-gradient(600px 400px at 14% 8%,var(--glow-1),transparent 60%),radial-gradient(500px 360px at 92% 4%,var(--glow-2),transparent 60%);
+      pointer-events:none;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(1240px,calc(100% - 48px));margin:0 auto}
+
+    .ico{width:14px;height:14px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+    /* Nav */
+    header{position:fixed;top:16px;left:0;right:0;z-index:50;pointer-events:none}
+    .nav{
+      width:min(920px,calc(100% - 32px)); margin:0 auto; height:48px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:4px 4px 4px 14px;
+      border:1px solid var(--border); border-radius:var(--r-pill);
+      background:color-mix(in srgb, var(--surface-1) 88%, transparent);
+      backdrop-filter:blur(16px); box-shadow:var(--shadow-sm); pointer-events:auto;
+    }
+    .brand{display:inline-flex;align-items:center;gap:10px;font-weight:510;font-size:14px;color:var(--text-1);white-space:nowrap}
+    .brand-mark{width:18px;height:18px;border-radius:var(--r-md);background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:inset 0 0 0 1px rgba(255,255,255,0.18)}
+    .navlinks{display:flex;align-items:center;gap:2px;font-size:13px;color:var(--text-3)}
+    .navlinks a{padding:8px 10px;border-radius:var(--r-md);transition:color .15s,background .15s}
+    .navlinks a:hover,.navlinks a[aria-current="page"]{color:var(--text-1);background:var(--surface-2)}
+
+    .theme-picker{display:inline-flex;align-items:center;gap:0;height:32px;padding:2px;border-radius:var(--r-pill);border:1px solid var(--border);background:var(--surface-2)}
+    .theme-picker button{display:inline-flex;align-items:center;gap:5px;height:26px;padding:0 9px;border:0;background:transparent;color:var(--text-3);font-family:var(--font-mono);font-size:10px;letter-spacing:0.04em;text-transform:uppercase;border-radius:var(--r-pill);cursor:pointer;transition:background .15s,color .15s}
+    .theme-picker button:hover{color:var(--text-1)}
+    .theme-picker button[aria-pressed="true"]{background:var(--surface-1);color:var(--text-1);box-shadow:var(--shadow-sm)}
+    .theme-picker .ico{width:11px;height:11px}
+
+    /* Reading progress bar */
+    .read-bar{position:fixed;top:0;left:0;right:0;height:2px;z-index:60;background:transparent;pointer-events:none}
+    .read-bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .12s ease}
+
+    .button{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      height:36px;padding:0 14px;border-radius:var(--r-md);
+      font-family:var(--font-sans);font-size:13px;font-weight:510;letter-spacing:-0.11px;
+      color:var(--text-1);background:var(--surface-2);border:1px solid var(--border);
+      transition:background .15s,border-color .15s,transform .15s,color .15s;cursor:pointer;
+    }
+    .button:hover{background:var(--surface-3);border-color:var(--border-soft)}
+    .button.primary{background:var(--cta-bg);color:var(--cta-text);border-color:var(--cta-bg);font-weight:590}
+    .button.primary:hover{background:var(--cta-bg-hover);border-color:var(--cta-bg-hover);transform:translateY(-1px)}
+    [data-theme="cursor"] .button.primary{background:transparent;color:var(--accent);border-color:var(--accent)}
+    [data-theme="cursor"] .button.primary:hover{background:color-mix(in srgb, var(--accent) 8%, transparent);border-color:var(--accent)}
+    .button.ghost{background:transparent;border-color:transparent;color:var(--text-2)}
+    .button.ghost:hover{background:var(--surface-2);color:var(--text-1)}
+    .button .kbd{font-family:var(--font-mono);font-size:11px;color:inherit;opacity:.7;padding:2px 5px;border-radius:var(--r-tag);background:color-mix(in srgb, currentColor 12%, transparent)}
+    a:focus-visible,.button:focus-visible,.theme-toggle:focus-visible,.cmdk-input:focus-visible,.cmdk-result:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+    main{padding-top:96px}
+
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:5px 9px;border-radius:var(--r-md);border:1px solid var(--border);background:var(--surface-1);color:var(--text-3);font-family:var(--font-mono);font-size:11px;text-transform:uppercase}
+    .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px color-mix(in srgb, var(--accent) 60%, transparent)}
+    .label{display:inline-block;font-family:var(--font-mono);font-size:11px;color:var(--text-3);letter-spacing:0.04em;text-transform:uppercase}
+    h1{margin:18px 0 0;max-width:880px;font-size:clamp(44px,6vw,80px);line-height:1.0;letter-spacing:-0.024em;font-weight:510}
+    h2{margin:8px 0 0;font-size:clamp(28px,3.4vw,44px);line-height:1.08;letter-spacing:-0.022em;font-weight:510}
+    h3{margin:0;font-size:20px;line-height:1.22;letter-spacing:-0.014em;font-weight:590;color:var(--text-1)}
+    .lead{margin:18px 0 0;max-width:720px;font-size:16px;line-height:1.55;color:var(--text-2)}
+    .section-copy{margin:8px 0 0;color:var(--text-2);font-size:15px;line-height:1.6}
+
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal { opacity: 0; transform: translateY(8px); transition: opacity .55s ease, transform .55s ease; }
+      .reveal.in-view { opacity: 1; transform: none; }
+      .reveal[data-d="1"]{transition-delay:.06s}.reveal[data-d="2"]{transition-delay:.12s}.reveal[data-d="3"]{transition-delay:.18s}.reveal[data-d="4"]{transition-delay:.24s}
+    }
+
+    /* Hero */
+    .hero{padding:56px 0 36px}
+    .cta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+
+    .command-shell{margin-top:36px;border-radius:var(--r-lg);background:var(--surface-1);border:1px solid var(--border);box-shadow:var(--shadow-xl);overflow:hidden}
+    .command-top{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid var(--border);background:var(--surface-2)}
+    .traffic{display:flex;gap:6px}
+    .traffic span{width:10px;height:10px;border-radius:50%;background:var(--surface-3)}
+    .traffic span:nth-child(1){background:var(--traffic-1)}.traffic span:nth-child(2){background:var(--traffic-2)}.traffic span:nth-child(3){background:var(--traffic-3)}
+    .command-title{justify-self:center;font-family:var(--font-mono);font-size:11px;color:var(--text-3);letter-spacing:0.04em;text-transform:uppercase}
+    .shortcut{font-family:var(--font-mono);font-size:11px;color:var(--text-4);padding:4px 7px;border-radius:var(--r-tag);background:color-mix(in srgb, currentColor 8%, transparent);border:1px solid var(--border)}
+
+    .series-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
+    .series-tile{display:block;padding:22px;border-right:1px solid var(--border);transition:background .15s ease}
+    .series-tile:last-child{border-right:none}
+    .series-tile:hover{background:var(--surface-2)}
+    .series-tile strong{display:block;font-size:17px;font-weight:590;letter-spacing:-0.012em;color:var(--text-1)}
+    .series-tile p{color:var(--text-2);line-height:1.55;margin:8px 0 12px;font-size:13.5px}
+    .series-tile .open{display:inline-flex;align-items:center;gap:4px;font-family:var(--font-mono);font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:0.04em}
+
+    .source-note{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 16px;border-top:1px solid var(--border);background:var(--surface-2);color:var(--text-2);font-size:13px}
+    .source-note .pill{font-family:var(--font-mono);font-size:11px;color:var(--info);padding:3px 7px;border-radius:var(--r-tag);background:color-mix(in srgb, var(--info) 10%, transparent);border:1px solid color-mix(in srgb, var(--info) 32%, transparent);text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap}
+
+    /* Filter chip strip + search trigger */
+    .filter-strip{margin-top:24px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface-1)}
+    .filter-strip .label{margin-right:6px}
+    .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:var(--r-tag);background:var(--surface-2);border:1px solid var(--border);color:var(--text-2);font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:0.04em}
+    .chip.is-active{background:var(--cta-bg);color:var(--cta-text);border-color:var(--cta-bg)}
+    [data-theme="cursor"] .chip.is-active{background:transparent;color:var(--accent);border-color:var(--accent)}
+    .chip .count{font-size:10px;color:var(--text-4)}
+    .chip.is-active .count{color:currentColor;opacity:.7}
+    .search-trigger{margin-left:auto;display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:var(--r-md);border:1px solid var(--border);background:var(--surface-2);color:var(--text-2);cursor:pointer;font-family:var(--font-sans);font-size:12px;transition:background .15s,border-color .15s}
+    .search-trigger:hover{background:var(--surface-3);border-color:var(--border-soft);color:var(--text-1)}
+    .search-trigger .kbd{font-family:var(--font-mono);font-size:10px;color:var(--text-3);padding:2px 5px;border-radius:var(--r-tag);background:color-mix(in srgb, currentColor 14%, transparent)}
+
+    /* Archive layout (sticky TOC + entries) */
+    section.archive{padding:48px 0 96px}
+    .archive-head{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:42px;margin-bottom:24px;align-items:end}
+    .archive-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:40px;margin-top:8px}
+    .toc{position:sticky;top:96px;align-self:start;padding:14px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface-1);max-height:calc(100vh - 120px);overflow:auto}
+    .toc h4{margin:0 0 12px;font-family:var(--font-mono);font-size:11px;font-weight:400;color:var(--text-3);text-transform:uppercase;letter-spacing:0.04em}
+    .toc ol{list-style:none;padding:0;margin:0;display:grid;gap:1px}
+    .toc a{display:grid;grid-template-columns:32px 1fr;align-items:center;gap:10px;padding:7px 8px;border-radius:var(--r-tag);color:var(--text-2);font-size:12.5px;transition:background .15s,color .15s}
+    .toc a:hover{background:var(--surface-2);color:var(--text-1)}
+    .toc a .num{font-family:var(--font-mono);font-size:11px;color:var(--text-4)}
+    .toc a:hover .num{color:var(--accent)}
+
+    .writing-list{display:grid;gap:8px}
+    .writing-entry{
+      display:grid;grid-template-columns:56px minmax(0,1fr) minmax(280px,.42fr);gap:16px;align-items:stretch;
+      border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface-1);box-shadow:var(--shadow-sm);
+      padding:16px;scroll-margin-top:110px;transition:border-color .15s,transform .15s,background .15s,box-shadow .15s;
+    }
+    .writing-entry:hover{transform:translateY(-2px);border-color:var(--border-soft);background:var(--surface-2);box-shadow:var(--shadow-xl)}
+    .writing-entry:target{border-color:var(--accent);box-shadow:var(--shadow-sm),0 0 0 1px var(--accent)}
+    .entry-anchor{display:grid;place-items:center;border-radius:var(--r-md);background:var(--surface-2);border:1px solid var(--border);font-family:var(--font-mono);color:var(--accent);font-size:13px}
+    .entry-main{padding:6px 0}
+    .entry-meta{display:flex;flex-wrap:wrap;gap:6px}
+    .entry-meta span{font-family:var(--font-mono);color:var(--text-3);font-size:11px;padding:4px 7px;border:1px solid var(--border);border-radius:var(--r-tag);background:var(--surface-2);text-transform:uppercase;letter-spacing:0.04em}
+    .entry-meta .series-d{color:var(--info);border-color:color-mix(in srgb, var(--info) 32%, transparent);background:color-mix(in srgb, var(--info) 8%, transparent)}
+    .entry-meta .series-w{color:var(--accent-2);border-color:color-mix(in srgb, var(--accent-2) 32%, transparent);background:color-mix(in srgb, var(--accent-2) 8%, transparent)}
+    .entry-main h3{margin:14px 0 0;font-size:clamp(22px,2.4vw,30px);line-height:1.05;letter-spacing:-0.022em;font-weight:510}
+    .entry-main p{margin:10px 0 0;color:var(--text-2);line-height:1.6;font-size:14.5px;max-width:720px}
+    .insight{margin-top:12px;display:grid;gap:5px;padding:12px;border-radius:var(--r-md);border:1px solid var(--border);background:var(--bg)}
+    .insight strong{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:0.04em;color:var(--accent)}
+    .insight span{color:var(--text-2);font-size:13px;line-height:1.55}
+    .entry-link{display:inline-flex;align-items:center;gap:5px;min-height:28px;margin-top:12px;color:var(--accent);font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:0.04em}
+    .entry-link svg{transition:transform .15s ease}
+    .entry-link:hover svg{transform:translate(2px,-2px)}
+    .entry-actions{border-radius:var(--r-md);border:1px solid var(--border);background:var(--surface-2);padding:14px}
+    .entry-actions .label{display:block;margin-bottom:8px}
+    .entry-actions ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;color:var(--text-2);font-size:13px;line-height:1.45}
+    .entry-actions li{padding-left:16px;position:relative}
+    .entry-actions li::before{content:">";position:absolute;left:0;top:0;color:var(--accent);font-family:var(--font-mono);font-size:12px}
+
+    /* Command-K overlay */
+    .cmdk-backdrop{
+      position:fixed;inset:0;z-index:80;display:none;align-items:flex-start;justify-content:center;
+      background:color-mix(in srgb, var(--bg) 70%, transparent);backdrop-filter:blur(6px);
+      padding-top:96px;
+    }
+    .cmdk-backdrop.open{display:flex}
+    .cmdk{
+      width:min(620px,calc(100% - 48px));
+      background:var(--surface-1);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow-xl);
+      display:flex;flex-direction:column;max-height:64vh;overflow:hidden;
+    }
+    .cmdk-search{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border);background:var(--surface-1)}
+    .cmdk-search .ico{color:var(--text-3);width:16px;height:16px}
+    .cmdk-input{flex:1;background:transparent;border:0;outline:none;color:var(--text-1);font-family:var(--font-sans);font-size:15px;letter-spacing:-0.13px}
+    .cmdk-input::placeholder{color:var(--text-3)}
+    .cmdk-esc{font-family:var(--font-mono);font-size:11px;color:var(--text-3);padding:3px 6px;border-radius:var(--r-tag);background:var(--surface-2);border:1px solid var(--border)}
+    .cmdk-list{overflow:auto;padding:6px}
+    .cmdk-result{
+      display:grid;grid-template-columns:36px 1fr auto;gap:10px;align-items:center;width:100%;text-align:left;
+      padding:10px 10px;border:0;border-radius:var(--r-md);background:transparent;color:var(--text-1);cursor:pointer;
+    }
+    .cmdk-result:hover,.cmdk-result.active{background:var(--surface-2)}
+    .cmdk-result .num{font-family:var(--font-mono);font-size:11px;color:var(--text-3)}
+    .cmdk-result .ttl{display:block;font-size:14px;font-weight:510;color:var(--text-1);letter-spacing:-0.012em}
+    .cmdk-result .meta{display:block;margin-top:2px;font-family:var(--font-mono);font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.04em}
+    .cmdk-result .arr{color:var(--accent);opacity:0;transition:opacity .15s}
+    .cmdk-result:hover .arr,.cmdk-result.active .arr{opacity:1}
+    .cmdk-empty{padding:20px;text-align:center;color:var(--text-3);font-size:13px}
+    .cmdk-foot{padding:8px 14px;border-top:1px solid var(--border);background:var(--surface-2);display:flex;justify-content:space-between;color:var(--text-3);font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:0.04em}
+    .cmdk-foot kbd{font-family:var(--font-mono);font-size:10px;color:var(--text-2);padding:1px 5px;border-radius:var(--r-tag);background:var(--surface-1);border:1px solid var(--border);margin:0 2px}
+
+    /* Footer */
+    .footer{margin-top:24px;padding:80px 0 40px;border-top:1px solid var(--border);background:var(--surface-1)}
+    .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px;margin-bottom:40px}
+    .footer h2{font-size:clamp(26px,3vw,36px)}
+    .footer p{color:var(--text-2);font-size:14px;line-height:1.6;max-width:480px}
+    .footer .col h4{font-family:var(--font-mono);font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.04em;margin:0 0 14px;font-weight:400}
+    .footer .col ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+    .footer .col a{display:inline-flex;align-items:center;gap:6px;color:var(--text-2);font-size:13.5px;transition:color .15s}
+    .footer .col a:hover{color:var(--text-1)}
+    .footer .col a .ext{font-family:var(--font-mono);color:var(--text-4);font-size:11px}
+    .footer-meta{display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:11px;color:var(--text-4);letter-spacing:0.04em;text-transform:uppercase}
+
+    @media(max-width:1100px){.archive-layout{grid-template-columns:1fr}.toc{position:static;max-height:none}}
+    @media(max-width:960px){
+      .archive-head,.writing-entry,.series-row{grid-template-columns:1fr}
+      .series-tile{border-right:none;border-bottom:1px solid var(--border)}.series-tile:last-child{border-bottom:none}
+      .entry-anchor{min-height:48px}
+      .nav{padding-left:12px;gap:6px}
+      .navlinks .hide-sm{display:none}
+      .theme-picker .lbl{display:none}
+      .search-trigger{margin-left:0;width:100%}
+    }
+    @media(max-width:700px){
+      .wrap{width:min(100% - 28px, 1240px)}
+      h1{letter-spacing:-0.02em}
+      .footer-grid{grid-template-columns:1fr;gap:32px}
+      .footer-meta{flex-direction:column;gap:12px;align-items:flex-start}
     }
   </style>
 </head>
 <body>
+  <div class="read-bar" aria-hidden="true"><i id="readBar"></i></div>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+    </defs>
+  </svg>
+
   <header>
     <div class="nav">
-      <a class="brand" href="index.html">Ali Osman Ozen</a>
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Ali Osman Ozen</span>
+      </a>
       <nav class="navlinks" aria-label="Primary navigation">
-        <a href="index.html#work">Work</a>
-        <a href="index.html#portfolio">Portfolio</a>
-        <a href="writing-archive.html">Writing</a>
+        <a href="index.html#work" class="hide-sm">Work</a>
+        <a href="index.html#portfolio" class="hide-sm">Capabilities</a>
+        <a href="writing-archive.html" aria-current="page">Writing</a>
         <a href="department-adoption.html">Adoption</a>
-        <a href="index.html#contact" class="button primary">Contact</a>
+        <div class="theme-picker" role="group" aria-label="Theme">
+          <button type="button" data-theme-set="linear" aria-pressed="true" title="Linear (Midnight Command)">
+            <svg class="ico" aria-hidden="true"><use href="#i-moon"/></svg><span class="lbl">Linear</span>
+          </button>
+          <button type="button" data-theme-set="cursor" aria-pressed="false" title="Cursor (Warm Ivory)">
+            <svg class="ico" aria-hidden="true"><use href="#i-sun"/></svg><span class="lbl">Cursor</span>
+          </button>
+          <button type="button" data-theme-set="stripe" aria-pressed="false" title="Stripe (Architectural Blueprint)">
+            <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg><span class="lbl">Stripe</span>
+          </button>
+        </div>
+        <a href="index.html#contact" class="button primary">Contact <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
       </nav>
     </div>
   </header>
+
   <main>
     <section class="hero">
       <div class="wrap">
-        <div class="eyebrow"><span class="dot"></span> Public LinkedIn writing archive</div>
+        <div class="eyebrow"><span class="dot"></span> PUBLIC LINKEDIN WRITING ARCHIVE</div>
         <h1>AI adoption notes, organized like a command center.</h1>
         <p class="lead">Daily and weekly writing distilled into a readable archive: operational signals, governance questions, workflow authority and department-level adoption moves.</p>
         <div class="cta-row">
           <a class="button primary" href="https://linkedin.com/in/0xozen">Open LinkedIn</a>
-          <a class="button" href="index.html#writing">Back to latest writing</a>
+          <a class="button" href="index.html#writing">Latest writing on home</a>
+          <a class="button ghost" href="department-adoption.html">Department map <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
         </div>
+
         <div class="command-shell" aria-label="Writing archive command panel">
-          <div class="command-top"><div class="traffic"><span></span><span></span><span></span></div><div class="command-title">Archive index</div><div class="shortcut">10 summaries</div></div>
-          <div class="series-row">
-            <a class="series-tile" href="#operational-work-surfaces"><strong>Daily Signal</strong><p>Short operational signals about where AI enters real work.</p></a>
-            <a class="series-tile" href="#authority-became-the-bottleneck"><strong>Signal vs. Noise</strong><p>Weekly synthesis separating adoption signal from market noise.</p></a>
-            <a class="series-tile" href="department-adoption.html"><strong>Department lens</strong><p>Recommendations for ownership, approvals, evidence and escalation.</p></a>
+          <div class="command-top">
+            <div class="traffic" aria-hidden="true"><span></span><span></span><span></span></div>
+            <div class="command-title">archive / index</div>
+            <div class="shortcut">10 summaries</div>
           </div>
-          <div class="source-note"><span>Sources pending</span><strong> Full post bodies and canonical source links will be attached after you provide the final source set.</strong></div>
+          <div class="series-row">
+            <a class="series-tile" href="#operational-work-surfaces">
+              <strong>Daily Signal</strong>
+              <p>Short operational signals about where AI enters real work.</p>
+              <span class="open">Open <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span>
+            </a>
+            <a class="series-tile" href="#authority-became-the-bottleneck">
+              <strong>Signal vs. Noise</strong>
+              <p>Weekly synthesis separating adoption signal from market noise.</p>
+              <span class="open">Open <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span>
+            </a>
+            <a class="series-tile" href="department-adoption.html">
+              <strong>Department lens</strong>
+              <p>Recommendations for ownership, approvals, evidence and escalation.</p>
+              <span class="open">Open <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span>
+            </a>
+          </div>
+          <div class="source-note">
+            <span class="pill">Sources pending</span>
+            <strong>Full post bodies and canonical source links will be attached after the final source set is provided.</strong>
+          </div>
+        </div>
+
+        <!-- Filter strip + search trigger -->
+        <div class="filter-strip" role="group" aria-label="Series filter">
+          <span class="label">Filter ·</span>
+          <span class="chip is-active">All <span class="count">10</span></span>
+          <span class="chip">Daily <span class="count">07</span></span>
+          <span class="chip">Weekly <span class="count">02</span></span>
+          <span class="chip">Bridge <span class="count">01</span></span>
+          <span class="chip">Adoption lens <span class="count">06</span></span>
+          <button class="search-trigger" type="button" id="searchTrigger" aria-label="Open search">
+            <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>
+            <span>Search archive</span>
+            <span class="kbd">⌘K</span>
+          </button>
         </div>
       </div>
     </section>
+
     <section class="archive">
       <div class="wrap">
         <div class="archive-head">
-          <div><div class="label">Full archive</div><h2>Writing blocks for hiring and adoption conversations.</h2></div>
-          <p class="section-copy">Each block is intentionally public-safe: title, adoption signal, operating lens and practical moves. The archive is a design/content shell for now; full post bodies and canonical LinkedIn/source URLs can be attached after you provide the final source set.</p>
+          <div>
+            <span class="label">[ FULL ARCHIVE ]</span>
+            <h2>Writing blocks for hiring and adoption conversations.</h2>
+          </div>
+          <p class="section-copy">Each block is intentionally public-safe: title, adoption signal, operating lens and practical moves. Press <kbd style="font-family:var(--font-mono);font-size:11px;padding:2px 6px;border-radius:var(--r-tag);background:var(--surface-2);border:1px solid var(--border);color:var(--text-2)">⌘K</kbd> to search.</p>
         </div>
-        <div class="writing-list">
-        <article id="operational-work-surfaces" class="writing-entry">
-          <a class="entry-anchor" href="#operational-work-surfaces" aria-label="Link to Operational Work Surfaces">#01</a>
-          <div class="entry-main">
-            <div class="entry-meta"><span>2026-05-04</span><span>Daily</span><span>Enterprise adoption lens</span></div>
-            <h3>Operational Work Surfaces</h3>
-            <p>Enterprise AI shifts from model announcements into work surfaces, control planes and real operating questions.</p>
-            <div class="insight"><strong>Adoption signal</strong><span>The value moves closer to the actual surface where work is assigned, reviewed, approved and remembered.</span></div>
-            <a class="entry-link" href="#operational-work-surfaces">Section link <span>↗</span></a>
+
+        <div class="archive-layout">
+          <aside class="toc" aria-label="Archive table of contents">
+            <h4>[ INDEX · 10 ]</h4>
+            <ol>
+              <li><a href="#operational-work-surfaces"><span class="num">/01</span><span>Operational Work Surfaces</span></a></li>
+              <li><a href="#authority-became-the-bottleneck"><span class="num">/02</span><span>Authority Became the Bottleneck</span></a></li>
+              <li><a href="#agent-control-plane"><span class="num">/03</span><span>Agent Control Plane</span></a></li>
+              <li><a href="#workflow-authority"><span class="num">/04</span><span>Workflow Authority</span></a></li>
+              <li><a href="#delegated-authority-phase"><span class="num">/05</span><span>Delegated Authority Phase</span></a></li>
+              <li><a href="#developer-control"><span class="num">/06</span><span>Developer Control</span></a></li>
+              <li><a href="#trust-layer-account-security"><span class="num">/07</span><span>Trust Layer Account Security</span></a></li>
+              <li><a href="#operations-workflow-control"><span class="num">/08</span><span>Operations Workflow Control</span></a></li>
+              <li><a href="#revenue-workflow-control"><span class="num">/09</span><span>Revenue Workflow Control</span></a></li>
+              <li><a href="#the-agentic-enterprise"><span class="num">/10</span><span>The Agentic Enterprise</span></a></li>
+            </ol>
+          </aside>
+
+          <div class="writing-list" id="writingList">
+            <article id="operational-work-surfaces" class="writing-entry reveal" data-d="1" data-title="Operational Work Surfaces" data-meta="2026-05-04 daily enterprise adoption">
+              <a class="entry-anchor" href="#operational-work-surfaces">/01</a>
+              <div class="entry-main">
+                <div class="entry-meta"><span>2026-05-04</span><span class="series-d">Daily</span><span>Enterprise adoption lens</span></div>
+                <h3>Operational Work Surfaces</h3>
+                <p>Enterprise AI shifts from model announcements into work surfaces, control planes and real operating questions.</p>
+                <div class="insight"><strong>Adoption signal</strong><span>The value moves closer to the actual surface where work is assigned, reviewed, approved and remembered.</span></div>
+                <a class="entry-link" href="#operational-work-surfaces">Section link <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+              </div>
+              <div class="entry-actions">
+                <span class="label">Recommended moves</span>
+                <ul><li>Map which team surface owns the work</li><li>Define approval checkpoints before external output</li><li>Track evidence instead of only output volume</li></ul>
+              </div>
+            </article>
+
+            <article id="authority-became-the-bottleneck" class="writing-entry reveal" data-d="2" data-title="Authority Became the Bottleneck" data-meta="issue 6 weekly signal noise">
+              <a class="entry-anchor" href="#authority-became-the-bottleneck">/02</a>
+              <div class="entry-main">
+                <div class="entry-meta"><span>Issue 6</span><span class="series-w">Weekly</span><span>Signal vs. Noise</span></div>
+                <h3>Authority Became the Bottleneck</h3>
+                <p>AI distribution changed. The next adoption question is under what authority a system should be allowed to act.</p>
+                <div class="insight"><strong>Adoption signal</strong><span>Models are no longer the only adoption question. Authority, permission boundaries and accountable escalation become the bottleneck.</span></div>
+                <a class="entry-link" href="#authority-became-the-bottleneck">Section link <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+              </div>
+              <div class="entry-actions">
+                <span class="label">Recommended moves</span>
+                <ul><li>Separate suggestion rights from action rights</li><li>Create evidence trails for delegated work</li><li>Review authority rules by department</li></ul>
+              </div>
+            </article>
+
+            <article id="agent-control-plane" class="writing-entry reveal" data-d="3" data-title="Agent Control Plane" data-meta="2026-05-03 daily cross-department">
+              <a class="entry-anchor" href="#agent-control-plane">/03</a>
+              <div class="entry-main">
+                <div class="entry-meta"><span>2026-05-03</span><span class="series-d">Daily</span><span>Cross-department synthesis</span></div>
+                <h3>Agent Control Plane</h3>
+                <p>The strongest signal is the rise of memory, permissions, evidence, evaluation, cost and accountability around AI work.</p>
+                <div class="insight"><strong>Adoption signal</strong><span>AI adoption needs a control plane that connects memory, tools, human review and operating evidence.</span></div>
+                <a class="entry-link" href="#agent-control-plane">Section link <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+              </div>
+              <div class="entry-actions">
+                <span class="label">Recommended moves</span>
+                <ul><li>Inventory memory and tool access</li><li>Add evaluation gates before scale</li><li>Make cost and accountability visible</li></ul>
+              </div>
+            </article>
+
+            <article id="workflow-authority" class="writing-entry reveal" data-d="4" data-title="Workflow Authority" data-meta="2026-05-02 weekly bridge synthesis">
+              <a class="entry-anchor" href="#workflow-authority">/04</a>
+              <div class="entry-main">
+                <div class="entry-meta"><span>2026-05-02</span><span class="series-w">Weekly Bridge</span><span>Synthesis</span></div>
+                <h3>Workflow Authority</h3>
+                <p>Daily signals connect into one pattern: isolated assistance is becoming delegated workflow authority.</p>
+                <div class="insight"><strong>Adoption signal</strong><span>The operating question becomes how much work AI can prepare, route or execute before a human must approve.</span></div>
+                <a class="entry-link" href="#workflow-authority">Section link <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+              </div>
+              <div class="entry-actions">
+                <span class="label">Recommended moves</span>
+                <ul><li>Name the owner for each workflow</li><li>Write the escalation rule before automating</li><li>Measure movement through the workflow</li></ul>
+              </div>
+            </article>
+
+            <article id="delegated-authority-phase" class="writing-entry" data-title="Delegated Authority Phase" data-meta="2026-05-02 daily cross-department">
+              <a class="entry-anchor" href="#delegated-authority-phase">/05</a>
+              <div class="entry-main">
+                <div class="entry-meta"><span>2026-05-02</span><span class="series-d">Daily</span><span>Cross-department synthesis</span></div>
+                <h3>Delegated Authority Phase</h3>
+                <p>AI adoption moves from tool usage into delegated authority. The bottleneck becomes where AI is allowed to act.</p>
+                <div class="insight"><strong>Adoption signal</strong><span>Adoption pressure increases when teams ask not what AI can write, but what AI can safely do.</span></div>
+                <a class="entry-link" href="#delegated-authority-phase">Section link <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+              </div>
+              <div class="entry-actions">
+                <span class="label">Recommended moves</span>
+                <ul><li>Classify low-risk actions first</li><li>Create approval levels by consequence</li><li>Keep exception handling visible</li></ul>
+              </div>
+            </article>
+
+            <article id="developer-control" class="writing-entry" data-title="Developer Control" data-meta="2026-05-01 daily build intelligence">
+              <a class="entry-anchor" href="#developer-control">/06</a>
+              <div class="entry-main">
+                <div class="entry-meta"><span>2026-05-01</span><span class="series-d">Daily</span><span>Build &amp; Intelligence Layer</span></div>
+                <h3>Developer Control</h3>
+                <p>Product and engineering teams need controlled developer workflows, reusable knowledge, evaluation gates and tool permission boundaries.</p>
+                <div class="insight"><strong>Adoption signal</strong><span>Developer AI creates leverage only when context, permissions, tests and review loops become part of the system.</span></div>
+                <a class="entry-link" href="#developer-control">Section link <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+              </div>
+              <div class="entry-actions">
+                <span class="label">Recommended moves</span>
+                <ul><li>Require tests or review gates</li><li>Reuse shared context instead of repeating prompts</li><li>Limit tool access by task type</li></ul>
+              </div>
+            </article>
+
+            <article id="trust-layer-account-security" class="writing-entry" data-title="Trust Layer Account Security" data-meta="2026-04-30 daily people legal compliance trust">
+              <a class="entry-anchor" href="#trust-layer-account-security">/07</a>
+              <div class="entry-main">
+                <div class="entry-meta"><span>2026-04-30</span><span class="series-d">Daily</span><span>People / Legal / Compliance / Trust</span></div>
+                <h3>Trust Layer Account Security</h3>
+                <p>AI adoption moves from tool access to controlled delegation, with identity, account security, approvals and recovery paths.</p>
+                <div class="insight"><strong>Adoption signal</strong><span>Trust work needs explicit boundaries because AI can touch identity, policy, records and sensitive operational context.</span></div>
+                <a class="entry-link" href="#trust-layer-account-security">Section link <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+              </div>
+              <div class="entry-actions">
+                <span class="label">Recommended moves</span>
+                <ul><li>Map sensitive data boundaries</li><li>Define account recovery paths</li><li>Keep policy evidence attached to actions</li></ul>
+              </div>
+            </article>
+
+            <article id="operations-workflow-control" class="writing-entry" data-title="Operations Workflow Control" data-meta="2026-04-29 daily operations procurement finance hr it security">
+              <a class="entry-anchor" href="#operations-workflow-control">/08</a>
+              <div class="entry-main">
+                <div class="entry-meta"><span>2026-04-29</span><span class="series-d">Daily</span><span>Operations / Procurement / Finance / HR / IT / Security</span></div>
+                <h3>Operations Workflow Control</h3>
+                <p>The next adoption wave is not better chat. It is operational control across procurement, finance, HR, IT and security.</p>
+                <div class="insight"><strong>Adoption signal</strong><span>Operations teams need controlled preparation, triage and exception handling more than another general chat surface.</span></div>
+                <a class="entry-link" href="#operations-workflow-control">Section link <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+              </div>
+              <div class="entry-actions">
+                <span class="label">Recommended moves</span>
+                <ul><li>Start with repeated queue work</li><li>Route exceptions to named owners</li><li>Measure cycle-time movement</li></ul>
+              </div>
+            </article>
+
+            <article id="revenue-workflow-control" class="writing-entry" data-title="Revenue Workflow Control" data-meta="2026-04-28 daily market layer revenue signal">
+              <a class="entry-anchor" href="#revenue-workflow-control">/09</a>
+              <div class="entry-main">
+                <div class="entry-meta"><span>2026-04-28</span><span class="series-d">Daily</span><span>Market Layer / Revenue Signal</span></div>
+                <h3>Revenue Workflow Control</h3>
+                <p>Revenue AI moves from content generation into workflow control: research, CRM updates, proposal preparation and review loops.</p>
+                <div class="insight"><strong>Adoption signal</strong><span>Revenue adoption improves when AI prepares better sales work and keeps CRM, proposal and review evidence connected.</span></div>
+                <a class="entry-link" href="#revenue-workflow-control">Section link <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+              </div>
+              <div class="entry-actions">
+                <span class="label">Recommended moves</span>
+                <ul><li>Connect research to CRM hygiene</li><li>Review external messaging before send</li><li>Measure pipeline movement, not content volume</li></ul>
+              </div>
+            </article>
+
+            <article id="the-agentic-enterprise" class="writing-entry" data-title="The Agentic Enterprise" data-meta="issue 5 weekly signal noise">
+              <a class="entry-anchor" href="#the-agentic-enterprise">/10</a>
+              <div class="entry-main">
+                <div class="entry-meta"><span>Issue 5</span><span class="series-w">Weekly</span><span>Signal vs. Noise</span></div>
+                <h3>The Agentic Enterprise</h3>
+                <p>The agentic enterprise arrived, and the governance problem arrived with it.</p>
+                <div class="insight"><strong>Adoption signal</strong><span>Enterprise adoption becomes real when agents enter workflows, but governance must arrive at the same time.</span></div>
+                <a class="entry-link" href="#the-agentic-enterprise">Section link <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+              </div>
+              <div class="entry-actions">
+                <span class="label">Recommended moves</span>
+                <ul><li>Treat governance as product infrastructure</li><li>Define human review points</li><li>Keep adoption evidence visible to leadership</li></ul>
+              </div>
+            </article>
           </div>
-          <div class="entry-actions">
-            <div class="command-title">Recommended moves</div>
-            <ul><li>Map which team surface owns the work</li><li>Define approval checkpoints before external output</li><li>Track evidence instead of only output volume</li></ul>
-          </div>
-        </article>
-        <article id="authority-became-the-bottleneck" class="writing-entry">
-          <a class="entry-anchor" href="#authority-became-the-bottleneck" aria-label="Link to Authority Became the Bottleneck">#02</a>
-          <div class="entry-main">
-            <div class="entry-meta"><span>Issue 6</span><span>Weekly</span><span>Signal vs. Noise</span></div>
-            <h3>Authority Became the Bottleneck</h3>
-            <p>AI distribution changed. The next adoption question is under what authority a system should be allowed to act.</p>
-            <div class="insight"><strong>Adoption signal</strong><span>Models are no longer the only adoption question. Authority, permission boundaries and accountable escalation become the bottleneck.</span></div>
-            <a class="entry-link" href="#authority-became-the-bottleneck">Section link <span>↗</span></a>
-          </div>
-          <div class="entry-actions">
-            <div class="command-title">Recommended moves</div>
-            <ul><li>Separate suggestion rights from action rights</li><li>Create evidence trails for delegated work</li><li>Review authority rules by department</li></ul>
-          </div>
-        </article>
-        <article id="agent-control-plane" class="writing-entry">
-          <a class="entry-anchor" href="#agent-control-plane" aria-label="Link to Agent Control Plane">#03</a>
-          <div class="entry-main">
-            <div class="entry-meta"><span>2026-05-03</span><span>Daily</span><span>Cross-department synthesis</span></div>
-            <h3>Agent Control Plane</h3>
-            <p>The strongest signal is the rise of memory, permissions, evidence, evaluation, cost and accountability around AI work.</p>
-            <div class="insight"><strong>Adoption signal</strong><span>AI adoption needs a control plane that connects memory, tools, human review and operating evidence.</span></div>
-            <a class="entry-link" href="#agent-control-plane">Section link <span>↗</span></a>
-          </div>
-          <div class="entry-actions">
-            <div class="command-title">Recommended moves</div>
-            <ul><li>Inventory memory and tool access</li><li>Add evaluation gates before scale</li><li>Make cost and accountability visible</li></ul>
-          </div>
-        </article>
-        <article id="workflow-authority" class="writing-entry">
-          <a class="entry-anchor" href="#workflow-authority" aria-label="Link to Workflow Authority">#04</a>
-          <div class="entry-main">
-            <div class="entry-meta"><span>2026-05-02</span><span>Weekly Bridge</span><span>Weekly bridge / Synthesis</span></div>
-            <h3>Workflow Authority</h3>
-            <p>Daily signals connect into one pattern: isolated assistance is becoming delegated workflow authority.</p>
-            <div class="insight"><strong>Adoption signal</strong><span>The operating question becomes how much work AI can prepare, route or execute before a human must approve.</span></div>
-            <a class="entry-link" href="#workflow-authority">Section link <span>↗</span></a>
-          </div>
-          <div class="entry-actions">
-            <div class="command-title">Recommended moves</div>
-            <ul><li>Name the owner for each workflow</li><li>Write the escalation rule before automating</li><li>Measure movement through the workflow</li></ul>
-          </div>
-        </article>
-        <article id="delegated-authority-phase" class="writing-entry">
-          <a class="entry-anchor" href="#delegated-authority-phase" aria-label="Link to Delegated Authority Phase">#05</a>
-          <div class="entry-main">
-            <div class="entry-meta"><span>2026-05-02</span><span>Daily</span><span>Cross-department synthesis</span></div>
-            <h3>Delegated Authority Phase</h3>
-            <p>AI adoption moves from tool usage into delegated authority. The bottleneck becomes where AI is allowed to act.</p>
-            <div class="insight"><strong>Adoption signal</strong><span>Adoption pressure increases when teams ask not what AI can write, but what AI can safely do.</span></div>
-            <a class="entry-link" href="#delegated-authority-phase">Section link <span>↗</span></a>
-          </div>
-          <div class="entry-actions">
-            <div class="command-title">Recommended moves</div>
-            <ul><li>Classify low-risk actions first</li><li>Create approval levels by consequence</li><li>Keep exception handling visible</li></ul>
-          </div>
-        </article>
-        <article id="developer-control" class="writing-entry">
-          <a class="entry-anchor" href="#developer-control" aria-label="Link to Developer Control">#06</a>
-          <div class="entry-main">
-            <div class="entry-meta"><span>2026-05-01</span><span>Daily</span><span>Build & Intelligence Layer</span></div>
-            <h3>Developer Control</h3>
-            <p>Product and engineering teams need controlled developer workflows, reusable knowledge, evaluation gates and tool permission boundaries.</p>
-            <div class="insight"><strong>Adoption signal</strong><span>Developer AI creates leverage only when context, permissions, tests and review loops become part of the system.</span></div>
-            <a class="entry-link" href="#developer-control">Section link <span>↗</span></a>
-          </div>
-          <div class="entry-actions">
-            <div class="command-title">Recommended moves</div>
-            <ul><li>Require tests or review gates</li><li>Reuse shared context instead of repeating prompts</li><li>Limit tool access by task type</li></ul>
-          </div>
-        </article>
-        <article id="trust-layer-account-security" class="writing-entry">
-          <a class="entry-anchor" href="#trust-layer-account-security" aria-label="Link to Trust Layer Account Security">#07</a>
-          <div class="entry-main">
-            <div class="entry-meta"><span>2026-04-30</span><span>Daily</span><span>People / Legal / Compliance / Trust</span></div>
-            <h3>Trust Layer Account Security</h3>
-            <p>AI adoption moves from tool access to controlled delegation, with identity, account security, approvals and recovery paths.</p>
-            <div class="insight"><strong>Adoption signal</strong><span>Trust work needs explicit boundaries because AI can touch identity, policy, records and sensitive operational context.</span></div>
-            <a class="entry-link" href="#trust-layer-account-security">Section link <span>↗</span></a>
-          </div>
-          <div class="entry-actions">
-            <div class="command-title">Recommended moves</div>
-            <ul><li>Map sensitive data boundaries</li><li>Define account recovery paths</li><li>Keep policy evidence attached to actions</li></ul>
-          </div>
-        </article>
-        <article id="operations-workflow-control" class="writing-entry">
-          <a class="entry-anchor" href="#operations-workflow-control" aria-label="Link to Operations Workflow Control">#08</a>
-          <div class="entry-main">
-            <div class="entry-meta"><span>2026-04-29</span><span>Daily</span><span>Operations / Procurement / Finance / HR / IT / Security</span></div>
-            <h3>Operations Workflow Control</h3>
-            <p>The next adoption wave is not better chat. It is operational control across procurement, finance, HR, IT and security.</p>
-            <div class="insight"><strong>Adoption signal</strong><span>Operations teams need controlled preparation, triage and exception handling more than another general chat surface.</span></div>
-            <a class="entry-link" href="#operations-workflow-control">Section link <span>↗</span></a>
-          </div>
-          <div class="entry-actions">
-            <div class="command-title">Recommended moves</div>
-            <ul><li>Start with repeated queue work</li><li>Route exceptions to named owners</li><li>Measure cycle-time movement</li></ul>
-          </div>
-        </article>
-        <article id="revenue-workflow-control" class="writing-entry">
-          <a class="entry-anchor" href="#revenue-workflow-control" aria-label="Link to Revenue Workflow Control">#09</a>
-          <div class="entry-main">
-            <div class="entry-meta"><span>2026-04-28</span><span>Daily</span><span>Market Layer / Revenue Signal</span></div>
-            <h3>Revenue Workflow Control</h3>
-            <p>Revenue AI moves from content generation into workflow control: research, CRM updates, proposal preparation and review loops.</p>
-            <div class="insight"><strong>Adoption signal</strong><span>Revenue adoption improves when AI prepares better sales work and keeps CRM, proposal and review evidence connected.</span></div>
-            <a class="entry-link" href="#revenue-workflow-control">Section link <span>↗</span></a>
-          </div>
-          <div class="entry-actions">
-            <div class="command-title">Recommended moves</div>
-            <ul><li>Connect research to CRM hygiene</li><li>Review external messaging before send</li><li>Measure pipeline movement, not content volume</li></ul>
-          </div>
-        </article>
-        <article id="the-agentic-enterprise" class="writing-entry">
-          <a class="entry-anchor" href="#the-agentic-enterprise" aria-label="Link to The Agentic Enterprise">#10</a>
-          <div class="entry-main">
-            <div class="entry-meta"><span>Issue 5</span><span>Weekly</span><span>Signal vs. Noise</span></div>
-            <h3>The Agentic Enterprise</h3>
-            <p>The agentic enterprise arrived, and the governance problem arrived with it.</p>
-            <div class="insight"><strong>Adoption signal</strong><span>Enterprise adoption becomes real when agents enter workflows, but governance must arrive at the same time.</span></div>
-            <a class="entry-link" href="#the-agentic-enterprise">Section link <span>↗</span></a>
-          </div>
-          <div class="entry-actions">
-            <div class="command-title">Recommended moves</div>
-            <ul><li>Treat governance as product infrastructure</li><li>Define human review points</li><li>Keep adoption evidence visible to leadership</li></ul>
-          </div>
-        </article>
         </div>
       </div>
     </section>
   </main>
+
+  <!-- Command-K overlay -->
+  <div class="cmdk-backdrop" id="cmdkBackdrop" role="dialog" aria-modal="true" aria-label="Search archive">
+    <div class="cmdk">
+      <div class="cmdk-search">
+        <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>
+        <input class="cmdk-input" id="cmdkInput" type="text" placeholder="Search the archive - title, date, lens…" autocomplete="off" />
+        <span class="cmdk-esc">ESC</span>
+      </div>
+      <div class="cmdk-list" id="cmdkList"></div>
+      <div class="cmdk-foot">
+        <span><kbd>↑</kbd><kbd>↓</kbd> navigate · <kbd>↵</kbd> jump</span>
+        <span>10 entries indexed</span>
+      </div>
+    </div>
+  </div>
+
   <footer class="footer" id="contact">
     <div class="wrap">
-      <div class="footer-card">
-        <div class="label">Contact</div>
-        <h2>Want to discuss practical AI adoption?</h2>
-        <p>I can help translate AI possibilities into workflow ownership, control points, pilots and communication that teams can use.</p>
-        <div class="cta-row"><a class="button primary" href="mailto:ali.ozen@rwth-aachen.de">ali.ozen@rwth-aachen.de</a><a class="button" href="https://linkedin.com/in/0xozen">LinkedIn</a><a class="button" href="https://github.com/0xOzen">GitHub</a></div>
+      <div class="footer-grid">
+        <div class="col">
+          <span class="label">[ CONTACT ]</span>
+          <h2>Want to discuss practical AI adoption?</h2>
+          <p>I can help translate AI possibilities into workflow ownership, control points, pilots and communication that teams can use.</p>
+          <div class="cta-row">
+            <a class="button primary" href="mailto:ali.ozen@rwth-aachen.de">ali.ozen@rwth-aachen.de</a>
+            <a class="button" href="https://linkedin.com/in/0xozen">LinkedIn <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+          </div>
+        </div>
+        <div class="col">
+          <h4>Site</h4>
+          <ul>
+            <li><a href="index.html">Home <span class="ext">/01</span></a></li>
+            <li><a href="index.html#work">Work <span class="ext">/02</span></a></li>
+            <li><a href="index.html#playground">Autonomy ladder <span class="ext">/03</span></a></li>
+            <li><a href="department-adoption.html">Adoption map <span class="ext">↗</span></a></li>
+          </ul>
+        </div>
+        <div class="col">
+          <h4>Elsewhere</h4>
+          <ul>
+            <li><a href="https://linkedin.com/in/0xozen">LinkedIn <span class="ext">↗</span></a></li>
+            <li><a href="https://github.com/0xOzen">GitHub <span class="ext">↗</span></a></li>
+            <li><a href="mailto:ali.ozen@rwth-aachen.de">Email <span class="ext">↗</span></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <span>Cologne, DE · 2026</span>
+        <span>Designed with Refero · Linear &amp; Cursor</span>
       </div>
     </div>
   </footer>
+
+  <script>
+    /* Theme picker (3-way) */
+    (function () {
+      var meta = document.getElementById('theme-color-meta');
+      var btns = document.querySelectorAll('.theme-picker [data-theme-set]');
+      var THEME_COLOR = { linear: '#08090a', cursor: '#f7f7f4', stripe: '#ffffff' };
+      var THEMES = ['linear', 'cursor', 'stripe'];
+      function valid(t) { return THEMES.indexOf(t) !== -1; }
+      function setTheme(t) {
+        if (!valid(t)) t = 'linear';
+        document.documentElement.setAttribute('data-theme', t);
+        try { localStorage.setItem('theme', t); } catch (e) {}
+        if (meta) meta.setAttribute('content', THEME_COLOR[t]);
+        btns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.themeSet === t ? 'true' : 'false'); });
+      }
+      var current = document.documentElement.getAttribute('data-theme') || 'linear';
+      if (!valid(current)) current = 'linear';
+      setTheme(current);
+      btns.forEach(function (b) { b.addEventListener('click', function () { setTheme(b.dataset.themeSet); }); });
+    })();
+
+    /* Reading progress bar */
+    (function () {
+      var bar = document.getElementById('readBar');
+      if (!bar) return;
+      function update() {
+        var doc = document.documentElement;
+        var max = (doc.scrollHeight - doc.clientHeight) || 1;
+        var pct = Math.max(0, Math.min(100, (window.scrollY / max) * 100));
+        bar.style.width = pct + '%';
+      }
+      var ticking = false;
+      window.addEventListener('scroll', function () {
+        if (!ticking) {
+          window.requestAnimationFrame(function () { update(); ticking = false; });
+          ticking = true;
+        }
+      }, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
+
+    /* Scroll-fade reveal */
+    (function () {
+      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var els = document.querySelectorAll('.reveal');
+      if (prefersReduced || !('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('in-view'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+
+    /* Command-K archive search */
+    (function () {
+      var entries = Array.prototype.map.call(document.querySelectorAll('.writing-entry'), function (el, i) {
+        return {
+          id: el.id,
+          num: '/' + String(i + 1).padStart(2, '0'),
+          title: el.dataset.title || '',
+          meta: el.dataset.meta || '',
+          metaText: (el.querySelector('.entry-meta') || {}).innerText || ''
+        };
+      });
+
+      var backdrop = document.getElementById('cmdkBackdrop');
+      var input = document.getElementById('cmdkInput');
+      var list = document.getElementById('cmdkList');
+      var trigger = document.getElementById('searchTrigger');
+      var activeIndex = 0;
+      var filtered = entries.slice();
+
+      function render() {
+        if (!filtered.length) {
+          list.innerHTML = '<div class="cmdk-empty">No matches.</div>';
+          return;
+        }
+        list.innerHTML = filtered.map(function (e, idx) {
+          return '<button class="cmdk-result' + (idx === activeIndex ? ' active' : '') + '" data-id="' + e.id + '">' +
+                   '<span class="num">' + e.num + '</span>' +
+                   '<span><span class="ttl">' + e.title + '</span><span class="meta">' + e.metaText.replace(/\s+/g, ' · ') + '</span></span>' +
+                   '<span class="arr">↵</span>' +
+                 '</button>';
+        }).join('');
+        Array.prototype.forEach.call(list.querySelectorAll('.cmdk-result'), function (btn) {
+          btn.addEventListener('click', function () { jumpTo(btn.dataset.id); });
+        });
+      }
+
+      function filter(q) {
+        q = (q || '').trim().toLowerCase();
+        if (!q) { filtered = entries.slice(); }
+        else {
+          filtered = entries.filter(function (e) {
+            return (e.title + ' ' + e.meta).toLowerCase().indexOf(q) !== -1;
+          });
+        }
+        activeIndex = 0;
+        render();
+      }
+
+      function open() {
+        backdrop.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        setTimeout(function () { input.focus(); input.select(); }, 0);
+        filter(input.value);
+      }
+      function close() {
+        backdrop.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      function jumpTo(id) {
+        close();
+        var el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.replaceState(null, '', '#' + id);
+          el.style.transition = 'box-shadow .6s ease';
+          el.style.boxShadow = '0 0 0 2px var(--accent)';
+          setTimeout(function () { el.style.boxShadow = ''; }, 1200);
+        }
+      }
+
+      // Triggers
+      if (trigger) trigger.addEventListener('click', open);
+      document.addEventListener('keydown', function (e) {
+        var isMod = e.metaKey || e.ctrlKey;
+        if (isMod && (e.key === 'k' || e.key === 'K')) { e.preventDefault(); open(); return; }
+        if (!backdrop.classList.contains('open')) return;
+        if (e.key === 'Escape') { e.preventDefault(); close(); }
+        else if (e.key === 'ArrowDown') { e.preventDefault(); activeIndex = Math.min(activeIndex + 1, filtered.length - 1); render(); scrollActive(); }
+        else if (e.key === 'ArrowUp')   { e.preventDefault(); activeIndex = Math.max(activeIndex - 1, 0); render(); scrollActive(); }
+        else if (e.key === 'Enter')     { e.preventDefault(); if (filtered[activeIndex]) jumpTo(filtered[activeIndex].id); }
+      });
+      function scrollActive() {
+        var act = list.querySelector('.cmdk-result.active');
+        if (act) act.scrollIntoView({ block: 'nearest' });
+      }
+      input.addEventListener('input', function () { filter(input.value); });
+      backdrop.addEventListener('click', function (e) { if (e.target === backdrop) close(); });
+
+      filter('');
+    })();
+  </script>
 </body>
 </html>

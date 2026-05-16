@@ -2,3 +2,7 @@
 .env
 node_modules/
 dist/
+# Local generated/source material not published directly
+/data/linkedin_articles.json
+/assets/adoption-map/ChatGPT Image*.png
+/department-adoption-*-preview.html

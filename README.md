@@ -29,4 +29,4 @@ https://0xozen.github.io/
 ```
 
 Privacy note:
-This page intentionally does not publish Ali's phone number. Use the private job-search CV corpus for recruiter/application-specific documents.
+This site intentionally keeps recruiter-specific contact details outside the public repository.

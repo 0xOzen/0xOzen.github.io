@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img">
+  <title>Ali Osman Ozen — AI Adoption Architect</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f1011"/>
+      <stop offset="1" stop-color="#08090a"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5e6ad2"/>
+      <stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <pattern id="grid" width="56" height="56" patternUnits="userSpaceOnUse">
+      <path d="M56 0H0V56" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="glow" cx="14%" cy="22%" r="60%">
+      <stop offset="0" stop-color="rgba(94,106,210,0.25)"/>
+      <stop offset="1" stop-color="rgba(94,106,210,0)"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="92%" cy="80%" r="60%">
+      <stop offset="0" stop-color="rgba(2,184,204,0.18)"/>
+      <stop offset="1" stop-color="rgba(2,184,204,0)"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
+
+  <!-- Brand mark + name -->
+  <g transform="translate(72 64)">
+    <rect width="40" height="40" rx="8" fill="url(#mark)"/>
+    <path d="M11 30V10h5l4 11 4-11h5v20h-4V19l-3 11h-4L15 19v11z" fill="#f7f8f8"/>
+    <text x="56" y="28" fill="#f7f8f8" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="510" letter-spacing="-0.022em">Ali Osman Ozen</text>
+  </g>
+
+  <!-- Eyebrow -->
+  <g transform="translate(72 200)">
+    <rect width="338" height="30" rx="6" fill="#0f1011" stroke="#23252a"/>
+    <circle cx="18" cy="15" r="3" fill="#27a644"/>
+    <text x="32" y="20" fill="#8a8f98" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="0.04em">AI ADOPTION ARCHITECT · COLOGNE, DE</text>
+  </g>
+
+  <!-- Headline -->
+  <text x="72" y="290" fill="#f7f8f8" font-family="Inter, system-ui, sans-serif" font-size="64" font-weight="510" letter-spacing="-0.024em">
+    AI adoption needs an
+  </text>
+  <text x="72" y="362" fill="#f7f8f8" font-family="Inter, system-ui, sans-serif" font-size="64" font-weight="510" letter-spacing="-0.024em">
+    operating model.
+  </text>
+
+  <!-- Sub -->
+  <text x="72" y="424" fill="#d0d6e0" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="400" letter-spacing="-0.011em">
+    Workflows · governance · adoption plans · technology-to-business translation.
+  </text>
+
+  <!-- Tag chips -->
+  <g transform="translate(72 480)" font-family="IBM Plex Mono, monospace" font-size="13">
+    <g>
+      <rect x="0" y="0" width="118" height="34" rx="2" fill="#161718" stroke="#23252a"/>
+      <text x="14" y="22" fill="#8a8f98">AI ADOPTION</text>
+    </g>
+    <g transform="translate(126 0)">
+      <rect width="148" height="34" rx="2" fill="#161718" stroke="#23252a"/>
+      <text x="14" y="22" fill="#8a8f98">WORKFLOW DESIGN</text>
+    </g>
+    <g transform="translate(282 0)">
+      <rect width="118" height="34" rx="2" fill="#161718" stroke="#23252a"/>
+      <text x="14" y="22" fill="#8a8f98">GOVERNANCE</text>
+    </g>
+    <g transform="translate(408 0)">
+      <rect width="148" height="34" rx="2" fill="#161718" stroke="#23252a"/>
+      <text x="14" y="22" fill="#8a8f98">TRANSFORMATION</text>
+    </g>
+  </g>
+
+  <!-- Right-side terminal mock -->
+  <g transform="translate(740 168)">
+    <rect width="392" height="334" rx="12" fill="#0f1011" stroke="#23252a"/>
+    <rect width="392" height="36" rx="12" fill="#161718"/>
+    <rect y="24" width="392" height="12" fill="#161718"/>
+    <line x1="0" y1="36" x2="392" y2="36" stroke="#23252a"/>
+    <g transform="translate(14 18)">
+      <circle cx="6" cy="0" r="5" fill="#ff5f56"/>
+      <circle cx="22" cy="0" r="5" fill="#ffbd2e"/>
+      <circle cx="38" cy="0" r="5" fill="#27c93f"/>
+    </g>
+    <text x="196" y="22" text-anchor="middle" fill="#8a8f98" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="0.04em">ADOPTION / CONTROL-PLANE</text>
+
+    <g font-family="IBM Plex Mono, monospace" font-size="13" transform="translate(20 64)">
+      <text fill="#5e6ad2">›</text>
+      <text x="14" fill="#f7f8f8">adopt status --layer all</text>
+
+      <g transform="translate(0 30)" fill="#8a8f98">
+        <text>scanning <tspan fill="#02b8cc">6 operating layers</tspan> · resolving owners …</text>
+      </g>
+      <g transform="translate(0 56)" fill="#8a8f98"><text><tspan fill="#27a644">✓</tspan> leadership <tspan fill="#5e6ad2">visibility</tspan> ready</text></g>
+      <g transform="translate(0 78)" fill="#8a8f98"><text><tspan fill="#27a644">✓</tspan> revenue / cx <tspan fill="#5e6ad2">handoffs</tspan> mapped</text></g>
+      <g transform="translate(0 100)" fill="#8a8f98"><text><tspan fill="#27a644">✓</tspan> operations <tspan fill="#5e6ad2">queues</tspan> instrumented</text></g>
+      <g transform="translate(0 122)" fill="#8a8f98"><text><tspan fill="#27a644">✓</tspan> finance <tspan fill="#5e6ad2">approvals</tspan> gated</text></g>
+      <g transform="translate(0 144)" fill="#8a8f98"><text><tspan fill="#27a644">✓</tspan> trust <tspan fill="#5e6ad2">identity</tspan> bounded</text></g>
+      <g transform="translate(0 166)" fill="#8a8f98"><text><tspan fill="#27a644">✓</tspan> build <tspan fill="#5e6ad2">evals + rollback</tspan> in place</text></g>
+      <line x1="0" y1="186" x2="352" y2="186" stroke="#23252a"/>
+      <g transform="translate(0 210)">
+        <text fill="#5e6ad2">›</text>
+        <text x="14" fill="#f7f8f8">adopt next --suggest</text>
+      </g>
+      <g transform="translate(0 232)" fill="#8a8f98">
+        <text><tspan fill="#02b8cc">→</tspan> pick one workflow · define authority · log evidence</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Footer line -->
+  <line x1="72" y1="556" x2="1128" y2="556" stroke="#23252a"/>
+  <text x="72" y="586" fill="#8a8f98" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="0.04em">0XOZEN.GITHUB.IO · 2026</text>
+  <text x="1128" y="586" text-anchor="end" fill="#8a8f98" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="0.04em">DESIGNED WITH REFERO · LINEAR / CURSOR / STRIPE</text>
+</svg>
