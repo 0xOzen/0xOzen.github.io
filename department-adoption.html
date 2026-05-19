@@ -159,8 +159,249 @@
     @media (prefers-reduced-motion: no-preference) {
       .reveal { opacity: 0; transform: translateY(8px); transition: opacity .55s ease, transform .55s ease; }
       .reveal.in-view { opacity: 1; transform: none; }
-      .reveal[data-d="1"]{transition-delay:.06s}.reveal[data-d="2"]{transition-delay:.12s}.reveal[data-d="3"]{transition-delay:.18s}.reveal[data-d="4"]{transition-delay:.24s}
+      .reveal[data-d="1"]{transition-delay:.06s}.reveal[data-d="2"]{transition-delay:.12s}.reveal[data-d="3"]{transition-delay:.18s}.reveal[data-d="4"]{transition-delay:.24s}.reveal[data-d="5"]{transition-delay:.30s}.reveal[data-d="6"]{transition-delay:.36s}
     }
+
+    /* ===================== Animation keyframes ===================== */
+    @keyframes blink { 50% { opacity: 0; } }
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.35); opacity: .55; }
+    }
+    @keyframes svgPulse {
+      0%, 100% { opacity: 1; r: 3; }
+      50% { opacity: .35; r: 4.5; }
+    }
+    @keyframes svgGlow {
+      0%, 100% { opacity: .05; }
+      50% { opacity: .12; }
+    }
+    @keyframes svgRing {
+      0% { stroke-dashoffset: 0; opacity: .32; }
+      50% { opacity: .55; }
+      100% { stroke-dashoffset: -100; opacity: .32; }
+    }
+    @keyframes drawArrow {
+      to { stroke-dashoffset: 0; }
+    }
+    @keyframes fadeUpSvg {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes shimmer {
+      0% { transform: translateX(-120%) skewX(-12deg); }
+      100% { transform: translateX(220%) skewX(-12deg); }
+    }
+    @keyframes barGrow {
+      from { width: 0%; }
+    }
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-2px); }
+    }
+
+    /* Live status dot (eyebrow) */
+    .dot.live { animation: pulseDot 2.2s ease-in-out infinite; }
+
+    /* ============ Hero terminal control-plane ============ */
+    .control-plane {
+      position: relative;
+      margin-top: 32px;
+      border-radius: var(--r-lg);
+      background: var(--surface-1);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+    }
+    .cp-bar {
+      display: grid; grid-template-columns: auto 1fr auto;
+      align-items: center; gap: 12px;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+    .cp-traffic { display: flex; gap: 6px; }
+    .cp-traffic span { width: 10px; height: 10px; border-radius: 50%; background: var(--surface-3); display: inline-block; }
+    [data-theme="linear"] .cp-traffic span:nth-child(1) { background: #ff5f57; }
+    [data-theme="linear"] .cp-traffic span:nth-child(2) { background: #febc2e; }
+    [data-theme="linear"] .cp-traffic span:nth-child(3) { background: #28c840; }
+    [data-theme="cursor"] .cp-traffic span:nth-child(1) { background: #d2615a; }
+    [data-theme="cursor"] .cp-traffic span:nth-child(2) { background: #d8a657; }
+    [data-theme="cursor"] .cp-traffic span:nth-child(3) { background: #6f9b6e; }
+    [data-theme="stripe"] .cp-traffic span:nth-child(1) { background: #e65a4d; }
+    [data-theme="stripe"] .cp-traffic span:nth-child(2) { background: #e8a93a; }
+    [data-theme="stripe"] .cp-traffic span:nth-child(3) { background: #4cb377; }
+    .cp-title { justify-self: center; font-family: var(--font-mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.08em; text-transform: uppercase; }
+    .cp-meta  { font-family: var(--font-mono); font-size: 11px; color: var(--text-4); letter-spacing: 0.04em; }
+
+    .cp-body { padding: 22px 24px 8px; font-family: var(--font-mono); font-size: 13px; color: var(--text-2); line-height: 1.75; }
+    .cp-line { display: flex; gap: 10px; align-items: baseline; }
+    .cp-line .glyph { color: var(--accent); }
+    .cp-line .cmd   { color: var(--text-1); }
+    .cp-scan { padding-left: 22px; color: var(--text-3); opacity: 0; transform: translateY(2px); transition: opacity .35s ease, transform .35s ease; }
+    .cp-scan.shown { opacity: 1; transform: none; }
+    .cp-scan b { color: var(--text-2); font-weight: 500; }
+    .cp-check {
+      padding-left: 22px; color: var(--text-2);
+      opacity: 0; transform: translateX(-4px);
+      transition: opacity .3s ease, transform .3s ease;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .cp-check.shown { opacity: 1; transform: none; }
+    .cp-check .tick {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 14px; height: 14px; color: var(--success);
+      font-weight: 590;
+    }
+    .cp-check b { color: var(--accent); font-weight: 500; }
+    .cp-rule { height: 1px; background: var(--border); margin: 14px 0; }
+    .cp-line.suggest { opacity: 0; transition: opacity .4s ease .1s; }
+    .cp-line.suggest.shown { opacity: 1; }
+    .cp-line.suggest .arrow { color: var(--success); }
+
+    .cp-caret {
+      display: inline-block;
+      width: 7px; height: 14px;
+      vertical-align: -2px;
+      background: var(--accent);
+      animation: blink 1s steps(1) infinite;
+      margin-left: 2px;
+    }
+
+    .cp-cards {
+      display: grid; grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 8px;
+      padding: 14px 24px 22px;
+    }
+    .cp-card {
+      border-radius: var(--r-md);
+      padding: 12px 14px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      opacity: 0; transform: translateY(6px);
+      transition: opacity .45s ease, transform .45s ease, border-color .2s ease, background .2s ease;
+    }
+    .cp-card.shown { opacity: 1; transform: none; }
+    .cp-card:hover { border-color: var(--border-soft); background: var(--surface-3); }
+    .cp-card .label { font-family: var(--font-mono); font-size: 10px; color: var(--text-4); letter-spacing: 0.06em; text-transform: uppercase; }
+    .cp-card .v { display: block; margin-top: 8px; font-family: var(--font-mono); color: var(--text-1); font-size: 14px; font-weight: 500; }
+    .cp-card .v small { color: var(--text-3); font-weight: 400; margin-left: 4px; font-size: 11px; }
+
+    @media (max-width: 720px) {
+      .cp-cards { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .cp-caret { animation: none; }
+      .cp-scan, .cp-check, .cp-card, .cp-line.suggest { opacity: 1; transform: none; }
+    }
+
+    /* ============ Source-strip counter ============ */
+    .source-card strong[data-count] { font-variant-numeric: tabular-nums; }
+
+    /* ============ Roadmap visual shimmer ============ */
+    .roadmap-visual { position: relative; }
+    .roadmap-visual::after {
+      content: "";
+      position: absolute; top: 0; bottom: 0; left: 0; width: 40%;
+      background: linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--accent) 8%, transparent) 50%, transparent 100%);
+      pointer-events: none;
+      transform: translateX(-120%) skewX(-12deg);
+      opacity: 0;
+    }
+    .roadmap-visual.in-view::after { opacity: 1; animation: shimmer 2.4s ease-out 0.4s 1; }
+
+    /* ============ SVG diagram animated layers ============ */
+    @media (prefers-reduced-motion: no-preference) {
+      .diagram-shell .layer-group { opacity: 0; }
+      .diagram-shell.animate .layer-group { animation: fadeUpSvg .6s ease forwards; }
+      .diagram-shell.animate .layer-group.l1 { animation-delay: .15s; }
+      .diagram-shell.animate .layer-group.l2 { animation-delay: .25s; }
+      .diagram-shell.animate .layer-group.l3 { animation-delay: .35s; }
+      .diagram-shell.animate .layer-group.l4 { animation-delay: .45s; }
+      .diagram-shell.animate .layer-group.l5 { animation-delay: .55s; }
+      .diagram-shell.animate .layer-group.l6 { animation-delay: .65s; }
+      .diagram-shell .core-group { opacity: 0; }
+      .diagram-shell.animate .core-group { animation: fadeUpSvg .7s ease .8s forwards; }
+      .diagram-shell .core-ring { animation: svgRing 6s linear infinite; }
+      .diagram-shell .core-glow { transform-origin: 620px 360px; transform-box: fill-box; animation: svgGlow 4s ease-in-out infinite; }
+      .diagram-shell .status-dot { transform-origin: center; transform-box: fill-box; animation: svgPulse 2.4s ease-in-out infinite; }
+      .diagram-shell .status-dot.d2 { animation-delay: .4s; }
+      .diagram-shell .status-dot.d3 { animation-delay: .8s; }
+      .diagram-shell .status-dot.d4 { animation-delay: 1.2s; }
+      .diagram-shell .status-dot.d5 { animation-delay: 1.6s; }
+      .diagram-shell .status-dot.d6 { animation-delay: 2.0s; }
+      .diagram-shell .arrow-line {
+        stroke-dasharray: 220;
+        stroke-dashoffset: 220;
+      }
+      .diagram-shell.animate .arrow-line { animation: drawArrow 1.1s ease forwards 1s; }
+      .diagram-shell .autonomy-pill { opacity: 0; }
+      .diagram-shell.animate .autonomy-pill { animation: fadeUpSvg .5s ease forwards 1.6s; }
+      .diagram-shell.animate .autonomy-pill.p2 { animation-delay: 1.75s; }
+      .diagram-shell.animate .autonomy-pill.p3 { animation-delay: 1.9s; }
+    }
+
+    /* ============ Animated progress bars ============ */
+    .bar i { width: 0; transition: width 1.2s cubic-bezier(.2,.7,.2,1); }
+    .metric.in-view .bar i { width: var(--target, 0%); }
+    @media (prefers-reduced-motion: reduce) {
+      .bar i { transition: none; width: var(--target, 0%); }
+    }
+
+    /* ============ Ladder rung stagger ============ */
+    @media (prefers-reduced-motion: no-preference) {
+      .insight .rung { opacity: 0; transform: translateX(-6px); transition: opacity .5s ease, transform .5s ease, background .15s ease, border-color .15s ease; }
+      .insight.in-view .rung { opacity: 1; transform: none; }
+      .insight.in-view .rung:nth-child(1) { transition-delay: .25s; }
+      .insight.in-view .rung:nth-child(2) { transition-delay: .35s; }
+      .insight.in-view .rung:nth-child(3) { transition-delay: .45s; }
+      .insight.in-view .rung:nth-child(4) { transition-delay: .55s; }
+      .insight.in-view .rung:nth-child(5) { transition-delay: .65s; }
+    }
+    .rung { transition: background .15s ease, border-color .15s ease, transform .15s ease; }
+    .rung:hover { background: var(--surface-3); border-color: var(--border-soft); transform: translateX(2px); }
+
+    /* ============ Card lift hover (timeline + cards) ============ */
+    .timeline-step, .card { transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease, background .15s ease; }
+    .timeline-step:hover, .card:hover { border-color: var(--border-soft); transform: translateY(-2px); box-shadow: var(--shadow-xl); background: var(--surface-1); }
+
+    /* ============ Signal list pop-in ============ */
+    @media (prefers-reduced-motion: no-preference) {
+      .insight .signal-list li, .timeline-step .signal-list li {
+        opacity: 0; transform: translateX(-4px);
+        transition: opacity .4s ease, transform .4s ease;
+      }
+      .insight.in-view .signal-list li,
+      .timeline-step.in-view .signal-list li { opacity: 1; transform: none; }
+      .insight.in-view .signal-list li:nth-child(1),
+      .timeline-step.in-view .signal-list li:nth-child(1) { transition-delay: .2s; }
+      .insight.in-view .signal-list li:nth-child(2),
+      .timeline-step.in-view .signal-list li:nth-child(2) { transition-delay: .3s; }
+      .insight.in-view .signal-list li:nth-child(3),
+      .timeline-step.in-view .signal-list li:nth-child(3) { transition-delay: .4s; }
+      .insight.in-view .signal-list li:nth-child(4),
+      .timeline-step.in-view .signal-list li:nth-child(4) { transition-delay: .5s; }
+      .insight.in-view .signal-list li:nth-child(5),
+      .timeline-step.in-view .signal-list li:nth-child(5) { transition-delay: .6s; }
+    }
+
+    /* ============ Map-card lift + tag glow on hover ============ */
+    .map-card .tag { transition: background .15s ease, color .15s ease, border-color .15s ease; }
+    .map-card:hover .tag { color: var(--text-1); border-color: var(--border-soft); background: var(--surface-3); }
+
+    /* ============ Table row hover with stripe ============ */
+    tbody tr { transition: background .15s ease, transform .15s ease; }
+    tbody tr:hover td:first-child {
+      box-shadow: inset 3px 0 0 var(--accent);
+    }
+
+    /* ============ Pill hover ============ */
+    .pill { transition: transform .15s ease, background .15s ease; }
+    .pill:hover { transform: translateY(-1px); }
+
+    /* ============ Jump-chip lift ============ */
+    .jump-chip { transition: background .15s, color .15s, border-color .15s, transform .15s; }
+    .jump-chip:hover { transform: translateY(-1px); }
 
     /* Hero */
     .hero{padding:56px 0 24px}
@@ -340,7 +581,7 @@
   <main>
     <section class="hero">
       <div class="wrap">
-        <div class="eyebrow"><span class="dot"></span> DEPARTMENT AI ADOPTION MAP · DAILY SIGNAL SYNTHESIS</div>
+        <div class="eyebrow"><span class="dot live"></span> DEPARTMENT AI ADOPTION MAP · DAILY SIGNAL SYNTHESIS</div>
         <h1>AI adoption becomes real when authority is designed.</h1>
         <p class="lead">This page turns the Daily Signal and Signal vs. Noise writing themes into a practical operating map: where AI enters work, which department owns the workflow, what level of autonomy is safe, and which controls make the work reviewable.</p>
         <div class="cta-row">
@@ -349,11 +590,49 @@
           <a class="button ghost" href="index.html">Back to home <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
         </div>
 
+        <!-- Animated control-plane terminal -->
+        <div class="control-plane reveal" aria-label="Adoption control-plane status preview">
+          <div class="cp-bar">
+            <div class="cp-traffic" aria-hidden="true"><span></span><span></span><span></span></div>
+            <div class="cp-title">ADOPTION / CONTROL-PLANE</div>
+            <div class="cp-meta">v0.6 · 2026</div>
+          </div>
+          <div class="cp-body" id="cpBody">
+            <div class="cp-line">
+              <span class="glyph">›</span>
+              <span class="cmd" id="cpCmd"></span>
+              <span class="cp-caret" id="cpCaret" aria-hidden="true"></span>
+            </div>
+            <div class="cp-scan" data-step="1">scanning <b>6 operating layers</b> · resolving owners …</div>
+            <div class="cp-check" data-step="2"><span class="tick">✓</span><span>leadership <b>visibility</b> ready</span></div>
+            <div class="cp-check" data-step="3"><span class="tick">✓</span><span>revenue / cx <b>handoffs</b> mapped</span></div>
+            <div class="cp-check" data-step="4"><span class="tick">✓</span><span>operations <b>queues</b> instrumented</span></div>
+            <div class="cp-check" data-step="5"><span class="tick">✓</span><span>finance <b>approvals</b> gated</span></div>
+            <div class="cp-check" data-step="6"><span class="tick">✓</span><span>trust <b>identity</b> bounded</span></div>
+            <div class="cp-check" data-step="7"><span class="tick">✓</span><span>build <b>evals + rollback</b> in place</span></div>
+            <div class="cp-rule"></div>
+            <div class="cp-line suggest" data-step="8">
+              <span class="glyph">›</span>
+              <span class="cmd">adopt next --suggest</span>
+            </div>
+            <div class="cp-line suggest" data-step="9" style="margin-top:4px">
+              <span class="arrow">→</span>
+              <span style="color:var(--text-3)">pick one workflow · define authority · log evidence</span>
+            </div>
+          </div>
+          <div class="cp-cards" id="cpCards" aria-label="Control plane summary">
+            <article class="cp-card"><span class="label">Owner</span><span class="v">named <small>per workflow</small></span></article>
+            <article class="cp-card"><span class="label">Authority</span><span class="v">suggest → commit</span></article>
+            <article class="cp-card"><span class="label">Evidence</span><span class="v">attached <small>before scale</small></span></article>
+            <article class="cp-card"><span class="label">Recovery</span><span class="v">rehearsed</span></article>
+          </div>
+        </div>
+
         <div class="source-strip reveal" aria-label="Writing source summary">
-          <article class="source-card"><span class="kicker">Source base</span><strong>8 notes</strong><span>Daily Signal posts from Apr 28-May 4 plus weekly Signal vs. Noise synthesis.</span></article>
+          <article class="source-card"><span class="kicker">Source base</span><strong data-count="8" data-suffix=" notes">0 notes</strong><span>Daily Signal posts from Apr 28-May 4 plus weekly Signal vs. Noise synthesis.</span></article>
           <article class="source-card"><span class="kicker">Central theme</span><strong>Authority</strong><span>The question moves from "can AI help?" to "what is AI allowed to do?"</span></article>
           <article class="source-card"><span class="kicker">Adoption unit</span><strong>Workflow</strong><span>AI value appears when customer, supplier, ticket, file, record and decision movement is controlled.</span></article>
-          <article class="source-card"><span class="kicker">Control spine</span><strong>6 gates</strong><span>Owner, boundary, permission, approval, evidence and recovery.</span></article>
+          <article class="source-card"><span class="kicker">Control spine</span><strong data-count="6" data-suffix=" gates">0 gates</strong><span>Owner, boundary, permission, approval, evidence and recovery.</span></article>
         </div>
 
         <figure class="roadmap-visual reveal" aria-label="AI adoption roadmap from visibility to scale">
@@ -405,20 +684,20 @@
 
             <rect width="1240" height="820" fill="var(--svg-bg)"/>
             <rect width="1240" height="820" fill="url(#grid)"/>
-            <circle cx="620" cy="360" r="250" fill="var(--accent)" opacity=".05"/>
-            <circle cx="620" cy="360" r="168" fill="none" stroke="var(--accent)" stroke-opacity=".32" stroke-width="1.2" stroke-dasharray="4 6"/>
+            <circle class="core-glow" cx="620" cy="360" r="250" fill="var(--accent)" opacity=".05"/>
+            <circle class="core-ring" cx="620" cy="360" r="168" fill="none" stroke="var(--accent)" stroke-opacity=".32" stroke-width="1.2" stroke-dasharray="4 6"/>
             <circle cx="620" cy="360" r="258" fill="none" stroke="var(--svg-stroke)" stroke-width="1"/>
 
             <g fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" opacity=".7" marker-end="url(#arrow)">
-              <path d="M412 192 C485 215 520 260 555 302"/>
-              <path d="M828 192 C755 215 720 260 685 302"/>
-              <path d="M355 392 C435 392 493 376 540 360"/>
-              <path d="M885 392 C805 392 747 376 700 360"/>
-              <path d="M420 632 C492 560 530 496 562 420"/>
-              <path d="M820 632 C748 560 710 496 678 420"/>
+              <path class="arrow-line" d="M412 192 C485 215 520 260 555 302"/>
+              <path class="arrow-line" d="M828 192 C755 215 720 260 685 302"/>
+              <path class="arrow-line" d="M355 392 C435 392 493 376 540 360"/>
+              <path class="arrow-line" d="M885 392 C805 392 747 376 700 360"/>
+              <path class="arrow-line" d="M420 632 C492 560 530 496 562 420"/>
+              <path class="arrow-line" d="M820 632 C748 560 710 496 678 420"/>
             </g>
 
-            <g filter="url(#shadow)">
+            <g class="core-group" filter="url(#shadow)">
               <rect x="470" y="246" width="300" height="228" rx="8" fill="var(--accent)" opacity=".9"/>
               <rect x="476" y="252" width="288" height="216" rx="6" fill="var(--svg-panel-2)" stroke="var(--svg-stroke)"/>
               <text x="620" y="298" text-anchor="middle" fill="var(--svg-text-1)" font-size="13" font-weight="590" font-family="Inter, sans-serif" letter-spacing="0.04em">AI ADOPTION CONTROL PLANE</text>
@@ -438,41 +717,53 @@
             </g>
 
             <g filter="url(#shadow)">
-              <rect x="90" y="88" width="280" height="150" rx="6" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)"/>
-              <text x="118" y="124" fill="var(--accent)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">MONDAY · /01</text>
-              <text x="118" y="156" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">Leadership</text>
-              <text x="118" y="186" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Visibility, operating model, decision logs</text>
-              <circle cx="350" cy="113" r="3" fill="var(--success)"/>
+              <g class="layer-group l1">
+                <rect x="90" y="88" width="280" height="150" rx="6" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)"/>
+                <text x="118" y="124" fill="var(--accent)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">MONDAY · /01</text>
+                <text x="118" y="156" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">Leadership</text>
+                <text x="118" y="186" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Visibility, operating model, decision logs</text>
+                <circle class="status-dot d1" cx="350" cy="113" r="3" fill="var(--success)"/>
+              </g>
 
-              <rect x="870" y="88" width="280" height="150" rx="6" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)"/>
-              <text x="898" y="124" fill="var(--info)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">MONEY LAYER · /02</text>
-              <text x="898" y="156" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">Finance &amp; Procurement</text>
-              <text x="898" y="186" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Spend, supplier work, approvals, audit</text>
-              <circle cx="1130" cy="113" r="3" fill="var(--success)"/>
+              <g class="layer-group l2">
+                <rect x="870" y="88" width="280" height="150" rx="6" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)"/>
+                <text x="898" y="124" fill="var(--info)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">MONEY LAYER · /02</text>
+                <text x="898" y="156" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">Finance &amp; Procurement</text>
+                <text x="898" y="186" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Spend, supplier work, approvals, audit</text>
+                <circle class="status-dot d2" cx="1130" cy="113" r="3" fill="var(--success)"/>
+              </g>
 
-              <rect x="80" y="318" width="300" height="150" rx="6" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)"/>
-              <text x="108" y="354" fill="var(--accent-2)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">MARKET LAYER · /03</text>
-              <text x="108" y="386" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">Revenue &amp; CX</text>
-              <text x="108" y="416" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Signals, CRM, proposals, customer handoffs</text>
-              <circle cx="360" cy="343" r="3" fill="var(--success)"/>
+              <g class="layer-group l3">
+                <rect x="80" y="318" width="300" height="150" rx="6" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)"/>
+                <text x="108" y="354" fill="var(--accent-2)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">MARKET LAYER · /03</text>
+                <text x="108" y="386" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">Revenue &amp; CX</text>
+                <text x="108" y="416" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Signals, CRM, proposals, customer handoffs</text>
+                <circle class="status-dot d3" cx="360" cy="343" r="3" fill="var(--success)"/>
+              </g>
 
-              <rect x="860" y="318" width="300" height="150" rx="6" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)"/>
-              <text x="888" y="354" fill="var(--accent)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">TRUST LAYER · /04</text>
-              <text x="888" y="386" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">People, Legal, Security</text>
-              <text x="888" y="416" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Identity, policy, account control, recovery</text>
-              <circle cx="1140" cy="343" r="3" fill="var(--success)"/>
+              <g class="layer-group l4">
+                <rect x="860" y="318" width="300" height="150" rx="6" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)"/>
+                <text x="888" y="354" fill="var(--accent)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">TRUST LAYER · /04</text>
+                <text x="888" y="386" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">People, Legal, Security</text>
+                <text x="888" y="416" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Identity, policy, account control, recovery</text>
+                <circle class="status-dot d4" cx="1140" cy="343" r="3" fill="var(--success)"/>
+              </g>
 
-              <rect x="90" y="590" width="290" height="150" rx="6" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)"/>
-              <text x="118" y="626" fill="var(--info)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">OPERATING LAYER · /05</text>
-              <text x="118" y="658" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">Operations &amp; Service</text>
-              <text x="118" y="688" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Queues, exceptions, SLAs, workflow movement</text>
-              <circle cx="360" cy="615" r="3" fill="var(--success)"/>
+              <g class="layer-group l5">
+                <rect x="90" y="590" width="290" height="150" rx="6" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)"/>
+                <text x="118" y="626" fill="var(--info)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">OPERATING LAYER · /05</text>
+                <text x="118" y="658" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">Operations &amp; Service</text>
+                <text x="118" y="688" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Queues, exceptions, SLAs, workflow movement</text>
+                <circle class="status-dot d5" cx="360" cy="615" r="3" fill="var(--success)"/>
+              </g>
 
-              <rect x="860" y="590" width="290" height="150" rx="6" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)"/>
-              <text x="888" y="626" fill="var(--accent-2)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">BUILD LAYER · /06</text>
-              <text x="888" y="658" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">Product, Eng, Data</text>
-              <text x="888" y="688" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Repos, evals, tests, release gates</text>
-              <circle cx="1140" cy="615" r="3" fill="var(--success)"/>
+              <g class="layer-group l6">
+                <rect x="860" y="590" width="290" height="150" rx="6" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)"/>
+                <text x="888" y="626" fill="var(--accent-2)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">BUILD LAYER · /06</text>
+                <text x="888" y="658" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">Product, Eng, Data</text>
+                <text x="888" y="688" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Repos, evals, tests, release gates</text>
+                <circle class="status-dot d6" cx="1140" cy="615" r="3" fill="var(--success)"/>
+              </g>
             </g>
 
             <g font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--svg-text-2)" letter-spacing="0.04em">
@@ -481,12 +772,18 @@
               <text x="486" y="592" fill="var(--svg-text-3)" font-size="11">Each higher level requires stronger control.</text>
             </g>
             <g transform="translate(700 532)">
-              <rect x="0"   y="0" width="86"  height="22" rx="2" fill="var(--svg-panel-1)" stroke="var(--accent)"/>
-              <text x="43"  y="15" text-anchor="middle" fill="var(--accent)" font-size="10" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">VISIBLE</text>
-              <rect x="96"  y="0" width="100" height="22" rx="2" fill="var(--svg-panel-1)" stroke="var(--info)"/>
-              <text x="146" y="15" text-anchor="middle" fill="var(--info)" font-size="10" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">CONTROLLED</text>
-              <rect x="206" y="0" width="100" height="22" rx="2" fill="var(--svg-panel-1)" stroke="var(--accent-2)"/>
-              <text x="256" y="15" text-anchor="middle" fill="var(--accent-2)" font-size="10" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">LEARNING</text>
+              <g class="autonomy-pill p1">
+                <rect x="0"   y="0" width="86"  height="22" rx="2" fill="var(--svg-panel-1)" stroke="var(--accent)"/>
+                <text x="43"  y="15" text-anchor="middle" fill="var(--accent)" font-size="10" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">VISIBLE</text>
+              </g>
+              <g class="autonomy-pill p2">
+                <rect x="96"  y="0" width="100" height="22" rx="2" fill="var(--svg-panel-1)" stroke="var(--info)"/>
+                <text x="146" y="15" text-anchor="middle" fill="var(--info)" font-size="10" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">CONTROLLED</text>
+              </g>
+              <g class="autonomy-pill p3">
+                <rect x="206" y="0" width="100" height="22" rx="2" fill="var(--svg-panel-1)" stroke="var(--accent-2)"/>
+                <text x="256" y="15" text-anchor="middle" fill="var(--accent-2)" font-size="10" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">LEARNING</text>
+              </g>
             </g>
           </svg>
         </div>
@@ -660,11 +957,11 @@
           <p class="section-copy">The weekly synthesis repeatedly returns to the same control stack: visible work, explicit boundaries, human approvals, evidence trails and recovery loops.</p>
         </div>
         <div class="control-grid" aria-label="AI adoption control scorecard">
-          <article class="metric reveal" data-d="1"><div class="num">/01 · Visibility</div><h3>Where does AI live?</h3><p>Which workflows contain AI, which agents exist, and where do they operate?</p><div class="bar"><i style="width:92%"></i></div></article>
-          <article class="metric reveal" data-d="2"><div class="num">/02 · Boundary</div><h3>What can it touch?</h3><p>What can AI read, write, trigger, change or never touch?</p><div class="bar"><i style="width:86%"></i></div></article>
-          <article class="metric reveal" data-d="3"><div class="num">/03 · Approval</div><h3>Who signs off?</h3><p>When is a human checkpoint required before movement or commitment?</p><div class="bar"><i style="width:88%"></i></div></article>
-          <article class="metric reveal" data-d="4"><div class="num">/04 · Evidence</div><h3>What is preserved?</h3><p>Where are inputs, outputs, decisions, logs and review notes preserved?</p><div class="bar"><i style="width:82%"></i></div></article>
-          <article class="metric reveal" data-d="4"><div class="num">/05 · Recovery</div><h3>How do we undo?</h3><p>How can access be revoked, actions reversed and workflows improved after failure?</p><div class="bar"><i style="width:78%"></i></div></article>
+          <article class="metric reveal" data-d="1" style="--target:92%"><div class="num">/01 · Visibility</div><h3>Where does AI live?</h3><p>Which workflows contain AI, which agents exist, and where do they operate?</p><div class="bar"><i></i></div></article>
+          <article class="metric reveal" data-d="2" style="--target:86%"><div class="num">/02 · Boundary</div><h3>What can it touch?</h3><p>What can AI read, write, trigger, change or never touch?</p><div class="bar"><i></i></div></article>
+          <article class="metric reveal" data-d="3" style="--target:88%"><div class="num">/03 · Approval</div><h3>Who signs off?</h3><p>When is a human checkpoint required before movement or commitment?</p><div class="bar"><i></i></div></article>
+          <article class="metric reveal" data-d="4" style="--target:82%"><div class="num">/04 · Evidence</div><h3>What is preserved?</h3><p>Where are inputs, outputs, decisions, logs and review notes preserved?</p><div class="bar"><i></i></div></article>
+          <article class="metric reveal" data-d="5" style="--target:78%"><div class="num">/05 · Recovery</div><h3>How do we undo?</h3><p>How can access be revoked, actions reversed and workflows improved after failure?</p><div class="bar"><i></i></div></article>
         </div>
       </div>
     </section>
@@ -819,12 +1116,124 @@
       var els = document.querySelectorAll('.reveal');
       if (prefersReduced || !('IntersectionObserver' in window)) {
         els.forEach(function (el) { el.classList.add('in-view'); });
+        var d = document.querySelector('.diagram-shell');
+        if (d) d.classList.add('animate');
         return;
       }
       var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('in-view');
+            if (e.target.classList.contains('diagram-shell')) {
+              e.target.classList.add('animate');
+            }
+            io.unobserve(e.target);
+          }
+        });
       }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
       els.forEach(function (el) { io.observe(el); });
+    })();
+
+    /* Control-plane terminal typing animation */
+    (function () {
+      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var cmdEl   = document.getElementById('cpCmd');
+      var caretEl = document.getElementById('cpCaret');
+      var body    = document.getElementById('cpBody');
+      var cards   = document.querySelectorAll('#cpCards .cp-card');
+      if (!cmdEl || !body) return;
+
+      var steps = body.querySelectorAll('[data-step]');
+      function showAll() {
+        cmdEl.textContent = 'adopt status --layer all';
+        steps.forEach(function (s) { s.classList.add('shown'); });
+        cards.forEach(function (c) { c.classList.add('shown'); });
+      }
+      if (prefersReduced) { showAll(); return; }
+
+      var phrase = 'adopt status --layer all';
+      var i = 0;
+      function tick() {
+        if (i <= phrase.length) {
+          cmdEl.textContent = phrase.slice(0, i);
+          i++;
+          setTimeout(tick, 36 + Math.random() * 30);
+        } else {
+          if (caretEl) caretEl.style.animationDuration = '1.4s';
+          steps.forEach(function (s, idx) {
+            setTimeout(function () { s.classList.add('shown'); }, 160 * (idx + 1));
+          });
+          cards.forEach(function (c, idx) {
+            setTimeout(function () { c.classList.add('shown'); }, 160 * (steps.length + 1) + 120 * idx);
+          });
+        }
+      }
+
+      // Trigger when the panel scrolls into view (or right away if already there)
+      var panel = document.querySelector('.control-plane');
+      if (!panel || !('IntersectionObserver' in window)) { setTimeout(tick, 480); return; }
+      var rect = panel.getBoundingClientRect();
+      if (rect.top < window.innerHeight) {
+        setTimeout(tick, 480);
+      } else {
+        var io2 = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              setTimeout(tick, 200);
+              io2.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.2 });
+        io2.observe(panel);
+      }
+    })();
+
+    /* Counter roll-up for source-strip numbers */
+    (function () {
+      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var nodes = document.querySelectorAll('[data-count]');
+      if (!nodes.length) return;
+      function runCount(el) {
+        var target = parseInt(el.dataset.count, 10) || 0;
+        var suffix = el.dataset.suffix || '';
+        if (prefersReduced) { el.textContent = target + suffix; return; }
+        var start = performance.now();
+        var dur = 900;
+        function frame(t) {
+          var p = Math.min(1, (t - start) / dur);
+          // ease-out cubic
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(target * eased) + suffix;
+          if (p < 1) requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+      }
+      if (!('IntersectionObserver' in window)) {
+        nodes.forEach(runCount);
+        return;
+      }
+      var io3 = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { runCount(e.target); io3.unobserve(e.target); }
+        });
+      }, { threshold: 0.5 });
+      nodes.forEach(function (n) { io3.observe(n); });
+    })();
+
+    /* Smooth-scroll offset for sticky nav on jump links */
+    (function () {
+      var links = document.querySelectorAll('a[href^="#"]');
+      links.forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          var id = a.getAttribute('href');
+          if (!id || id === '#' || id.length < 2) return;
+          var t = document.querySelector(id);
+          if (!t) return;
+          e.preventDefault();
+          var y = t.getBoundingClientRect().top + window.pageYOffset - 80;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        });
+      });
     })();
   </script>
 </body>
