@@ -102,7 +102,10 @@
       pointer-events:none;
     }
     a{color:inherit;text-decoration:none}
-    .wrap{width:min(1240px,calc(100% - 48px));margin:0 auto}
+    /* Full-screen layout with a safe gutter */
+    .wrap{width:calc(100% - 48px);max-width:none;margin:0 auto}
+    @media (min-width: 1400px) { .wrap{width:calc(100% - 80px)} }
+    @media (min-width: 1800px) { .wrap{width:calc(100% - 120px)} }
 
     .ico{width:14px;height:14px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 
@@ -384,27 +387,6 @@
       to { stroke-dashoffset: -40; }
     }
 
-    /* ============ Hero full-bleed visuals ============ */
-    @media (min-width: 700px) {
-      .hero .source-strip,
-      .hero .control-plane,
-      .hero .roadmap-visual,
-      .hero .jump-strip {
-        width: 100vw;
-        max-width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        margin-right: calc(-50vw + 50%);
-        border-radius: 0;
-        border-left: 0;
-        border-right: 0;
-        box-sizing: border-box;
-      }
-      .hero .roadmap-visual figcaption {
-        padding-left: max(32px, calc(50vw - 600px));
-        padding-right: max(32px, calc(50vw - 600px));
-      }
-    }
-
     /* ============ Operating-map particles + icons ============ */
     .diagram-shell .arrow-particle { opacity: 0; }
     .diagram-shell.animate .arrow-particle { opacity: .9; }
@@ -646,7 +628,7 @@
       .rung{grid-template-columns:1fr;gap:6px}.risk{justify-self:start}
       .footer-grid{grid-template-columns:1fr;gap:32px}.footer-meta{flex-direction:column;gap:12px;align-items:flex-start}
     }
-    @media(max-width:620px){.wrap{width:min(100% - 28px, 1240px)}main{padding-top:96px}}
+    @media(max-width:620px){.wrap{width:calc(100% - 28px)}main{padding-top:96px}}
   </style>
 </head>
 <body>
