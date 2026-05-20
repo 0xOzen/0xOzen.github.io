@@ -317,13 +317,8 @@
     /* ============ Roadmap diagram (inline SVG replacing PNG) ============ */
     .roadmap-diagram {
       display: block; width: 100%; height: auto;
-      max-height: 64vh;
       background: var(--svg-bg);
       font-family: var(--font-sans);
-    }
-    /* On very wide displays, prevent the SVG from getting overly tall */
-    @media (min-width: 1600px) {
-      .roadmap-diagram { max-height: 56vh; }
     }
     @keyframes railTravel {
       0%   { transform: translateX(0);     opacity: 0; }
@@ -504,7 +499,7 @@
     .source-card strong{display:block;margin-top:12px;font-size:22px;line-height:1;letter-spacing:-0.022em;font-weight:510;color:var(--text-1)}
     .source-card span{display:block;margin-top:8px;color:var(--text-2);font-size:13px;line-height:1.5}
 
-    .roadmap-visual{margin-top:20px;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;background:var(--bg);box-shadow:var(--shadow-sm)}
+    .roadmap-visual{margin:20px 0 0;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;background:var(--bg);box-shadow:var(--shadow-sm);width:100%;box-sizing:border-box}
     .roadmap-visual img{display:block;width:100%;height:auto}
     .roadmap-visual figcaption{
       display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 16px;
