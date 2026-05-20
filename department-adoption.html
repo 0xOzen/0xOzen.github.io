@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="linear">
+<html lang="en" data-theme="linear" data-page="adoption">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -629,6 +629,38 @@
       .footer-grid{grid-template-columns:1fr;gap:32px}.footer-meta{flex-direction:column;gap:12px;align-items:flex-start}
     }
     @media(max-width:620px){.wrap{width:calc(100% - 28px)}main{padding-top:96px}}
+
+    /* ===================== Command palette (Cmd+K) ===================== */
+    .cmdk-backdrop{position:fixed;inset:0;z-index:80;display:none;align-items:flex-start;justify-content:center;background:color-mix(in srgb, var(--bg) 70%, transparent);backdrop-filter:blur(6px);padding-top:96px}
+    .cmdk-backdrop.open{display:flex;animation:cmdkFade .15s ease}
+    @keyframes cmdkFade{from{opacity:0}to{opacity:1}}
+    .cmdk{width:min(640px,calc(100% - 48px));background:var(--surface-1);border:1px solid var(--border-soft);border-radius:var(--r-lg);box-shadow:var(--shadow-xl);display:flex;flex-direction:column;max-height:72vh;overflow:hidden}
+    .cmdk-search{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border);background:var(--surface-1)}
+    .cmdk-search .ico{color:var(--text-3);width:16px;height:16px}
+    .cmdk-input{flex:1;background:transparent;border:0;outline:none;color:var(--text-1);font-family:var(--font-sans);font-size:15px;letter-spacing:-0.13px}
+    .cmdk-input::placeholder{color:var(--text-3)}
+    .cmdk-esc{font-family:var(--font-mono);font-size:11px;color:var(--text-3);padding:3px 6px;border-radius:var(--r-tag);background:var(--surface-2);border:1px solid var(--border)}
+    .cmdk-list{overflow:auto;padding:6px}
+    .cmdk-section{padding:10px 12px 4px;font-family:var(--font-mono);font-size:10px;color:var(--text-4);text-transform:uppercase;letter-spacing:0.06em}
+    .cmdk-result{display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:center;width:100%;text-align:left;padding:9px 12px;border:0;border-radius:var(--r-md);background:transparent;color:var(--text-1);cursor:pointer;font:inherit}
+    .cmdk-result .ico{color:var(--text-3);width:14px;height:14px}
+    .cmdk-result:hover,.cmdk-result.active{background:var(--surface-2)}
+    .cmdk-result:hover .ico,.cmdk-result.active .ico{color:var(--accent)}
+    .cmdk-result .ttl{display:block;font-size:14px;font-weight:510;color:var(--text-1);letter-spacing:-0.012em}
+    .cmdk-result .meta{display:block;margin-top:2px;font-family:var(--font-mono);font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.04em}
+    .cmdk-result .arr{color:var(--accent);opacity:0;transition:opacity .15s;font-family:var(--font-mono);font-size:12px}
+    .cmdk-result .cur{font-family:var(--font-mono);font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:0.06em;padding:2px 6px;border-radius:var(--r-tag);border:1px solid color-mix(in srgb, var(--accent) 30%, transparent);background:color-mix(in srgb, var(--accent) 10%, transparent)}
+    .cmdk-result:hover .arr,.cmdk-result.active .arr{opacity:1}
+    .cmdk-empty{padding:32px 16px;text-align:center;color:var(--text-3);font-size:13px}
+    .cmdk-foot{padding:8px 14px;border-top:1px solid var(--border);background:var(--surface-2);display:flex;justify-content:space-between;color:var(--text-3);font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:0.04em}
+    .cmdk-foot kbd{font-family:var(--font-mono);font-size:10px;color:var(--text-2);padding:1px 5px;border-radius:var(--r-tag);background:var(--surface-1);border:1px solid var(--border);margin:0 2px}
+    .cmdk-trigger{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:var(--r-md);border:1px solid var(--border);background:var(--surface-2);color:var(--text-2);font-family:var(--font-sans);font-size:12px;cursor:pointer;transition:background .15s,border-color .15s,color .15s}
+    .cmdk-trigger:hover{background:var(--surface-3);border-color:var(--border-soft);color:var(--text-1)}
+    .cmdk-trigger kbd{font-family:var(--font-mono);font-size:10px;color:var(--text-3);padding:1px 5px;border-radius:var(--r-tag);background:color-mix(in srgb, currentColor 14%, transparent)}
+    @media (max-width: 700px){
+      .cmdk-backdrop{padding-top:64px}
+      .cmdk-trigger .lbl{display:none}
+    }
   </style>
 </head>
 <body>
@@ -637,6 +669,15 @@
       <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
       <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></symbol>
       <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></symbol>
+      <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"/></symbol>
+      <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="M14 6l4 4"/></symbol>
+      <symbol id="i-anchor" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M12 7v14"/><path d="M5 13c0 4 3 7 7 7s7-3 7-7"/><path d="M5 13H2M19 13h3M9 9h6"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+      <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 1 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 1 0 5.66 5.66l1-1"/></symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></symbol>
+      <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+      <symbol id="i-stack" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/><path d="M3 18l9 5 9-5"/></symbol>
     </defs>
   </svg>
 
@@ -650,6 +691,11 @@
         <a href="index.html" class="hide-sm">Home</a>
         <a href="writing-archive.html">Writing</a>
         <a href="department-adoption.html" aria-current="page">Adoption</a>
+        <button type="button" class="cmdk-trigger" id="cmdkTrigger" aria-label="Open command palette" title="Open command palette (⌘K / Ctrl+K)">
+          <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>
+          <span class="lbl">Search</span>
+          <kbd>⌘K</kbd>
+        </button>
         <div class="theme-picker" role="group" aria-label="Theme">
           <button type="button" data-theme-set="linear" aria-pressed="true" title="Linear (Midnight Command)">
             <svg class="ico" aria-hidden="true"><use href="#i-moon"/></svg><span class="lbl">Linear</span>
@@ -1465,6 +1511,22 @@
     </section>
   </main>
 
+  <!-- Command palette overlay -->
+  <div class="cmdk-backdrop" id="cmdkBackdrop" role="dialog" aria-modal="true" aria-label="Command palette">
+    <div class="cmdk">
+      <div class="cmdk-search">
+        <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>
+        <input class="cmdk-input" id="cmdkInput" type="text" placeholder="Type to search or jump (try theme, contact, operating map)…" autocomplete="off" />
+        <span class="cmdk-esc">ESC</span>
+      </div>
+      <div class="cmdk-list" id="cmdkList"></div>
+      <div class="cmdk-foot">
+        <span><kbd>↑</kbd><kbd>↓</kbd> navigate · <kbd>↵</kbd> select · <kbd>esc</kbd> close</span>
+        <span>⌘K anywhere</span>
+      </div>
+    </div>
+  </div>
+
   <footer class="footer" id="contact">
     <div class="wrap">
       <div class="footer-grid">
@@ -1671,6 +1733,114 @@
           window.scrollTo({ top: y, behavior: 'smooth' });
         });
       });
+    })();
+
+    /* Command palette (Cmd+K) */
+    (function () {
+      var backdrop = document.getElementById('cmdkBackdrop');
+      var input = document.getElementById('cmdkInput');
+      var list = document.getElementById('cmdkList');
+      if (!backdrop || !input || !list) return;
+      var trigger = document.getElementById('cmdkTrigger') || document.getElementById('searchTrigger');
+      var pageId = document.documentElement.dataset.page || 'home';
+      function setTheme(t) {
+        if (['linear','cursor','stripe'].indexOf(t) < 0) return;
+        document.documentElement.setAttribute('data-theme', t);
+        try { localStorage.setItem('theme', t); } catch (e) {}
+        var meta = document.getElementById('theme-color-meta');
+        var col = { linear:'#08090a', cursor:'#f7f7f4', stripe:'#ffffff' }[t];
+        if (meta && col) meta.setAttribute('content', col);
+        document.querySelectorAll('.theme-picker [data-theme-set]').forEach(function (b) {
+          b.setAttribute('aria-pressed', b.dataset.themeSet === t ? 'true' : 'false');
+        });
+      }
+      function toast(msg) {
+        var t = document.createElement('div');
+        t.textContent = msg;
+        t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--surface-1);border:1px solid var(--border-soft);color:var(--text-1);padding:10px 14px;border-radius:8px;font:13px var(--font-sans);box-shadow:var(--shadow-xl);z-index:200;opacity:0;transition:opacity .2s';
+        document.body.appendChild(t);
+        requestAnimationFrame(function(){ t.style.opacity='1'; });
+        setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); }, 250); }, 1600);
+      }
+      function copyEmail() {
+        var email = 'ali.ozen@rwth-aachen.de';
+        if (navigator.clipboard) { navigator.clipboard.writeText(email).then(function(){ toast('Copied ' + email); }).catch(function(){ toast(email); }); }
+        else { toast(email); }
+      }
+      var commands = [];
+      commands.push(
+        { section:'Navigate', label:'Home', icon:'i-home', meta:'index.html', current: pageId==='home', action: function(){ location.href = 'index.html'; } },
+        { section:'Navigate', label:'Writing archive', icon:'i-edit', meta:'writing-archive.html', current: pageId==='writing', action: function(){ location.href = 'writing-archive.html'; } },
+        { section:'Navigate', label:'Department AI adoption', icon:'i-grid', meta:'department-adoption.html', current: pageId==='adoption', action: function(){ location.href = 'department-adoption.html'; } }
+      );
+      var sectionEls = document.querySelectorAll('main section[id]');
+      Array.prototype.forEach.call(sectionEls, function(s){
+        var h = s.querySelector('h2') || s.querySelector('h3');
+        if (!h) return;
+        commands.push({
+          section:'Jump to section',
+          label: h.textContent.trim(), icon:'i-anchor', meta:'#'+s.id,
+          action: function(){
+            var y = s.getBoundingClientRect().top + window.pageYOffset - 80;
+            window.scrollTo({ top:y, behavior:'smooth' });
+            history.replaceState(null, '', '#'+s.id);
+          }
+        });
+      });
+      commands.push(
+        { section:'Theme', label:'Linear · midnight command', icon:'i-moon', action: function(){ setTheme('linear'); toast('Theme: Linear'); } },
+        { section:'Theme', label:'Cursor · warm ivory',     icon:'i-sun',  action: function(){ setTheme('cursor'); toast('Theme: Cursor'); } },
+        { section:'Theme', label:'Stripe · architectural blueprint', icon:'i-arrow-up-right', action: function(){ setTheme('stripe'); toast('Theme: Stripe'); } }
+      );
+      commands.push(
+        { section:'Actions', label:'Copy email — ali.ozen@rwth-aachen.de', icon:'i-copy', action: copyEmail },
+        { section:'Actions', label:'Send email', icon:'i-mail', action: function(){ location.href = 'mailto:ali.ozen@rwth-aachen.de'; } },
+        { section:'Actions', label:'Open LinkedIn', icon:'i-link', meta:'linkedin.com/in/0xozen', action: function(){ window.open('https://linkedin.com/in/0xozen','_blank','noopener'); } },
+        { section:'Actions', label:'Open GitHub',   icon:'i-link', meta:'github.com/0xOzen',      action: function(){ window.open('https://github.com/0xOzen','_blank','noopener'); } }
+      );
+      var filtered = commands.slice(), activeIndex = 0;
+      function escapeHtml(s){ return String(s).replace(/[&<>]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; }); }
+      function render() {
+        if (!filtered.length) { list.innerHTML = '<div class="cmdk-empty">No matches. Try another query.</div>'; return; }
+        var lastSection = '', html = '';
+        filtered.forEach(function (c, idx) {
+          if (c.section !== lastSection) { html += '<div class="cmdk-section">' + escapeHtml(c.section) + '</div>'; lastSection = c.section; }
+          html += '<button class="cmdk-result' + (idx === activeIndex ? ' active' : '') + '" type="button" data-idx="' + idx + '">' +
+                    '<svg class="ico" aria-hidden="true"><use href="#' + c.icon + '"/></svg>' +
+                    '<span><span class="ttl">' + escapeHtml(c.label) + '</span>' + (c.meta ? '<span class="meta">' + escapeHtml(c.meta) + '</span>' : '') + '</span>' +
+                    (c.current ? '<span class="cur">current</span>' : '<span class="arr">↵</span>') +
+                  '</button>';
+        });
+        list.innerHTML = html;
+        Array.prototype.forEach.call(list.querySelectorAll('.cmdk-result'), function (btn) {
+          btn.addEventListener('click', function () { exec(parseInt(btn.dataset.idx, 10)); });
+          btn.addEventListener('mousemove', function () { var i = parseInt(btn.dataset.idx, 10); if (i !== activeIndex) { activeIndex = i; updateActive(); } });
+        });
+      }
+      function updateActive(){ Array.prototype.forEach.call(list.querySelectorAll('.cmdk-result'), function(btn, i){ btn.classList.toggle('active', i === activeIndex); }); }
+      function exec(idx) { var c = filtered[idx]; if (!c) return; close(); setTimeout(function(){ c.action(); }, 50); }
+      function filter(q) {
+        q = (q || '').trim().toLowerCase();
+        if (!q) filtered = commands.slice();
+        else filtered = commands.filter(function (c) { return (c.label + ' ' + c.section + ' ' + (c.meta||'')).toLowerCase().indexOf(q) !== -1; });
+        activeIndex = 0; render();
+      }
+      function open() { backdrop.classList.add('open'); document.body.style.overflow = 'hidden'; setTimeout(function () { input.focus(); input.select(); }, 0); filter(input.value); }
+      function close() { backdrop.classList.remove('open'); document.body.style.overflow = ''; }
+      if (trigger) trigger.addEventListener('click', open);
+      document.addEventListener('keydown', function (e) {
+        var isMod = e.metaKey || e.ctrlKey;
+        if (isMod && (e.key === 'k' || e.key === 'K')) { e.preventDefault(); if (backdrop.classList.contains('open')) close(); else open(); return; }
+        if (!backdrop.classList.contains('open')) return;
+        if (e.key === 'Escape') { e.preventDefault(); close(); }
+        else if (e.key === 'ArrowDown') { e.preventDefault(); activeIndex = Math.min(activeIndex + 1, filtered.length - 1); updateActive(); scrollActive(); }
+        else if (e.key === 'ArrowUp')   { e.preventDefault(); activeIndex = Math.max(activeIndex - 1, 0); updateActive(); scrollActive(); }
+        else if (e.key === 'Enter')     { e.preventDefault(); exec(activeIndex); }
+      });
+      function scrollActive() { var act = list.querySelector('.cmdk-result.active'); if (act) act.scrollIntoView({ block: 'nearest' }); }
+      input.addEventListener('input', function () { filter(input.value); });
+      backdrop.addEventListener('click', function (e) { if (e.target === backdrop) close(); });
+      filter('');
     })();
   </script>
 </body>
