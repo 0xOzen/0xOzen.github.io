@@ -314,8 +314,13 @@
     /* ============ Roadmap diagram (inline SVG replacing PNG) ============ */
     .roadmap-diagram {
       display: block; width: 100%; height: auto;
+      max-height: 64vh;
       background: var(--svg-bg);
       font-family: var(--font-sans);
+    }
+    /* On very wide displays, prevent the SVG from getting overly tall */
+    @media (min-width: 1600px) {
+      .roadmap-diagram { max-height: 56vh; }
     }
     @keyframes railTravel {
       0%   { transform: translateX(0);     opacity: 0; }
@@ -377,6 +382,27 @@
     }
     @keyframes dashFlow {
       to { stroke-dashoffset: -40; }
+    }
+
+    /* ============ Hero full-bleed visuals ============ */
+    @media (min-width: 700px) {
+      .hero .source-strip,
+      .hero .control-plane,
+      .hero .roadmap-visual,
+      .hero .jump-strip {
+        width: 100vw;
+        max-width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+        box-sizing: border-box;
+      }
+      .hero .roadmap-visual figcaption {
+        padding-left: max(32px, calc(50vw - 600px));
+        padding-right: max(32px, calc(50vw - 600px));
+      }
     }
 
     /* ============ Operating-map particles + icons ============ */
