@@ -307,8 +307,88 @@
       pointer-events: none;
       transform: translateX(-120%) skewX(-12deg);
       opacity: 0;
+      z-index: 1;
     }
     .roadmap-visual.in-view::after { opacity: 1; animation: shimmer 2.4s ease-out 0.4s 1; }
+
+    /* ============ Roadmap diagram (inline SVG replacing PNG) ============ */
+    .roadmap-diagram {
+      display: block; width: 100%; height: auto;
+      background: var(--svg-bg);
+      font-family: var(--font-sans);
+    }
+    @keyframes railTravel {
+      0%   { transform: translateX(0);     opacity: 0; }
+      6%   { opacity: 1; }
+      94%  { opacity: 1; }
+      100% { transform: translateX(1076px); opacity: 0; }
+    }
+    @keyframes iconPulse {
+      0%, 100% { opacity: 1; }
+      50%      { opacity: .55; }
+    }
+    @keyframes ringSpin {
+      to { transform: rotate(360deg); }
+    }
+    @keyframes dotsGlow {
+      0%, 100% { opacity: .55; }
+      50%      { opacity: 1; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .roadmap-diagram .rm-stage  { opacity: 0; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-stage { animation: fadeUpSvg .55s ease forwards; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-stage.s1 { animation-delay: .10s; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-stage.s2 { animation-delay: .22s; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-stage.s3 { animation-delay: .34s; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-stage.s4 { animation-delay: .46s; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-stage.s5 { animation-delay: .58s; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-stage.s6 { animation-delay: .70s; }
+
+      .roadmap-diagram .rm-connector {
+        stroke-dasharray: 18; stroke-dashoffset: 18;
+      }
+      .roadmap-visual.in-view .roadmap-diagram .rm-connector { animation: drawArrow .45s ease forwards; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-connector.c1 { animation-delay: .26s; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-connector.c2 { animation-delay: .38s; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-connector.c3 { animation-delay: .50s; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-connector.c4 { animation-delay: .62s; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-connector.c5 { animation-delay: .74s; }
+
+      .roadmap-diagram .rail-dot { animation: railTravel 5s linear infinite; }
+      .roadmap-diagram .rail-dot.rd2 { animation-delay: -1.65s; }
+      .roadmap-diagram .rail-dot.rd3 { animation-delay: -3.30s; }
+
+      .roadmap-diagram .stage-icon { transform-origin: center; transform-box: fill-box; animation: floatY 3.2s ease-in-out infinite; }
+      .roadmap-diagram .stage-icon.s2 { animation-delay: .3s; }
+      .roadmap-diagram .stage-icon.s3 { animation-delay: .6s; }
+      .roadmap-diagram .stage-icon.s4 { animation-delay: .9s; }
+      .roadmap-diagram .stage-icon.s5 { animation-delay: 1.2s; }
+      .roadmap-diagram .stage-icon.s6 { animation-delay: 1.5s; }
+
+      .roadmap-diagram .rm-dots .indicator { transform-origin: center; transform-box: fill-box; animation: dotsGlow 2.2s ease-in-out infinite; }
+      .roadmap-diagram .rm-dots .indicator:nth-child(2) { animation-delay: .25s; }
+      .roadmap-diagram .rm-dots .indicator:nth-child(3) { animation-delay: .50s; }
+      .roadmap-diagram .rm-dots .indicator:nth-child(4) { animation-delay: .75s; }
+
+      .roadmap-diagram .rm-rail-line {
+        stroke-dasharray: 3 7;
+        animation: dashFlow 2.2s linear infinite;
+      }
+    }
+    @keyframes dashFlow {
+      to { stroke-dashoffset: -40; }
+    }
+
+    /* ============ Operating-map particles + icons ============ */
+    .diagram-shell .arrow-particle { opacity: 0; }
+    .diagram-shell.animate .arrow-particle { opacity: .9; }
+    .diagram-shell .layer-emblem { opacity: 0; transform: translateY(4px); }
+    .diagram-shell.animate .layer-emblem { animation: fadeUpSvg .5s ease forwards 1.1s; }
+    .diagram-shell.animate .layer-emblem.e2 { animation-delay: 1.2s; }
+    .diagram-shell.animate .layer-emblem.e3 { animation-delay: 1.3s; }
+    .diagram-shell.animate .layer-emblem.e4 { animation-delay: 1.4s; }
+    .diagram-shell.animate .layer-emblem.e5 { animation-delay: 1.5s; }
+    .diagram-shell.animate .layer-emblem.e6 { animation-delay: 1.6s; }
 
     /* ============ SVG diagram animated layers ============ */
     @media (prefers-reduced-motion: no-preference) {
@@ -636,7 +716,247 @@
         </div>
 
         <figure class="roadmap-visual reveal" aria-label="AI adoption roadmap from visibility to scale">
-          <img src="assets/adoption-map/authority-roadmap-visibility-to-scale.png" alt="AI adoption roadmap showing six stages from visibility, boundary and approval to evidence, recovery and scale." width="2172" height="724" fetchpriority="high" decoding="async">
+          <svg class="roadmap-diagram" viewBox="0 0 1240 440" role="img" aria-labelledby="rmTitle rmDesc" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+            <title id="rmTitle">AI adoption roadmap from visibility to scale</title>
+            <desc id="rmDesc">Six stages — Visibility, Boundary, Approval, Evidence, Recovery, Scale — linked by a control rail and four outcomes.</desc>
+            <defs>
+              <pattern id="rm-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+                <path d="M32 0H0V32" fill="none" stroke="var(--svg-grid)" stroke-width=".7"/>
+              </pattern>
+              <filter id="rm-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity=".18"/>
+              </filter>
+              <marker id="rm-arrow-marker" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"/>
+              </marker>
+              <linearGradient id="rm-rail-grad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%"  stop-color="var(--accent)" stop-opacity=".0"/>
+                <stop offset="14%" stop-color="var(--accent)" stop-opacity="1"/>
+                <stop offset="86%" stop-color="var(--info)"   stop-opacity="1"/>
+                <stop offset="100%" stop-color="var(--info)"  stop-opacity=".0"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Background -->
+            <rect width="1240" height="440" fill="var(--svg-bg)"/>
+            <rect width="1240" height="440" fill="url(#rm-grid)"/>
+
+            <!-- Header band -->
+            <g font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="0.08em">
+              <text x="32" y="32" fill="var(--svg-text-3)">ADOPTION ROADMAP · v0.6 · 2026</text>
+              <text x="1208" y="32" text-anchor="end" fill="var(--svg-text-3)">VISIBILITY → SCALE</text>
+            </g>
+
+            <!-- ================= STAGE 1: Visibility ================= -->
+            <g class="rm-stage s1">
+              <rect x="26" y="56" width="188" height="216" rx="8" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)" filter="url(#rm-shadow)"/>
+              <text x="44" y="84" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent)" letter-spacing="0.06em">/01</text>
+              <text x="44" y="108" font-family="Inter, sans-serif" font-size="17" font-weight="510" fill="var(--svg-text-1)" letter-spacing="-0.014em">Visibility</text>
+              <g class="stage-icon s1" transform="translate(120 152)">
+                <circle r="22" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                <path d="M-12 0c4-7 9-9 12-9s8 2 12 9c-4 7-9 9-12 9s-8-2-12-9z" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linejoin="round"/>
+                <circle r="3.2" fill="var(--accent)"/>
+              </g>
+              <text font-family="Inter, sans-serif" font-size="11.5" fill="var(--svg-text-2)">
+                <tspan x="44" y="206">AI work becomes visible.</tspan>
+                <tspan x="44" dy="14">Map where AI touches</tspan>
+                <tspan x="44" dy="14">decisions, files, customers</tspan>
+                <tspan x="44" dy="14">and money flows.</tspan>
+              </text>
+              <g class="rm-dots" transform="translate(44 262)">
+                <circle class="indicator" cx="0"  cy="0" r="2" fill="var(--accent)"/>
+                <circle class="indicator" cx="8"  cy="0" r="2" fill="var(--accent)" opacity=".55"/>
+                <circle class="indicator" cx="16" cy="0" r="2" fill="var(--svg-stroke)"/>
+                <circle class="indicator" cx="24" cy="0" r="2" fill="var(--svg-stroke)"/>
+              </g>
+            </g>
+
+            <!-- ================= STAGE 2: Boundary ================= -->
+            <g class="rm-stage s2">
+              <rect x="226" y="56" width="188" height="216" rx="8" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)" filter="url(#rm-shadow)"/>
+              <text x="244" y="84" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent)" letter-spacing="0.06em">/02</text>
+              <text x="244" y="108" font-family="Inter, sans-serif" font-size="17" font-weight="510" fill="var(--svg-text-1)" letter-spacing="-0.014em">Boundary</text>
+              <g class="stage-icon s2" transform="translate(320 152)">
+                <circle r="22" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                <path d="M0 -12 L10 -7 V2 C10 8 5 12 0 13 C-5 12 -10 8 -10 2 V-7 Z" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M-4 0 L-1 3 L5 -3" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+              <text font-family="Inter, sans-serif" font-size="11.5" fill="var(--svg-text-2)">
+                <tspan x="244" y="206">Each workflow gets a clear</tspan>
+                <tspan x="244" dy="14">boundary. What AI may</tspan>
+                <tspan x="244" dy="14">read, suggest, modify, or</tspan>
+                <tspan x="244" dy="14">trigger is explicit.</tspan>
+              </text>
+              <g class="rm-dots" transform="translate(244 262)">
+                <circle class="indicator" cx="0"  cy="0" r="2" fill="var(--accent)"/>
+                <circle class="indicator" cx="8"  cy="0" r="2" fill="var(--accent)"/>
+                <circle class="indicator" cx="16" cy="0" r="2" fill="var(--accent)" opacity=".55"/>
+                <circle class="indicator" cx="24" cy="0" r="2" fill="var(--svg-stroke)"/>
+              </g>
+            </g>
+
+            <!-- ================= STAGE 3: Approval ================= -->
+            <g class="rm-stage s3">
+              <rect x="426" y="56" width="188" height="216" rx="8" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)" filter="url(#rm-shadow)"/>
+              <text x="444" y="84" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent)" letter-spacing="0.06em">/03</text>
+              <text x="444" y="108" font-family="Inter, sans-serif" font-size="17" font-weight="510" fill="var(--svg-text-1)" letter-spacing="-0.014em">Approval</text>
+              <g class="stage-icon s3" transform="translate(520 152)">
+                <circle r="22" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                <circle r="12" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+                <path d="M-5 0 L-1 4 L6 -4" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+              <text font-family="Inter, sans-serif" font-size="11.5" fill="var(--svg-text-2)">
+                <tspan x="444" y="206">Human approval gates are</tspan>
+                <tspan x="444" dy="14">designed. High-risk actions</tspan>
+                <tspan x="444" dy="14">like spend, deploy and</tspan>
+                <tspan x="444" dy="14">external contact need sign-off.</tspan>
+              </text>
+              <g class="rm-dots" transform="translate(444 262)">
+                <circle class="indicator" cx="0"  cy="0" r="2" fill="var(--accent)"/>
+                <circle class="indicator" cx="8"  cy="0" r="2" fill="var(--accent)"/>
+                <circle class="indicator" cx="16" cy="0" r="2" fill="var(--accent)"/>
+                <circle class="indicator" cx="24" cy="0" r="2" fill="var(--svg-stroke)"/>
+              </g>
+            </g>
+
+            <!-- ================= STAGE 4: Evidence ================= -->
+            <g class="rm-stage s4">
+              <rect x="626" y="56" width="188" height="216" rx="8" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)" filter="url(#rm-shadow)"/>
+              <text x="644" y="84" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent)" letter-spacing="0.06em">/04</text>
+              <text x="644" y="108" font-family="Inter, sans-serif" font-size="17" font-weight="510" fill="var(--svg-text-1)" letter-spacing="-0.014em">Evidence</text>
+              <g class="stage-icon s4" transform="translate(720 152)">
+                <circle r="22" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                <path d="M-8 -12 H6 L10 -8 V12 H-8 Z" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M-4 -3 H6 M-4 1 H6 M-4 5 H2" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round"/>
+                <circle cx="7" cy="9" r="3.2" fill="none" stroke="var(--accent)" stroke-width="1.4"/>
+                <path d="M5.5 9 L6.6 10.2 L8.8 7.8" fill="none" stroke="var(--accent)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+              <text font-family="Inter, sans-serif" font-size="11.5" fill="var(--svg-text-2)">
+                <tspan x="644" y="206">Every AI action leaves a trace.</tspan>
+                <tspan x="644" dy="14">Inputs, outputs, owner,</tspan>
+                <tspan x="644" dy="14">decision, reviewer and</tspan>
+                <tspan x="644" dy="14">rollback path are recorded.</tspan>
+              </text>
+              <g class="rm-dots" transform="translate(644 262)">
+                <circle class="indicator" cx="0"  cy="0" r="2" fill="var(--accent)"/>
+                <circle class="indicator" cx="8"  cy="0" r="2" fill="var(--accent)"/>
+                <circle class="indicator" cx="16" cy="0" r="2" fill="var(--accent)"/>
+                <circle class="indicator" cx="24" cy="0" r="2" fill="var(--accent)" opacity=".55"/>
+              </g>
+            </g>
+
+            <!-- ================= STAGE 5: Recovery ================= -->
+            <g class="rm-stage s5">
+              <rect x="826" y="56" width="188" height="216" rx="8" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)" filter="url(#rm-shadow)"/>
+              <text x="844" y="84" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent-2)" letter-spacing="0.06em">/05</text>
+              <text x="844" y="108" font-family="Inter, sans-serif" font-size="17" font-weight="510" fill="var(--svg-text-1)" letter-spacing="-0.014em">Recovery</text>
+              <g class="stage-icon s5" transform="translate(920 152)">
+                <circle r="22" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                <path d="M11 -4 A12 12 0 1 0 11 4" fill="none" stroke="var(--accent-2)" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M11 -10 V-4 H5" fill="none" stroke="var(--accent-2)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle r="3" fill="var(--accent-2)"/>
+              </g>
+              <text font-family="Inter, sans-serif" font-size="11.5" fill="var(--svg-text-2)">
+                <tspan x="844" y="206">The organization safely</tspan>
+                <tspan x="844" dy="14">reverses mistakes. Rollback,</tspan>
+                <tspan x="844" dy="14">escalation and exception</tspan>
+                <tspan x="844" dy="14">handling are built-in.</tspan>
+              </text>
+              <g class="rm-dots" transform="translate(844 262)">
+                <circle class="indicator" cx="0"  cy="0" r="2" fill="var(--accent-2)"/>
+                <circle class="indicator" cx="8"  cy="0" r="2" fill="var(--accent-2)"/>
+                <circle class="indicator" cx="16" cy="0" r="2" fill="var(--accent-2)"/>
+                <circle class="indicator" cx="24" cy="0" r="2" fill="var(--accent-2)" opacity=".55"/>
+              </g>
+            </g>
+
+            <!-- ================= STAGE 6: Scale ================= -->
+            <g class="rm-stage s6">
+              <rect x="1026" y="56" width="188" height="216" rx="8" fill="var(--svg-panel-1)" stroke="var(--info)" stroke-opacity=".55" filter="url(#rm-shadow)"/>
+              <text x="1044" y="84" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--info)" letter-spacing="0.06em">/06</text>
+              <text x="1044" y="108" font-family="Inter, sans-serif" font-size="17" font-weight="510" fill="var(--svg-text-1)" letter-spacing="-0.014em">Scale</text>
+              <g class="stage-icon s6" transform="translate(1120 152)">
+                <circle r="22" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                <!-- 3 cubes -->
+                <path d="M-9 0 L0 -5 L9 0 L0 5 Z" fill="none" stroke="var(--info)" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M-9 0 V6 L0 11 V5"  fill="none" stroke="var(--info)" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M9 0 V6 L0 11"       fill="none" stroke="var(--info)" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M-9 -8 L-3 -11 L3 -8" fill="none" stroke="var(--info)" stroke-width="1.2" stroke-linejoin="round" opacity=".55"/>
+              </g>
+              <text font-family="Inter, sans-serif" font-size="11.5" fill="var(--svg-text-2)">
+                <tspan x="1044" y="206">AI moves from isolated pilots</tspan>
+                <tspan x="1044" dy="14">to department-level loops.</tspan>
+                <tspan x="1044" dy="14">Revenue, ops, finance, trust,</tspan>
+                <tspan x="1044" dy="14">eng and leadership — one model.</tspan>
+              </text>
+              <g class="rm-dots" transform="translate(1044 262)">
+                <circle class="indicator" cx="0"  cy="0" r="2" fill="var(--info)"/>
+                <circle class="indicator" cx="8"  cy="0" r="2" fill="var(--info)"/>
+                <circle class="indicator" cx="16" cy="0" r="2" fill="var(--info)"/>
+                <circle class="indicator" cx="24" cy="0" r="2" fill="var(--info)"/>
+              </g>
+            </g>
+
+            <!-- ================= Connectors between cards ================= -->
+            <g fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" opacity=".75" marker-end="url(#rm-arrow-marker)">
+              <path class="rm-connector c1" d="M214 152 L226 152"/>
+              <path class="rm-connector c2" d="M414 152 L426 152"/>
+              <path class="rm-connector c3" d="M614 152 L626 152"/>
+              <path class="rm-connector c4" d="M814 152 L826 152"/>
+              <path class="rm-connector c5" d="M1014 152 L1026 152"/>
+            </g>
+
+            <!-- ================= Control rail ================= -->
+            <g>
+              <text x="32" y="312" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="0.08em" fill="var(--svg-text-3)">CONTROL RAIL · BUILT FOR TRUST</text>
+              <text x="1208" y="312" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="0.08em" fill="var(--info)">SCALE OUTCOME · ONE MODEL</text>
+
+              <line x1="78" y1="336" x2="1162" y2="336" stroke="var(--svg-stroke)" stroke-width="1"/>
+              <line class="rm-rail-line" x1="78" y1="336" x2="1162" y2="336" stroke="url(#rm-rail-grad)" stroke-width="1.4"/>
+
+              <!-- Anchor dots aligned with the 6 stages -->
+              <g>
+                <circle cx="120"  cy="336" r="5" fill="var(--svg-panel-1)" stroke="var(--accent)" stroke-width="1.5"/>
+                <circle cx="320"  cy="336" r="5" fill="var(--svg-panel-1)" stroke="var(--accent)" stroke-width="1.5"/>
+                <circle cx="520"  cy="336" r="5" fill="var(--svg-panel-1)" stroke="var(--accent)" stroke-width="1.5"/>
+                <circle cx="720"  cy="336" r="5" fill="var(--svg-panel-1)" stroke="var(--accent)" stroke-width="1.5"/>
+                <circle cx="920"  cy="336" r="5" fill="var(--svg-panel-1)" stroke="var(--accent-2)" stroke-width="1.5"/>
+                <circle cx="1120" cy="336" r="5" fill="var(--svg-panel-1)" stroke="var(--info)" stroke-width="1.5"/>
+              </g>
+
+              <!-- Traveling dots -->
+              <g transform="translate(86 336)">
+                <g class="rail-dot rd1"><circle r="3" fill="var(--accent)"/></g>
+                <g class="rail-dot rd2"><circle r="3" fill="var(--accent)"/></g>
+                <g class="rail-dot rd3"><circle r="3" fill="var(--info)"/></g>
+              </g>
+            </g>
+
+            <!-- ================= Outcome chips ================= -->
+            <g font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="0.06em" fill="var(--svg-text-2)">
+              <g transform="translate(180 388)">
+                <circle r="7" fill="none" stroke="var(--success)" stroke-width="1.4"/>
+                <path d="M-3.5 0 L-0.5 3 L4 -3" fill="none" stroke="var(--success)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="16" y="4">REDUCE RISK</text>
+              </g>
+              <g transform="translate(480 388)">
+                <circle r="7" fill="none" stroke="var(--success)" stroke-width="1.4"/>
+                <path d="M-3.5 0 L-0.5 3 L4 -3" fill="none" stroke="var(--success)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="16" y="4">INCREASE TRUST</text>
+              </g>
+              <g transform="translate(780 388)">
+                <path d="M-7 4 L-2 -1 L1 2 L7 -4" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 -4 L7 -4 L7 0" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="16" y="4">ACCELERATE VALUE</text>
+              </g>
+              <g transform="translate(1080 388)">
+                <path d="M0 -7 L7 -3 L0 1 L-7 -3 Z" fill="none" stroke="var(--info)" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M-7 -3 V1 L0 5 V1" fill="none" stroke="var(--info)" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M7 -3 V1 L0 5" fill="none" stroke="var(--info)" stroke-width="1.5" stroke-linejoin="round"/>
+                <text x="16" y="4">OPERATE AT SCALE</text>
+              </g>
+            </g>
+          </svg>
           <figcaption>
             <span>Roadmap visual</span>
             <span>Visibility → Boundary → Approval → Evidence → Recovery → Scale</span>
@@ -697,6 +1017,46 @@
               <path class="arrow-line" d="M820 632 C748 560 710 496 678 420"/>
             </g>
 
+            <!-- Data-flow particles traveling each arrow toward the control plane -->
+            <g class="arrow-particles">
+              <circle class="arrow-particle" r="2.6" fill="var(--accent)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="0.4s" path="M412 192 C485 215 520 260 555 302"/>
+              </circle>
+              <circle class="arrow-particle" r="2.6" fill="var(--accent)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="2.0s" path="M412 192 C485 215 520 260 555 302"/>
+              </circle>
+              <circle class="arrow-particle" r="2.6" fill="var(--info)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="0.8s" path="M828 192 C755 215 720 260 685 302"/>
+              </circle>
+              <circle class="arrow-particle" r="2.6" fill="var(--info)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="2.4s" path="M828 192 C755 215 720 260 685 302"/>
+              </circle>
+              <circle class="arrow-particle" r="2.6" fill="var(--accent-2)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="0.0s" path="M355 392 C435 392 493 376 540 360"/>
+              </circle>
+              <circle class="arrow-particle" r="2.6" fill="var(--accent-2)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="1.6s" path="M355 392 C435 392 493 376 540 360"/>
+              </circle>
+              <circle class="arrow-particle" r="2.6" fill="var(--accent)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="1.0s" path="M885 392 C805 392 747 376 700 360"/>
+              </circle>
+              <circle class="arrow-particle" r="2.6" fill="var(--accent)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="2.6s" path="M885 392 C805 392 747 376 700 360"/>
+              </circle>
+              <circle class="arrow-particle" r="2.6" fill="var(--info)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="0.6s" path="M420 632 C492 560 530 496 562 420"/>
+              </circle>
+              <circle class="arrow-particle" r="2.6" fill="var(--info)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="2.2s" path="M420 632 C492 560 530 496 562 420"/>
+              </circle>
+              <circle class="arrow-particle" r="2.6" fill="var(--accent-2)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="1.2s" path="M820 632 C748 560 710 496 678 420"/>
+              </circle>
+              <circle class="arrow-particle" r="2.6" fill="var(--accent-2)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="2.8s" path="M820 632 C748 560 710 496 678 420"/>
+              </circle>
+            </g>
+
             <g class="core-group" filter="url(#shadow)">
               <rect x="470" y="246" width="300" height="228" rx="8" fill="var(--accent)" opacity=".9"/>
               <rect x="476" y="252" width="288" height="216" rx="6" fill="var(--svg-panel-2)" stroke="var(--svg-stroke)"/>
@@ -722,6 +1082,18 @@
                 <text x="118" y="124" fill="var(--accent)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">MONDAY · /01</text>
                 <text x="118" y="156" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">Leadership</text>
                 <text x="118" y="186" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Visibility, operating model, decision logs</text>
+                <!-- Emblem: eye -->
+                <g class="layer-emblem e1" transform="translate(340 210)">
+                  <circle r="13" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                  <path d="M-7 0c2-4 5-5 7-5s5 1 7 5c-2 4-5 5-7 5s-5-1-7-5z" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                  <circle r="2.2" fill="var(--accent)"/>
+                </g>
+                <!-- KPI mini-bar -->
+                <g transform="translate(118 208)">
+                  <text font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--svg-text-3)" letter-spacing="0.06em">VISIBILITY 92%</text>
+                  <rect x="0" y="6" width="120" height="3" rx="1.5" fill="var(--surface-3)"/>
+                  <rect x="0" y="6" width="110" height="3" rx="1.5" fill="var(--accent)"/>
+                </g>
                 <circle class="status-dot d1" cx="350" cy="113" r="3" fill="var(--success)"/>
               </g>
 
@@ -730,6 +1102,16 @@
                 <text x="898" y="124" fill="var(--info)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">MONEY LAYER · /02</text>
                 <text x="898" y="156" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">Finance &amp; Procurement</text>
                 <text x="898" y="186" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Spend, supplier work, approvals, audit</text>
+                <!-- Emblem: dollar sign -->
+                <g class="layer-emblem e2" transform="translate(1120 210)">
+                  <circle r="13" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                  <path d="M0 -7 V7 M4 -4 C2 -5 -1 -5 -3 -3 C-3 0 1 0 3 2 C3 4 1 5 -1 5 C-3 5 -4 4 -4 3" fill="none" stroke="var(--info)" stroke-width="1.4" stroke-linecap="round"/>
+                </g>
+                <g transform="translate(898 208)">
+                  <text font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--svg-text-3)" letter-spacing="0.06em">APPROVALS 88%</text>
+                  <rect x="0" y="6" width="120" height="3" rx="1.5" fill="var(--surface-3)"/>
+                  <rect x="0" y="6" width="105" height="3" rx="1.5" fill="var(--info)"/>
+                </g>
                 <circle class="status-dot d2" cx="1130" cy="113" r="3" fill="var(--success)"/>
               </g>
 
@@ -738,6 +1120,17 @@
                 <text x="108" y="354" fill="var(--accent-2)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">MARKET LAYER · /03</text>
                 <text x="108" y="386" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">Revenue &amp; CX</text>
                 <text x="108" y="416" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Signals, CRM, proposals, customer handoffs</text>
+                <!-- Emblem: trending up -->
+                <g class="layer-emblem e3" transform="translate(350 440)">
+                  <circle r="13" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                  <path d="M-7 4 L-2 -1 L1 2 L7 -5" fill="none" stroke="var(--accent-2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M3 -5 L7 -5 L7 -1" fill="none" stroke="var(--accent-2)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                <g transform="translate(108 438)">
+                  <text font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--svg-text-3)" letter-spacing="0.06em">HANDOFFS 86%</text>
+                  <rect x="0" y="6" width="120" height="3" rx="1.5" fill="var(--surface-3)"/>
+                  <rect x="0" y="6" width="103" height="3" rx="1.5" fill="var(--accent-2)"/>
+                </g>
                 <circle class="status-dot d3" cx="360" cy="343" r="3" fill="var(--success)"/>
               </g>
 
@@ -746,6 +1139,17 @@
                 <text x="888" y="354" fill="var(--accent)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">TRUST LAYER · /04</text>
                 <text x="888" y="386" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">People, Legal, Security</text>
                 <text x="888" y="416" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Identity, policy, account control, recovery</text>
+                <!-- Emblem: shield-check -->
+                <g class="layer-emblem e4" transform="translate(1130 440)">
+                  <circle r="13" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                  <path d="M0 -7 L6 -4 V2 C6 5 3 7 0 8 C-3 7 -6 5 -6 2 V-4 Z" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linejoin="round"/>
+                  <path d="M-2.5 0 L-0.5 2 L3 -2" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                <g transform="translate(888 438)">
+                  <text font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--svg-text-3)" letter-spacing="0.06em">IDENTITY 82%</text>
+                  <rect x="0" y="6" width="120" height="3" rx="1.5" fill="var(--surface-3)"/>
+                  <rect x="0" y="6" width="98" height="3" rx="1.5" fill="var(--accent)"/>
+                </g>
                 <circle class="status-dot d4" cx="1140" cy="343" r="3" fill="var(--success)"/>
               </g>
 
@@ -754,6 +1158,19 @@
                 <text x="118" y="626" fill="var(--info)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">OPERATING LAYER · /05</text>
                 <text x="118" y="658" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">Operations &amp; Service</text>
                 <text x="118" y="688" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Queues, exceptions, SLAs, workflow movement</text>
+                <!-- Emblem: workflow / nodes -->
+                <g class="layer-emblem e5" transform="translate(350 712)">
+                  <circle r="13" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                  <circle cx="-6" cy="-3" r="2.2" fill="var(--info)"/>
+                  <circle cx="6"  cy="-3" r="2.2" fill="var(--info)"/>
+                  <circle cx="0"  cy="5"  r="2.2" fill="var(--info)"/>
+                  <path d="M-6 -3 L0 5 L6 -3 M-6 -3 L6 -3" fill="none" stroke="var(--info)" stroke-width="1.3" stroke-linecap="round"/>
+                </g>
+                <g transform="translate(118 710)">
+                  <text font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--svg-text-3)" letter-spacing="0.06em">QUEUES 78%</text>
+                  <rect x="0" y="6" width="120" height="3" rx="1.5" fill="var(--surface-3)"/>
+                  <rect x="0" y="6" width="94" height="3" rx="1.5" fill="var(--info)"/>
+                </g>
                 <circle class="status-dot d5" cx="360" cy="615" r="3" fill="var(--success)"/>
               </g>
 
@@ -762,6 +1179,18 @@
                 <text x="888" y="626" fill="var(--accent-2)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">BUILD LAYER · /06</text>
                 <text x="888" y="658" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">Product, Eng, Data</text>
                 <text x="888" y="688" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Repos, evals, tests, release gates</text>
+                <!-- Emblem: code brackets -->
+                <g class="layer-emblem e6" transform="translate(1130 712)">
+                  <circle r="13" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                  <path d="M-3 -5 L-7 0 L-3 5" fill="none" stroke="var(--accent-2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M3 -5 L7 0 L3 5" fill="none" stroke="var(--accent-2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M1 -5 L-1 5" fill="none" stroke="var(--accent-2)" stroke-width="1.3" stroke-linecap="round"/>
+                </g>
+                <g transform="translate(888 710)">
+                  <text font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--svg-text-3)" letter-spacing="0.06em">EVALS + ROLLBACK 90%</text>
+                  <rect x="0" y="6" width="120" height="3" rx="1.5" fill="var(--surface-3)"/>
+                  <rect x="0" y="6" width="108" height="3" rx="1.5" fill="var(--accent-2)"/>
+                </g>
                 <circle class="status-dot d6" cx="1140" cy="615" r="3" fill="var(--success)"/>
               </g>
             </g>
