@@ -682,17 +682,59 @@
       .ladder-bar { grid-template-columns: repeat(5, 1fr); gap: 4px; padding: 8px; }
       .ladder-step { padding: 8px 6px; }
       .ladder-step .step-name { font-size: 12px; }
+      .teaser-head { grid-template-columns: 1fr; gap: 12px; padding: 18px 20px; }
     }
     @media (max-width: 700px) {
       .wrap { width: calc(100% - 28px); }
+      main { padding-top: 80px; }
+      section { padding: 56px 0; }
       .nav { padding-left: 12px; gap: 6px; }
       .navlinks .hide-sm { display: none; }
       .theme-picker .lbl { display: none; }
       h1 { letter-spacing: -0.02em; }
+      .lead { font-size: 15px; }
+      .hero { padding: 36px 0 48px; }
       .row { grid-template-columns: 1fr; gap: 6px; }
-      .term-cards { grid-template-columns: 1fr; }
+      .term-cards { grid-template-columns: 1fr; padding: 0 16px 16px; }
+      .term-body { padding: 16px 18px 18px; font-size: 12.5px; }
+      .term-bar { padding: 8px 12px; }
       .footer-meta { flex-direction: column; gap: 12px; align-items: flex-start; }
+      .footer { padding: 56px 0 32px; }
       .ladder-bar { grid-template-columns: repeat(2, 1fr); }
+      .card { padding: 18px; }
+      .work { padding: 18px; }
+      .archive-card { padding: 16px; }
+      .focus-cell { padding: 16px; }
+      .focus-cell .num { font-size: 24px; }
+      /* Touch targets — 44px minimum (WCAG 2.5.5 / Apple HIG) */
+      .navlinks a { padding: 10px 12px; min-height: 44px; display: inline-flex; align-items: center; }
+      .button { height: 42px; }
+      .theme-picker { height: 38px; }
+      .theme-picker button { height: 32px; padding: 0 11px; }
+      .cmdk-trigger { padding: 9px 12px; min-height: 38px; }
+      /* Work dl needs less left column */
+      .work dl { grid-template-columns: 80px 1fr; gap: 6px 12px; }
+    }
+    @media (max-width: 480px) {
+      .wrap { width: calc(100% - 20px); }
+      main { padding-top: 76px; }
+      section { padding: 44px 0; }
+      h1 { font-size: clamp(34px, 9vw, 48px); }
+      h2 { font-size: clamp(24px, 6vw, 32px); }
+      .nav { width: calc(100% - 20px); padding: 4px 6px 4px 10px; gap: 4px; }
+      /* Hide brand label on very small screens, keep gradient mark */
+      .brand span:not(.brand-mark) { display: none; }
+      .gates-grid { grid-template-columns: 1fr; }
+      .gate { min-height: auto; padding: 14px; }
+      .layer-card, .focus-cell { padding: 14px; }
+      .card, .archive-card, .work { padding: 14px; }
+      .work h3 { font-size: 17px; }
+      .work dl { grid-template-columns: 1fr; gap: 2px 0; }
+      .work dt { padding-top: 6px; }
+      .ladder-bar { grid-template-columns: 1fr; gap: 4px; }
+      .footer-grid { gap: 24px; }
+      .cmdk { width: calc(100% - 24px); }
+      .cmdk-backdrop { padding-top: 56px; }
     }
   </style>
   <script type="application/ld+json">
