@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="en" data-theme="linear" data-page="home">
+<html lang="en" data-theme="dark" data-page="home">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ali Osman Ozen | AI Adoption Architect</title>
-  <meta name="description" content="Ali Osman Ozen is an AI Adoption Architect based in Cologne, focused on practical AI adoption, workflow design, governance and technology-to-business translation." />
+  <meta name="description" content="Ali Osman Ozen is an AI Adoption Architect based in Cologne, focused on practical AI adoption, workflow design, agent governance, and technology-to-business translation." />
   <meta name="author" content="Ali Osman Ozen" />
   <meta property="og:title" content="Ali Osman Ozen | AI Adoption Architect" />
-  <meta property="og:description" content="Practical portfolio for AI adoption, workflow design, governance and transformation roles." />
+  <meta property="og:description" content="Practical portfolio for AI adoption, workflow design, governance, and transformation roles." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://0xozen.github.io/" />
   <meta property="og:image" content="https://0xozen.github.io/assets/og-image.svg" />
@@ -17,726 +17,23 @@
   <meta property="og:image:alt" content="Ali Osman Ozen - AI Adoption Architect. Workflows, governance, adoption plans." />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Ali Osman Ozen | AI Adoption Architect" />
-  <meta name="twitter:description" content="Practical portfolio for AI adoption, workflow design, governance and transformation roles." />
+  <meta name="twitter:description" content="Practical portfolio for AI adoption, workflow design, governance, and transformation roles." />
   <meta name="twitter:image" content="https://0xozen.github.io/assets/og-image.svg" />
   <link rel="canonical" href="https://0xozen.github.io/" />
-  <meta name="theme-color" content="#08090a" id="theme-color-meta" />
-
-  <!-- Inline favicon - gradient mark -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%235e6ad2'/><stop offset='1' stop-color='%238b5cf6'/></linearGradient></defs><rect width='32' height='32' rx='6' fill='url(%23g)'/><path d='M9 22V10h4l3 8 3-8h4v12h-3v-7l-2.5 7h-3L12 15v7z' fill='%23f7f8f8'/></svg>" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-  <!-- Apply persisted theme BEFORE render (no flash) -->
+  <meta name="theme-color" content="#060707" id="theme-color-meta" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='3' fill='%23060707'/><rect x='2.4' y='2.4' width='27.2' height='27.2' rx='1.8' fill='none' stroke='%23e8ece9' stroke-width='1.1'/><path d='M8.5 21.5 13 9h2l-4.5 12.5h-2Zm7.2 0L20.2 9h2l-4.5 12.5h-2Z' fill='%235ef0a6'/></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site-v3.css" />
   <script>
     (function () {
       try {
-        var t = localStorage.getItem('theme');
-        if (t === 'cursor' || t === 'linear') {
-          document.documentElement.setAttribute('data-theme', t);
-        }
-      } catch (e) {}
+        var theme = localStorage.getItem("0xozen-theme");
+        if (theme === "light") document.documentElement.setAttribute("data-theme", "light");
+      } catch (error) {}
     })();
   </script>
-
-  <style>
-    /* ============================================================
-       Two themes via [data-theme] - Linear (default) & Cursor
-       ============================================================ */
-    :root,
-    [data-theme="linear"] {
-      /* Raw Linear tokens */
-      --pitch-black: #08090a;
-      --graphite:    #0f1011;
-      --deep-slate:  #161718;
-      --charcoal:    #23252a;
-      --muted-ash:   #323334;
-      --gunmetal:    #383b3f;
-      --fog:         #62666d;
-      --storm:       #8a8f98;
-      --light-steel: #d0d6e0;
-      --porcelain:   #f7f8f8;
-      --neon-lime:   #e4f222;
-      --aether-blue: #5e6ad2;
-      --cyan-spark:  #02b8cc;
-      --amethyst:    #8b5cf6;
-      --emerald:     #27a644;
-      --warning-red: #eb5757;
-
-      /* Semantic */
-      --bg:           var(--pitch-black);
-      --surface-1:    var(--graphite);
-      --surface-2:    var(--deep-slate);
-      --surface-3:    var(--charcoal);
-      --border:       var(--charcoal);
-      --border-soft:  var(--muted-ash);
-      --text-1:       var(--porcelain);
-      --text-2:       var(--light-steel);
-      --text-3:       var(--storm);
-      --text-4:       var(--fog);
-      --accent:       var(--aether-blue);
-      --accent-2:     var(--amethyst);
-      --info:         var(--cyan-spark);
-      --success:      var(--emerald);
-      --danger:       var(--warning-red);
-      --cta-bg:       var(--neon-lime);
-      --cta-bg-hover: #eef82e;
-      --cta-text:     var(--pitch-black);
-
-      --grid-stroke:  rgba(255,255,255,0.025);
-      --glow-1:       rgba(94,106,210,0.10);
-      --glow-2:       rgba(2,184,204,0.06);
-
-      --shadow-sm:    rgba(0,0,0,0.4) 0 2px 4px 0;
-      --shadow-xl:    rgba(8,9,10,0.6) 0 4px 32px 0;
-      --shadow-pop:   var(--shadow-sm);
-
-      --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-
-      --r-tag: 2px;
-      --r-md:  6px;
-      --r-lg:  12px;
-      --r-pill: 9999px;
-
-      --tracking-display: -0.024em;
-      --traffic-1: #ff5f56;
-      --traffic-2: #ffbd2e;
-      --traffic-3: #27c93f;
-    }
-
-    [data-theme="stripe"] {
-      /* Raw Stripe tokens */
-      --platinum-white:  #ffffff;
-      --porcelain-white: #f8fafd;
-      --powder-blue:     #e5edf5;
-      --stone-gray:      #d8d6df;
-      --midnight-ink:    #061b31;
-      --slate-blue:      #50617a;
-      --ghost-gray:      #64748d;
-      --deep-violet:     #533afd;
-      --washed-violet:   #b9b9f9;
-      --soft-violet:     #8087ff;
-      --vibrant-orange:  #ff6118;
-      --accent-green:    #81b81a;
-
-      --bg:           var(--platinum-white);
-      --surface-1:    var(--porcelain-white);
-      --surface-2:    var(--powder-blue);
-      --surface-3:    #dde6f0;
-      --border:       var(--stone-gray);
-      --border-soft:  #c1bfca;
-      --text-1:       var(--midnight-ink);
-      --text-2:       var(--slate-blue);
-      --text-3:       var(--ghost-gray);
-      --text-4:       #8a96a7;
-      --accent:       var(--deep-violet);
-      --accent-2:     var(--soft-violet);
-      --info:         var(--accent-green);
-      --success:      var(--accent-green);
-      --danger:       var(--vibrant-orange);
-      --cta-bg:       var(--deep-violet);
-      --cta-bg-hover: #4731e0;
-      --cta-text:     var(--platinum-white);
-
-      --grid-stroke:  rgba(6,27,49,0.04);
-      --glow-1:       rgba(83,58,253,0.10);
-      --glow-2:       rgba(128,135,255,0.08);
-
-      --shadow-sm:    rgba(23,23,23,0.06) 0 3px 6px 0;
-      --shadow-xl:    rgba(50,50,93,0.12) 0 16px 32px 0, rgba(0,0,0,0.04) 0 4px 12px 0;
-      --shadow-pop:   var(--shadow-sm);
-
-      --traffic-1: #ed6a5e;
-      --traffic-2: #f5bf4f;
-      --traffic-3: #61c554;
-    }
-    [data-theme="cursor"] {
-      /* Raw Cursor tokens */
-      --canvas-parchment:    #f7f7f4;
-      --pebble-gray:         #ebeae3;
-      --highlight-beige:     #d8d6cb;
-      --inkwell:             #262510;
-      --deep-shadow:         #141414;
-      --muted-stone:         #7a7974;
-      --onyx-outline:        #f54e00;
-      --chartreuse-alert:    #4ade80;
-      --goldenrod-accent:    #c08532;
-      --forest-green-action: #34785c;
-
-      /* Semantic remap */
-      --bg:           var(--canvas-parchment);
-      --surface-1:    #ffffff;            /* slightly elevated white card */
-      --surface-2:    var(--pebble-gray); /* deeper card */
-      --surface-3:    var(--highlight-beige);
-      --border:       rgba(38,37,16,0.10);
-      --border-soft:  rgba(38,37,16,0.18);
-      --text-1:       var(--inkwell);
-      --text-2:       #3a3825;
-      --text-3:       var(--muted-stone);
-      --text-4:       #9b9a92;
-      --accent:       var(--onyx-outline);
-      --accent-2:     var(--goldenrod-accent);
-      --info:         var(--forest-green-action);
-      --success:      var(--forest-green-action);
-      --danger:       #c0392b;
-      --cta-bg:       var(--inkwell);
-      --cta-bg-hover: #1c1b0a;
-      --cta-text:     var(--canvas-parchment);
-
-      --grid-stroke:  rgba(38,37,16,0.04);
-      --glow-1:       rgba(245,78,0,0.08);
-      --glow-2:       rgba(192,133,50,0.06);
-
-      --shadow-sm:    rgba(0,0,0,0.06) 0 1px 2px 0, rgba(0,0,0,0.04) 0 4px 12px -4px;
-      --shadow-xl:    rgba(0,0,0,0.10) 0 14px 32px 0, rgba(0,0,0,0.06) 0 28px 70px 0;
-      --shadow-pop:   var(--shadow-sm);
-
-      --traffic-1: #ed6a5e;
-      --traffic-2: #f5bf4f;
-      --traffic-3: #61c554;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: var(--bg);
-      color: var(--text-1);
-      font-family: var(--font-sans);
-      font-size: 14px;
-      line-height: 1.5;
-      letter-spacing: -0.13px;
-      font-feature-settings: "cv01", "ss03", "liga" 1;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-      transition: background-color .25s ease, color .25s ease;
-    }
-
-    body::before {
-      content: ""; position: fixed; inset: 0; z-index: -2;
-      background-image:
-        linear-gradient(var(--grid-stroke) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid-stroke) 1px, transparent 1px);
-      background-size: 56px 56px;
-      mask-image: radial-gradient(circle at 50% 0%, black 0%, transparent 78%);
-      pointer-events: none;
-    }
-    body::after {
-      content: ""; position: fixed; inset: 0; z-index: -1;
-      background:
-        radial-gradient(600px 400px at 14% 8%, var(--glow-1), transparent 60%),
-        radial-gradient(500px 360px at 92% 4%, var(--glow-2), transparent 60%);
-      pointer-events: none;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    /* Full-screen layout with a safe gutter */
-    .wrap { width: calc(100% - 48px); max-width: none; margin: 0 auto; }
-    @media (min-width: 1400px) { .wrap { width: calc(100% - 80px); } }
-    @media (min-width: 1800px) { .wrap { width: calc(100% - 120px); } }
-
-    /* ===================== Icons ===================== */
-    .ico { width: 14px; height: 14px; flex-shrink: 0; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-    .ico-lg { width: 16px; height: 16px; }
-    .ico-card { width: 16px; height: 16px; color: var(--accent); }
-
-    /* ===================== Top navigation ===================== */
-    header { position: fixed; top: 16px; left: 0; right: 0; z-index: 50; pointer-events: none; }
-    .nav {
-      width: min(920px, calc(100% - 32px));
-      margin: 0 auto;
-      height: 48px;
-      display: flex; align-items: center; justify-content: space-between; gap: 12px;
-      padding: 4px 4px 4px 14px;
-      border: 1px solid var(--border);
-      border-radius: var(--r-pill);
-      background: color-mix(in srgb, var(--surface-1) 88%, transparent);
-      backdrop-filter: blur(16px);
-      box-shadow: var(--shadow-sm);
-      pointer-events: auto;
-    }
-    .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 510; font-size: 14px; color: var(--text-1); white-space: nowrap; }
-    .brand-mark { width: 18px; height: 18px; border-radius: var(--r-md);
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18);
-    }
-    .navlinks { display: flex; align-items: center; gap: 2px; font-size: 13px; color: var(--text-3); }
-    .navlinks a { padding: 8px 10px; border-radius: var(--r-md); transition: color .15s, background .15s; }
-    .navlinks a:hover { color: var(--text-1); background: var(--surface-2); }
-
-    .theme-picker {
-      display: inline-flex; align-items: center; gap: 0;
-      height: 32px; padding: 2px;
-      border-radius: var(--r-pill);
-      border: 1px solid var(--border);
-      background: var(--surface-2);
-    }
-    .theme-picker button {
-      display: inline-flex; align-items: center; gap: 5px;
-      height: 26px; padding: 0 9px;
-      border: 0; background: transparent;
-      color: var(--text-3);
-      font-family: var(--font-mono); font-size: 10px;
-      letter-spacing: 0.04em; text-transform: uppercase;
-      border-radius: var(--r-pill);
-      cursor: pointer;
-      transition: background .15s ease, color .15s ease;
-    }
-    .theme-picker button:hover { color: var(--text-1); }
-    .theme-picker button[aria-pressed="true"] {
-      background: var(--surface-1);
-      color: var(--text-1);
-      box-shadow: var(--shadow-sm);
-    }
-    .theme-picker .ico { width: 11px; height: 11px; }
-
-    /* ===================== Buttons ===================== */
-    .button {
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      height: 36px; padding: 0 14px;
-      border-radius: var(--r-md);
-      font-family: var(--font-sans); font-size: 13px; font-weight: 510; letter-spacing: -0.11px;
-      color: var(--text-1);
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      transition: background .15s ease, border-color .15s ease, transform .15s ease, color .15s ease;
-      cursor: pointer;
-    }
-    .button:hover { background: var(--surface-3); border-color: var(--border-soft); }
-    .button.primary { background: var(--cta-bg); color: var(--cta-text); border-color: var(--cta-bg); font-weight: 590; }
-    .button.primary:hover { background: var(--cta-bg-hover); border-color: var(--cta-bg-hover); transform: translateY(-1px); }
-    [data-theme="cursor"] .button.primary { background: transparent; color: var(--accent); border-color: var(--accent); }
-    [data-theme="cursor"] .button.primary:hover { background: color-mix(in srgb, var(--accent) 8%, transparent); border-color: var(--accent); }
-    /* Stripe uses solid violet (Deep Violet bg, white text) per its component spec */
-    [data-theme="stripe"] .badge.live { background: var(--cta-bg); color: var(--cta-text); border-color: var(--cta-bg); }
-    .button.ghost { background: transparent; border-color: transparent; color: var(--text-2); }
-    .button.ghost:hover { background: var(--surface-2); color: var(--text-1); }
-    .button .kbd { font-family: var(--font-mono); font-size: 11px; color: inherit; opacity: 0.7; padding: 2px 5px; border-radius: var(--r-tag); background: color-mix(in srgb, currentColor 12%, transparent); }
-    a:focus-visible, .button:focus-visible, .theme-toggle:focus-visible {
-      outline: 2px solid var(--accent); outline-offset: 2px;
-    }
-
-    /* ===================== Layout primitives ===================== */
-    main { padding-top: 96px; }
-
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 5px 9px; border-radius: var(--r-md);
-      border: 1px solid var(--border); background: var(--surface-1);
-      color: var(--text-3); font-family: var(--font-mono); font-size: 11px; text-transform: uppercase;
-    }
-    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); box-shadow: 0 0 8px color-mix(in srgb, var(--success) 60%, transparent); }
-    .label { display: inline-block; font-family: var(--font-mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.04em; text-transform: uppercase; }
-
-    h1 { margin: 18px 0 0; max-width: 880px; font-size: clamp(44px, 6.4vw, 84px); line-height: 1.0; letter-spacing: var(--tracking-display); font-weight: 510; color: var(--text-1); }
-    h2 { margin: 8px 0 0; font-size: clamp(30px, 3.6vw, 48px); line-height: 1.08; letter-spacing: -0.022em; font-weight: 510; color: var(--text-1); }
-    h3 { margin: 0; font-size: 17px; line-height: 1.3; letter-spacing: -0.012em; font-weight: 590; color: var(--text-1); }
-
-    .lead { margin: 18px 0 0; max-width: 640px; font-size: 16px; line-height: 1.55; color: var(--text-2); letter-spacing: -0.11px; }
-    .section-copy { margin: 10px 0 0; color: var(--text-2); font-size: 15px; line-height: 1.6; }
-
-    section { padding: 80px 0; }
-    .section-head { display: grid; grid-template-columns: minmax(0,0.9fr) minmax(0,1.1fr); gap: 48px; align-items: end; margin-bottom: 28px; }
-
-    /* ===================== Reveal animation ===================== */
-    @media (prefers-reduced-motion: no-preference) {
-      .reveal { opacity: 0; transform: translateY(8px); transition: opacity .55s ease, transform .55s ease; }
-      .reveal.in-view { opacity: 1; transform: none; }
-      .reveal[data-d="1"] { transition-delay: .08s; }
-      .reveal[data-d="2"] { transition-delay: .16s; }
-      .reveal[data-d="3"] { transition-delay: .24s; }
-      .reveal[data-d="4"] { transition-delay: .32s; }
-    }
-
-    /* ===================== HERO ===================== */
-    .hero { padding: 56px 0 72px; }
-    .hero-grid { display: grid; grid-template-columns: minmax(0,1.05fr) minmax(360px,0.95fr); gap: 48px; align-items: center; }
-    .cta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
-    .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 22px; }
-    .tag { display: inline-flex; align-items: center; padding: 3px 7px; border-radius: var(--r-tag); background: var(--surface-2); color: var(--text-3); font-family: var(--font-mono); font-size: 11px; border: 1px solid var(--border); }
-
-    /* Terminal hero */
-    .terminal {
-      position: relative;
-      border-radius: var(--r-lg);
-      background: var(--surface-1);
-      box-shadow: var(--shadow-xl);
-      border: 1px solid var(--border);
-      overflow: hidden;
-    }
-    .term-bar { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--border); background: var(--surface-2); }
-    .traffic { display: flex; gap: 6px; }
-    .traffic span { width: 10px; height: 10px; border-radius: 50%; background: var(--surface-3); }
-    .traffic span:nth-child(1) { background: var(--traffic-1); }
-    .traffic span:nth-child(2) { background: var(--traffic-2); }
-    .traffic span:nth-child(3) { background: var(--traffic-3); }
-    .term-title { justify-self: center; font-family: var(--font-mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.04em; text-transform: uppercase; }
-    .term-meta { font-family: var(--font-mono); font-size: 11px; color: var(--text-4); }
-
-    .term-body { padding: 20px 22px 22px; font-family: var(--font-mono); font-size: 13px; color: var(--text-2); line-height: 1.7; }
-    .prompt-line { display: flex; gap: 10px; align-items: baseline; }
-    .prompt-line .glyph { color: var(--accent); }
-    .prompt-line .cmd { color: var(--text-1); }
-    .out { color: var(--text-3); padding-left: 22px; opacity: 0; transform: translateY(2px); transition: opacity .35s ease, transform .35s ease; }
-    .out.shown { opacity: 1; transform: none; }
-    .ok { color: var(--success); }
-    .info { color: var(--info); }
-    .accent { color: var(--accent); }
-
-    /* Typing caret */
-    .caret { display: inline-block; width: 7px; height: 14px; vertical-align: -2px; background: var(--accent); animation: blink 1s steps(1) infinite; margin-left: 2px; }
-    @keyframes blink { 50% { opacity: 0; } }
-    @media (prefers-reduced-motion: reduce) { .caret { animation: none; } .out { opacity: 1; transform: none; } }
-
-    .term-rule { height: 1px; background: var(--border); margin: 14px 0; }
-
-    .term-cards { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; padding: 0 22px 22px; }
-    .term-card { border-radius: var(--r-md); padding: 12px; background: var(--surface-2); border: 1px solid var(--border); }
-    .term-card .label { font-size: 10px; color: var(--text-4); }
-    .term-card .v { display: block; margin-top: 6px; font-family: var(--font-mono); color: var(--text-1); font-size: 14px; }
-    .term-card .v small { color: var(--text-3); font-weight: 400; margin-left: 4px; font-size: 11px; }
-
-    /* ===================== Focus strip ===================== */
-    .focus-strip {
-      display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 0;
-      margin-top: 8px;
-      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-      background: var(--surface-1);
-    }
-    .focus-cell { padding: 18px 20px; border-right: 1px solid var(--border); }
-    .focus-cell:last-child { border-right: none; }
-    .focus-cell .num { display: block; font-family: var(--font-mono); font-size: 28px; letter-spacing: -0.022em; color: var(--text-1); font-weight: 400; }
-    .focus-cell .num small { color: var(--accent); margin-left: 4px; font-size: 14px; }
-    .focus-cell .k { display: block; margin-top: 6px; font-family: var(--font-mono); font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.04em; }
-    .focus-cell .d { display: block; margin-top: 4px; color: var(--text-2); font-size: 13px; line-height: 1.45; }
-
-    /* ===================== Card grids ===================== */
-    .grid { display: grid; gap: 8px; }
-    .grid.three { grid-template-columns: repeat(3, minmax(0,1fr)); }
-    .grid.two { grid-template-columns: repeat(2, minmax(0,1fr)); }
-
-    .card { position: relative; padding: 20px; border-radius: var(--r-md); background: var(--surface-1); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
-    .card .label { color: var(--text-3); }
-    .card .icon { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: var(--r-md); background: var(--surface-2); color: var(--accent); border: 1px solid var(--border); margin-bottom: 18px; }
-    .card h3 { margin-top: 16px; max-width: 280px; }
-    .card p { margin: 8px 0 0; color: var(--text-2); font-size: 14px; line-height: 1.55; }
-
-    /* Capability table */
-    .capability { margin-top: 16px; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--surface-1); overflow: hidden; }
-    .cap-row { display: grid; grid-template-columns: 220px 1fr 140px; gap: 24px; align-items: center; padding: 18px 20px; border-top: 1px solid var(--border); }
-    .cap-row:first-child { border-top: 0; }
-    .cap-row .k { font-family: var(--font-mono); font-size: 12px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.04em; }
-    .cap-row .b strong { display: block; font-weight: 510; color: var(--text-1); font-size: 15px; }
-    .cap-row .b span { display: block; margin-top: 4px; color: var(--text-2); font-size: 13.5px; line-height: 1.55; }
-    .cap-row .badge {
-      justify-self: end; display: inline-flex; align-items: center; gap: 6px;
-      padding: 4px 8px; border-radius: var(--r-tag);
-      background: var(--surface-2); border: 1px solid var(--border);
-      font-family: var(--font-mono); font-size: 11px; color: var(--text-3);
-    }
-    .badge.live { color: var(--cta-text); background: var(--cta-bg); border-color: var(--cta-bg); }
-    [data-theme="cursor"] .badge.live { background: transparent; color: var(--accent); border-color: var(--accent); }
-    .badge.live .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
-
-    /* ===================== Selected work ===================== */
-    .work-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; margin-top: 20px; }
-    .work {
-      display: flex; flex-direction: column; gap: 14px; padding: 22px;
-      background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r-md);
-      box-shadow: var(--shadow-sm); transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
-    }
-    .work:hover { border-color: var(--border-soft); transform: translateY(-2px); box-shadow: var(--shadow-xl); }
-    .work .head-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-    .work .index { font-family: var(--font-mono); font-size: 11px; color: var(--accent); }
-    .work .stage { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); padding: 3px 6px; border-radius: var(--r-tag); background: var(--surface-2); border: 1px solid var(--border); }
-    .work h3 { font-size: 19px; line-height: 1.2; letter-spacing: -0.022em; }
-    .work dl { display: grid; grid-template-columns: 92px 1fr; gap: 8px 14px; margin: 4px 0 0; font-size: 13px; line-height: 1.55; }
-    .work dt { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.04em; padding-top: 2px; }
-    .work dd { margin: 0; color: var(--text-2); }
-
-    /* ===================== Autonomy ladder playground (NEW) ===================== */
-    .ladder-panel {
-      margin-top: 20px;
-      border: 1px solid var(--border); border-radius: var(--r-md);
-      background: var(--surface-1); box-shadow: var(--shadow-sm);
-      overflow: hidden;
-    }
-    .ladder-bar {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 0;
-      padding: 14px;
-      border-bottom: 1px solid var(--border);
-      background: var(--surface-2);
-    }
-    .ladder-step {
-      display: flex; flex-direction: column; align-items: flex-start; gap: 6px;
-      padding: 12px 14px;
-      border: 1px solid transparent;
-      border-radius: var(--r-md);
-      background: transparent;
-      color: var(--text-3);
-      font-family: var(--font-mono); font-size: 11px; text-align: left;
-      cursor: pointer; text-transform: uppercase; letter-spacing: 0.04em;
-      transition: background .15s, color .15s, border-color .15s;
-    }
-    .ladder-step:hover { background: var(--surface-1); color: var(--text-1); }
-    .ladder-step .step-name { font-size: 13px; color: var(--text-1); text-transform: none; letter-spacing: -0.012em; font-weight: 510; font-family: var(--font-sans); }
-    .ladder-step .step-tag { font-family: var(--font-mono); font-size: 10px; color: var(--text-3); }
-    .ladder-step.active {
-      background: var(--surface-1);
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-    .ladder-step.active .step-name { color: var(--text-1); }
-    .ladder-step.active .step-tag { color: var(--accent); }
-
-    .ladder-detail { padding: 20px 22px; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 24px; }
-    .ladder-detail .col h4 { margin: 0 0 10px; font-family: var(--font-mono); font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.04em; font-weight: 400; }
-    .ladder-detail p { margin: 0; color: var(--text-2); font-size: 14px; line-height: 1.55; }
-    .ladder-detail ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; color: var(--text-2); font-size: 13px; }
-    .ladder-detail li { display: flex; align-items: flex-start; gap: 8px; padding-left: 0; }
-    .ladder-detail li::before { content: "›"; color: var(--accent); font-family: var(--font-mono); padding-top: 1px; }
-    .risk-pill {
-      display: inline-flex; align-items: center; gap: 6px;
-      margin-top: 10px;
-      padding: 4px 8px; border-radius: var(--r-tag);
-      font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em;
-      background: var(--surface-2); border: 1px solid var(--border); color: var(--text-2);
-    }
-    .risk-pill.med  { color: var(--info); border-color: color-mix(in srgb, var(--info) 40%, transparent); background: color-mix(in srgb, var(--info) 10%, transparent); }
-    .risk-pill.high { color: var(--accent-2); border-color: color-mix(in srgb, var(--accent-2) 40%, transparent); background: color-mix(in srgb, var(--accent-2) 10%, transparent); }
-    .risk-pill.crit { color: var(--danger); border-color: color-mix(in srgb, var(--danger) 40%, transparent); background: color-mix(in srgb, var(--danger) 10%, transparent); }
-    .risk-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-
-    /* ===================== 6 Control Gates showcase (NEW) ===================== */
-    .gates-frame {
-      position: relative;
-      margin-top: 20px;
-      padding: 28px;
-      border: 1px solid var(--border);
-      border-radius: var(--r-lg);
-      background: var(--surface-1);
-      box-shadow: var(--shadow-sm);
-      overflow: hidden;
-    }
-    .gates-frame::before {
-      content: ""; position: absolute; inset: 0;
-      background:
-        radial-gradient(420px 220px at 18% 0%, var(--glow-1), transparent 60%),
-        radial-gradient(420px 220px at 82% 100%, var(--glow-2), transparent 60%);
-      pointer-events: none;
-    }
-    .gates-grid {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 10px;
-    }
-    .gate {
-      position: relative;
-      padding: 16px 14px;
-      border: 1px solid var(--border);
-      border-radius: var(--r-md);
-      background: var(--surface-2);
-      min-height: 156px;
-      display: flex; flex-direction: column; gap: 8px;
-      opacity: 0; transform: translateY(8px);
-      transition: opacity .55s ease, transform .55s ease, border-color .15s ease, background .15s ease;
-    }
-    .gates-frame.in-view .gate { opacity: 1; transform: none; }
-    .gates-frame.in-view .gate:nth-child(1) { transition-delay: .05s; }
-    .gates-frame.in-view .gate:nth-child(2) { transition-delay: .15s; }
-    .gates-frame.in-view .gate:nth-child(3) { transition-delay: .25s; }
-    .gates-frame.in-view .gate:nth-child(4) { transition-delay: .35s; }
-    .gates-frame.in-view .gate:nth-child(5) { transition-delay: .45s; }
-    .gates-frame.in-view .gate:nth-child(6) { transition-delay: .55s; }
-    .gate:hover { border-color: var(--border-soft); background: var(--surface-3); }
-    .gate .num {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 22px; height: 22px;
-      border-radius: 50%;
-      background: var(--surface-1); border: 1px solid var(--border);
-      font-family: var(--font-mono); font-size: 11px; color: var(--accent);
-    }
-    .gate .name { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.04em; }
-    .gate .q { color: var(--text-1); font-size: 13.5px; font-weight: 510; line-height: 1.3; }
-    .gate .a { color: var(--text-2); font-size: 12.5px; line-height: 1.45; margin-top: auto; }
-
-    @media (prefers-reduced-motion: reduce) {
-      .gate { opacity: 1; transform: none; transition: none; }
-    }
-
-    /* ===================== Latest writing ===================== */
-    .archive-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; margin-top: 8px; }
-    .archive-card {
-      display: flex; flex-direction: column; gap: 10px; padding: 18px;
-      background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r-md);
-      box-shadow: var(--shadow-sm); transition: border-color .15s, transform .15s, background .15s, box-shadow .15s;
-    }
-    .archive-card:hover { border-color: var(--border-soft); transform: translateY(-2px); background: var(--surface-2); box-shadow: var(--shadow-xl); }
-    .archive-card .meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-    .archive-card .date { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); padding: 3px 6px; border-radius: var(--r-tag); background: var(--surface-2); border: 1px solid var(--border); }
-    .archive-card strong { display: block; margin-top: 4px; font-size: 17px; line-height: 1.25; letter-spacing: -0.012em; font-weight: 590; color: var(--text-1); }
-    .archive-card p { margin: 0; color: var(--text-2); font-size: 13.5px; line-height: 1.55; }
-    .archive-card .lens { margin-top: auto; padding-top: 10px; border-top: 1px dashed var(--border); font-family: var(--font-mono); font-size: 11px; color: var(--text-4); text-transform: uppercase; letter-spacing: 0.04em; }
-    .archive-card .read-cue { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-mono); font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.04em; }
-    .archive-card .read-cue svg { transition: transform .15s ease; }
-    .archive-card:hover .read-cue svg { transform: translate(2px, -2px); }
-    .archive-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
-
-    /* ===================== Adoption teaser ===================== */
-    .adoption-panel { margin-top: 12px; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--surface-1); box-shadow: var(--shadow-sm); overflow: hidden; }
-    .teaser-head { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 24px; align-items: center; padding: 22px 24px; border-bottom: 1px solid var(--border); background: var(--surface-2); }
-    .teaser-head h3 { font-size: 22px; line-height: 1.18; letter-spacing: -0.018em; max-width: 560px; }
-    .teaser-head p { margin: 6px 0 0; color: var(--text-2); font-size: 14px; line-height: 1.55; max-width: 640px; }
-    .layer-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 0; }
-    .layer-card { padding: 20px 22px; border-right: 1px solid var(--border); }
-    .layer-card:last-child { border-right: none; }
-    .layer-card strong { display: block; font-size: 15px; font-weight: 590; color: var(--text-1); }
-    .layer-card p { margin: 6px 0 0; color: var(--text-2); font-size: 13px; line-height: 1.55; }
-
-    /* ===================== Background list ===================== */
-    .background-list { border: 1px solid var(--border); border-radius: var(--r-md); background: var(--surface-1); overflow: hidden; }
-    .row { display: grid; grid-template-columns: 200px 1fr; gap: 24px; padding: 18px 22px; border-top: 1px solid var(--border); }
-    .row:first-child { border-top: 0; }
-    .row .k { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.04em; padding-top: 2px; }
-    .row strong { display: block; font-weight: 510; color: var(--text-1); font-size: 15px; }
-    .row span { display: block; margin-top: 4px; color: var(--text-2); font-size: 13.5px; line-height: 1.55; }
-
-    /* ===================== Footer ===================== */
-    .footer { margin-top: 24px; padding: 80px 0 40px; border-top: 1px solid var(--border); background: var(--surface-1); }
-    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
-    .footer h2 { font-size: clamp(26px, 3vw, 36px); }
-    .footer p { color: var(--text-2); font-size: 14px; line-height: 1.6; max-width: 480px; }
-    .footer .col h4 { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.04em; margin: 0 0 14px; font-weight: 400; }
-    .footer .col ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
-    .footer .col a { display: inline-flex; align-items: center; gap: 6px; color: var(--text-2); font-size: 13.5px; transition: color .15s; }
-    .footer .col a:hover { color: var(--text-1); }
-    .footer .col a .ext { font-family: var(--font-mono); color: var(--text-4); font-size: 11px; }
-    .footer-meta { display: flex; align-items: center; justify-content: space-between; padding-top: 24px; border-top: 1px solid var(--border); font-family: var(--font-mono); font-size: 11px; color: var(--text-4); letter-spacing: 0.04em; text-transform: uppercase; }
-
-    /* ===================== Command palette (Cmd+K) ===================== */
-    .cmdk-backdrop {
-      position: fixed; inset: 0; z-index: 80;
-      display: none; align-items: flex-start; justify-content: center;
-      background: color-mix(in srgb, var(--bg) 70%, transparent);
-      backdrop-filter: blur(6px);
-      padding-top: 96px;
-    }
-    .cmdk-backdrop.open { display: flex; animation: cmdkFade .15s ease; }
-    @keyframes cmdkFade { from { opacity:0; } to { opacity:1; } }
-    .cmdk {
-      width: min(640px, calc(100% - 48px));
-      background: var(--surface-1);
-      border: 1px solid var(--border-soft);
-      border-radius: var(--r-lg);
-      box-shadow: var(--shadow-xl);
-      display: flex; flex-direction: column;
-      max-height: 72vh; overflow: hidden;
-    }
-    .cmdk-search { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--border); background: var(--surface-1); }
-    .cmdk-search .ico { color: var(--text-3); width: 16px; height: 16px; }
-    .cmdk-input { flex: 1; background: transparent; border: 0; outline: none; color: var(--text-1); font-family: var(--font-sans); font-size: 15px; letter-spacing: -0.13px; }
-    .cmdk-input::placeholder { color: var(--text-3); }
-    .cmdk-esc { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); padding: 3px 6px; border-radius: var(--r-tag); background: var(--surface-2); border: 1px solid var(--border); }
-    .cmdk-list { overflow: auto; padding: 6px; }
-    .cmdk-section { padding: 10px 12px 4px; font-family: var(--font-mono); font-size: 10px; color: var(--text-4); text-transform: uppercase; letter-spacing: 0.06em; }
-    .cmdk-result { display: grid; grid-template-columns: 22px 1fr auto; gap: 12px; align-items: center; width: 100%; text-align: left; padding: 9px 12px; border: 0; border-radius: var(--r-md); background: transparent; color: var(--text-1); cursor: pointer; font: inherit; }
-    .cmdk-result .ico { color: var(--text-3); width: 14px; height: 14px; }
-    .cmdk-result:hover, .cmdk-result.active { background: var(--surface-2); }
-    .cmdk-result:hover .ico, .cmdk-result.active .ico { color: var(--accent); }
-    .cmdk-result .ttl { display: block; font-size: 14px; font-weight: 510; color: var(--text-1); letter-spacing: -0.012em; }
-    .cmdk-result .meta { display: block; margin-top: 2px; font-family: var(--font-mono); font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.04em; }
-    .cmdk-result .arr { color: var(--accent); opacity: 0; transition: opacity .15s; font-family: var(--font-mono); font-size: 12px; }
-    .cmdk-result .cur { font-family: var(--font-mono); font-size: 10px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 6px; border-radius: var(--r-tag); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); background: color-mix(in srgb, var(--accent) 10%, transparent); }
-    .cmdk-result:hover .arr, .cmdk-result.active .arr { opacity: 1; }
-    .cmdk-empty { padding: 32px 16px; text-align: center; color: var(--text-3); font-size: 13px; }
-    .cmdk-foot { padding: 8px 14px; border-top: 1px solid var(--border); background: var(--surface-2); display: flex; justify-content: space-between; color: var(--text-3); font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
-    .cmdk-foot kbd { font-family: var(--font-mono); font-size: 10px; color: var(--text-2); padding: 1px 5px; border-radius: var(--r-tag); background: var(--surface-1); border: 1px solid var(--border); margin: 0 2px; }
-    .cmdk-trigger { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: var(--r-md); border: 1px solid var(--border); background: var(--surface-2); color: var(--text-2); font-family: var(--font-sans); font-size: 12px; cursor: pointer; transition: background .15s, border-color .15s, color .15s; }
-    .cmdk-trigger:hover { background: var(--surface-3); border-color: var(--border-soft); color: var(--text-1); }
-    .cmdk-trigger kbd { font-family: var(--font-mono); font-size: 10px; color: var(--text-3); padding: 1px 5px; border-radius: var(--r-tag); background: color-mix(in srgb, currentColor 14%, transparent); }
-    @media (max-width: 700px) {
-      .cmdk-backdrop { padding-top: 64px; }
-      .cmdk-trigger .lbl { display: none; }
-    }
-
-    /* ===================== Responsive ===================== */
-    @media (max-width: 1000px) {
-      .hero-grid { grid-template-columns: 1fr; gap: 32px; }
-      .section-head { grid-template-columns: 1fr; gap: 16px; }
-      .grid.three, .grid.two, .work-grid, .archive-grid, .layer-grid, .focus-strip, .ladder-detail { grid-template-columns: 1fr; }
-      .gates-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-      .focus-cell { border-right: none; border-bottom: 1px solid var(--border); }
-      .focus-cell:last-child { border-bottom: none; }
-      .layer-card { border-right: none; border-bottom: 1px solid var(--border); }
-      .layer-card:last-child { border-bottom: none; }
-      .cap-row { grid-template-columns: 1fr; gap: 8px; }
-      .cap-row .badge { justify-self: start; }
-      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
-      .ladder-bar { grid-template-columns: repeat(5, 1fr); gap: 4px; padding: 8px; }
-      .ladder-step { padding: 8px 6px; }
-      .ladder-step .step-name { font-size: 12px; }
-      .teaser-head { grid-template-columns: 1fr; gap: 12px; padding: 18px 20px; }
-    }
-    @media (max-width: 700px) {
-      .wrap { width: calc(100% - 28px); }
-      main { padding-top: 80px; }
-      section { padding: 56px 0; }
-      .nav { padding-left: 12px; gap: 6px; }
-      .navlinks .hide-sm { display: none; }
-      .theme-picker .lbl { display: none; }
-      h1 { letter-spacing: -0.02em; }
-      .lead { font-size: 15px; }
-      .hero { padding: 36px 0 48px; }
-      .row { grid-template-columns: 1fr; gap: 6px; }
-      .term-cards { grid-template-columns: 1fr; padding: 0 16px 16px; }
-      .term-body { padding: 16px 18px 18px; font-size: 12.5px; }
-      .term-bar { padding: 8px 12px; }
-      .footer-meta { flex-direction: column; gap: 12px; align-items: flex-start; }
-      .footer { padding: 56px 0 32px; }
-      .ladder-bar { grid-template-columns: repeat(2, 1fr); }
-      .card { padding: 18px; }
-      .work { padding: 18px; }
-      .archive-card { padding: 16px; }
-      .focus-cell { padding: 16px; }
-      .focus-cell .num { font-size: 24px; }
-      /* Touch targets — 44px minimum (WCAG 2.5.5 / Apple HIG) */
-      .navlinks a { padding: 10px 12px; min-height: 44px; display: inline-flex; align-items: center; }
-      .button { height: 42px; }
-      .theme-picker { height: 38px; }
-      .theme-picker button { height: 32px; padding: 0 11px; }
-      .cmdk-trigger { padding: 9px 12px; min-height: 38px; }
-      /* Work dl needs less left column */
-      .work dl { grid-template-columns: 80px 1fr; gap: 6px 12px; }
-    }
-    @media (max-width: 480px) {
-      .wrap { width: calc(100% - 20px); }
-      main { padding-top: 76px; }
-      section { padding: 44px 0; }
-      h1 { font-size: clamp(34px, 9vw, 48px); }
-      h2 { font-size: clamp(24px, 6vw, 32px); }
-      .nav { width: calc(100% - 20px); padding: 4px 6px 4px 10px; gap: 4px; }
-      /* Hide brand label on very small screens, keep gradient mark */
-      .brand span:not(.brand-mark) { display: none; }
-      .gates-grid { grid-template-columns: 1fr; }
-      .gate { min-height: auto; padding: 14px; }
-      .layer-card, .focus-cell { padding: 14px; }
-      .card, .archive-card, .work { padding: 14px; }
-      .work h3 { font-size: 17px; }
-      .work dl { grid-template-columns: 1fr; gap: 2px 0; }
-      .work dt { padding-top: 6px; }
-      .ladder-bar { grid-template-columns: 1fr; gap: 4px; }
-      .footer-grid { gap: 24px; }
-      .cmdk { width: calc(100% - 24px); }
-      .cmdk-backdrop { padding-top: 56px; }
-    }
-  </style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -751,856 +48,258 @@
   </script>
 </head>
 <body>
-  <!-- Inline icon symbols -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
     <defs>
-      <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></symbol>
-      <symbol id="i-arrow-right"    viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
-      <symbol id="i-grid"           viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
-      <symbol id="i-flow"           viewBox="0 0 24 24"><path d="M4 6h6M4 12h12M4 18h8"/><circle cx="14" cy="6" r="1.5"/><circle cx="20" cy="12" r="1.5"/><circle cx="14" cy="18" r="1.5"/></symbol>
-      <symbol id="i-spark"          viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></symbol>
-      <symbol id="i-sun"            viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></symbol>
-      <symbol id="i-moon"           viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
-      <symbol id="i-target"         viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></symbol>
-      <symbol id="i-shield"         viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.5 8-8 9-4.5-1-8-4.5-8-9V6l8-3z"/></symbol>
-      <symbol id="i-bolt"           viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></symbol>
-      <symbol id="i-stack"          viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/><path d="M3 18l9 5 9-5"/></symbol>
-      <symbol id="i-search"         viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></symbol>
-      <symbol id="i-home"           viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"/></symbol>
-      <symbol id="i-edit"           viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="M14 6l4 4"/></symbol>
-      <symbol id="i-anchor"         viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M12 7v14"/><path d="M5 13c0 4 3 7 7 7s7-3 7-7"/><path d="M5 13H2M19 13h3M9 9h6"/></symbol>
-      <symbol id="i-mail"           viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
-      <symbol id="i-link"           viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 1 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 1 0 5.66 5.66l1-1"/></symbol>
-      <symbol id="i-copy"           viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8L6 18M18 6l1.8-1.8"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></symbol>
+      <symbol id="i-arrow-r" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+      <symbol id="i-arrow-ur" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></symbol>
+      <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"/></symbol>
+      <symbol id="i-writing" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="M14 6l4 4"/></symbol>
+      <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.5 8-8 9-4.5-1-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></symbol>
+      <symbol id="i-flow" viewBox="0 0 24 24"><path d="M4 6h6M4 12h12M4 18h8"/><circle cx="14" cy="6" r="1.5"/><circle cx="20" cy="12" r="1.5"/><circle cx="14" cy="18" r="1.5"/></symbol>
+      <symbol id="i-code" viewBox="0 0 24 24"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M14 4l-4 16"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></symbol>
     </defs>
   </svg>
 
-  <header>
-    <div class="nav">
-      <a class="brand" href="#top">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span>Ali Osman Ozen</span>
-      </a>
-      <nav class="navlinks" aria-label="Primary navigation">
-        <a href="#work" class="hide-sm">Work</a>
-        <a href="#portfolio" class="hide-sm">Capabilities</a>
-        <a href="writing-archive.html">Writing</a>
-        <a href="department-adoption.html">Adoption</a>
-        <button type="button" class="cmdk-trigger" id="cmdkTrigger" aria-label="Open command palette" title="Open command palette (⌘K / Ctrl+K)">
-          <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>
-          <span class="lbl">Search</span>
-          <kbd>⌘K</kbd>
-        </button>
-        <div class="theme-picker" role="group" aria-label="Theme">
-          <button type="button" data-theme-set="linear" aria-pressed="true" title="Linear (Midnight Command)">
-            <svg class="ico" aria-hidden="true"><use href="#i-moon"/></svg><span class="lbl">Linear</span>
-          </button>
-          <button type="button" data-theme-set="cursor" aria-pressed="false" title="Cursor (Warm Ivory)">
-            <svg class="ico" aria-hidden="true"><use href="#i-sun"/></svg><span class="lbl">Cursor</span>
-          </button>
-          <button type="button" data-theme-set="stripe" aria-pressed="false" title="Stripe (Architectural Blueprint)">
-            <svg class="ico" aria-hidden="true"><use href="#i-stack"/></svg><span class="lbl">Stripe</span>
-          </button>
-        </div>
-        <a href="#contact" class="button primary">Contact <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
-      </nav>
-    </div>
+  <header class="topbar">
+    <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <a class="brand" href="#top" aria-label="Ali Osman Ozen home">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="3"/><rect x="2.4" y="2.4" width="27.2" height="27.2" rx="1.8"/><path d="M8.5 21.5 13 9h2l-4.5 12.5h-2Zm7.2 0L20.2 9h2l-4.5 12.5h-2Z"/></svg>
+      <span><b>0xozen</b> <span class="path">~/adoption/control-plane</span> <span class="version">. personal site</span></span>
+    </a>
+    <nav class="navlinks" aria-label="Primary navigation">
+      <a href="#work">work</a>
+      <a href="#model">model</a>
+      <a href="#diagrams">diagrams</a>
+      <a href="writing-archive.html">writing</a>
+      <a href="#contact">contact</a>
+    </nav>
+    <button class="iconbtn" id="cmdkTrigger" type="button" aria-label="Open command palette" title="Open command palette">
+      <svg><use href="#i-search"/></svg>
+    </button>
+    <button class="iconbtn" data-toggle-theme type="button" aria-label="Toggle theme">
+      <svg data-theme-icon="dark"><use href="#i-moon"/></svg>
+      <svg data-theme-icon="light" hidden><use href="#i-sun"/></svg>
+    </button>
+    <button class="iconbtn menutoggle" data-menu type="button" aria-label="Menu"><svg><use href="#i-menu"/></svg></button>
   </header>
 
   <main id="top">
-    <!-- ============================== HERO ============================== -->
     <section class="hero">
-      <div class="wrap hero-grid">
-        <div>
-          <div class="eyebrow"><span class="status-dot"></span> AI ADOPTION ARCHITECT · COLOGNE, DE</div>
-          <h1>AI adoption needs an operating model, not just tools.</h1>
-          <p class="lead">I help teams turn emerging technology into controlled workflows, clear responsibilities, useful documentation and adoption plans that survive contact with real operations.</p>
-          <div class="cta-row">
-            <a class="button primary" href="mailto:ali.ozen@rwth-aachen.de">Email me</a>
-            <a class="button" href="#work">See capabilities</a>
-            <a class="button ghost" href="https://linkedin.com/in/0xozen">LinkedIn <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
-          </div>
-          <div class="tag-row">
-            <span class="tag">AI adoption</span>
-            <span class="tag">Workflow design</span>
-            <span class="tag">Governance</span>
-            <span class="tag">Transformation</span>
-          </div>
+      <canvas id="signalField" aria-hidden="true"></canvas>
+      <div class="hero-veil" aria-hidden="true"></div>
+      <div class="wrap hero-copy">
+        <div data-type>
+          <div class="term-line" style="visibility:hidden"><span class="accent">$</span> 0xozen --status</div>
+          <div class="term-line" style="visibility:hidden"><span class="accent">-&gt;</span> scattered AI work detected across teams, tools, and decisions</div>
         </div>
-
-        <div class="terminal" aria-label="AI adoption operating console preview">
-          <div class="term-bar">
-            <div class="traffic" aria-hidden="true"><span></span><span></span><span></span></div>
-            <div class="term-title">adoption / control-plane</div>
-            <div class="term-meta">v0.6 · 2026</div>
-          </div>
-          <div class="term-body" id="termBody">
-            <div class="prompt-line"><span class="glyph">›</span><span class="cmd" id="termCmd"></span><span class="caret" id="termCaret"></span></div>
-            <div class="out" data-step="1">scanning <span class="info">6 operating layers</span> · resolving owners …</div>
-            <div class="out" data-step="2"><span class="ok">✓</span> leadership <span class="accent">visibility</span> ready</div>
-            <div class="out" data-step="3"><span class="ok">✓</span> revenue / cx <span class="accent">handoffs</span> mapped</div>
-            <div class="out" data-step="4"><span class="ok">✓</span> operations <span class="accent">queues</span> instrumented</div>
-            <div class="out" data-step="5"><span class="ok">✓</span> finance <span class="accent">approvals</span> gated</div>
-            <div class="out" data-step="6"><span class="ok">✓</span> trust <span class="accent">identity</span> bounded</div>
-            <div class="out" data-step="7"><span class="ok">✓</span> build <span class="accent">evals + rollback</span> in place</div>
-            <div class="out" data-step="8"><div class="term-rule"></div></div>
-            <div class="out" data-step="9"><span class="glyph">›</span> <span class="cmd">adopt next --suggest</span></div>
-            <div class="out" data-step="10"><span class="info">→</span> pick one workflow · define authority · log evidence</div>
-          </div>
-          <div class="term-cards">
-            <div class="term-card"><span class="label">Owner</span><span class="v">named <small>per workflow</small></span></div>
-            <div class="term-card"><span class="label">Authority</span><span class="v">suggest → commit</span></div>
-            <div class="term-card"><span class="label">Evidence</span><span class="v">attached <small>before scale</small></span></div>
-            <div class="term-card"><span class="label">Recovery</span><span class="v">rehearsed</span></div>
-          </div>
+        <h1>AI adoption needs a control plane, not another tool stack.<span class="cursor"></span></h1>
+        <p class="sub">I help teams turn emerging technology into controlled workflows, clear responsibilities, evidence trails, and adoption plans that survive contact with real operations.</p>
+        <div class="actions">
+          <a class="btn solid" href="mailto:ali.ozen@rwth-aachen.de">email me <svg><use href="#i-arrow-r"/></svg></a>
+          <a class="btn" href="#model">inspect model</a>
+          <a class="linkbtn" href="https://linkedin.com/in/0xozen">linkedin <svg><use href="#i-arrow-ur"/></svg></a>
         </div>
       </div>
-
-      <div class="wrap" style="margin-top: 56px;">
-        <div class="focus-strip reveal" aria-label="Portfolio focus areas">
-          <div class="focus-cell"><span class="num">06<small>×</small></span><span class="k">Operating layers</span><span class="d">Leadership · revenue · operations · finance · trust · build.</span></div>
-          <div class="focus-cell"><span class="num">06<small>×</small></span><span class="k">Control gates</span><span class="d">Owner · permission · approval · evidence · escalation · recovery.</span></div>
-          <div class="focus-cell"><span class="num">10<small>+</small></span><span class="k">Public notes</span><span class="d">Daily Signal posts &amp; weekly Signal vs. Noise synthesis.</span></div>
-          <div class="focus-cell"><span class="num">01<small>×</small></span><span class="k">Operator</span><span class="d">One person turning emerging tech into adoption you can run.</span></div>
-        </div>
-      </div>
+      <div class="hero-hint" aria-hidden="true">move your mouse - the field responds</div>
     </section>
 
-    <!-- ============================== WORK ============================== -->
+    <div class="marquee" aria-hidden="true"><div class="marquee-row">
+      <span>ai adoption</span><span>agent authority</span><span>workflow design</span><span>approval gates</span><span>evidence trails</span><span>web signal mapping</span><span>governance</span><span>rollback paths</span>
+      <span>ai adoption</span><span>agent authority</span><span>workflow design</span><span>approval gates</span><span>evidence trails</span><span>web signal mapping</span><span>governance</span><span>rollback paths</span>
+    </div></div>
+
     <section id="work">
       <div class="wrap">
-        <div class="section-head">
-          <div>
-            <span class="label">[ POSITIONING ]</span>
-            <h2>A practical portfolio for AI adoption and transformation roles.</h2>
-          </div>
-          <p class="section-copy">I focus on the type of work that makes technology useful: turning complex systems into clear workflows, governance, communication and execution plans that teams can actually use.</p>
-        </div>
-        <div class="grid three">
-          <article class="card reveal" data-d="1">
-            <div class="icon"><svg class="ico ico-lg" aria-hidden="true"><use href="#i-grid"/></svg></div>
-            <span class="label">01 / Adoption</span>
-            <h3>AI adoption</h3>
-            <p>Map use cases, approval gates, responsible handoffs, monitoring needs and rollout steps for AI-assisted work.</p>
+        <div class="cmd"><span class="accent">$</span> 0xozen work <span class="flag">--list capability_surfaces</span></div>
+        <h2>Three surfaces I make legible.</h2>
+        <p class="lead">The portfolio is built around operating clarity: where AI can help, what it is allowed to do, who owns the decision, and what evidence remains after the work moves.</p>
+        <div class="bento" data-stagger>
+          <article class="cell wide" data-spotlight>
+            <span class="spot"></span><span class="id">[01]</span>
+            <span class="ic"><svg><use href="#i-grid"/></svg></span>
+            <h3>AI adoption operating model</h3>
+            <p>Use-case maps, authority levels, review loops, rollout steps, and visibility for responsible AI-assisted work.</p>
           </article>
-          <article class="card reveal" data-d="2">
-            <div class="icon"><svg class="ico ico-lg" aria-hidden="true"><use href="#i-flow"/></svg></div>
-            <span class="label">02 / Operations</span>
-            <h3>Operations &amp; product thinking</h3>
-            <p>Translate messy workflows into priorities, requirements, documentation, execution plans and measurable next actions.</p>
+          <article class="cell" data-spotlight>
+            <span class="spot"></span><span class="id">[02]</span>
+            <span class="ic"><svg><use href="#i-flow"/></svg></span>
+            <h3>Workflow design</h3>
+            <p>Queues, handoffs, approvals, templates, data flows, and repeatable habits that make automation useful.</p>
           </article>
-          <article class="card reveal" data-d="3">
-            <div class="icon"><svg class="ico ico-lg" aria-hidden="true"><use href="#i-spark"/></svg></div>
-            <span class="label">03 / Strategy</span>
-            <h3>Emerging technology strategy</h3>
-            <p>Connect AI, automation, blockchain and digital transformation topics to business value, risk and adoption reality.</p>
+          <article class="cell" data-spotlight>
+            <span class="spot"></span><span class="id">[03]</span>
+            <span class="ic"><svg><use href="#i-shield"/></svg></span>
+            <h3>Agent governance</h3>
+            <p>Permission boundaries, human gates, logs, evaluation, escalation, and rollback before scale.</p>
+          </article>
+          <article class="cell" data-spotlight>
+            <span class="spot"></span><span class="id">[04]</span>
+            <span class="ic"><svg><use href="#i-code"/></svg></span>
+            <h3>Technology-to-value translation</h3>
+            <p>Clear language for leadership, product, operations, and non-technical teams deciding what to adopt.</p>
+          </article>
+          <article class="cell wide" data-spotlight>
+            <span class="spot"></span><span class="id">[05]</span>
+            <span class="ic"><svg><use href="#i-search"/></svg></span>
+            <h3>Web-signal intelligence</h3>
+            <p>Search, scrape, map, crawl, synthesize: turning live web data into reviewable adoption insight without losing the audit trail.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- ============================== CAPABILITIES ============================== -->
-    <section id="portfolio">
+    <section id="model">
       <div class="wrap">
-        <div class="section-head">
-          <div>
-            <span class="label">[ CAPABILITIES ]</span>
-            <h2>Capability areas for hiring conversations.</h2>
-          </div>
-          <p class="section-copy">A concise overview of the portfolio themes I want to be known for: adoption, workflow clarity, business translation and execution.</p>
-        </div>
-        <div class="capability reveal">
-          <div class="cap-row">
-            <div class="k">Current focus</div>
-            <div class="b"><strong>AI operating model design</strong><span>Decision rules, approval paths, review loops and visibility for responsible AI-assisted work.</span></div>
-            <span class="badge live"><span class="dot"></span> Active</span>
-          </div>
-          <div class="cap-row">
-            <div class="k">Workflow clarity</div>
-            <div class="b"><strong>Process mapping &amp; automation</strong><span>Breaking complex work into clear ownership, templates, data flows and repeatable habits.</span></div>
-            <span class="badge">Available</span>
-          </div>
-          <div class="cap-row">
-            <div class="k">Business translation</div>
-            <div class="b"><strong>Technology-to-value communication</strong><span>Explaining technical ideas so product, operations, leadership and non-technical teams can act.</span></div>
-            <span class="badge">Available</span>
-          </div>
-          <div class="cap-row">
-            <div class="k">Execution</div>
-            <div class="b"><strong>Program &amp; stakeholder management</strong><span>Coordinating scope, priorities, reporting and delivery across technical and operational contexts.</span></div>
-            <span class="badge">Available</span>
-          </div>
+        <div class="cmd"><span class="accent">$</span> 0xozen model <span class="flag">--interactive</span></div>
+        <h2>The operating model - move your mouse through it.</h2>
+        <p class="lead">AI work moves in layers. The top rail is human approval. The bottom rail is evidence. Hover a node to read what it controls.</p>
+        <div class="graph-wrap" data-reveal>
+          <div class="graph-head"><span>operating-model.live</span><span class="live"><i></i> interactive</span></div>
+          <canvas id="modelGraph" aria-label="Interactive AI adoption operating model diagram"></canvas>
+          <div class="graph-tip" id="graphTip"></div>
         </div>
       </div>
     </section>
 
-    <!-- ============================== AUTONOMY LADDER PLAYGROUND (NEW) ============================== -->
-    <section id="playground">
+    <section id="diagrams">
       <div class="wrap">
-        <div class="section-head">
-          <div>
-            <span class="label">[ INTERACTIVE · AUTONOMY LADDER ]</span>
-            <h2>What "AI is allowed to do" means at each level.</h2>
-          </div>
-          <p class="section-copy">Click a step to see the gates, evidence requirements and risk signature for that level of authority. This is the spine of every adoption conversation I have.</p>
-        </div>
-        <div class="ladder-panel reveal" id="ladderPanel">
-          <div class="ladder-bar" role="tablist" aria-label="Autonomy ladder">
-            <button class="ladder-step active" role="tab" aria-selected="true" data-step="suggest"><span class="step-tag">/01</span><span class="step-name">Suggest</span></button>
-            <button class="ladder-step" role="tab" aria-selected="false" data-step="prepare"><span class="step-tag">/02</span><span class="step-name">Prepare</span></button>
-            <button class="ladder-step" role="tab" aria-selected="false" data-step="modify"><span class="step-tag">/03</span><span class="step-name">Modify</span></button>
-            <button class="ladder-step" role="tab" aria-selected="false" data-step="trigger"><span class="step-tag">/04</span><span class="step-name">Trigger</span></button>
-            <button class="ladder-step" role="tab" aria-selected="false" data-step="commit"><span class="step-tag">/05</span><span class="step-name">Commit</span></button>
-          </div>
-          <div class="ladder-detail" id="ladderDetail">
-            <div class="col">
-              <h4>What it means</h4>
-              <p id="ladderWhat">Summarize, draft, classify or analyze. Output is read by a human; nothing is changed in any system of record.</p>
-              <span class="risk-pill" id="ladderRisk"><span class="dot"></span> Low risk</span>
+        <div class="cmd"><span class="accent">$</span> 0xozen diagrams <span class="flag">--show ladder,signal_loop,gates</span></div>
+        <h2>Diagrams you can touch.</h2>
+        <p class="lead">These are not decorative charts. Each diagram exposes the operational question behind AI adoption: authority, source data, evidence, and recovery.</p>
+        <div class="split">
+          <div class="panel ladder-panel" data-reveal data-ripple>
+            <div class="panel-head"><span>// autonomy ladder</span><span id="ladderMeta">01 / suggest</span></div>
+            <div class="ladder-tabs" role="tablist" aria-label="Autonomy ladder">
+              <button class="ladder-step active" type="button" role="tab" aria-selected="true" data-step="suggest">suggest</button>
+              <button class="ladder-step" type="button" role="tab" aria-selected="false" data-step="prepare">prepare</button>
+              <button class="ladder-step" type="button" role="tab" aria-selected="false" data-step="modify">modify</button>
+              <button class="ladder-step" type="button" role="tab" aria-selected="false" data-step="trigger">trigger</button>
+              <button class="ladder-step" type="button" role="tab" aria-selected="false" data-step="commit">commit</button>
             </div>
-            <div class="col">
-              <h4>Required gates</h4>
+            <div class="ladder-detail">
+              <div>
+                <h3 id="ladderTitle">Suggest</h3>
+                <p id="ladderText">Summarize, draft, classify, or analyze. Output is read by a human; nothing changes in a system of record.</p>
+                <span class="risk low" id="ladderRisk"><i></i> low risk</span>
+              </div>
               <ul id="ladderGates">
-                <li>Source attribution</li>
-                <li>Logged prompt + output</li>
-                <li>Reviewer can ignore safely</li>
+                <li>source attribution</li>
+                <li>logged prompt and output</li>
+                <li>reviewer can ignore safely</li>
               </ul>
             </div>
           </div>
+
+          <div class="panel signal-panel" data-reveal data-ripple>
+            <div class="panel-head"><span>// web signal loop</span><span id="signalMeta">search</span></div>
+            <div class="signal-stage" id="signalStage">
+              <div class="status-line"><span>[ 200 OK ]</span><span>[ .JSON ]</span><span>[ SCRAPE ]</span><span>[ .MD ]</span></div>
+              <pre id="signalCode">1  search("agent governance")
+2  results -> sources[]
+3  sources -> readable evidence</pre>
+            </div>
+            <div class="signal-controls" role="tablist" aria-label="Web signal loop">
+              <button class="active" type="button" data-signal="search">search</button>
+              <button type="button" data-signal="scrape">scrape</button>
+              <button type="button" data-signal="map">map</button>
+              <button type="button" data-signal="crawl">crawl</button>
+              <button type="button" data-signal="govern">govern</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="gates" data-stagger>
+          <article class="gate" data-spotlight><span class="spot"></span><span class="num">1</span><b>Owner</b><p>Whose decision is this?</p></article>
+          <article class="gate" data-spotlight><span class="spot"></span><span class="num">2</span><b>Permission</b><p>What can it touch?</p></article>
+          <article class="gate" data-spotlight><span class="spot"></span><span class="num">3</span><b>Approval</b><p>Who signs off before impact?</p></article>
+          <article class="gate" data-spotlight><span class="spot"></span><span class="num">4</span><b>Evidence</b><p>What gets preserved?</p></article>
+          <article class="gate" data-spotlight><span class="spot"></span><span class="num">5</span><b>Escalation</b><p>Where do exceptions go?</p></article>
+          <article class="gate" data-spotlight><span class="spot"></span><span class="num">6</span><b>Recovery</b><p>How do we undo?</p></article>
         </div>
       </div>
     </section>
 
-    <!-- ============================== 6 CONTROL GATES (NEW) ============================== -->
-    <section id="gates">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <span class="label">[ CONTROL GATES · /06 ]</span>
-            <h2>Six gates every adoption workflow has to answer.</h2>
-          </div>
-          <p class="section-copy">When teams ask "is this AI safe to ship?", the productive answer isn't model talk - it's the same six questions, in order. Cards animate in as you scroll past.</p>
-        </div>
-        <div class="gates-frame reveal" id="gatesFrame">
-          <div class="gates-grid">
-            <article class="gate">
-              <span class="num">1</span><span class="name">Owner</span>
-              <span class="q">Whose decision is this?</span>
-              <span class="a">Every workflow points to a named human accountable for the outcome.</span>
-            </article>
-            <article class="gate">
-              <span class="num">2</span><span class="name">Permission</span>
-              <span class="q">What can it touch?</span>
-              <span class="a">Read, write, trigger and modify rights are scoped to the smallest viable surface.</span>
-            </article>
-            <article class="gate">
-              <span class="num">3</span><span class="name">Approval</span>
-              <span class="q">Who signs off?</span>
-              <span class="a">Human checkpoints sit before commitments - money, identity, external messages.</span>
-            </article>
-            <article class="gate">
-              <span class="num">4</span><span class="name">Evidence</span>
-              <span class="q">What is preserved?</span>
-              <span class="a">Inputs, prompts, outputs, decisions, reviewer notes - kept and queryable.</span>
-            </article>
-            <article class="gate">
-              <span class="num">5</span><span class="name">Escalation</span>
-              <span class="q">Who gets paged?</span>
-              <span class="a">Each exception has a path - owner first, then on-call, then leadership.</span>
-            </article>
-            <article class="gate">
-              <span class="num">6</span><span class="name">Recovery</span>
-              <span class="q">How do we undo?</span>
-              <span class="a">Reverse the action, revoke access, redo the work - rehearsed before scale.</span>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================== SELECTED WORK ============================== -->
     <section id="selected">
       <div class="wrap">
-        <div class="section-head">
-          <div>
-            <span class="label">[ SELECTED WORK ]</span>
-            <h2>Three lenses I bring to every adoption conversation.</h2>
-          </div>
-          <p class="section-copy">Not a case study list - a structured way to read what I do, framed as problem → approach → outcome so hiring teams can ground the discussion quickly.</p>
-        </div>
+        <div class="cmd"><span class="accent">$</span> 0xozen proof <span class="flag">--selected</span></div>
+        <h2>Proof-of-work lenses for hiring conversations.</h2>
         <div class="work-grid">
-          <article class="work reveal" data-d="1">
-            <div class="head-row"><span class="index">/ 01</span><span class="stage"><svg class="ico" aria-hidden="true"><use href="#i-target"/></svg> Operating model</span></div>
-            <h3>From scattered AI pilots to one control plane.</h3>
-            <dl>
-              <dt>Problem</dt><dd>Disconnected pilots, no shared owner, no record of what AI is allowed to do.</dd>
-              <dt>Approach</dt><dd>Map workflows, name owners, set the suggest → commit autonomy ladder, attach evidence.</dd>
-              <dt>Outcome</dt><dd>A reviewable cockpit instead of invisible automation; safer to scale.</dd>
-            </dl>
+          <article class="work-card" data-reveal data-spotlight>
+            <span class="spot"></span><span class="id">/ 01</span>
+            <h3>From scattered pilots to one control plane.</h3>
+            <dl><dt>Problem</dt><dd>No shared owner or record of what AI is allowed to do.</dd><dt>Approach</dt><dd>Name owners, set authority levels, attach evidence.</dd><dt>Outcome</dt><dd>A reviewable cockpit instead of invisible automation.</dd></dl>
           </article>
-          <article class="work reveal" data-d="2">
-            <div class="head-row"><span class="index">/ 02</span><span class="stage"><svg class="ico" aria-hidden="true"><use href="#i-flow"/></svg> Workflow design</span></div>
-            <h3>From content volume to controlled workflow movement.</h3>
-            <dl>
-              <dt>Problem</dt><dd>Teams measure AI by tokens written, not by work that actually moves.</dd>
-              <dt>Approach</dt><dd>Identify queues and handoffs, define approval gates, route exceptions to named humans.</dd>
-              <dt>Outcome</dt><dd>Cycle-time gains with audit-ready evidence and fewer stuck handoffs.</dd>
-            </dl>
+          <article class="work-card" data-reveal data-spotlight>
+            <span class="spot"></span><span class="id">/ 02</span>
+            <h3>From content volume to workflow movement.</h3>
+            <dl><dt>Problem</dt><dd>Teams measure tokens written, not work moved.</dd><dt>Approach</dt><dd>Route queues and handoffs through approval gates.</dd><dt>Outcome</dt><dd>Cycle-time gains with fewer stuck decisions.</dd></dl>
           </article>
-          <article class="work reveal" data-d="3">
-            <div class="head-row"><span class="index">/ 03</span><span class="stage"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg> Translation</span></div>
-            <h3>From technical jargon to operator-grade language.</h3>
-            <dl>
-              <dt>Problem</dt><dd>Leadership, legal and operations talk past each other when AI risk is on the table.</dd>
-              <dt>Approach</dt><dd>Replace abstract claims with concrete authority, evidence and recovery questions.</dd>
-              <dt>Outcome</dt><dd>Faster decisions, clearer ownership, fewer surprise escalations.</dd>
-            </dl>
+          <article class="work-card" data-reveal data-spotlight>
+            <span class="spot"></span><span class="id">/ 03</span>
+            <h3>From technical jargon to operator language.</h3>
+            <dl><dt>Problem</dt><dd>Leadership, legal, and operations talk past each other.</dd><dt>Approach</dt><dd>Replace claims with authority, evidence, and recovery questions.</dd><dt>Outcome</dt><dd>Faster decisions and clearer accountability.</dd></dl>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- ============================== PROOF OF WORK ============================== -->
-    <section id="proof" class="reveal">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <span class="eyebrow">Evidence</span>
-            <h2>Proof of Work</h2>
-          </div>
-          <div class="section-copy">
-            Public artifacts that demonstrate my ability to turn AI tools into governed, operational workflows.
-          </div>
-        </div>
-
-        <div class="grid three">
-          <div class="card">
-            <div class="icon">🧖</div>
-            <h3>Agent Authority Ladder</h3>
-            <p>A practical framework for defining what agents can suggest, prepare, modify, execute, or commit — with clear human approval gates and evidence requirements.</p>
-            <a href="#playground" class="button ghost" style="margin-top:16px">Explore the Ladder →</a>
-          </div>
-
-          <div class="card">
-            <div class="icon">📍</div>
-            <h3>AI Adoption Maturity Model</h3>
-            <p>Why most companies stay stuck at experimentation and how to move from tool usage to real workflow redesign with ownership, permissions, and accountability.</p>
-            <a href="writing-archive.html" class="button ghost" style="margin-top:16px">Read Analysis →</a>
-          </div>
-
-          <div class="card">
-            <div class="icon">🛡️</div>
-            <h3>Governance & Trust Layer</h3>
-            <p>Permission systems, audit trails, rollback mechanisms, and responsibility design required for safe agent operations in regulated European environments.</p>
-            <a href="#gates" class="button ghost" style="margin-top:16px">See the 6 Gates →</a>
-          </div>
-        </div>
-
-        <div style="margin-top: 24px; text-align: center;">
-          <a href="writing-archive.html" class="button">View Full Writing Archive →</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================== FOR RECRUITERS & FOUNDERS ============================== -->
-    <section id="recruiters" class="reveal" style="background: var(--surface-1); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <span class="eyebrow">Hiring & Partnerships</span>
-            <h2>For Recruiters & Founders</h2>
-          </div>
-        </div>
-
-        <div class="grid two" style="margin-top: 20px;">
-          <div class="card">
-            <h3>I'm looking for roles in</h3>
-            <ul style="margin: 16px 0 0; padding-left: 18px; color: var(--text-2); line-height: 1.7;">
-              <li>AI Adoption / Digital Transformation</li>
-              <li>AI Operations & Governance</li>
-              <li>Innovation & Strategy roles</li>
-              <li>Agentic Workflow implementation</li>
-            </ul>
-            <p style="margin-top: 16px; font-size: 13px; color: var(--text-3);">10+ years project & operations experience + hands-on agent system building.</p>
-          </div>
-
-          <div class="card">
-            <h3>I'm building</h3>
-            <p style="margin-top: 12px;">A new company focused on <strong>AI Adoption Architecture</strong> and <strong>Agent Operations</strong> for European companies.</p>
-            <p style="margin-top: 12px; font-size: 13px;">I am also developing <strong>Helen</strong> — an agent orchestration and coordination framework that gives teams safe, auditable control over agent work.</p>
-            <a href="#roadmap" class="button ghost" style="margin-top: 16px;">See Public Roadmap →</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================== CURRENT FOCUS & 14-DAY PLAN ============================== -->
-    <section id="roadmap" class="reveal">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <span class="eyebrow">Building in Public</span>
-            <h2>Current Focus & 14-Day Plan</h2>
-          </div>
-          <div class="section-copy">
-            Transparent view of what I’m working on. One move serves multiple goals: X reach, job search proof, and future company positioning.
-          </div>
-        </div>
-
-        <div class="card" style="margin-bottom: 24px;">
-          <h3 style="margin-bottom: 12px;">May 20 – June 2 (14-Day Sprint)</h3>
-          <p style="color: var(--text-2); font-size: 14px;">Focus: Increasing reach on X while building credible proof for job applications and New Corp narrative.</p>
-          
-          <div style="margin-top: 20px; display: grid; gap: 12px;">
-            <div style="display: flex; gap: 12px; align-items: flex-start;">
-              <span class="badge live" style="font-size:10px; flex-shrink:0; margin-top:2px">Week 1</span>
-              <div>
-                <strong>Strong hooks + Framework threads</strong><br>
-                <span style="font-size:13px; color:var(--text-3);">Agent Authority Ladder, European AI governance angle, OpenClaw observations</span>
-              </div>
-            </div>
-            <div style="display: flex; gap: 12px; align-items: flex-start;">
-              <span class="badge live" style="font-size:10px; flex-shrink:0; margin-top:2px">Week 2</span>
-              <div>
-                <strong>Proof & Positioning</strong><br>
-                <span style="font-size:13px; color:var(--text-3);">Recruiter-friendly threads, workflow examples, portfolio showcase post</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div style="text-align: center; margin-top: 16px;">
-          <a href="https://0xozen.github.io/" class="button primary">View Full 14-Day Content Plan →</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================== WRITING ============================== -->
     <section id="writing">
       <div class="wrap">
-        <div class="section-head">
-          <div>
-            <span class="label">[ WRITING ]</span>
-            <h2>Latest LinkedIn writing.</h2>
-          </div>
-          <p class="section-copy">The homepage shows only the latest three public writing summaries. The full archive has a dedicated page with command-K search.</p>
-        </div>
-        <div class="archive-grid" aria-label="Latest LinkedIn writing">
-          <a class="archive-card reveal" data-d="1" href="writing-archive.html#operational-work-surfaces">
-            <div class="meta"><span class="date">2026-05-04 · DAILY</span><span class="read-cue">READ <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span></div>
-            <strong>Operational Work Surfaces</strong>
-            <p>Enterprise AI shifts from model announcements into work surfaces, control planes and real operating questions.</p>
-            <span class="lens">Enterprise adoption lens</span>
-          </a>
-          <a class="archive-card reveal" data-d="2" href="writing-archive.html#authority-became-the-bottleneck">
-            <div class="meta"><span class="date">ISSUE 6 · WEEKLY</span><span class="read-cue">READ <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span></div>
-            <strong>Authority Became the Bottleneck</strong>
-            <p>AI distribution changed. The next adoption question is under what authority a system should be allowed to act.</p>
-            <span class="lens">Signal vs. Noise</span>
-          </a>
-          <a class="archive-card reveal" data-d="3" href="writing-archive.html#agent-control-plane">
-            <div class="meta"><span class="date">2026-05-03 · DAILY</span><span class="read-cue">READ <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span></div>
-            <strong>Agent Control Plane</strong>
-            <p>The strongest signal is the rise of memory, permissions, evidence, evaluation, cost and accountability around AI work.</p>
-            <span class="lens">Cross-department synthesis</span>
-          </a>
-        </div>
-        <div class="archive-actions">
-          <a class="button primary" href="writing-archive.html">Open full archive</a>
-          <a class="button" href="department-adoption.html">Department adoption page</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================== ADOPTION TEASER ============================== -->
-    <section id="adoption">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <span class="label">[ DEPARTMENT ADOPTION MAP ]</span>
-            <h2>Operating-layer recommendations live on a dedicated page.</h2>
-          </div>
-          <p class="section-copy">The homepage stays focused: a short preview here, full department recommendations on the adoption page.</p>
-        </div>
-        <div class="adoption-panel reveal">
-          <div class="teaser-head">
-            <div>
-              <span class="label">[ ROUTE ]</span>
-              <h3>AI adoption recommendations by operating layer.</h3>
-              <p>Leadership, money, people &amp; trust, market, operations, and build / intelligence layers each need different ownership, approval and evidence patterns.</p>
-            </div>
-            <a class="button primary" href="department-adoption.html">Open page <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
-          </div>
-          <div class="layer-grid">
-            <div class="layer-card"><span class="label">/ 01</span><strong>Six operating layers</strong><p>A compact map of where AI touches strategy, money, trust, market motion, operations, and product / data / engineering work.</p></div>
-            <div class="layer-card"><span class="label">/ 02</span><strong>Control points first</strong><p>The detailed page keeps the emphasis on ownership, permission boundaries, review loops, evidence and escalation.</p></div>
-            <div class="layer-card"><span class="label">/ 03</span><strong>Expandable later</strong><p>When full post sources arrive, this page can connect every recommendation back to the relevant LinkedIn writing block.</p></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================== BACKGROUND ============================== -->
-    <section id="background">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <span class="label">[ BACKGROUND ]</span>
-            <h2>A broad path with one clear thread.</h2>
-          </div>
-          <p class="section-copy">My background combines engineering, project management, emerging technology, research and hands-on systems thinking. The common thread is making complex work understandable, structured and executable.</p>
-        </div>
-        <div class="background-list reveal">
-          <div class="row"><div class="k">Current focus</div><div><strong>AI adoption &amp; transformation</strong><span>Operating models, workflow design, agent governance, documentation and practical rollout planning.</span></div></div>
-          <div class="row"><div class="k">Technology</div><div><strong>Emerging technology &amp; digital assets</strong><span>Business-facing work around blockchain, tokenization, market structure and technology adoption.</span></div></div>
-          <div class="row"><div class="k">Operations</div><div><strong>Project &amp; stakeholder management</strong><span>Experience coordinating institutional projects, reporting cycles, stakeholders and measurable delivery work.</span></div></div>
-          <div class="row"><div class="k">Education</div><div><strong>Management &amp; engineering</strong><span>Technical, entrepreneurial and business education with focus on innovation and technology strategy.</span></div></div>
+        <div class="cmd"><span class="accent">$</span> 0xozen writing <span class="flag">--latest</span></div>
+        <h2>Latest public writing.</h2>
+        <p class="lead">The full archive keeps Daily Signal posts and weekly Signal vs. Noise synthesis searchable.</p>
+        <div class="writing-list" data-stagger>
+          <a href="writing-archive.html#operational-work-surfaces"><span>2026-05-04</span><b>Operational Work Surfaces</b><em>enterprise adoption lens</em></a>
+          <a href="writing-archive.html#authority-became-the-bottleneck"><span>Issue 6</span><b>Authority Became the Bottleneck</b><em>signal vs. noise</em></a>
+          <a href="writing-archive.html#agent-control-plane"><span>2026-05-03</span><b>Agent Control Plane</b><em>cross-department synthesis</em></a>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Command palette overlay -->
   <div class="cmdk-backdrop" id="cmdkBackdrop" role="dialog" aria-modal="true" aria-label="Command palette">
     <div class="cmdk">
       <div class="cmdk-search">
-        <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>
-        <input class="cmdk-input" id="cmdkInput" type="text" placeholder="Type to search or jump (try theme, contact, adoption, writing)…" autocomplete="off" />
-        <span class="cmdk-esc">ESC</span>
+        <svg aria-hidden="true"><use href="#i-search"/></svg>
+        <input id="cmdkInput" type="text" placeholder="Jump to model, diagrams, writing, contact..." autocomplete="off" />
+        <span>esc</span>
       </div>
       <div class="cmdk-list" id="cmdkList"></div>
-      <div class="cmdk-foot">
-        <span><kbd>↑</kbd><kbd>↓</kbd> navigate · <kbd>↵</kbd> select · <kbd>esc</kbd> close</span>
-        <span>⌘K anywhere</span>
-      </div>
+      <div class="cmdk-foot"><span>arrow keys + enter</span><span>0xozen.local</span></div>
     </div>
   </div>
 
-  <footer id="contact" class="footer">
-    <div class="wrap">
-      <div class="footer-grid">
-        <div class="col">
-          <span class="label">[ CONTACT ]</span>
-          <h2>Interested in AI adoption that survives contact with real operations?</h2>
-          <p>Reach me for AI adoption, governance, workflow design, digital transformation, product operations and emerging-technology strategy roles.</p>
-          <div class="cta-row">
-            <a class="button primary" href="mailto:ali.ozen@rwth-aachen.de">ali.ozen@rwth-aachen.de</a>
-            <a class="button" href="https://linkedin.com/in/0xozen">LinkedIn <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
-          </div>
-        </div>
-        <div class="col">
-          <h4>Site</h4>
-          <ul>
-            <li><a href="#work">Work <span class="ext">/01</span></a></li>
-            <li><a href="#portfolio">Capabilities <span class="ext">/02</span></a></li>
-            <li><a href="#playground">Autonomy ladder <span class="ext">/03</span></a></li>
-            <li><a href="#gates">Control gates <span class="ext">/04</span></a></li>
-            <li><a href="#selected">Selected work <span class="ext">/05</span></a></li>
-            <li><a href="writing-archive.html">Writing archive <span class="ext">↗</span></a></li>
-            <li><a href="department-adoption.html">Adoption map <span class="ext">↗</span></a></li>
-          </ul>
-        </div>
-        <div class="col">
-          <h4>Elsewhere</h4>
-          <ul>
-            <li><a href="https://linkedin.com/in/0xozen">LinkedIn <span class="ext">↗</span></a></li>
-            <li><a href="https://github.com/0xOzen">GitHub <span class="ext">↗</span></a></li>
-            <li><a href="mailto:ali.ozen@rwth-aachen.de">Email <span class="ext">↗</span></a></li>
-          </ul>
+  <footer id="contact">
+    <div class="wrap footer-grid">
+      <div>
+        <div class="cmd"><span class="accent">$</span> 0xozen contact <span class="flag">--open</span></div>
+        <h2>Interested in AI adoption that survives real operations?</h2>
+        <p class="lead">Reach me for AI adoption, workflow design, governance, product operations, digital transformation, and emerging-technology strategy roles.</p>
+        <div class="actions">
+          <a class="btn solid" href="mailto:ali.ozen@rwth-aachen.de">ali.ozen@rwth-aachen.de</a>
+          <a class="btn" href="https://github.com/0xOzen">github <svg><use href="#i-arrow-ur"/></svg></a>
+          <a class="btn" href="https://linkedin.com/in/0xozen">linkedin <svg><use href="#i-arrow-ur"/></svg></a>
         </div>
       </div>
-      <div class="footer-meta">
-        <span>Cologne, DE · 2026</span>
-        <span>Designed with Refero · Linear &amp; Cursor</span>
-      </div>
+      <nav aria-label="Footer navigation">
+        <a href="#work">work</a>
+        <a href="#model">model</a>
+        <a href="#diagrams">diagrams</a>
+        <a href="writing-archive.html">writing archive</a>
+        <a href="department-adoption.html">department adoption</a>
+      </nav>
     </div>
+    <div class="wrap footer-meta"><span>Cologne, DE . <span data-year>2026</span></span><span>terminal/data-field interface</span></div>
   </footer>
 
-  <script>
-    /* ===================== Theme picker (3-way) ===================== */
-    (function () {
-      var meta = document.getElementById('theme-color-meta');
-      var btns = document.querySelectorAll('.theme-picker [data-theme-set]');
-      var THEME_COLOR = { linear: '#08090a', cursor: '#f7f7f4', stripe: '#ffffff' };
-      var THEMES = ['linear', 'cursor', 'stripe'];
-      function valid(t) { return THEMES.indexOf(t) !== -1; }
-      function setTheme(t) {
-        if (!valid(t)) t = 'linear';
-        document.documentElement.setAttribute('data-theme', t);
-        try { localStorage.setItem('theme', t); } catch (e) {}
-        if (meta) meta.setAttribute('content', THEME_COLOR[t]);
-        btns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.themeSet === t ? 'true' : 'false'); });
-      }
-      var current = document.documentElement.getAttribute('data-theme') || 'linear';
-      if (!valid(current)) current = 'linear';
-      setTheme(current);
-      btns.forEach(function (b) {
-        b.addEventListener('click', function () { setTheme(b.dataset.themeSet); });
-      });
-    })();
-
-    /* ===================== Scroll-fade reveal ===================== */
-    (function () {
-      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var els = document.querySelectorAll('.reveal');
-      if (prefersReduced || !('IntersectionObserver' in window)) {
-        els.forEach(function (el) { el.classList.add('in-view'); });
-        return;
-      }
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
-        });
-      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-      els.forEach(function (el) { io.observe(el); });
-    })();
-
-    /* ===================== Terminal typing animation ===================== */
-    (function () {
-      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var cmdEl = document.getElementById('termCmd');
-      var caretEl = document.getElementById('termCaret');
-      var outs = document.querySelectorAll('#termBody .out');
-      if (!cmdEl) return;
-      if (prefersReduced) {
-        cmdEl.textContent = 'adopt status --layer all';
-        outs.forEach(function (o) { o.classList.add('shown'); });
-        return;
-      }
-      var phrase = 'adopt status --layer all';
-      var i = 0;
-      function tick() {
-        if (i <= phrase.length) {
-          cmdEl.textContent = phrase.slice(0, i);
-          i++;
-          setTimeout(tick, 38 + Math.random() * 28);
-        } else {
-          if (caretEl) caretEl.style.animationDuration = '1.4s';
-          outs.forEach(function (out, idx) {
-            setTimeout(function () { out.classList.add('shown'); }, 180 * (idx + 1));
-          });
-        }
-      }
-      // Slight delay before typing starts
-      setTimeout(tick, 420);
-    })();
-
-    /* ===================== Autonomy ladder playground ===================== */
-    (function () {
-      var data = {
-        suggest: {
-          what: 'Summarize, draft, classify or analyze. Output is read by a human; nothing is changed in any system of record.',
-          gates: ['Source attribution', 'Logged prompt + output', 'Reviewer can ignore safely'],
-          risk: 'low', riskLabel: 'Low risk'
-        },
-        prepare: {
-          what: 'Create a next action for human review - a draft email, a CRM update proposal, a PR description, an invoice match.',
-          gates: ['Diff visible before save', 'Named owner approves', 'Edit history retained'],
-          risk: 'low', riskLabel: 'Low–medium risk'
-        },
-        modify: {
-          what: 'Change a file, record, ticket or CRM field. The state of the system moves; humans review after the fact.',
-          gates: ['Field-level audit log', 'Rollback path defined', 'Restricted to scoped objects'],
-          risk: 'med', riskLabel: 'Medium risk'
-        },
-        trigger: {
-          what: 'Start a workflow, escalate, notify or route work to others. Side effects ripple to people downstream.',
-          gates: ['Idempotency keys', 'Escalation owner on call', 'Cancel + reverse procedure tested'],
-          risk: 'high', riskLabel: 'High risk'
-        },
-        commit: {
-          what: 'Spend, approve, deploy, sign or contact externally. Action cannot be silently undone.',
-          gates: ['Two-party authorization', 'Pre-commit eval gate', 'Recovery drill rehearsed'],
-          risk: 'crit', riskLabel: 'Critical risk'
-        }
-      };
-      var bar = document.querySelectorAll('.ladder-step');
-      var whatEl = document.getElementById('ladderWhat');
-      var gatesEl = document.getElementById('ladderGates');
-      var riskEl = document.getElementById('ladderRisk');
-      function render(step) {
-        var d = data[step]; if (!d) return;
-        whatEl.textContent = d.what;
-        gatesEl.innerHTML = d.gates.map(function (g) { return '<li>' + g + '</li>'; }).join('');
-        riskEl.className = 'risk-pill ' + d.risk;
-        riskEl.innerHTML = '<span class="dot"></span> ' + d.riskLabel;
-      }
-      bar.forEach(function (b) {
-        b.addEventListener('click', function () {
-          bar.forEach(function (x) { x.classList.remove('active'); x.setAttribute('aria-selected', 'false'); });
-          b.classList.add('active'); b.setAttribute('aria-selected', 'true');
-          render(b.dataset.step);
-        });
-      });
-    })();
-
-    /* ===================== Command palette (Cmd+K) ===================== */
-    (function () {
-      var backdrop = document.getElementById('cmdkBackdrop');
-      var input = document.getElementById('cmdkInput');
-      var list = document.getElementById('cmdkList');
-      if (!backdrop || !input || !list) return;
-      var trigger = document.getElementById('cmdkTrigger') || document.getElementById('searchTrigger');
-      var pageId = document.documentElement.dataset.page || 'home';
-
-      function setTheme(t) {
-        if (['linear','cursor','stripe'].indexOf(t) < 0) return;
-        document.documentElement.setAttribute('data-theme', t);
-        try { localStorage.setItem('theme', t); } catch (e) {}
-        var meta = document.getElementById('theme-color-meta');
-        var col = { linear:'#08090a', cursor:'#f7f7f4', stripe:'#ffffff' }[t];
-        if (meta && col) meta.setAttribute('content', col);
-        document.querySelectorAll('.theme-picker [data-theme-set]').forEach(function (b) {
-          b.setAttribute('aria-pressed', b.dataset.themeSet === t ? 'true' : 'false');
-        });
-      }
-      function toast(msg) {
-        var t = document.createElement('div');
-        t.textContent = msg;
-        t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--surface-1);border:1px solid var(--border-soft);color:var(--text-1);padding:10px 14px;border-radius:8px;font:13px var(--font-sans);box-shadow:var(--shadow-xl);z-index:200;opacity:0;transition:opacity .2s';
-        document.body.appendChild(t);
-        requestAnimationFrame(function(){ t.style.opacity='1'; });
-        setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); }, 250); }, 1600);
-      }
-      function copyEmail() {
-        var email = 'ali.ozen@rwth-aachen.de';
-        if (navigator.clipboard) {
-          navigator.clipboard.writeText(email).then(function(){ toast('Copied ' + email); }).catch(function(){ toast(email); });
-        } else { toast(email); }
-      }
-
-      var commands = [];
-      commands.push(
-        { section:'Navigate', label:'Home', icon:'i-home', meta:'index.html', current: pageId==='home', action: function(){ location.href = 'index.html'; } },
-        { section:'Navigate', label:'Writing archive', icon:'i-edit', meta:'writing-archive.html', current: pageId==='writing', action: function(){ location.href = 'writing-archive.html'; } },
-        { section:'Navigate', label:'Department AI adoption', icon:'i-grid', meta:'department-adoption.html', current: pageId==='adoption', action: function(){ location.href = 'department-adoption.html'; } }
-      );
-
-      var sectionEls = document.querySelectorAll('main section[id]');
-      Array.prototype.forEach.call(sectionEls, function(s){
-        var h = s.querySelector('h2') || s.querySelector('h3');
-        if (!h) return;
-        commands.push({
-          section:'Jump to section',
-          label: h.textContent.trim(), icon:'i-anchor', meta:'#'+s.id,
-          action: function(){
-            var y = s.getBoundingClientRect().top + window.pageYOffset - 80;
-            window.scrollTo({ top:y, behavior:'smooth' });
-            history.replaceState(null, '', '#'+s.id);
-          }
-        });
-      });
-
-      commands.push(
-        { section:'Theme', label:'Linear · midnight command', icon:'i-moon', action: function(){ setTheme('linear'); toast('Theme: Linear'); } },
-        { section:'Theme', label:'Cursor · warm ivory',     icon:'i-sun',  action: function(){ setTheme('cursor'); toast('Theme: Cursor'); } },
-        { section:'Theme', label:'Stripe · architectural blueprint', icon:'i-stack', action: function(){ setTheme('stripe'); toast('Theme: Stripe'); } }
-      );
-
-      commands.push(
-        { section:'Actions', label:'Copy email — ali.ozen@rwth-aachen.de', icon:'i-copy', action: copyEmail },
-        { section:'Actions', label:'Send email', icon:'i-mail', action: function(){ location.href = 'mailto:ali.ozen@rwth-aachen.de'; } },
-        { section:'Actions', label:'Open LinkedIn', icon:'i-link', meta:'linkedin.com/in/0xozen', action: function(){ window.open('https://linkedin.com/in/0xozen','_blank','noopener'); } },
-        { section:'Actions', label:'Open GitHub',   icon:'i-link', meta:'github.com/0xOzen',      action: function(){ window.open('https://github.com/0xOzen','_blank','noopener'); } }
-      );
-
-      if (pageId === 'writing') {
-        var entries = document.querySelectorAll('article.entry, article[data-title]');
-        Array.prototype.forEach.call(entries, function(el){
-          var t = el.dataset.title || (el.querySelector('h3') || el.querySelector('h2') || {textContent:''}).textContent;
-          if (!t) return;
-          var id = el.id;
-          commands.push({
-            section:'Writing entries', label: t.trim(), icon:'i-anchor',
-            meta: el.dataset.meta || (id ? '#'+id : ''),
-            action: function(){
-              var y = el.getBoundingClientRect().top + window.pageYOffset - 80;
-              window.scrollTo({ top:y, behavior:'smooth' });
-              if (id) history.replaceState(null, '', '#'+id);
-              el.style.transition = 'box-shadow .6s ease';
-              el.style.boxShadow = '0 0 0 2px var(--accent)';
-              setTimeout(function(){ el.style.boxShadow=''; }, 1200);
-            }
-          });
-        });
-      }
-
-      var filtered = commands.slice();
-      var activeIndex = 0;
-      function escapeHtml(s){ return String(s).replace(/[&<>]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; }); }
-
-      function render() {
-        if (!filtered.length) { list.innerHTML = '<div class="cmdk-empty">No matches. Try another query.</div>'; return; }
-        var lastSection = '', html = '';
-        filtered.forEach(function (c, idx) {
-          if (c.section !== lastSection) {
-            html += '<div class="cmdk-section">' + escapeHtml(c.section) + '</div>';
-            lastSection = c.section;
-          }
-          html += '<button class="cmdk-result' + (idx === activeIndex ? ' active' : '') + '" type="button" data-idx="' + idx + '">' +
-                    '<svg class="ico" aria-hidden="true"><use href="#' + c.icon + '"/></svg>' +
-                    '<span><span class="ttl">' + escapeHtml(c.label) + '</span>' +
-                      (c.meta ? '<span class="meta">' + escapeHtml(c.meta) + '</span>' : '') +
-                    '</span>' +
-                    (c.current ? '<span class="cur">current</span>' : '<span class="arr">↵</span>') +
-                  '</button>';
-        });
-        list.innerHTML = html;
-        Array.prototype.forEach.call(list.querySelectorAll('.cmdk-result'), function (btn) {
-          btn.addEventListener('click', function () { exec(parseInt(btn.dataset.idx, 10)); });
-          btn.addEventListener('mousemove', function () {
-            var i = parseInt(btn.dataset.idx, 10);
-            if (i !== activeIndex) { activeIndex = i; updateActive(); }
-          });
-        });
-      }
-      function updateActive(){
-        Array.prototype.forEach.call(list.querySelectorAll('.cmdk-result'), function(btn, i){
-          btn.classList.toggle('active', i === activeIndex);
-        });
-      }
-      function exec(idx) {
-        var c = filtered[idx]; if (!c) return;
-        close();
-        setTimeout(function(){ c.action(); }, 50);
-      }
-      function filter(q) {
-        q = (q || '').trim().toLowerCase();
-        if (!q) filtered = commands.slice();
-        else filtered = commands.filter(function (c) {
-          return (c.label + ' ' + c.section + ' ' + (c.meta||'')).toLowerCase().indexOf(q) !== -1;
-        });
-        activeIndex = 0;
-        render();
-      }
-      function open() {
-        backdrop.classList.add('open');
-        document.body.style.overflow = 'hidden';
-        setTimeout(function () { input.focus(); input.select(); }, 0);
-        filter(input.value);
-      }
-      function close() {
-        backdrop.classList.remove('open');
-        document.body.style.overflow = '';
-      }
-      if (trigger) trigger.addEventListener('click', open);
-      document.addEventListener('keydown', function (e) {
-        var isMod = e.metaKey || e.ctrlKey;
-        if (isMod && (e.key === 'k' || e.key === 'K')) { e.preventDefault(); if (backdrop.classList.contains('open')) close(); else open(); return; }
-        if (!backdrop.classList.contains('open')) return;
-        if (e.key === 'Escape') { e.preventDefault(); close(); }
-        else if (e.key === 'ArrowDown') { e.preventDefault(); activeIndex = Math.min(activeIndex + 1, filtered.length - 1); updateActive(); scrollActive(); }
-        else if (e.key === 'ArrowUp')   { e.preventDefault(); activeIndex = Math.max(activeIndex - 1, 0); updateActive(); scrollActive(); }
-        else if (e.key === 'Enter')     { e.preventDefault(); exec(activeIndex); }
-      });
-      function scrollActive() {
-        var act = list.querySelector('.cmdk-result.active');
-        if (act) act.scrollIntoView({ block: 'nearest' });
-      }
-      input.addEventListener('input', function () { filter(input.value); });
-      backdrop.addEventListener('click', function (e) { if (e.target === backdrop) close(); });
-      filter('');
-    })();
-  </script>
+  <script src="assets/site-v3.js"></script>
+  <script src="assets/site-v3-motion.js"></script>
 </body>
 </html>
