@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="linear" data-page="adoption">
+<html lang="en" data-theme="terminal" data-page="adoption">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -18,8 +18,8 @@
   <meta name="twitter:description" content="Six operating layers, autonomy ladder, control scorecard, 90-day rollout." />
   <meta name="twitter:image" content="https://0xozen.github.io/assets/og-image.svg" />
   <link rel="canonical" href="https://0xozen.github.io/department-adoption.html" />
-  <meta name="theme-color" content="#08090a" id="theme-color-meta" />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%235e6ad2'/><stop offset='1' stop-color='%238b5cf6'/></linearGradient></defs><rect width='32' height='32' rx='6' fill='url(%23g)'/><path d='M9 22V10h4l3 8 3-8h4v12h-3v-7l-2.5 7h-3L12 15v7z' fill='%23f7f8f8'/></svg>" />
+  <meta name="theme-color" content="#060707" id="theme-color-meta" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='3' fill='%23060707'/><rect x='2.4' y='2.4' width='27.2' height='27.2' rx='1.8' fill='none' stroke='%23e8ece9' stroke-width='1.1'/><path d='M8.5 21.5 13 9h2l-4.5 12.5h-2Zm7.2 0L20.2 9h2l-4.5 12.5h-2Z' fill='%235ef0a6'/></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -27,12 +27,32 @@
     (function () {
       try {
         var t = localStorage.getItem('theme');
-        if (t === 'cursor' || t === 'linear') document.documentElement.setAttribute('data-theme', t);
+        if (t === 'terminal' || t === 'cursor' || t === 'linear') document.documentElement.setAttribute('data-theme', t);
       } catch (e) {}
     })();
   </script>
   <style>
-    :root, [data-theme="linear"] {
+    :root, [data-theme="terminal"] {
+      --bg:#060707; --surface-1:#0b0c0c; --surface-2:#111313; --surface-3:#171a18;
+      --border:rgba(232,236,233,0.11); --border-soft:rgba(232,236,233,0.18);
+      --text-1:#e8ece9; --text-2:#aab3ad; --text-3:#7d8780; --text-4:#4f5852;
+      --accent:#5ef0a6; --accent-2:#9ff7c8; --info:#71d6ff; --success:#4ade80; --danger:#ff6b6b;
+      --cta-bg:var(--accent); --cta-bg-hover:var(--accent-2); --cta-text:#04130c;
+      --grid-stroke:rgba(255,255,255,0.024); --glow-1:rgba(94,240,166,0.10); --glow-2:rgba(113,214,255,0.05);
+      --shadow-sm:rgba(0,0,0,0.35) 0 2px 8px 0; --shadow-xl:rgba(0,0,0,0.52) 0 18px 50px -18px;
+      --panel:var(--surface-1); --panel-2:var(--surface-2); --panel-3:var(--surface-3);
+      --line:var(--border); --line-2:var(--border-soft); --line-3:rgba(232,236,233,0.24);
+      --fg:var(--text-1); --muted:var(--text-2); --faint:var(--text-4);
+      --button-bg:var(--cta-bg); --button-bg-hover:var(--cta-bg-hover); --button-text:var(--cta-text);
+      --grid:var(--grid-stroke); --scan:.42; --shadow:rgba(0,0,0,0.52) 0 18px 50px -18px;
+
+      --font-sans:"Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --r-tag:2px; --r-md:6px; --r-lg:10px; --r-pill:9999px;
+
+      --svg-bg:#060707; --svg-grid:rgba(255,255,255,0.035); --svg-panel-1:#111313; --svg-panel-2:#0b0c0c; --svg-stroke:rgba(232,236,233,0.12); --svg-text-1:#e8ece9; --svg-text-2:#aab3ad; --svg-text-3:#7d8780;
+    }
+    [data-theme="linear"] {
       --pitch-black:#08090a; --graphite:#0f1011; --deep-slate:#161718; --charcoal:#23252a; --muted-ash:#323334; --gunmetal:#383b3f;
       --fog:#62666d; --storm:#8a8f98; --light-steel:#d0d6e0; --porcelain:#f7f8f8;
       --neon-lime:#e4f222; --aether-blue:#5e6ad2; --cyan-spark:#02b8cc; --amethyst:#8b5cf6; --emerald:#27a644; --warning-red:#eb5757;
@@ -44,6 +64,11 @@
       --cta-bg:var(--neon-lime); --cta-bg-hover:#eef82e; --cta-text:var(--pitch-black);
       --grid-stroke:rgba(255,255,255,0.025); --glow-1:rgba(94,106,210,0.10); --glow-2:rgba(2,184,204,0.06);
       --shadow-sm:rgba(0,0,0,0.4) 0 2px 4px 0; --shadow-xl:rgba(8,9,10,0.6) 0 4px 32px 0;
+      --panel:var(--surface-1); --panel-2:var(--surface-2); --panel-3:var(--surface-3);
+      --line:var(--border); --line-2:var(--border-soft); --line-3:var(--gunmetal);
+      --fg:var(--text-1); --muted:var(--text-2); --faint:var(--text-4);
+      --button-bg:var(--cta-bg); --button-bg-hover:var(--cta-bg-hover); --button-text:var(--cta-text);
+      --grid:var(--grid-stroke); --scan:.18; --shadow:rgba(8,9,10,0.6) 0 4px 32px 0;
 
       --font-sans:"Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --font-mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -51,22 +76,6 @@
 
       /* SVG-only color hooks (for the diagram inside this page) */
       --svg-bg:#08090a; --svg-grid:rgba(255,255,255,0.04); --svg-panel-1:#161718; --svg-panel-2:#0f1011; --svg-stroke:#23252a; --svg-text-1:#f7f8f8; --svg-text-2:#d0d6e0; --svg-text-3:#8a8f98;
-    }
-    [data-theme="stripe"] {
-      --platinum-white:#ffffff; --porcelain-white:#f8fafd; --powder-blue:#e5edf5; --stone-gray:#d8d6df;
-      --midnight-ink:#061b31; --slate-blue:#50617a; --ghost-gray:#64748d;
-      --deep-violet:#533afd; --washed-violet:#b9b9f9; --soft-violet:#8087ff; --vibrant-orange:#ff6118; --accent-green:#81b81a;
-
-      --bg:var(--platinum-white); --surface-1:var(--porcelain-white); --surface-2:var(--powder-blue); --surface-3:#dde6f0;
-      --border:var(--stone-gray); --border-soft:#c1bfca;
-      --text-1:var(--midnight-ink); --text-2:var(--slate-blue); --text-3:var(--ghost-gray); --text-4:#8a96a7;
-      --accent:var(--deep-violet); --accent-2:var(--soft-violet); --info:var(--accent-green); --success:var(--accent-green); --danger:var(--vibrant-orange);
-      --cta-bg:var(--deep-violet); --cta-bg-hover:#4731e0; --cta-text:var(--platinum-white);
-      --grid-stroke:rgba(6,27,49,0.04); --glow-1:rgba(83,58,253,0.10); --glow-2:rgba(128,135,255,0.08);
-      --shadow-sm:rgba(23,23,23,0.06) 0 3px 6px 0;
-      --shadow-xl:rgba(50,50,93,0.12) 0 16px 32px 0, rgba(0,0,0,0.04) 0 4px 12px 0;
-
-      --svg-bg:#ffffff; --svg-grid:rgba(6,27,49,0.05); --svg-panel-1:#f8fafd; --svg-panel-2:#ffffff; --svg-stroke:#d8d6df; --svg-text-1:#061b31; --svg-text-2:#50617a; --svg-text-3:#64748d;
     }
     [data-theme="cursor"] {
       --canvas-parchment:#f7f7f4; --pebble-gray:#ebeae3; --highlight-beige:#d8d6cb;
@@ -81,6 +90,11 @@
       --grid-stroke:rgba(38,37,16,0.04); --glow-1:rgba(245,78,0,0.08); --glow-2:rgba(192,133,50,0.06);
       --shadow-sm:rgba(0,0,0,0.06) 0 1px 2px 0, rgba(0,0,0,0.04) 0 4px 12px -4px;
       --shadow-xl:rgba(0,0,0,0.10) 0 14px 32px 0, rgba(0,0,0,0.06) 0 28px 70px 0;
+      --panel:var(--surface-1); --panel-2:var(--surface-2); --panel-3:var(--surface-3);
+      --line:var(--border); --line-2:var(--border-soft); --line-3:rgba(38,37,16,0.28);
+      --fg:var(--text-1); --muted:var(--text-2); --faint:var(--text-4);
+      --button-bg:var(--cta-bg); --button-bg-hover:var(--cta-bg-hover); --button-text:var(--cta-text);
+      --grid:var(--grid-stroke); --scan:0; --shadow:rgba(0,0,0,0.10) 0 14px 32px 0, rgba(0,0,0,0.06) 0 28px 70px 0;
 
       --svg-bg:#ffffff; --svg-grid:rgba(38,37,16,0.05); --svg-panel-1:#f7f7f4; --svg-panel-2:#ffffff; --svg-stroke:rgba(38,37,16,0.12); --svg-text-1:#262510; --svg-text-2:#3a3825; --svg-text-3:#7a7974;
     }
@@ -88,29 +102,56 @@
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
-      margin:0;min-height:100vh;background:var(--bg);color:var(--text-1);
-      font-family:var(--font-sans);font-size:14px;line-height:1.5;letter-spacing:-0.13px;
+      margin:0;min-height:100vh;background:var(--bg);color:var(--fg);
+      font-family:var(--font-mono);font-size:14px;line-height:1.65;letter-spacing:0;
       font-feature-settings:"cv01","ss03","liga" 1;-webkit-font-smoothing:antialiased;overflow-x:hidden;
       transition: background-color .25s ease, color .25s ease;
     }
-    body::before{content:"";position:fixed;inset:0;z-index:-2;
-      background-image:linear-gradient(var(--grid-stroke) 1px,transparent 1px),linear-gradient(90deg,var(--grid-stroke) 1px,transparent 1px);
-      background-size:56px 56px;mask-image:radial-gradient(circle at 50% 0%,black 0%,transparent 78%);pointer-events:none;
+    body::before{content:"";position:fixed;inset:0;z-index:0;
+      background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+      background-size:46px 46px;mask-image:radial-gradient(circle at 50% 28%,black 0%,transparent 82%);pointer-events:none;
     }
-    body::after{content:"";position:fixed;inset:0;z-index:-1;
-      background:radial-gradient(600px 400px at 14% 8%,var(--glow-1),transparent 60%),radial-gradient(500px 360px at 92% 4%,var(--glow-2),transparent 60%);
-      pointer-events:none;
+    body::after{content:"";position:fixed;inset:0;z-index:1;
+      opacity:var(--scan);background:repeating-linear-gradient(180deg,transparent 0 2px,rgba(0,0,0,0.18) 2px 3px);pointer-events:none;
     }
     a{color:inherit;text-decoration:none}
     /* Full-screen layout with a safe gutter */
-    .wrap{width:calc(100% - 48px);max-width:none;margin:0 auto}
-    @media (min-width: 1400px) { .wrap{width:calc(100% - 80px)} }
-    @media (min-width: 1800px) { .wrap{width:calc(100% - 120px)} }
+    .wrap{width:min(1100px,calc(100% - 44px));margin:0 auto;position:relative;z-index:2}
+    .accent{color:var(--accent)}
+    .flag,.faint{color:var(--faint)}
 
     .ico{width:14px;height:14px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 
+    .topbar{
+      position:fixed;top:0;left:0;right:0;z-index:50;min-height:48px;
+      display:flex;align-items:center;gap:14px;padding:0 16px;
+      background:color-mix(in srgb,var(--panel) 84%,transparent);
+      backdrop-filter:blur(14px);border-bottom:1px solid var(--line);pointer-events:auto;
+    }
+    .dots{display:flex;gap:7px;flex-shrink:0}
+    .dots i{width:11px;height:11px;border-radius:50%;background:var(--line-2);display:block}
+    .topbar .brand{display:inline-flex;align-items:center;gap:10px;min-width:0;color:var(--muted);font-size:12.5px;white-space:nowrap}
+    .topbar .brand b{color:var(--fg);font-weight:600}
+    .topbar .brand .path{color:var(--accent)}
+    .topbar .brand-mark{width:21px;height:21px;flex-shrink:0;border-radius:0;background:transparent;box-shadow:none}
+    .topbar .brand-mark rect:first-child{fill:var(--panel)}
+    .topbar .brand-mark rect:nth-child(2){fill:none;stroke:var(--fg);stroke-width:1.1}
+    .topbar .brand-mark path{fill:var(--accent)}
+    .topbar .navlinks{margin-left:auto;display:flex;align-items:center;gap:2px;font-size:inherit;color:inherit}
+    .topbar .navlinks a{color:var(--muted);font-size:12.5px;padding:6px 10px;border-radius:6px;transition:color .15s,background .15s}
+    .topbar .navlinks a:hover,.topbar .navlinks a[aria-current="page"]{color:var(--fg);background:var(--panel-2)}
+    .theme-switch{display:inline-flex;align-items:center;gap:0;height:34px;padding:2px;border-radius:7px;border:1px solid var(--line);background:var(--panel-2)}
+    .theme-switch button{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:34px;height:28px;padding:0 9px;border:0;border-radius:6px;background:transparent;color:var(--muted);font-size:11px;transition:color .15s,background .15s}
+    .theme-switch button:hover{color:var(--fg)}
+    .theme-switch button[aria-pressed="true"]{color:var(--fg);background:var(--panel);box-shadow:var(--shadow)}
+    .theme-switch svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    .iconbtn{width:34px;height:34px;display:inline-grid;place-items:center;flex-shrink:0;border:1px solid transparent;border-radius:7px;background:transparent;color:var(--muted);transition:color .15s,background .15s,border-color .15s}
+    .iconbtn:hover{color:var(--fg);background:var(--panel-2);border-color:var(--line)}
+    .iconbtn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    .menutoggle{display:none}
+
     /* Nav */
-    header{position:fixed;top:16px;left:0;right:0;z-index:50;pointer-events:none}
+    header:not(.topbar){position:fixed;top:16px;left:0;right:0;z-index:50;pointer-events:none}
     .nav{
       width:min(920px,calc(100% - 32px));margin:0 auto;height:48px;
       display:flex;align-items:center;justify-content:space-between;gap:12px;
@@ -146,8 +187,9 @@
     .button .kbd{font-family:var(--font-mono);font-size:11px;color:inherit;opacity:.7;padding:2px 5px;border-radius:var(--r-tag);background:color-mix(in srgb, currentColor 12%, transparent)}
     a:focus-visible,.button:focus-visible,.theme-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-    main{padding-top:96px}
-    section{padding:64px 0}
+    main{position:relative;z-index:2;padding-top:48px}
+    section{position:relative;z-index:2;padding:66px 0;border-bottom:1px solid var(--line);scroll-margin-top:72px}
+    .cmd{color:var(--muted);font-size:13px;margin-bottom:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
 
     .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:5px 9px;border-radius:var(--r-md);border:1px solid var(--border);background:var(--surface-1);color:var(--text-3);font-family:var(--font-mono);font-size:11px;text-transform:uppercase}
     .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px color-mix(in srgb, var(--accent) 60%, transparent)}
@@ -231,9 +273,9 @@
     [data-theme="cursor"] .cp-traffic span:nth-child(1) { background: #d2615a; }
     [data-theme="cursor"] .cp-traffic span:nth-child(2) { background: #d8a657; }
     [data-theme="cursor"] .cp-traffic span:nth-child(3) { background: #6f9b6e; }
-    [data-theme="stripe"] .cp-traffic span:nth-child(1) { background: #e65a4d; }
-    [data-theme="stripe"] .cp-traffic span:nth-child(2) { background: #e8a93a; }
-    [data-theme="stripe"] .cp-traffic span:nth-child(3) { background: #4cb377; }
+    [data-theme="terminal"] .cp-traffic span:nth-child(1) { background: #3a3f3c; }
+    [data-theme="terminal"] .cp-traffic span:nth-child(2) { background: #3a3f3c; }
+    [data-theme="terminal"] .cp-traffic span:nth-child(3) { background: #3a3f3c; }
     .cp-title { justify-self: center; font-family: var(--font-mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.08em; text-transform: uppercase; }
     .cp-meta  { font-family: var(--font-mono); font-size: 11px; color: var(--text-4); letter-spacing: 0.04em; }
 
@@ -472,7 +514,7 @@
     .map-card .tag { transition: background .15s ease, color .15s ease, border-color .15s ease; }
     .map-card:hover .tag { color: var(--text-1); border-color: var(--border-soft); background: var(--surface-3); }
 
-    /* ============ Table row hover with stripe ============ */
+    /* ============ Table row hover ============ */
     tbody tr { transition: background .15s ease, transform .15s ease; }
     tbody tr:hover td:first-child {
       box-shadow: inset 3px 0 0 var(--accent);
@@ -594,11 +636,56 @@
     .pill.modify{color:var(--accent-2);border-color:color-mix(in srgb, var(--accent-2) 40%, transparent);background:color-mix(in srgb, var(--accent-2) 10%, transparent)}
     .pill.trigger{color:var(--accent);border-color:color-mix(in srgb, var(--accent) 40%, transparent);background:color-mix(in srgb, var(--accent) 10%, transparent)}
 
+    .agent-plan-shell{margin-top:24px;border:1px solid var(--border);border-radius:var(--r-md);background:linear-gradient(180deg,var(--surface-1),var(--surface-2));box-shadow:var(--shadow-sm);overflow:hidden}
+    .agent-plan-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px;border-bottom:1px solid var(--border);background:color-mix(in srgb,var(--surface-2) 72%,transparent)}
+    .agent-plan-head strong{font-size:15px;font-weight:510;color:var(--text-1)}
+    .agent-plan-head span,.agent-plan-state,.priority,.tool-chip,.agent-subtask-state{font-family:var(--font-mono);font-size:10.5px;font-style:normal;text-transform:uppercase;letter-spacing:0.04em;color:var(--text-3)}
+    .agent-plan-state{display:inline-flex;align-items:center;gap:7px;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r-tag);background:var(--surface-1);white-space:nowrap}
+    .agent-plan-state::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+    .agent-task{border-top:1px solid var(--border)}
+    .agent-task:first-of-type{border-top:0}
+    .agent-task-row{width:100%;display:grid;grid-template-columns:18px minmax(0,1fr) auto;gap:12px;align-items:center;padding:14px 16px;border:0;background:transparent;color:var(--text-1);text-align:left;cursor:pointer;font:inherit}
+    .agent-task-row:hover{background:color-mix(in srgb,var(--accent) 5%,transparent)}
+    .agent-task-row b{display:block;font-size:15px;font-weight:510;line-height:1.35}
+    .agent-task-row em{display:block;margin-top:3px;color:var(--text-3);font-style:normal;font-size:12.5px;line-height:1.4}
+    .status-dot{width:10px;height:10px;border-radius:50%;background:var(--text-4);box-shadow:0 0 0 4px color-mix(in srgb,var(--text-4) 10%,transparent)}
+    .status-dot.done{background:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 12%,transparent)}
+    .status-dot.active{background:var(--info);box-shadow:0 0 0 4px color-mix(in srgb,var(--info) 12%,transparent)}
+    .status-dot.pending{background:var(--accent-2);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent-2) 12%,transparent)}
+    .priority{justify-self:end;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r-tag);background:var(--surface-2);color:var(--text-2);white-space:nowrap}
+    .priority.high{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 42%,transparent);background:color-mix(in srgb,var(--accent) 10%,transparent)}
+    .priority.med{color:var(--info);border-color:color-mix(in srgb,var(--info) 42%,transparent);background:color-mix(in srgb,var(--info) 10%,transparent)}
+    .agent-subtasks{max-height:0;overflow:hidden;opacity:.65;transition:max-height .34s ease,opacity .22s ease}
+    .agent-task.is-open .agent-subtasks{max-height:360px;opacity:1;border-top:1px dashed var(--border)}
+    .agent-subtask{display:grid;grid-template-columns:18px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 16px 10px 44px}
+    .agent-subtask + .agent-subtask{border-top:1px solid color-mix(in srgb,var(--border) 58%,transparent)}
+    .agent-subtask strong{display:block;color:var(--text-1);font-size:13.5px;font-weight:510;line-height:1.35}
+    .agent-subtask span{display:block;color:var(--text-3);font-size:12px;line-height:1.45}
+    .tool-chip{padding:4px 7px;border:1px solid var(--border);border-radius:var(--r-tag);background:var(--surface-2);color:var(--text-2);white-space:nowrap}
+
     .timeline{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:24px}
     .timeline-step{padding:22px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface-1);box-shadow:var(--shadow-sm)}
     .step-num{font-family:var(--font-mono);font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px}
     .timeline-step h3{font-size:17px}
     .timeline-step p{color:var(--text-2);margin:8px 0 0;font-size:13.5px;line-height:1.55}
+    .beveled-timeline{gap:14px}
+    .beveled-timeline .timeline-step{isolation:isolate;position:relative;min-height:100%;padding:20px;border:0;border-radius:0;overflow:hidden;cursor:pointer;background:linear-gradient(145deg,var(--surface-1),var(--surface-2));clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px);box-shadow:0 18px 48px color-mix(in srgb,var(--bg) 70%,transparent)}
+    .beveled-timeline .timeline-step::before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 58%,transparent),var(--border) 28%,color-mix(in srgb,var(--text-1) 18%,transparent) 72%,color-mix(in srgb,var(--accent-2) 48%,transparent));clip-path:inherit}
+    .beveled-timeline .timeline-step::after{content:"";position:absolute;inset:1px;z-index:-1;background:linear-gradient(160deg,color-mix(in srgb,var(--surface-1) 96%,transparent),var(--surface-2));clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px)}
+    .beveled-timeline .timeline-step:hover,.beveled-timeline .timeline-step.is-active{transform:translateY(-3px);box-shadow:0 22px 70px color-mix(in srgb,var(--accent) 12%,transparent)}
+    .beveled-timeline .timeline-step.is-active::before{background:linear-gradient(135deg,var(--accent),var(--border) 34%,color-mix(in srgb,var(--accent-2) 64%,transparent))}
+    .step-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+    .timeline-status{display:inline-flex;align-items:center;gap:7px;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r-tag);background:var(--surface-2);font-family:var(--font-mono);font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap}
+    .timeline-status::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+    .timeline-status.active::before{background:var(--info)}
+    .timeline-status.pending::before{background:var(--accent-2)}
+    .timeline-energy{font-family:var(--font-mono);font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.04em}
+    .energy-bar{height:5px;margin-top:16px;border-radius:var(--r-tag);border:1px solid var(--border);background:var(--surface-2);overflow:hidden}
+    .energy-bar i{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--accent),color-mix(in srgb,var(--accent-2) 72%,var(--accent)));transition:width 1s cubic-bezier(.2,.7,.2,1)}
+    .timeline-step.in-view .energy-bar i{width:var(--energy,0%)}
+    .timeline-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+    .timeline-link{border:1px solid var(--border);border-radius:var(--r-tag);background:var(--surface-2);color:var(--text-2);padding:4px 7px;font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:0.04em;cursor:pointer}
+    .timeline-link:hover{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 42%,transparent);background:color-mix(in srgb,var(--accent) 10%,transparent)}
 
     .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:20px}
     .card{padding:22px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface-1);box-shadow:var(--shadow-sm)}
@@ -629,8 +716,15 @@
       svg.diagram{min-width:880px}
     }
     @media(max-width:720px){
+      .topbar{gap:10px}
+      .topbar .brand .path,.topbar .brand .version{display:none}
+      .topbar .navlinks{display:none}
+      .theme-switch span{display:none}
+      .menutoggle{display:inline-flex}
+      .topbar.open .navlinks{display:flex;position:absolute;top:48px;left:0;right:0;flex-direction:column;align-items:stretch;padding:10px;background:color-mix(in srgb,var(--panel) 96%,transparent);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+      .topbar.open .navlinks a{padding:11px 12px;min-height:44px;display:flex;align-items:center}
       section{padding:48px 0}
-      main{padding-top:80px}
+      main{padding-top:48px}
       .wrap{width:calc(100% - 32px)}
       h2{font-size:clamp(24px,5.4vw,34px)}
       h3{font-size:17px}
@@ -638,11 +732,16 @@
       .jump-strip{padding:8px 10px;gap:5px}
       .jump-chip{padding:6px 10px;font-size:10.5px}
       .insight,.map-card,.timeline-step,.card{padding:18px}
+      .agent-plan-head{align-items:flex-start;flex-direction:column;gap:8px}
+      .agent-task-row{grid-template-columns:16px minmax(0,1fr);padding:14px}
+      .agent-task-row .priority{grid-column:2;justify-self:start}
+      .agent-subtask{grid-template-columns:16px minmax(0,1fr);padding:10px 14px}
+      .agent-subtask .tool-chip{grid-column:2;justify-self:start}
       .metric{padding:16px}
       .matrix-wrap th,.matrix-wrap td{padding:12px 14px;font-size:12.5px}
       table{min-width:760px}
       /* Touch target minimum 44px on nav/buttons */
-      .navlinks a{padding:10px 12px;min-height:44px;display:inline-flex;align-items:center}
+      .cmdk-trigger kbd{display:none}
       .button{height:42px}
       .theme-picker{height:38px}
       .theme-picker button{height:32px;padding:0 11px}
@@ -650,7 +749,7 @@
     }
     @media(max-width:620px){
       .wrap{width:calc(100% - 24px)}
-      main{padding-top:80px}
+      main{padding-top:48px}
       h1{font-size:clamp(36px,9vw,52px)}
       /* SVG narrows further; still scrollable when needed */
       svg.diagram{min-width:680px}
@@ -662,7 +761,7 @@
       h2{font-size:clamp(22px,6vw,28px)}
       .lead{font-size:14.5px}
       .nav{width:calc(100% - 20px);padding:4px 6px 4px 10px;gap:4px}
-      .brand span:not(.brand-mark){display:none}
+      .topbar .brand span:not(.path):not(.version){max-width:116px;overflow:hidden;text-overflow:ellipsis}
       .insight,.map-card,.timeline-step,.card{padding:16px}
       .metric{padding:14px}
       .matrix-wrap th,.matrix-wrap td{padding:10px 12px;font-size:12px}
@@ -717,6 +816,7 @@
       <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></symbol>
       <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"/></symbol>
       <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="M14 6l4 4"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
       <symbol id="i-anchor" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M12 7v14"/><path d="M5 13c0 4 3 7 7 7s7-3 7-7"/><path d="M5 13H2M19 13h3M9 9h6"/></symbol>
       <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
       <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 1 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 1 0 5.66 5.66l1-1"/></symbol>
@@ -726,41 +826,41 @@
     </defs>
   </svg>
 
-  <header>
-    <div class="nav">
-      <a class="brand" href="index.html">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span>Ali Osman Ozen</span>
-      </a>
-      <nav class="navlinks" aria-label="Primary navigation">
-        <a href="index.html" class="hide-sm">Home</a>
-        <a href="writing-archive.html">Writing</a>
-        <a href="department-adoption.html" aria-current="page">Adoption</a>
-        <button type="button" class="cmdk-trigger" id="cmdkTrigger" aria-label="Open command palette" title="Open command palette (⌘K / Ctrl+K)">
-          <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>
-          <span class="lbl">Search</span>
-          <kbd>⌘K</kbd>
-        </button>
-        <div class="theme-picker" role="group" aria-label="Theme">
-          <button type="button" data-theme-set="linear" aria-pressed="true" title="Linear (Midnight Command)">
-            <svg class="ico" aria-hidden="true"><use href="#i-moon"/></svg><span class="lbl">Linear</span>
-          </button>
-          <button type="button" data-theme-set="cursor" aria-pressed="false" title="Cursor (Warm Ivory)">
-            <svg class="ico" aria-hidden="true"><use href="#i-sun"/></svg><span class="lbl">Cursor</span>
-          </button>
-          <button type="button" data-theme-set="stripe" aria-pressed="false" title="Stripe (Architectural Blueprint)">
-            <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg><span class="lbl">Stripe</span>
-          </button>
-        </div>
-        <a href="index.html#contact" class="button primary">Contact <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
-      </nav>
+  <header class="topbar">
+    <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <a class="brand" href="index.html" aria-label="Ali Osman Ozen home">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="3"/><rect x="2.4" y="2.4" width="27.2" height="27.2" rx="1.8"/><path d="M8.5 21.5 13 9h2l-4.5 12.5h-2Zm7.2 0L20.2 9h2l-4.5 12.5h-2Z"/></svg>
+      <span><b>0xozen</b> <span class="path">~/adoption/department-map</span> <span class="version">. personal site</span></span>
+    </a>
+    <nav class="navlinks" aria-label="Primary navigation">
+      <a href="index.html#work">work</a>
+      <a href="index.html#model">model</a>
+      <a href="index.html#diagrams">diagrams</a>
+      <a href="department-adoption.html" aria-current="page">adoption</a>
+      <a href="writing-archive.html">writing</a>
+      <a href="index.html#contact">contact</a>
+    </nav>
+    <button class="iconbtn" id="cmdkTrigger" type="button" aria-label="Open command palette" title="Open command palette">
+      <svg><use href="#i-search"/></svg>
+    </button>
+    <div class="theme-switch" role="group" aria-label="Theme">
+      <button type="button" data-theme-set="terminal" aria-pressed="true" title="Terminal data field">
+        <svg><use href="#i-moon"/></svg><span>Terminal</span>
+      </button>
+      <button type="button" data-theme-set="linear" aria-pressed="false" title="Old dark Linear theme">
+        <svg><use href="#i-grid"/></svg><span>Dark</span>
+      </button>
+      <button type="button" data-theme-set="cursor" aria-pressed="false" title="Old Cursor warm theme">
+        <svg><use href="#i-sun"/></svg><span>Cursor</span>
+      </button>
     </div>
+    <button class="iconbtn menutoggle" data-menu type="button" aria-label="Menu"><svg><use href="#i-menu"/></svg></button>
   </header>
 
   <main>
     <section class="hero">
       <div class="wrap">
-        <div class="eyebrow"><span class="dot live"></span> DEPARTMENT AI ADOPTION MAP · DAILY SIGNAL SYNTHESIS</div>
+        <div class="cmd"><span class="accent">$</span> 0xozen adoption <span class="flag">--department-map --daily-signal</span></div>
         <h1>AI adoption becomes real when authority is designed.</h1>
         <p class="lead">This page turns the Daily Signal and Signal vs. Noise writing themes into a practical operating map: where AI enters work, which department owns the workflow, what level of autonomy is safe, and which controls make the work reviewable.</p>
         <div class="cta-row">
@@ -1532,10 +1632,74 @@
           </div>
           <p class="section-copy">The goal is not to automate everything quickly. The goal is to learn where AI can move work safely while making the controls reusable across departments.</p>
         </div>
-        <div class="timeline">
-          <article class="timeline-step reveal" data-d="1"><div class="step-num">/ 0-30 DAYS</div><h3>Map and classify</h3><p>Create an inventory of AI use, workflows, data access, department owners and autonomy levels. Pick one pilot where review is easy and failure is recoverable.</p><ul class="signal-list"><li>Agent / tool inventory</li><li>Workflow map</li><li>Autonomy classification</li></ul></article>
-          <article class="timeline-step reveal" data-d="2"><div class="step-num">/ 31-60 DAYS</div><h3>Pilot with gates</h3><p>Run one department pilot with explicit boundaries: what AI can read, prepare, modify or trigger, and which actions require approval.</p><ul class="signal-list"><li>Approval checkpoints</li><li>Evidence logging</li><li>Escalation rules</li></ul></article>
-          <article class="timeline-step reveal" data-d="3"><div class="step-num">/ 61-90 DAYS</div><h3>Standardize and scale</h3><p>Convert the pilot into reusable adoption patterns: control templates, scorecards, review cadence, training notes and rollback procedures.</p><ul class="signal-list"><li>Reusable playbooks</li><li>Cross-department dashboard</li><li>Learning loop and recovery drills</li></ul></article>
+        <div class="agent-plan-shell reveal" data-agent-plan aria-label="AI adoption execution plan inspired by 21st.dev agent-plan">
+          <div class="agent-plan-head">
+            <span>21st.dev / agent-plan</span>
+            <strong>AI adoption execution plan</strong>
+            <em class="agent-plan-state">3 active MCP rails</em>
+          </div>
+          <article class="agent-task is-open" data-agent-task>
+            <button class="agent-task-row" type="button" aria-expanded="true">
+              <i class="status-dot active" aria-hidden="true"></i>
+              <span><b>Map current AI work</b><em>Inventory tools, owners, data access and hidden pilots.</em></span>
+              <span class="priority high">high</span>
+            </button>
+            <div class="agent-subtasks">
+              <div class="agent-subtask"><i class="status-dot done" aria-hidden="true"></i><span><strong>Collect agent and tool inventory</strong><span>Who uses what, where it runs, what it can read.</span></span><em class="tool-chip">browser</em></div>
+              <div class="agent-subtask"><i class="status-dot active" aria-hidden="true"></i><span><strong>Trace workflow handoffs</strong><span>Surface the steps where AI changes responsibility.</span></span><em class="tool-chip">workflow-map</em></div>
+              <div class="agent-subtask"><i class="status-dot pending" aria-hidden="true"></i><span><strong>Classify autonomy level</strong><span>Suggest, prepare, modify, trigger or commit.</span></span><em class="tool-chip">policy</em></div>
+            </div>
+          </article>
+          <article class="agent-task" data-agent-task>
+            <button class="agent-task-row" type="button" aria-expanded="false">
+              <i class="status-dot pending" aria-hidden="true"></i>
+              <span><b>Pilot with approval gates</b><em>Choose one department pilot and make every boundary visible.</em></span>
+              <span class="priority med">medium</span>
+            </button>
+            <div class="agent-subtasks">
+              <div class="agent-subtask"><i class="status-dot pending" aria-hidden="true"></i><span><strong>Define read and write boundaries</strong><span>What AI can inspect, prepare, change or never touch.</span></span><em class="tool-chip">access</em></div>
+              <div class="agent-subtask"><i class="status-dot pending" aria-hidden="true"></i><span><strong>Add human checkpoints</strong><span>Approval before external messages, spending or deployment.</span></span><em class="tool-chip">review</em></div>
+              <div class="agent-subtask"><i class="status-dot pending" aria-hidden="true"></i><span><strong>Preserve evidence</strong><span>Inputs, outputs, reviewer, decision and rollback path.</span></span><em class="tool-chip">logs</em></div>
+            </div>
+          </article>
+          <article class="agent-task" data-agent-task>
+            <button class="agent-task-row" type="button" aria-expanded="false">
+              <i class="status-dot pending" aria-hidden="true"></i>
+              <span><b>Standardize and scale</b><em>Turn the pilot into templates, dashboards and recovery drills.</em></span>
+              <span class="priority">ready</span>
+            </button>
+            <div class="agent-subtasks">
+              <div class="agent-subtask"><i class="status-dot pending" aria-hidden="true"></i><span><strong>Publish reusable controls</strong><span>Owner, boundary, evidence and approval templates.</span></span><em class="tool-chip">playbook</em></div>
+              <div class="agent-subtask"><i class="status-dot pending" aria-hidden="true"></i><span><strong>Build a cross-team dashboard</strong><span>Adoption status, risks, incidents and value signals.</span></span><em class="tool-chip">dashboard</em></div>
+              <div class="agent-subtask"><i class="status-dot pending" aria-hidden="true"></i><span><strong>Run recovery drills</strong><span>Revoke access, undo actions and update the operating model.</span></span><em class="tool-chip">recovery</em></div>
+            </div>
+          </article>
+        </div>
+        <div class="timeline beveled-timeline" data-rect-timeline aria-label="Beveled rectangular adoption timeline inspired by radial orbital timeline">
+          <article class="timeline-step reveal is-active" data-d="1" data-timeline-step="map" style="--energy: 92%">
+            <div class="step-top"><div class="step-num">/ 0-30 DAYS</div><span class="timeline-status active">in progress</span></div>
+            <h3>Map and classify</h3>
+            <p>Create an inventory of AI use, workflows, data access, department owners and autonomy levels. Pick one pilot where review is easy and failure is recoverable.</p>
+            <div class="energy-bar" aria-hidden="true"><i></i></div><div class="timeline-energy">energy 92</div>
+            <ul class="signal-list"><li>Agent / tool inventory</li><li>Workflow map</li><li>Autonomy classification</li></ul>
+            <div class="timeline-links"><button class="timeline-link" type="button" data-related="pilot">next: pilot</button><button class="timeline-link" type="button" data-related="scale">related: controls</button></div>
+          </article>
+          <article class="timeline-step reveal" data-d="2" data-timeline-step="pilot" style="--energy: 68%">
+            <div class="step-top"><div class="step-num">/ 31-60 DAYS</div><span class="timeline-status active">pilot</span></div>
+            <h3>Pilot with gates</h3>
+            <p>Run one department pilot with explicit boundaries: what AI can read, prepare, modify or trigger, and which actions require approval.</p>
+            <div class="energy-bar" aria-hidden="true"><i></i></div><div class="timeline-energy">energy 68</div>
+            <ul class="signal-list"><li>Approval checkpoints</li><li>Evidence logging</li><li>Escalation rules</li></ul>
+            <div class="timeline-links"><button class="timeline-link" type="button" data-related="map">depends: map</button><button class="timeline-link" type="button" data-related="scale">next: scale</button></div>
+          </article>
+          <article class="timeline-step reveal" data-d="3" data-timeline-step="scale" style="--energy: 42%">
+            <div class="step-top"><div class="step-num">/ 61-90 DAYS</div><span class="timeline-status pending">pending</span></div>
+            <h3>Standardize and scale</h3>
+            <p>Convert the pilot into reusable adoption patterns: control templates, scorecards, review cadence, training notes and rollback procedures.</p>
+            <div class="energy-bar" aria-hidden="true"><i></i></div><div class="timeline-energy">energy 42</div>
+            <ul class="signal-list"><li>Reusable playbooks</li><li>Cross-department dashboard</li><li>Learning loop and recovery drills</li></ul>
+            <div class="timeline-links"><button class="timeline-link" type="button" data-related="map">source: map</button><button class="timeline-link" type="button" data-related="pilot">depends: pilot</button></div>
+          </article>
         </div>
       </div>
     </section>
@@ -1591,7 +1755,7 @@
           <ul>
             <li><a href="index.html">Home <span class="ext">/01</span></a></li>
             <li><a href="index.html#work">Work <span class="ext">/02</span></a></li>
-            <li><a href="index.html#playground">Autonomy ladder <span class="ext">/03</span></a></li>
+            <li><a href="index.html#diagrams">Interactive diagrams <span class="ext">/03</span></a></li>
             <li><a href="writing-archive.html">Writing archive <span class="ext">↗</span></a></li>
           </ul>
         </div>
@@ -1606,7 +1770,7 @@
       </div>
       <div class="footer-meta">
         <span>Cologne, DE · 2026</span>
-        <span>Designed with Refero · Linear &amp; Cursor</span>
+        <span>Terminal · Dark · Cursor</span>
       </div>
     </div>
   </footer>
@@ -1615,21 +1779,42 @@
     /* Theme picker (3-way) */
     (function () {
       var meta = document.getElementById('theme-color-meta');
-      var btns = document.querySelectorAll('.theme-picker [data-theme-set]');
-      var THEME_COLOR = { linear: '#08090a', cursor: '#f7f7f4', stripe: '#ffffff' };
-      var THEMES = ['linear', 'cursor', 'stripe'];
+      var btns = document.querySelectorAll('.theme-switch [data-theme-set], .theme-picker [data-theme-set]');
+      var THEME_COLOR = { terminal: '#060707', linear: '#08090a', cursor: '#f7f7f4' };
+      var THEMES = ['terminal', 'linear', 'cursor'];
       function valid(t) { return THEMES.indexOf(t) !== -1; }
       function setTheme(t) {
-        if (!valid(t)) t = 'linear';
+        if (!valid(t)) t = 'terminal';
         document.documentElement.setAttribute('data-theme', t);
         try { localStorage.setItem('theme', t); } catch (e) {}
         if (meta) meta.setAttribute('content', THEME_COLOR[t]);
         btns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.themeSet === t ? 'true' : 'false'); });
       }
-      var current = document.documentElement.getAttribute('data-theme') || 'linear';
-      if (!valid(current)) current = 'linear';
+      var current = document.documentElement.getAttribute('data-theme') || 'terminal';
+      if (!valid(current)) current = 'terminal';
       setTheme(current);
       btns.forEach(function (b) { b.addEventListener('click', function () { setTheme(b.dataset.themeSet); }); });
+    })();
+
+    /* Mobile topbar */
+    (function () {
+      document.addEventListener('click', function (event) {
+        var bar = document.querySelector('.topbar');
+        if (!bar) return;
+        if (event.target.closest('[data-menu]')) {
+          bar.classList.toggle('open');
+          return;
+        }
+        if (bar.classList.contains('open') && !event.target.closest('.navlinks')) {
+          bar.classList.remove('open');
+        }
+      });
+      document.querySelectorAll('.topbar .navlinks a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          var bar = document.querySelector('.topbar');
+          if (bar) bar.classList.remove('open');
+        });
+      });
     })();
 
     /* Expand-on-click department cards (single-open accordion) */
@@ -1653,6 +1838,53 @@
           }
         }
         btn.addEventListener('click', function (e) { e.stopPropagation(); toggle(); });
+      });
+    })();
+
+    /* Agent-plan accordion */
+    (function () {
+      var tasks = document.querySelectorAll('[data-agent-task]');
+      if (!tasks.length) return;
+      tasks.forEach(function (task) {
+        var row = task.querySelector('.agent-task-row');
+        if (!row) return;
+        row.addEventListener('click', function () {
+          var isOpen = !task.classList.contains('is-open');
+          tasks.forEach(function (other) {
+            other.classList.remove('is-open');
+            var otherRow = other.querySelector('.agent-task-row');
+            if (otherRow) otherRow.setAttribute('aria-expanded', 'false');
+          });
+          task.classList.toggle('is-open', isOpen);
+          row.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+      });
+    })();
+
+    /* Beveled rectangular timeline interactions */
+    (function () {
+      var steps = document.querySelectorAll('[data-timeline-step]');
+      if (!steps.length) return;
+      function activate(id) {
+        steps.forEach(function (step) {
+          step.classList.toggle('is-active', step.dataset.timelineStep === id);
+        });
+      }
+      steps.forEach(function (step) {
+        step.setAttribute('tabindex', '0');
+        step.addEventListener('click', function () { activate(step.dataset.timelineStep); });
+        step.addEventListener('keydown', function (event) {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            activate(step.dataset.timelineStep);
+          }
+        });
+        step.querySelectorAll('[data-related]').forEach(function (button) {
+          button.addEventListener('click', function (event) {
+            event.stopPropagation();
+            activate(button.dataset.related);
+          });
+        });
       });
     })();
 
@@ -1791,13 +2023,13 @@
       var trigger = document.getElementById('cmdkTrigger') || document.getElementById('searchTrigger');
       var pageId = document.documentElement.dataset.page || 'home';
       function setTheme(t) {
-        if (['linear','cursor','stripe'].indexOf(t) < 0) return;
+        if (['terminal','linear','cursor'].indexOf(t) < 0) return;
         document.documentElement.setAttribute('data-theme', t);
         try { localStorage.setItem('theme', t); } catch (e) {}
         var meta = document.getElementById('theme-color-meta');
-        var col = { linear:'#08090a', cursor:'#f7f7f4', stripe:'#ffffff' }[t];
+        var col = { terminal:'#060707', linear:'#08090a', cursor:'#f7f7f4' }[t];
         if (meta && col) meta.setAttribute('content', col);
-        document.querySelectorAll('.theme-picker [data-theme-set]').forEach(function (b) {
+        document.querySelectorAll('.theme-switch [data-theme-set], .theme-picker [data-theme-set]').forEach(function (b) {
           b.setAttribute('aria-pressed', b.dataset.themeSet === t ? 'true' : 'false');
         });
       }
@@ -1835,9 +2067,9 @@
         });
       });
       commands.push(
-        { section:'Theme', label:'Linear · midnight command', icon:'i-moon', action: function(){ setTheme('linear'); toast('Theme: Linear'); } },
-        { section:'Theme', label:'Cursor · warm ivory',     icon:'i-sun',  action: function(){ setTheme('cursor'); toast('Theme: Cursor'); } },
-        { section:'Theme', label:'Stripe · architectural blueprint', icon:'i-arrow-up-right', action: function(){ setTheme('stripe'); toast('Theme: Stripe'); } }
+        { section:'Theme', label:'Terminal · data field', icon:'i-moon', action: function(){ setTheme('terminal'); toast('Theme: Terminal'); } },
+        { section:'Theme', label:'Dark · Linear', icon:'i-grid', action: function(){ setTheme('linear'); toast('Theme: Dark'); } },
+        { section:'Theme', label:'Cursor · warm ivory', icon:'i-sun', action: function(){ setTheme('cursor'); toast('Theme: Cursor'); } }
       );
       commands.push(
         { section:'Actions', label:'Copy email — ali.ozen@rwth-aachen.de', icon:'i-copy', action: copyEmail },

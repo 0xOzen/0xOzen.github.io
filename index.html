@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="dark" data-page="home">
+<html lang="en" data-theme="terminal" data-page="home">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -29,8 +29,10 @@
   <script>
     (function () {
       try {
-        var theme = localStorage.getItem("0xozen-theme");
-        if (theme === "light") document.documentElement.setAttribute("data-theme", "light");
+        var theme = localStorage.getItem("theme");
+        if (theme === "linear" || theme === "cursor" || theme === "terminal") {
+          document.documentElement.setAttribute("data-theme", theme);
+        }
       } catch (error) {}
     })();
   </script>
@@ -62,6 +64,7 @@
       <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.5 8-8 9-4.5-1-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></symbol>
       <symbol id="i-flow" viewBox="0 0 24 24"><path d="M4 6h6M4 12h12M4 18h8"/><circle cx="14" cy="6" r="1.5"/><circle cx="20" cy="12" r="1.5"/><circle cx="14" cy="18" r="1.5"/></symbol>
       <symbol id="i-code" viewBox="0 0 24 24"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M14 4l-4 16"/></symbol>
+      <symbol id="i-stack" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/><path d="M3 18l9 5 9-5"/></symbol>
       <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
       <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></symbol>
     </defs>
@@ -77,16 +80,24 @@
       <a href="#work">work</a>
       <a href="#model">model</a>
       <a href="#diagrams">diagrams</a>
+      <a href="department-adoption.html">adoption</a>
       <a href="writing-archive.html">writing</a>
       <a href="#contact">contact</a>
     </nav>
     <button class="iconbtn" id="cmdkTrigger" type="button" aria-label="Open command palette" title="Open command palette">
       <svg><use href="#i-search"/></svg>
     </button>
-    <button class="iconbtn" data-toggle-theme type="button" aria-label="Toggle theme">
-      <svg data-theme-icon="dark"><use href="#i-moon"/></svg>
-      <svg data-theme-icon="light" hidden><use href="#i-sun"/></svg>
-    </button>
+    <div class="theme-switch" role="group" aria-label="Theme">
+      <button type="button" data-theme-set="terminal" aria-pressed="true" title="Terminal data field">
+        <svg><use href="#i-moon"/></svg><span>Terminal</span>
+      </button>
+      <button type="button" data-theme-set="linear" aria-pressed="false" title="Old dark Linear theme">
+        <svg><use href="#i-grid"/></svg><span>Dark</span>
+      </button>
+      <button type="button" data-theme-set="cursor" aria-pressed="false" title="Old Cursor warm theme">
+        <svg><use href="#i-sun"/></svg><span>Cursor</span>
+      </button>
+    </div>
     <button class="iconbtn menutoggle" data-menu type="button" aria-label="Menu"><svg><use href="#i-menu"/></svg></button>
   </header>
 
@@ -99,7 +110,7 @@
           <div class="term-line" style="visibility:hidden"><span class="accent">$</span> 0xozen --status</div>
           <div class="term-line" style="visibility:hidden"><span class="accent">-&gt;</span> scattered AI work detected across teams, tools, and decisions</div>
         </div>
-        <h1>AI adoption needs a control plane, not another tool stack.<span class="cursor"></span></h1>
+        <h1>AI adoption needs a <span class="hero-rotator" aria-live="polite"><span data-hero-word>control plane</span></span>, not another tool stack.<span class="cursor"></span></h1>
         <p class="sub">I help teams turn emerging technology into controlled workflows, clear responsibilities, evidence trails, and adoption plans that survive contact with real operations.</p>
         <div class="actions">
           <a class="btn solid" href="mailto:ali.ozen@rwth-aachen.de">email me <svg><use href="#i-arrow-r"/></svg></a>
@@ -118,10 +129,10 @@
     <section id="work">
       <div class="wrap">
         <div class="cmd"><span class="accent">$</span> 0xozen work <span class="flag">--list capability_surfaces</span></div>
-        <h2>Three surfaces I make legible.</h2>
+        <h2>Six surfaces I make legible.</h2>
         <p class="lead">The portfolio is built around operating clarity: where AI can help, what it is allowed to do, who owns the decision, and what evidence remains after the work moves.</p>
         <div class="bento" data-stagger>
-          <article class="cell wide" data-spotlight>
+          <article class="cell" data-spotlight>
             <span class="spot"></span><span class="id">[01]</span>
             <span class="ic"><svg><use href="#i-grid"/></svg></span>
             <h3>AI adoption operating model</h3>
@@ -145,11 +156,17 @@
             <h3>Technology-to-value translation</h3>
             <p>Clear language for leadership, product, operations, and non-technical teams deciding what to adopt.</p>
           </article>
-          <article class="cell wide" data-spotlight>
+          <article class="cell" data-spotlight>
             <span class="spot"></span><span class="id">[05]</span>
             <span class="ic"><svg><use href="#i-search"/></svg></span>
             <h3>Web-signal intelligence</h3>
             <p>Search, scrape, map, crawl, synthesize: turning live web data into reviewable adoption insight without losing the audit trail.</p>
+          </article>
+          <article class="cell" data-spotlight>
+            <span class="spot"></span><span class="id">[06]</span>
+            <span class="ic"><svg><use href="#i-stack"/></svg></span>
+            <h3>Proof and recovery loops</h3>
+            <p>Evidence, escalation, learning notes, and rollback routines that help teams improve before broader rollout.</p>
           </article>
         </div>
       </div>
@@ -230,45 +247,76 @@
       <div class="wrap">
         <div class="cmd"><span class="accent">$</span> 0xozen proof <span class="flag">--selected</span></div>
         <h2>Proof-of-work lenses for hiring conversations.</h2>
-        <div class="work-grid">
-          <article class="work-card" data-reveal data-spotlight>
-            <span class="spot"></span><span class="id">/ 01</span>
-            <h3>From scattered pilots to one control plane.</h3>
-            <dl><dt>Problem</dt><dd>No shared owner or record of what AI is allowed to do.</dd><dt>Approach</dt><dd>Name owners, set authority levels, attach evidence.</dd><dt>Outcome</dt><dd>A reviewable cockpit instead of invisible automation.</dd></dl>
-          </article>
-          <article class="work-card" data-reveal data-spotlight>
-            <span class="spot"></span><span class="id">/ 02</span>
-            <h3>From content volume to workflow movement.</h3>
-            <dl><dt>Problem</dt><dd>Teams measure tokens written, not work moved.</dd><dt>Approach</dt><dd>Route queues and handoffs through approval gates.</dd><dt>Outcome</dt><dd>Cycle-time gains with fewer stuck decisions.</dd></dl>
-          </article>
-          <article class="work-card" data-reveal data-spotlight>
-            <span class="spot"></span><span class="id">/ 03</span>
-            <h3>From technical jargon to operator language.</h3>
-            <dl><dt>Problem</dt><dd>Leadership, legal, and operations talk past each other.</dd><dt>Approach</dt><dd>Replace claims with authority, evidence, and recovery questions.</dd><dt>Outcome</dt><dd>Faster decisions and clearer accountability.</dd></dl>
-          </article>
+        <div class="proof-layout">
+          <div class="display-stack" aria-label="Stacked display cards inspired by 21st.dev display-cards">
+            <article class="display-card display-card-a"><span>featured</span><b>Control plane</b><p>one owner, one permission rail, one evidence trail</p><em>now</em></article>
+            <article class="display-card display-card-b"><span>popular</span><b>Workflow authority</b><p>from suggestion to safe action with review gates</p><em>2 days</em></article>
+            <article class="display-card display-card-c"><span>new</span><b>Recovery loop</b><p>rollback, escalation, and learning before scale</p><em>today</em></article>
+          </div>
+          <div class="work-grid">
+            <article class="work-card" data-reveal data-spotlight>
+              <span class="spot"></span><span class="id">/ 01</span>
+              <h3>From scattered pilots to one control plane.</h3>
+              <dl><dt>Problem</dt><dd>No shared owner or record of what AI is allowed to do.</dd><dt>Approach</dt><dd>Name owners, set authority levels, attach evidence.</dd><dt>Outcome</dt><dd>A reviewable cockpit instead of invisible automation.</dd></dl>
+            </article>
+            <article class="work-card" data-reveal data-spotlight>
+              <span class="spot"></span><span class="id">/ 02</span>
+              <h3>From content volume to workflow movement.</h3>
+              <dl><dt>Problem</dt><dd>Teams measure tokens written, not work moved.</dd><dt>Approach</dt><dd>Route queues and handoffs through approval gates.</dd><dt>Outcome</dt><dd>Cycle-time gains with fewer stuck decisions.</dd></dl>
+            </article>
+            <article class="work-card" data-reveal data-spotlight>
+              <span class="spot"></span><span class="id">/ 03</span>
+              <h3>From technical jargon to operator language.</h3>
+              <dl><dt>Problem</dt><dd>Leadership, legal, and operations talk past each other.</dd><dt>Approach</dt><dd>Replace claims with authority, evidence, and recovery questions.</dd><dt>Outcome</dt><dd>Faster decisions and clearer accountability.</dd></dl>
+            </article>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="writing">
+    <section id="ask-ai">
       <div class="wrap">
-        <div class="cmd"><span class="accent">$</span> 0xozen writing <span class="flag">--latest</span></div>
-        <h2>Latest public writing.</h2>
-        <p class="lead">The full archive keeps Daily Signal posts and weekly Signal vs. Noise synthesis searchable.</p>
-        <div class="writing-list" data-stagger>
-          <a href="writing-archive.html#operational-work-surfaces"><span>2026-05-04</span><b>Operational Work Surfaces</b><em>enterprise adoption lens</em></a>
-          <a href="writing-archive.html#authority-became-the-bottleneck"><span>Issue 6</span><b>Authority Became the Bottleneck</b><em>signal vs. noise</em></a>
-          <a href="writing-archive.html#agent-control-plane"><span>2026-05-03</span><b>Agent Control Plane</b><em>cross-department synthesis</em></a>
+        <div class="cmd"><span class="accent">$</span> 0xozen ask <span class="flag">--agent chatgpt,gemini,claude</span></div>
+        <div class="panel ai-chat-panel" data-reveal data-ripple data-ai-chat>
+          <div class="panel-head"><span>// ai agent router</span><span id="aiChatState">ChatGPT</span></div>
+          <div class="ai-chat-body">
+            <div class="ai-chat-copy">
+              <span class="id">ask me / ai-agent-router</span>
+              <h3>Ask me: ChatGPT, Gemini, Claude.</h3>
+              <p>Pick the AI agent in attachments, then send the question through the same adoption, writing, and workflow lens.</p>
+            </div>
+            <div class="ai-chat-composer">
+              <div class="ai-command-menu" id="aiCommandMenu" aria-label="Prompt suggestions">
+                <button type="button" data-chat-command="/ask"><b>/ask</b><span>send a direct question to the selected AI</span></button>
+                <button type="button" data-chat-command="/compare"><b>/compare</b><span>compare answers across agent styles</span></button>
+                <button type="button" data-chat-command="/rewrite"><b>/rewrite</b><span>polish writing in the main theme</span></button>
+                <button type="button" data-chat-command="/adoption"><b>/adoption</b><span>turn a use case into rollout steps</span></button>
+              </div>
+              <div class="ai-attachments ai-agent-picker" id="aiAttachments" aria-label="Choose AI agent">
+                <button type="button" data-chat-agent="ChatGPT" aria-pressed="true"><b>ChatGPT</b><span>strategy + synthesis</span></button>
+                <button type="button" data-chat-agent="Gemini" aria-pressed="false"><b>Gemini</b><span>research + comparison</span></button>
+                <button type="button" data-chat-agent="Claude" aria-pressed="false"><b>Claude</b><span>writing + structure</span></button>
+              </div>
+              <textarea id="aiChatInput" rows="2" placeholder="Ask ChatGPT about adoption, writing, or an operating model"></textarea>
+              <div class="ai-chat-actions">
+                <button type="button" data-chat-attach>agent: ChatGPT</button>
+                <button type="button" data-chat-command-toggle>prompts</button>
+                <button type="button" data-chat-send>ask</button>
+              </div>
+              <div class="ai-typing" id="aiChatTyping" hidden><span>thinking</span><i></i><i></i><i></i></div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
+
   </main>
 
   <div class="cmdk-backdrop" id="cmdkBackdrop" role="dialog" aria-modal="true" aria-label="Command palette">
     <div class="cmdk">
       <div class="cmdk-search">
         <svg aria-hidden="true"><use href="#i-search"/></svg>
-        <input id="cmdkInput" type="text" placeholder="Jump to model, diagrams, writing, contact..." autocomplete="off" />
+        <input id="cmdkInput" type="text" placeholder="Jump to model, diagrams, ask, writing, contact..." autocomplete="off" />
         <span>esc</span>
       </div>
       <div class="cmdk-list" id="cmdkList"></div>
@@ -292,6 +340,7 @@
         <a href="#work">work</a>
         <a href="#model">model</a>
         <a href="#diagrams">diagrams</a>
+        <a href="#ask-ai">ask AI agents</a>
         <a href="writing-archive.html">writing archive</a>
         <a href="department-adoption.html">department adoption</a>
       </nav>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="linear" data-page="writing">
+<html lang="en" data-theme="terminal" data-page="writing">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -18,8 +18,8 @@
   <meta name="twitter:description" content="Daily and weekly writing distilled into a readable archive." />
   <meta name="twitter:image" content="https://0xozen.github.io/assets/og-image.svg" />
   <link rel="canonical" href="https://0xozen.github.io/writing-archive.html" />
-  <meta name="theme-color" content="#08090a" id="theme-color-meta" />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%235e6ad2'/><stop offset='1' stop-color='%238b5cf6'/></linearGradient></defs><rect width='32' height='32' rx='6' fill='url(%23g)'/><path d='M9 22V10h4l3 8 3-8h4v12h-3v-7l-2.5 7h-3L12 15v7z' fill='%23f7f8f8'/></svg>" />
+  <meta name="theme-color" content="#060707" id="theme-color-meta" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='3' fill='%23060707'/><rect x='2.4' y='2.4' width='27.2' height='27.2' rx='1.8' fill='none' stroke='%23e8ece9' stroke-width='1.1'/><path d='M8.5 21.5 13 9h2l-4.5 12.5h-2Zm7.2 0L20.2 9h2l-4.5 12.5h-2Z' fill='%235ef0a6'/></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -27,12 +27,31 @@
     (function () {
       try {
         var t = localStorage.getItem('theme');
-        if (t === 'cursor' || t === 'linear') document.documentElement.setAttribute('data-theme', t);
+        if (t === 'terminal' || t === 'cursor' || t === 'linear') document.documentElement.setAttribute('data-theme', t);
       } catch (e) {}
     })();
   </script>
   <style>
-    :root, [data-theme="linear"] {
+    :root, [data-theme="terminal"] {
+      --bg:#060707; --surface-1:#0b0c0c; --surface-2:#111313; --surface-3:#171a18;
+      --border:rgba(232,236,233,0.11); --border-soft:rgba(232,236,233,0.18);
+      --text-1:#e8ece9; --text-2:#aab3ad; --text-3:#7d8780; --text-4:#4f5852;
+      --accent:#5ef0a6; --accent-2:#9ff7c8; --info:#71d6ff; --success:#4ade80; --danger:#ff6b6b;
+      --cta-bg:var(--accent); --cta-bg-hover:var(--accent-2); --cta-text:#04130c;
+      --grid-stroke:rgba(255,255,255,0.024); --glow-1:rgba(94,240,166,0.10); --glow-2:rgba(113,214,255,0.05);
+      --shadow-sm:rgba(0,0,0,0.35) 0 2px 8px 0; --shadow-xl:rgba(0,0,0,0.52) 0 18px 50px -18px;
+      --panel:var(--surface-1); --panel-2:var(--surface-2); --panel-3:var(--surface-3);
+      --line:var(--border); --line-2:var(--border-soft); --line-3:rgba(232,236,233,0.24);
+      --fg:var(--text-1); --muted:var(--text-2); --faint:var(--text-4);
+      --button-bg:var(--cta-bg); --button-bg-hover:var(--cta-bg-hover); --button-text:var(--cta-text);
+      --grid:var(--grid-stroke); --scan:.42; --shadow:rgba(0,0,0,0.52) 0 18px 50px -18px;
+
+      --font-sans:"Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --r-tag:2px; --r-md:6px; --r-lg:10px; --r-pill:9999px;
+      --traffic-1:#3a3f3c; --traffic-2:#3a3f3c; --traffic-3:#3a3f3c;
+    }
+    [data-theme="linear"] {
       --pitch-black:#08090a; --graphite:#0f1011; --deep-slate:#161718; --charcoal:#23252a; --muted-ash:#323334; --gunmetal:#383b3f;
       --fog:#62666d; --storm:#8a8f98; --light-steel:#d0d6e0; --porcelain:#f7f8f8;
       --neon-lime:#e4f222; --aether-blue:#5e6ad2; --cyan-spark:#02b8cc; --amethyst:#8b5cf6; --emerald:#27a644; --warning-red:#eb5757;
@@ -44,26 +63,16 @@
       --cta-bg:var(--neon-lime); --cta-bg-hover:#eef82e; --cta-text:var(--pitch-black);
       --grid-stroke:rgba(255,255,255,0.025); --glow-1:rgba(94,106,210,0.10); --glow-2:rgba(2,184,204,0.06);
       --shadow-sm:rgba(0,0,0,0.4) 0 2px 4px 0; --shadow-xl:rgba(8,9,10,0.6) 0 4px 32px 0;
+      --panel:var(--surface-1); --panel-2:var(--surface-2); --panel-3:var(--surface-3);
+      --line:var(--border); --line-2:var(--border-soft); --line-3:var(--gunmetal);
+      --fg:var(--text-1); --muted:var(--text-2); --faint:var(--text-4);
+      --button-bg:var(--cta-bg); --button-bg-hover:var(--cta-bg-hover); --button-text:var(--cta-text);
+      --grid:var(--grid-stroke); --scan:.18; --shadow:rgba(8,9,10,0.6) 0 4px 32px 0;
 
       --font-sans:"Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --font-mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       --r-tag:2px; --r-md:6px; --r-lg:12px; --r-pill:9999px;
       --traffic-1:#ff5f56; --traffic-2:#ffbd2e; --traffic-3:#27c93f;
-    }
-    [data-theme="stripe"] {
-      --platinum-white:#ffffff; --porcelain-white:#f8fafd; --powder-blue:#e5edf5; --stone-gray:#d8d6df;
-      --midnight-ink:#061b31; --slate-blue:#50617a; --ghost-gray:#64748d;
-      --deep-violet:#533afd; --washed-violet:#b9b9f9; --soft-violet:#8087ff; --vibrant-orange:#ff6118; --accent-green:#81b81a;
-
-      --bg:var(--platinum-white); --surface-1:var(--porcelain-white); --surface-2:var(--powder-blue); --surface-3:#dde6f0;
-      --border:var(--stone-gray); --border-soft:#c1bfca;
-      --text-1:var(--midnight-ink); --text-2:var(--slate-blue); --text-3:var(--ghost-gray); --text-4:#8a96a7;
-      --accent:var(--deep-violet); --accent-2:var(--soft-violet); --info:var(--accent-green); --success:var(--accent-green); --danger:var(--vibrant-orange);
-      --cta-bg:var(--deep-violet); --cta-bg-hover:#4731e0; --cta-text:var(--platinum-white);
-      --grid-stroke:rgba(6,27,49,0.04); --glow-1:rgba(83,58,253,0.10); --glow-2:rgba(128,135,255,0.08);
-      --shadow-sm:rgba(23,23,23,0.06) 0 3px 6px 0;
-      --shadow-xl:rgba(50,50,93,0.12) 0 16px 32px 0, rgba(0,0,0,0.04) 0 4px 12px 0;
-      --traffic-1:#ed6a5e; --traffic-2:#f5bf4f; --traffic-3:#61c554;
     }
     [data-theme="cursor"] {
       --canvas-parchment:#f7f7f4; --pebble-gray:#ebeae3; --highlight-beige:#d8d6cb;
@@ -78,35 +87,67 @@
       --grid-stroke:rgba(38,37,16,0.04); --glow-1:rgba(245,78,0,0.08); --glow-2:rgba(192,133,50,0.06);
       --shadow-sm:rgba(0,0,0,0.06) 0 1px 2px 0, rgba(0,0,0,0.04) 0 4px 12px -4px;
       --shadow-xl:rgba(0,0,0,0.10) 0 14px 32px 0, rgba(0,0,0,0.06) 0 28px 70px 0;
+      --panel:var(--surface-1); --panel-2:var(--surface-2); --panel-3:var(--surface-3);
+      --line:var(--border); --line-2:var(--border-soft); --line-3:rgba(38,37,16,0.28);
+      --fg:var(--text-1); --muted:var(--text-2); --faint:var(--text-4);
+      --button-bg:var(--cta-bg); --button-bg-hover:var(--cta-bg-hover); --button-text:var(--cta-text);
+      --grid:var(--grid-stroke); --scan:0; --shadow:rgba(0,0,0,0.10) 0 14px 32px 0, rgba(0,0,0,0.06) 0 28px 70px 0;
       --traffic-1:#ed6a5e; --traffic-2:#f5bf4f; --traffic-3:#61c554;
     }
 
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
-      margin:0; min-height:100vh; background:var(--bg); color:var(--text-1);
-      font-family:var(--font-sans); font-size:14px; line-height:1.5; letter-spacing:-0.13px;
+      margin:0; min-height:100vh; background:var(--bg); color:var(--fg);
+      font-family:var(--font-mono); font-size:14px; line-height:1.65; letter-spacing:0;
       font-feature-settings:"cv01","ss03","liga" 1; -webkit-font-smoothing:antialiased;
-      transition: background-color .25s ease, color .25s ease;
+      overflow-x:hidden; transition: background-color .25s ease, color .25s ease;
     }
-    body::before{content:"";position:fixed;inset:0;z-index:-2;
-      background-image:linear-gradient(var(--grid-stroke) 1px,transparent 1px),linear-gradient(90deg,var(--grid-stroke) 1px,transparent 1px);
-      background-size:56px 56px; mask-image:radial-gradient(circle at 50% 0%,black 0%,transparent 78%); pointer-events:none;
+    body::before{content:"";position:fixed;inset:0;z-index:0;
+      background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+      background-size:46px 46px; mask-image:radial-gradient(circle at 50% 28%,black 0%,transparent 82%); pointer-events:none;
     }
-    body::after{content:"";position:fixed;inset:0;z-index:-1;
-      background:radial-gradient(600px 400px at 14% 8%,var(--glow-1),transparent 60%),radial-gradient(500px 360px at 92% 4%,var(--glow-2),transparent 60%);
-      pointer-events:none;
+    body::after{content:"";position:fixed;inset:0;z-index:1;
+      opacity:var(--scan);background:repeating-linear-gradient(180deg,transparent 0 2px,rgba(0,0,0,0.18) 2px 3px);pointer-events:none;
     }
     a{color:inherit;text-decoration:none}
     /* Full-screen layout with a safe gutter */
-    .wrap{width:calc(100% - 48px);max-width:none;margin:0 auto}
-    @media (min-width: 1400px) { .wrap{width:calc(100% - 80px)} }
-    @media (min-width: 1800px) { .wrap{width:calc(100% - 120px)} }
+    .wrap{width:min(1100px,calc(100% - 44px));margin:0 auto;position:relative;z-index:2}
+    .accent{color:var(--accent)}
+    .flag,.faint{color:var(--faint)}
 
     .ico{width:14px;height:14px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 
+    .topbar{
+      position:fixed;top:0;left:0;right:0;z-index:50;min-height:48px;
+      display:flex;align-items:center;gap:14px;padding:0 16px;
+      background:color-mix(in srgb,var(--panel) 84%,transparent);
+      backdrop-filter:blur(14px);border-bottom:1px solid var(--line);pointer-events:auto;
+    }
+    .dots{display:flex;gap:7px;flex-shrink:0}
+    .dots i{width:11px;height:11px;border-radius:50%;background:var(--line-2);display:block}
+    .topbar .brand{display:inline-flex;align-items:center;gap:10px;min-width:0;color:var(--muted);font-size:12.5px;white-space:nowrap}
+    .topbar .brand b{color:var(--fg);font-weight:600}
+    .topbar .brand .path{color:var(--accent)}
+    .topbar .brand-mark{width:21px;height:21px;flex-shrink:0;border-radius:0;background:transparent;box-shadow:none}
+    .topbar .brand-mark rect:first-child{fill:var(--panel)}
+    .topbar .brand-mark rect:nth-child(2){fill:none;stroke:var(--fg);stroke-width:1.1}
+    .topbar .brand-mark path{fill:var(--accent)}
+    .topbar .navlinks{margin-left:auto;display:flex;align-items:center;gap:2px;font-size:inherit;color:inherit}
+    .topbar .navlinks a{color:var(--muted);font-size:12.5px;padding:6px 10px;border-radius:6px;transition:color .15s,background .15s}
+    .topbar .navlinks a:hover,.topbar .navlinks a[aria-current="page"]{color:var(--fg);background:var(--panel-2)}
+    .theme-switch{display:inline-flex;align-items:center;gap:0;height:34px;padding:2px;border-radius:7px;border:1px solid var(--line);background:var(--panel-2)}
+    .theme-switch button{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:34px;height:28px;padding:0 9px;border:0;border-radius:6px;background:transparent;color:var(--muted);font-size:11px;transition:color .15s,background .15s}
+    .theme-switch button:hover{color:var(--fg)}
+    .theme-switch button[aria-pressed="true"]{color:var(--fg);background:var(--panel);box-shadow:var(--shadow)}
+    .theme-switch svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    .iconbtn{width:34px;height:34px;display:inline-grid;place-items:center;flex-shrink:0;border:1px solid transparent;border-radius:7px;background:transparent;color:var(--muted);transition:color .15s,background .15s,border-color .15s}
+    .iconbtn:hover{color:var(--fg);background:var(--panel-2);border-color:var(--line)}
+    .iconbtn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    .menutoggle{display:none}
+
     /* Nav */
-    header{position:fixed;top:16px;left:0;right:0;z-index:50;pointer-events:none}
+    header:not(.topbar){position:fixed;top:16px;left:0;right:0;z-index:50;pointer-events:none}
     .nav{
       width:min(920px,calc(100% - 32px)); margin:0 auto; height:48px;
       display:flex; align-items:center; justify-content:space-between; gap:12px;
@@ -148,7 +189,9 @@
     .button .kbd{font-family:var(--font-mono);font-size:11px;color:inherit;opacity:.7;padding:2px 5px;border-radius:var(--r-tag);background:color-mix(in srgb, currentColor 12%, transparent)}
     a:focus-visible,.button:focus-visible,.theme-toggle:focus-visible,.cmdk-input:focus-visible,.cmdk-result:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-    main{padding-top:96px}
+    main{position:relative;z-index:2;padding-top:48px}
+    section{position:relative;z-index:2;border-bottom:1px solid var(--line);scroll-margin-top:72px}
+    .cmd{color:var(--muted);font-size:13px;margin-bottom:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
 
     .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:5px 9px;border-radius:var(--r-md);border:1px solid var(--border);background:var(--surface-1);color:var(--text-3);font-family:var(--font-mono);font-size:11px;text-transform:uppercase}
     .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px color-mix(in srgb, var(--accent) 60%, transparent)}
@@ -298,8 +341,15 @@
       .search-trigger{margin-left:0;width:100%}
     }
     @media(max-width:700px){
+      .topbar{gap:10px}
+      .topbar .brand .path,.topbar .brand .version{display:none}
+      .topbar .navlinks{display:none}
+      .theme-switch span{display:none}
+      .menutoggle{display:inline-flex}
+      .topbar.open .navlinks{display:flex;position:absolute;top:48px;left:0;right:0;flex-direction:column;align-items:stretch;padding:10px;background:color-mix(in srgb,var(--panel) 96%,transparent);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+      .topbar.open .navlinks a{padding:11px 12px;min-height:44px;display:flex;align-items:center}
       .wrap{width:calc(100% - 28px)}
-      main{padding-top:80px}
+      main{padding-top:48px}
       section.archive{padding:32px 0 64px}
       h1{letter-spacing:-0.02em}
       .lead{font-size:15px}
@@ -311,16 +361,14 @@
       .entry-actions{padding:12px}
       .toc{padding:12px}
       /* Touch targets — 44px minimum */
-      .navlinks a{padding:10px 12px;min-height:44px;display:inline-flex;align-items:center}
       .toc a{padding:10px 8px;min-height:40px}
       .search-trigger{min-height:42px;padding:10px 12px}
     }
     @media(max-width:480px){
       .wrap{width:calc(100% - 20px)}
-      main{padding-top:76px}
+      main{padding-top:48px}
       h1{font-size:clamp(32px,9vw,46px)}
-      .nav{width:calc(100% - 20px);padding:4px 6px 4px 10px;gap:4px}
-      .brand span:not(.brand-mark){display:none}
+      .topbar .brand span:not(.path):not(.version){max-width:116px;overflow:hidden;text-overflow:ellipsis}
       .writing-entry{padding:12px;gap:12px}
       .entry-main p{font-size:13.5px}
       .entry-actions{padding:10px}
@@ -339,6 +387,7 @@
       <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></symbol>
       <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></symbol>
       <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
       <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"/></symbol>
       <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="M14 6l4 4"/></symbol>
       <symbol id="i-anchor" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M12 7v14"/><path d="M5 13c0 4 3 7 7 7s7-3 7-7"/><path d="M5 13H2M19 13h3M9 9h6"/></symbol>
@@ -349,42 +398,46 @@
     </defs>
   </svg>
 
-  <header>
-    <div class="nav">
-      <a class="brand" href="index.html">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span>Ali Osman Ozen</span>
-      </a>
-      <nav class="navlinks" aria-label="Primary navigation">
-        <a href="index.html#work" class="hide-sm">Work</a>
-        <a href="index.html#portfolio" class="hide-sm">Capabilities</a>
-        <a href="writing-archive.html" aria-current="page">Writing</a>
-        <a href="department-adoption.html">Adoption</a>
-        <div class="theme-picker" role="group" aria-label="Theme">
-          <button type="button" data-theme-set="linear" aria-pressed="true" title="Linear (Midnight Command)">
-            <svg class="ico" aria-hidden="true"><use href="#i-moon"/></svg><span class="lbl">Linear</span>
-          </button>
-          <button type="button" data-theme-set="cursor" aria-pressed="false" title="Cursor (Warm Ivory)">
-            <svg class="ico" aria-hidden="true"><use href="#i-sun"/></svg><span class="lbl">Cursor</span>
-          </button>
-          <button type="button" data-theme-set="stripe" aria-pressed="false" title="Stripe (Architectural Blueprint)">
-            <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg><span class="lbl">Stripe</span>
-          </button>
-        </div>
-        <a href="index.html#contact" class="button primary">Contact <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
-      </nav>
+  <header class="topbar">
+    <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <a class="brand" href="index.html" aria-label="Ali Osman Ozen home">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="3"/><rect x="2.4" y="2.4" width="27.2" height="27.2" rx="1.8"/><path d="M8.5 21.5 13 9h2l-4.5 12.5h-2Zm7.2 0L20.2 9h2l-4.5 12.5h-2Z"/></svg>
+      <span><b>0xozen</b> <span class="path">~/writing/archive</span> <span class="version">. personal site</span></span>
+    </a>
+    <nav class="navlinks" aria-label="Primary navigation">
+      <a href="index.html#work">work</a>
+      <a href="index.html#model">model</a>
+      <a href="index.html#diagrams">diagrams</a>
+      <a href="department-adoption.html">adoption</a>
+      <a href="writing-archive.html" aria-current="page">writing</a>
+      <a href="index.html#contact">contact</a>
+    </nav>
+    <button class="iconbtn" id="cmdkTrigger" type="button" aria-label="Open search" title="Open search">
+      <svg><use href="#i-search"/></svg>
+    </button>
+    <div class="theme-switch" role="group" aria-label="Theme">
+      <button type="button" data-theme-set="terminal" aria-pressed="true" title="Terminal data field">
+        <svg><use href="#i-moon"/></svg><span>Terminal</span>
+      </button>
+      <button type="button" data-theme-set="linear" aria-pressed="false" title="Old dark Linear theme">
+        <svg><use href="#i-grid"/></svg><span>Dark</span>
+      </button>
+      <button type="button" data-theme-set="cursor" aria-pressed="false" title="Old Cursor warm theme">
+        <svg><use href="#i-sun"/></svg><span>Cursor</span>
+      </button>
     </div>
+    <button class="iconbtn menutoggle" data-menu type="button" aria-label="Menu"><svg><use href="#i-menu"/></svg></button>
   </header>
 
   <main>
     <section class="hero">
       <div class="wrap">
-        <div class="eyebrow"><span class="dot"></span> PUBLIC LINKEDIN WRITING ARCHIVE</div>
+        <div class="cmd"><span class="accent">$</span> 0xozen writing <span class="flag">--archive --linkedin</span></div>
         <h1>AI adoption notes, organized like a command center.</h1>
         <p class="lead">Daily and weekly writing distilled into a readable archive: operational signals, governance questions, workflow authority and department-level adoption moves.</p>
         <div class="cta-row">
           <a class="button primary" href="https://linkedin.com/in/0xozen">Open LinkedIn</a>
-          <a class="button" href="index.html#writing">Latest writing on home</a>
+          <a class="button" href="index.html">Portfolio home</a>
           <a class="button ghost" href="department-adoption.html">Department map <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
         </div>
 
@@ -650,7 +703,7 @@
           <ul>
             <li><a href="index.html">Home <span class="ext">/01</span></a></li>
             <li><a href="index.html#work">Work <span class="ext">/02</span></a></li>
-            <li><a href="index.html#playground">Autonomy ladder <span class="ext">/03</span></a></li>
+            <li><a href="index.html#diagrams">Interactive diagrams <span class="ext">/03</span></a></li>
             <li><a href="department-adoption.html">Adoption map <span class="ext">↗</span></a></li>
           </ul>
         </div>
@@ -665,7 +718,7 @@
       </div>
       <div class="footer-meta">
         <span>Cologne, DE · 2026</span>
-        <span>Designed with Refero · Linear &amp; Cursor</span>
+        <span>Terminal · Dark · Cursor</span>
       </div>
     </div>
   </footer>
@@ -674,21 +727,42 @@
     /* Theme picker (3-way) */
     (function () {
       var meta = document.getElementById('theme-color-meta');
-      var btns = document.querySelectorAll('.theme-picker [data-theme-set]');
-      var THEME_COLOR = { linear: '#08090a', cursor: '#f7f7f4', stripe: '#ffffff' };
-      var THEMES = ['linear', 'cursor', 'stripe'];
+      var btns = document.querySelectorAll('.theme-switch [data-theme-set], .theme-picker [data-theme-set]');
+      var THEME_COLOR = { terminal: '#060707', linear: '#08090a', cursor: '#f7f7f4' };
+      var THEMES = ['terminal', 'linear', 'cursor'];
       function valid(t) { return THEMES.indexOf(t) !== -1; }
       function setTheme(t) {
-        if (!valid(t)) t = 'linear';
+        if (!valid(t)) t = 'terminal';
         document.documentElement.setAttribute('data-theme', t);
         try { localStorage.setItem('theme', t); } catch (e) {}
         if (meta) meta.setAttribute('content', THEME_COLOR[t]);
         btns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.themeSet === t ? 'true' : 'false'); });
       }
-      var current = document.documentElement.getAttribute('data-theme') || 'linear';
-      if (!valid(current)) current = 'linear';
+      var current = document.documentElement.getAttribute('data-theme') || 'terminal';
+      if (!valid(current)) current = 'terminal';
       setTheme(current);
       btns.forEach(function (b) { b.addEventListener('click', function () { setTheme(b.dataset.themeSet); }); });
+    })();
+
+    /* Mobile topbar */
+    (function () {
+      document.addEventListener('click', function (event) {
+        var bar = document.querySelector('.topbar');
+        if (!bar) return;
+        if (event.target.closest('[data-menu]')) {
+          bar.classList.toggle('open');
+          return;
+        }
+        if (bar.classList.contains('open') && !event.target.closest('.navlinks')) {
+          bar.classList.remove('open');
+        }
+      });
+      document.querySelectorAll('.topbar .navlinks a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          var bar = document.querySelector('.topbar');
+          if (bar) bar.classList.remove('open');
+        });
+      });
     })();
 
     /* Reading progress bar */
@@ -732,17 +806,17 @@
       var input = document.getElementById('cmdkInput');
       var list = document.getElementById('cmdkList');
       if (!backdrop || !input || !list) return;
-      var trigger = document.getElementById('cmdkTrigger') || document.getElementById('searchTrigger');
+      var triggers = document.querySelectorAll('#cmdkTrigger, #searchTrigger');
       var pageId = document.documentElement.dataset.page || 'writing';
 
       function setTheme(t) {
-        if (['linear','cursor','stripe'].indexOf(t) < 0) return;
+        if (['terminal','linear','cursor'].indexOf(t) < 0) return;
         document.documentElement.setAttribute('data-theme', t);
         try { localStorage.setItem('theme', t); } catch (e) {}
         var meta = document.getElementById('theme-color-meta');
-        var col = { linear:'#08090a', cursor:'#f7f7f4', stripe:'#ffffff' }[t];
+        var col = { terminal:'#060707', linear:'#08090a', cursor:'#f7f7f4' }[t];
         if (meta && col) meta.setAttribute('content', col);
-        document.querySelectorAll('.theme-picker [data-theme-set]').forEach(function (b) {
+        document.querySelectorAll('.theme-switch [data-theme-set], .theme-picker [data-theme-set]').forEach(function (b) {
           b.setAttribute('aria-pressed', b.dataset.themeSet === t ? 'true' : 'false');
         });
       }
@@ -787,9 +861,9 @@
       });
 
       commands.push(
-        { section:'Theme', label:'Linear · midnight command', icon:'i-moon', action: function(){ setTheme('linear'); toast('Theme: Linear'); } },
-        { section:'Theme', label:'Cursor · warm ivory',     icon:'i-sun',  action: function(){ setTheme('cursor'); toast('Theme: Cursor'); } },
-        { section:'Theme', label:'Stripe · architectural blueprint', icon:'i-arrow-up-right', action: function(){ setTheme('stripe'); toast('Theme: Stripe'); } }
+        { section:'Theme', label:'Terminal · data field', icon:'i-moon', action: function(){ setTheme('terminal'); toast('Theme: Terminal'); } },
+        { section:'Theme', label:'Dark · Linear', icon:'i-grid', action: function(){ setTheme('linear'); toast('Theme: Dark'); } },
+        { section:'Theme', label:'Cursor · warm ivory', icon:'i-sun', action: function(){ setTheme('cursor'); toast('Theme: Cursor'); } }
       );
 
       commands.push(
@@ -829,7 +903,7 @@
       }
       function open() { backdrop.classList.add('open'); document.body.style.overflow = 'hidden'; setTimeout(function () { input.focus(); input.select(); }, 0); filter(input.value); }
       function close() { backdrop.classList.remove('open'); document.body.style.overflow = ''; }
-      if (trigger) trigger.addEventListener('click', open);
+      triggers.forEach(function (trigger) { trigger.addEventListener('click', open); });
       document.addEventListener('keydown', function (e) {
         var isMod = e.metaKey || e.ctrlKey;
         if (isMod && (e.key === 'k' || e.key === 'K')) { e.preventDefault(); if (backdrop.classList.contains('open')) close(); else open(); return; }

@@ -10,17 +10,32 @@
   }
 
   function palette() {
-    var light = root.getAttribute("data-theme") === "light";
-    return light ? {
+    var theme = root.getAttribute("data-theme");
+    if (theme === "cursor") {
+      return {
       line: function (a) { return "rgba(70,82,74," + a + ")"; },
       dot: "rgba(20,28,22,.5)",
-      accent: function (a) { return "rgba(16,176,110," + a + ")"; },
-      accentSolid: "#10b06e",
+        accent: function (a) { return "rgba(245,78,0," + a + ")"; },
+        accentSolid: "#f54e00",
       nodeFill: "#ffffff",
       nodeStroke: "rgba(60,72,64,.5)",
       label: "rgba(40,52,44,.72)",
       labelHot: "#0d100e"
-    } : {
+      };
+    }
+    if (theme === "linear") {
+      return {
+        line: function (a) { return "rgba(208,216,224," + a + ")"; },
+        dot: "rgba(208,216,224,.45)",
+        accent: function (a) { return "rgba(94,106,210," + a + ")"; },
+        accentSolid: "#5e6ad2",
+        nodeFill: "#161718",
+        nodeStroke: "rgba(208,216,224,.5)",
+        label: "rgba(208,216,224,.68)",
+        labelHot: "#f7f8f8"
+      };
+    }
+    return {
       line: function (a) { return "rgba(150,160,156," + a + ")"; },
       dot: "rgba(200,208,204,.5)",
       accent: function (a) { return "rgba(94,240,166," + a + ")"; },
@@ -36,24 +51,46 @@
   function refreshPalette() { pal = palette(); }
 
   function setTheme(theme) {
+    if (theme === "dark" || theme === "light") theme = "terminal";
+    if (["terminal", "linear", "cursor"].indexOf(theme) === -1) theme = "terminal";
     root.setAttribute("data-theme", theme);
-    try { localStorage.setItem("0xozen-theme", theme); } catch (error) {}
+    try { localStorage.setItem("theme", theme); } catch (error) {}
     var meta = document.getElementById("theme-color-meta");
-    if (meta) meta.setAttribute("content", theme === "light" ? "#f4f6f3" : "#060707");
-    document.querySelectorAll("[data-theme-icon]").forEach(function (icon) {
-      icon.hidden = icon.getAttribute("data-theme-icon") !== theme;
+    var color = { terminal: "#060707", linear: "#08090a", cursor: "#f7f7f4" }[theme];
+    if (meta) meta.setAttribute("content", color);
+    document.querySelectorAll("[data-theme-set]").forEach(function (button) {
+      button.setAttribute("aria-pressed", button.getAttribute("data-theme-set") === theme ? "true" : "false");
     });
     refreshPalette();
   }
 
   (function initTheme() {
-    var saved = "dark";
-    try { saved = localStorage.getItem("0xozen-theme") || root.getAttribute("data-theme") || "dark"; } catch (error) {}
-    setTheme(saved === "light" ? "light" : "dark");
+    var saved = "terminal";
+    try { saved = localStorage.getItem("theme") || root.getAttribute("data-theme") || "terminal"; } catch (error) {}
+    setTheme(saved);
     document.addEventListener("click", function (event) {
-      if (!event.target.closest("[data-toggle-theme]")) return;
-      setTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark");
+      var themeButton = event.target.closest("[data-theme-set]");
+      if (!themeButton) return;
+      setTheme(themeButton.getAttribute("data-theme-set"));
     });
+  })();
+
+  (function heroRotator() {
+    var word = document.querySelector("[data-hero-word]");
+    if (!word) return;
+    var words = ["control plane", "permission rail", "evidence trail", "recovery path", "workflow map"];
+    var index = 0;
+    if (reduced) return;
+    window.setInterval(function () {
+      word.classList.remove("swap-in");
+      word.classList.add("swap-out");
+      window.setTimeout(function () {
+        index = (index + 1) % words.length;
+        word.textContent = words[index];
+        word.classList.remove("swap-out");
+        word.classList.add("swap-in");
+      }, 260);
+    }, 2200);
   })();
 
   (function mobileMenu() {
@@ -481,6 +518,112 @@
     });
   })();
 
+  (function animatedAIChat() {
+    var panel = document.querySelector("[data-ai-chat]");
+    var input = document.getElementById("aiChatInput");
+    var composer = panel ? panel.querySelector(".ai-chat-composer") : null;
+    var menu = document.getElementById("aiCommandMenu");
+    var state = document.getElementById("aiChatState");
+    var typing = document.getElementById("aiChatTyping");
+    var agentButtons = panel ? Array.prototype.slice.call(panel.querySelectorAll("[data-chat-agent]")) : [];
+    var agentControl = panel ? panel.querySelector("[data-chat-attach]") : null;
+    if (!panel || !input || !composer || !menu) return;
+
+    var selectedAgent = agentButtons.length ? agentButtons[0].getAttribute("data-chat-agent") : "ChatGPT";
+    function setState(value) {
+      if (state) state.textContent = value;
+    }
+    function setAgent(agent) {
+      selectedAgent = agent || "ChatGPT";
+      agentButtons.forEach(function (button) {
+        button.setAttribute("aria-pressed", button.getAttribute("data-chat-agent") === selectedAgent ? "true" : "false");
+      });
+      if (agentControl) agentControl.textContent = "agent: " + selectedAgent;
+      input.placeholder = "Ask " + selectedAgent + " about adoption, writing, or an operating model";
+      setState(input.value.trim() ? "draft / " + selectedAgent : selectedAgent);
+    }
+    function resize() {
+      input.style.height = "auto";
+      input.style.height = Math.min(178, Math.max(78, input.scrollHeight)) + "px";
+    }
+    function updateMenu() {
+      var value = input.value.trim();
+      var open = value.charAt(0) === "/" && value.indexOf(" ") === -1;
+      composer.classList.toggle("commands-open", open);
+      if (!open) return;
+      menu.querySelectorAll("[data-chat-command]").forEach(function (button) {
+        button.classList.toggle("active", button.getAttribute("data-chat-command").indexOf(value) === 0);
+      });
+    }
+    function choose(command) {
+      input.value = command + " ";
+      input.focus();
+      resize();
+      composer.classList.remove("commands-open");
+      setState(command.slice(1) + " / " + selectedAgent);
+    }
+    function send() {
+      var value = input.value.trim();
+      if (!value) return;
+      input.value = "";
+      resize();
+      composer.classList.remove("commands-open");
+      setState("asking " + selectedAgent);
+      if (typing) typing.hidden = false;
+      window.setTimeout(function () {
+        if (typing) typing.hidden = true;
+        setState(selectedAgent + " ready");
+      }, 1600);
+    }
+    input.addEventListener("input", function () {
+      resize();
+      updateMenu();
+      setState(input.value.trim() ? "draft / " + selectedAgent : selectedAgent);
+    });
+    input.addEventListener("focus", function () { composer.classList.add("focused"); });
+    input.addEventListener("blur", function () { composer.classList.remove("focused"); });
+    input.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") composer.classList.remove("commands-open");
+      if ((event.key === "Tab" || event.key === "Enter") && composer.classList.contains("commands-open")) {
+        var active = menu.querySelector(".active") || menu.querySelector("[data-chat-command]");
+        if (active) {
+          event.preventDefault();
+          choose(active.getAttribute("data-chat-command"));
+        }
+        return;
+      }
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        send();
+      }
+    });
+    menu.querySelectorAll("[data-chat-command]").forEach(function (button) {
+      button.addEventListener("click", function () { choose(button.getAttribute("data-chat-command")); });
+    });
+    panel.addEventListener("mousemove", function (event) {
+      var rect = panel.getBoundingClientRect();
+      panel.style.setProperty("--chat-x", ((event.clientX - rect.left) / rect.width * 100).toFixed(2) + "%");
+      panel.style.setProperty("--chat-y", ((event.clientY - rect.top) / rect.height * 100).toFixed(2) + "%");
+    });
+    panel.querySelector("[data-chat-command-toggle]").addEventListener("click", function () {
+      composer.classList.toggle("commands-open");
+      input.focus();
+    });
+    panel.querySelector("[data-chat-send]").addEventListener("click", send);
+    agentButtons.forEach(function (button) {
+      button.addEventListener("click", function () { setAgent(button.getAttribute("data-chat-agent")); });
+    });
+    if (agentControl) {
+      agentControl.addEventListener("click", function () {
+        var index = agentButtons.findIndex(function (button) { return button.getAttribute("data-chat-agent") === selectedAgent; });
+        var next = agentButtons[(index + 1) % agentButtons.length];
+        if (next) setAgent(next.getAttribute("data-chat-agent"));
+      });
+    }
+    setAgent(selectedAgent);
+    resize();
+  })();
+
   (function commandPalette() {
     var backdrop = document.getElementById("cmdkBackdrop");
     var input = document.getElementById("cmdkInput");
@@ -492,12 +635,14 @@
       { section: "Navigate", label: "Work surfaces", icon: "i-grid", meta: "#work", action: function () { go("#work"); } },
       { section: "Navigate", label: "Operating model", icon: "i-flow", meta: "#model", action: function () { go("#model"); } },
       { section: "Navigate", label: "Interactive diagrams", icon: "i-shield", meta: "#diagrams", action: function () { go("#diagrams"); } },
-      { section: "Navigate", label: "Writing archive", icon: "i-writing", meta: "writing-archive.html", action: function () { location.href = "writing-archive.html"; } },
+      { section: "Navigate", label: "Ask AI agents", icon: "i-search", meta: "#ask-ai", action: function () { go("#ask-ai"); } },
       { section: "Navigate", label: "Department adoption", icon: "i-grid", meta: "department-adoption.html", action: function () { location.href = "department-adoption.html"; } },
+      { section: "Navigate", label: "Writing archive", icon: "i-writing", meta: "writing-archive.html", action: function () { location.href = "writing-archive.html"; } },
       { section: "Actions", label: "Copy email", icon: "i-copy", meta: "ali.ozen@rwth-aachen.de", action: copyEmail },
       { section: "Actions", label: "Send email", icon: "i-mail", meta: "mailto", action: function () { location.href = "mailto:ali.ozen@rwth-aachen.de"; } },
-      { section: "Theme", label: "Dark terminal", icon: "i-moon", action: function () { setTheme("dark"); } },
-      { section: "Theme", label: "Light terminal", icon: "i-sun", action: function () { setTheme("light"); } }
+      { section: "Theme", label: "Terminal data-field", icon: "i-moon", action: function () { setTheme("terminal"); } },
+      { section: "Theme", label: "Old dark Linear", icon: "i-grid", action: function () { setTheme("linear"); } },
+      { section: "Theme", label: "Old Cursor warm", icon: "i-sun", action: function () { setTheme("cursor"); } }
     ];
     var filtered = commands.slice();
     var activeIndex = 0;
