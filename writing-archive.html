@@ -27,7 +27,7 @@
     (function () {
       try {
         var t = localStorage.getItem('theme');
-        if (t === 'terminal' || t === 'cursor' || t === 'linear') document.documentElement.setAttribute('data-theme', t);
+        if (t === 'terminal' || t === 'linear') document.documentElement.setAttribute('data-theme', t);
       } catch (e) {}
     })();
   </script>
@@ -74,27 +74,6 @@
       --r-tag:2px; --r-md:6px; --r-lg:12px; --r-pill:9999px;
       --traffic-1:#ff5f56; --traffic-2:#ffbd2e; --traffic-3:#27c93f;
     }
-    [data-theme="cursor"] {
-      --canvas-parchment:#f7f7f4; --pebble-gray:#ebeae3; --highlight-beige:#d8d6cb;
-      --inkwell:#262510; --deep-shadow:#141414; --muted-stone:#7a7974;
-      --onyx-outline:#f54e00; --chartreuse-alert:#4ade80; --goldenrod-accent:#c08532; --forest-green-action:#34785c;
-
-      --bg:var(--canvas-parchment); --surface-1:#ffffff; --surface-2:var(--pebble-gray); --surface-3:var(--highlight-beige);
-      --border:rgba(38,37,16,0.10); --border-soft:rgba(38,37,16,0.18);
-      --text-1:var(--inkwell); --text-2:#3a3825; --text-3:var(--muted-stone); --text-4:#9b9a92;
-      --accent:var(--onyx-outline); --accent-2:var(--goldenrod-accent); --info:var(--forest-green-action); --success:var(--forest-green-action); --danger:#c0392b;
-      --cta-bg:var(--inkwell); --cta-bg-hover:#1c1b0a; --cta-text:var(--canvas-parchment);
-      --grid-stroke:rgba(38,37,16,0.04); --glow-1:rgba(245,78,0,0.08); --glow-2:rgba(192,133,50,0.06);
-      --shadow-sm:rgba(0,0,0,0.06) 0 1px 2px 0, rgba(0,0,0,0.04) 0 4px 12px -4px;
-      --shadow-xl:rgba(0,0,0,0.10) 0 14px 32px 0, rgba(0,0,0,0.06) 0 28px 70px 0;
-      --panel:var(--surface-1); --panel-2:var(--surface-2); --panel-3:var(--surface-3);
-      --line:var(--border); --line-2:var(--border-soft); --line-3:rgba(38,37,16,0.28);
-      --fg:var(--text-1); --muted:var(--text-2); --faint:var(--text-4);
-      --button-bg:var(--cta-bg); --button-bg-hover:var(--cta-bg-hover); --button-text:var(--cta-text);
-      --grid:var(--grid-stroke); --scan:0; --shadow:rgba(0,0,0,0.10) 0 14px 32px 0, rgba(0,0,0,0.06) 0 28px 70px 0;
-      --traffic-1:#ed6a5e; --traffic-2:#f5bf4f; --traffic-3:#61c554;
-    }
-
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
@@ -182,8 +161,6 @@
     .button:hover{background:var(--surface-3);border-color:var(--border-soft)}
     .button.primary{background:var(--cta-bg);color:var(--cta-text);border-color:var(--cta-bg);font-weight:590}
     .button.primary:hover{background:var(--cta-bg-hover);border-color:var(--cta-bg-hover);transform:translateY(-1px)}
-    [data-theme="cursor"] .button.primary{background:transparent;color:var(--accent);border-color:var(--accent)}
-    [data-theme="cursor"] .button.primary:hover{background:color-mix(in srgb, var(--accent) 8%, transparent);border-color:var(--accent)}
     .button.ghost{background:transparent;border-color:transparent;color:var(--text-2)}
     .button.ghost:hover{background:var(--surface-2);color:var(--text-1)}
     .button .kbd{font-family:var(--font-mono);font-size:11px;color:inherit;opacity:.7;padding:2px 5px;border-radius:var(--r-tag);background:color-mix(in srgb, currentColor 12%, transparent)}
@@ -197,6 +174,16 @@
     .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px color-mix(in srgb, var(--accent) 60%, transparent)}
     .label{display:inline-block;font-family:var(--font-mono);font-size:11px;color:var(--text-3);letter-spacing:0.04em;text-transform:uppercase}
     h1{margin:18px 0 0;max-width:880px;font-size:clamp(44px,6vw,80px);line-height:1.0;letter-spacing:-0.024em;font-weight:510}
+    .hero-rotator{position:relative;display:inline-grid;min-width:0;color:var(--accent);vertical-align:baseline}
+    .hero-rotator span{grid-area:1 / 1;display:inline-block;will-change:transform,opacity}
+    .hero-rotator span.swap-out{animation:heroWordOut .34s ease forwards}
+    .hero-rotator span.swap-in{animation:heroWordIn .42s cubic-bezier(.2,.7,.2,1) forwards}
+    @keyframes heroWordOut{to{opacity:0;transform:translateY(-.72em)}}
+    @keyframes heroWordIn{from{opacity:0;transform:translateY(.82em)}to{opacity:1;transform:translateY(0)}}
+    .hero .cmd,.hero h1,.hero .lead,.hero .cta-row{animation:heroRise .72s cubic-bezier(.2,.7,.2,1) both}
+    .hero h1{animation-delay:.08s}.hero .lead{animation-delay:.16s}.hero .cta-row{animation-delay:.24s}
+    @keyframes heroRise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+    @media (prefers-reduced-motion: reduce){.hero .cmd,.hero h1,.hero .lead,.hero .cta-row,.hero-rotator span{animation:none}}
     h2{margin:8px 0 0;font-size:clamp(28px,3.4vw,44px);line-height:1.08;letter-spacing:-0.022em;font-weight:510}
     h3{margin:0;font-size:20px;line-height:1.22;letter-spacing:-0.014em;font-weight:590;color:var(--text-1)}
     .lead{margin:18px 0 0;max-width:720px;font-size:16px;line-height:1.55;color:var(--text-2)}
@@ -236,7 +223,6 @@
     .filter-strip .label{margin-right:6px}
     .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:var(--r-tag);background:var(--surface-2);border:1px solid var(--border);color:var(--text-2);font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:0.04em}
     .chip.is-active{background:var(--cta-bg);color:var(--cta-text);border-color:var(--cta-bg)}
-    [data-theme="cursor"] .chip.is-active{background:transparent;color:var(--accent);border-color:var(--accent)}
     .chip .count{font-size:10px;color:var(--text-4)}
     .chip.is-active .count{color:currentColor;opacity:.7}
     .search-trigger{margin-left:auto;display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:var(--r-md);border:1px solid var(--border);background:var(--surface-2);color:var(--text-2);cursor:pointer;font-family:var(--font-sans);font-size:12px;transition:background .15s,border-color .15s}
@@ -368,6 +354,7 @@
       .wrap{width:calc(100% - 20px)}
       main{padding-top:48px}
       h1{font-size:clamp(32px,9vw,46px)}
+      .hero-rotator{min-width:0}
       .topbar .brand span:not(.path):not(.version){max-width:116px;overflow:hidden;text-overflow:ellipsis}
       .writing-entry{padding:12px;gap:12px}
       .entry-main p{font-size:13.5px}
@@ -422,9 +409,6 @@
       <button type="button" data-theme-set="linear" aria-pressed="false" title="Old dark Linear theme">
         <svg><use href="#i-grid"/></svg><span>Dark</span>
       </button>
-      <button type="button" data-theme-set="cursor" aria-pressed="false" title="Old Cursor warm theme">
-        <svg><use href="#i-sun"/></svg><span>Cursor</span>
-      </button>
     </div>
     <button class="iconbtn menutoggle" data-menu type="button" aria-label="Menu"><svg><use href="#i-menu"/></svg></button>
   </header>
@@ -433,7 +417,7 @@
     <section class="hero">
       <div class="wrap">
         <div class="cmd"><span class="accent">$</span> 0xozen writing <span class="flag">--archive --linkedin</span></div>
-        <h1>AI adoption notes, organized like a command center.</h1>
+        <h1>AI adoption notes, organized like a <span class="hero-rotator" data-hero-words="command center|workflow map|evidence desk|hiring brief" aria-live="polite"><span data-hero-word>command center</span></span>.</h1>
         <p class="lead">Daily and weekly writing distilled into a readable archive: operational signals, governance questions, workflow authority and department-level adoption moves.</p>
         <div class="cta-row">
           <a class="button primary" href="https://linkedin.com/in/0xozen">Open LinkedIn</a>
@@ -724,12 +708,12 @@
   </footer>
 
   <script>
-    /* Theme picker (3-way) */
+    /* Theme picker */
     (function () {
       var meta = document.getElementById('theme-color-meta');
       var btns = document.querySelectorAll('.theme-switch [data-theme-set], .theme-picker [data-theme-set]');
-      var THEME_COLOR = { terminal: '#060707', linear: '#08090a', cursor: '#f7f7f4' };
-      var THEMES = ['terminal', 'linear', 'cursor'];
+      var THEME_COLOR = { terminal: '#060707', linear: '#08090a' };
+      var THEMES = ['terminal', 'linear'];
       function valid(t) { return THEMES.indexOf(t) !== -1; }
       function setTheme(t) {
         if (!valid(t)) t = 'terminal';
@@ -800,6 +784,29 @@
       els.forEach(function (el) { io.observe(el); });
     })();
 
+    /* 21st animated hero adaptation */
+    (function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.querySelectorAll('[data-hero-word]').forEach(function (word) {
+        var host = word.closest('[data-hero-words]');
+        var words = host && host.dataset.heroWords
+          ? host.dataset.heroWords.split('|').map(function (item) { return item.trim(); }).filter(Boolean)
+          : [];
+        var index = Math.max(0, words.indexOf(word.textContent.trim()));
+        if (reduce || words.length < 2) return;
+        setInterval(function () {
+          word.classList.remove('swap-in');
+          word.classList.add('swap-out');
+          setTimeout(function () {
+            index = (index + 1) % words.length;
+            word.textContent = words[index];
+            word.classList.remove('swap-out');
+            word.classList.add('swap-in');
+          }, 260);
+        }, 2200);
+      });
+    })();
+
     /* Universal command palette (Cmd+K) */
     (function () {
       var backdrop = document.getElementById('cmdkBackdrop');
@@ -810,11 +817,11 @@
       var pageId = document.documentElement.dataset.page || 'writing';
 
       function setTheme(t) {
-        if (['terminal','linear','cursor'].indexOf(t) < 0) return;
+        if (['terminal','linear'].indexOf(t) < 0) return;
         document.documentElement.setAttribute('data-theme', t);
         try { localStorage.setItem('theme', t); } catch (e) {}
         var meta = document.getElementById('theme-color-meta');
-        var col = { terminal:'#060707', linear:'#08090a', cursor:'#f7f7f4' }[t];
+        var col = { terminal:'#060707', linear:'#08090a' }[t];
         if (meta && col) meta.setAttribute('content', col);
         document.querySelectorAll('.theme-switch [data-theme-set], .theme-picker [data-theme-set]').forEach(function (b) {
           b.setAttribute('aria-pressed', b.dataset.themeSet === t ? 'true' : 'false');
@@ -862,8 +869,7 @@
 
       commands.push(
         { section:'Theme', label:'Terminal · data field', icon:'i-moon', action: function(){ setTheme('terminal'); toast('Theme: Terminal'); } },
-        { section:'Theme', label:'Dark · Linear', icon:'i-grid', action: function(){ setTheme('linear'); toast('Theme: Dark'); } },
-        { section:'Theme', label:'Cursor · warm ivory', icon:'i-sun', action: function(){ setTheme('cursor'); toast('Theme: Cursor'); } }
+        { section:'Theme', label:'Dark · Linear', icon:'i-grid', action: function(){ setTheme('linear'); toast('Theme: Dark'); } }
       );
 
       commands.push(

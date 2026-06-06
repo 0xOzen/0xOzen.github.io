@@ -30,7 +30,7 @@
     (function () {
       try {
         var theme = localStorage.getItem("theme");
-        if (theme === "linear" || theme === "cursor" || theme === "terminal") {
+        if (theme === "linear" || theme === "terminal") {
           document.documentElement.setAttribute("data-theme", theme);
         }
       } catch (error) {}
@@ -94,9 +94,6 @@
       <button type="button" data-theme-set="linear" aria-pressed="false" title="Old dark Linear theme">
         <svg><use href="#i-grid"/></svg><span>Dark</span>
       </button>
-      <button type="button" data-theme-set="cursor" aria-pressed="false" title="Old Cursor warm theme">
-        <svg><use href="#i-sun"/></svg><span>Cursor</span>
-      </button>
     </div>
     <button class="iconbtn menutoggle" data-menu type="button" aria-label="Menu"><svg><use href="#i-menu"/></svg></button>
   </header>
@@ -110,7 +107,7 @@
           <div class="term-line" style="visibility:hidden"><span class="accent">$</span> 0xozen --status</div>
           <div class="term-line" style="visibility:hidden"><span class="accent">-&gt;</span> scattered AI work detected across teams, tools, and decisions</div>
         </div>
-        <h1>AI adoption needs a <span class="hero-rotator" aria-live="polite"><span data-hero-word>control plane</span></span>, not another tool stack.<span class="cursor"></span></h1>
+        <h1>AI adoption needs a <span class="hero-rotator" data-hero-words="control plane|permission rail|evidence trail|recovery path|workflow map" aria-live="polite"><span data-hero-word>control plane</span></span>, not another tool stack.<span class="cursor"></span></h1>
         <p class="sub">I help teams turn emerging technology into controlled workflows, clear responsibilities, evidence trails, and adoption plans that survive contact with real operations.</p>
         <div class="actions">
           <a class="btn solid" href="mailto:ali.ozen@rwth-aachen.de">email me <svg><use href="#i-arrow-r"/></svg></a>
@@ -175,10 +172,10 @@
     <section id="model">
       <div class="wrap">
         <div class="cmd"><span class="accent">$</span> 0xozen model <span class="flag">--interactive</span></div>
-        <h2>The operating model - move your mouse through it.</h2>
-        <p class="lead">AI work moves in layers. The top rail is human approval. The bottom rail is evidence. Hover a node to read what it controls.</p>
+        <h2>The operating model - simplified.</h2>
+        <p class="lead">Scattered AI work becomes useful only when every workflow has an owner, a permission boundary, a human gate, and a recovery path.</p>
         <div class="graph-wrap" data-reveal>
-          <div class="graph-head"><span>operating-model.live</span><span class="live"><i></i> interactive</span></div>
+          <div class="graph-head"><span>adoption-control-plane.live</span><span class="live"><i></i> mouse interactive</span></div>
           <canvas id="modelGraph" aria-label="Interactive AI adoption operating model diagram"></canvas>
           <div class="graph-tip" id="graphTip"></div>
         </div>

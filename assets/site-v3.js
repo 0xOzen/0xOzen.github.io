@@ -11,18 +11,6 @@
 
   function palette() {
     var theme = root.getAttribute("data-theme");
-    if (theme === "cursor") {
-      return {
-      line: function (a) { return "rgba(70,82,74," + a + ")"; },
-      dot: "rgba(20,28,22,.5)",
-        accent: function (a) { return "rgba(245,78,0," + a + ")"; },
-        accentSolid: "#f54e00",
-      nodeFill: "#ffffff",
-      nodeStroke: "rgba(60,72,64,.5)",
-      label: "rgba(40,52,44,.72)",
-      labelHot: "#0d100e"
-      };
-    }
     if (theme === "linear") {
       return {
         line: function (a) { return "rgba(208,216,224," + a + ")"; },
@@ -51,12 +39,12 @@
   function refreshPalette() { pal = palette(); }
 
   function setTheme(theme) {
-    if (theme === "dark" || theme === "light") theme = "terminal";
-    if (["terminal", "linear", "cursor"].indexOf(theme) === -1) theme = "terminal";
+    if (theme === "dark" || theme === "light" || theme === "cursor") theme = "terminal";
+    if (["terminal", "linear"].indexOf(theme) === -1) theme = "terminal";
     root.setAttribute("data-theme", theme);
     try { localStorage.setItem("theme", theme); } catch (error) {}
     var meta = document.getElementById("theme-color-meta");
-    var color = { terminal: "#060707", linear: "#08090a", cursor: "#f7f7f4" }[theme];
+    var color = { terminal: "#060707", linear: "#08090a" }[theme];
     if (meta) meta.setAttribute("content", color);
     document.querySelectorAll("[data-theme-set]").forEach(function (button) {
       button.setAttribute("aria-pressed", button.getAttribute("data-theme-set") === theme ? "true" : "false");
@@ -76,21 +64,24 @@
   })();
 
   (function heroRotator() {
-    var word = document.querySelector("[data-hero-word]");
-    if (!word) return;
-    var words = ["control plane", "permission rail", "evidence trail", "recovery path", "workflow map"];
-    var index = 0;
-    if (reduced) return;
-    window.setInterval(function () {
-      word.classList.remove("swap-in");
-      word.classList.add("swap-out");
-      window.setTimeout(function () {
-        index = (index + 1) % words.length;
-        word.textContent = words[index];
-        word.classList.remove("swap-out");
-        word.classList.add("swap-in");
-      }, 260);
-    }, 2200);
+    document.querySelectorAll("[data-hero-word]").forEach(function (word) {
+      var host = word.closest("[data-hero-words]");
+      var words = host && host.getAttribute("data-hero-words")
+        ? host.getAttribute("data-hero-words").split("|").map(function (item) { return item.trim(); }).filter(Boolean)
+        : ["control plane", "permission rail", "evidence trail", "recovery path", "workflow map"];
+      var index = Math.max(0, words.indexOf(word.textContent.trim()));
+      if (reduced || words.length < 2) return;
+      window.setInterval(function () {
+        word.classList.remove("swap-in");
+        word.classList.add("swap-out");
+        window.setTimeout(function () {
+          index = (index + 1) % words.length;
+          word.textContent = words[index];
+          word.classList.remove("swap-out");
+          word.classList.add("swap-in");
+        }, 260);
+      }, 2200);
+    });
   })();
 
   (function mobileMenu() {
@@ -273,24 +264,41 @@
     var height = 0;
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     var mouse = { x: -999, y: -999, on: false };
+    var drag = null;
     var raf = 0;
     var nodes = {};
-    var defs = [
-      { id: "discover", x: 0.1, y: 0.5, title: "01 . Discover", desc: "Map AI use, risk, ownership, and first useful workflow." },
-      { id: "adopt", x: 0.3, y: 0.5, title: "02 . Adopt", desc: "Select one department pilot with data boundaries and success metrics." },
-      { id: "design", x: 0.5, y: 0.5, title: "03 . Design", desc: "Create agent and workflow rules: suggest, prepare, modify, trigger, commit." },
-      { id: "govern", x: 0.7, y: 0.5, title: "04 . Govern", desc: "Policy, responsibility matrix, logging, approval, and escalation rules." },
-      { id: "anchor", x: 0.9, y: 0.5, title: "05 . Anchor", desc: "Evidence, Digital Product Passport thinking, and tokenization readiness where it fits." },
-      { id: "human", x: 0.5, y: 0.16, title: "Human approval rail", desc: "Named humans decide and approve before high-impact actions." },
-      { id: "evidence", x: 0.5, y: 0.84, title: "Evidence rail", desc: "Prompts, outputs, decisions, logs, and rollback paths remain reviewable." }
-    ];
-    var chain = [["discover", "adopt"], ["adopt", "design"], ["design", "govern"], ["govern", "anchor"]];
-    var rails = [];
-    ["human", "evidence"].forEach(function (rail) {
-      ["discover", "adopt", "design", "govern", "anchor"].forEach(function (node) {
-        rails.push([rail, node]);
-      });
-    });
+    var defs = [];
+    var pipelineIds = ["input", "control", "workflow"];
+    var packetPhase = 0;
+
+    function nodeDef(id, x, y, w, h, kind, title, label, desc) {
+      return { id: id, x: x, y: y, w: w, h: h, kind: kind, title: title, label: label, desc: desc };
+    }
+
+    function buildLayout() {
+      var mobile = width < 700;
+      var next = [];
+      if (mobile) {
+        var mainX = width * 0.50;
+        var cardW = Math.max(228, Math.min(320, width * 0.78));
+        var supportW = Math.max(134, Math.min(164, width * 0.38));
+        next.push(nodeDef("input", mainX, 86, cardW, 74, "pipeline", "scattered AI work", "before", "Prompts, pilots, research, and agent drafts live in different places."));
+        next.push(nodeDef("control", mainX, 226, cardW, 108, "hub", "control plane", "owner / permission / gate", "Names the owner, defines what AI can touch, and keeps approval before impact."));
+        next.push(nodeDef("workflow", mainX, 366, cardW, 76, "outcome", "approved workflow", "after", "Only reviewed work becomes a repeatable operating habit."));
+        next.push(nodeDef("evidence", width * 0.31, 500, supportW, 76, "support", "evidence trail", "proof", "Sources, prompts, decisions, and outputs stay reviewable."));
+        next.push(nodeDef("recovery", width * 0.69, 500, supportW, 76, "support", "recovery path", "undo / learn", "Escalation and rollback are planned before scale."));
+        return next;
+      }
+
+      var midY = height * 0.43;
+      var supportY = height * 0.76;
+      next.push(nodeDef("input", width * 0.18, midY, 198, 92, "pipeline", "scattered AI work", "before", "Prompts, pilots, web research, and agent drafts live in different places."));
+      next.push(nodeDef("control", width * 0.50, midY, 238, 112, "hub", "control plane", "owner / permission / gate", "Who owns it, what it can touch, who approves it, and what remains after it moves."));
+      next.push(nodeDef("workflow", width * 0.82, midY, 198, 92, "outcome", "approved workflow", "after", "Only reviewed work becomes a repeatable operating habit."));
+      next.push(nodeDef("evidence", width * 0.36, supportY, 178, 78, "support", "evidence trail", "proof", "Sources, prompts, decisions, and outputs stay reviewable."));
+      next.push(nodeDef("recovery", width * 0.64, supportY, 178, 78, "support", "recovery path", "undo / learn", "Escalation, rollback, and learning are planned before scale."));
+      return next;
+    }
 
     function resize() {
       var rect = canvas.getBoundingClientRect();
@@ -299,105 +307,247 @@
       canvas.width = width * dpr;
       canvas.height = height * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      defs = buildLayout();
       defs.forEach(function (def) {
         var node = nodes[def.id] || (nodes[def.id] = {});
-        node.homeX = def.x * width;
-        node.homeY = def.y * height;
+        node.homeX = def.x;
+        node.homeY = def.y;
         if (node.x == null) {
           node.x = node.homeX;
           node.y = node.homeY;
         }
+        node.w = def.w;
+        node.h = def.h;
+        node.kind = def.kind;
+        node.label = def.label;
         node.title = def.title;
         node.desc = def.desc;
-        node.r = def.id === "human" || def.id === "evidence" ? 6 : 9;
+        node.canDrag = def.kind === "pipeline" || def.kind === "hub" || def.kind === "outcome";
       });
     }
 
-    function drawLine(a, b, base, near) {
-      var p = nodes[a];
-      var q = nodes[b];
-      var mx = (p.x + q.x) / 2;
-      var my = (p.y + q.y) / 2;
-      var hot = near === a || near === b || (mouse.on && Math.hypot(mx - mouse.x, my - mouse.y) < 70);
-      ctx.strokeStyle = hot ? pal.accent(0.85) : base;
-      ctx.lineWidth = hot ? 1.6 : 1;
+    function roundRect(x, y, w, h, r) {
       ctx.beginPath();
-      ctx.moveTo(p.x, p.y);
-      ctx.lineTo(q.x, q.y);
+      ctx.moveTo(x + r, y);
+      ctx.lineTo(x + w - r, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+      ctx.lineTo(x + w, y + h - r);
+      ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      ctx.lineTo(x + r, y + h);
+      ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+      ctx.lineTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+    }
+
+    function drawGrid() {
+      var step = width < 700 ? 36 : 48;
+      ctx.save();
+      ctx.strokeStyle = pal.line(0.055);
+      ctx.lineWidth = 1;
+      for (var x = step; x < width; x += step) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, height); ctx.stroke();
+      }
+      for (var y = step; y < height; y += step) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(width, y); ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    function hit(node) {
+      return mouse.on &&
+        mouse.x >= node.x - node.w / 2 &&
+        mouse.x <= node.x + node.w / 2 &&
+        mouse.y >= node.y - node.h / 2 &&
+        mouse.y <= node.y + node.h / 2;
+    }
+
+    function findActive() {
+      if (!mouse.on) return null;
+      var active = null;
+      defs.forEach(function (def) {
+        var node = nodes[def.id];
+        if (hit(node)) active = def.id;
+      });
+      if (active) return active;
+      var best = null;
+      var bestDistance = Infinity;
+      defs.forEach(function (def) {
+        var node = nodes[def.id];
+        var distance = Math.hypot(node.x - mouse.x, node.y - mouse.y);
+        if (distance < bestDistance) {
+          best = def.id;
+          bestDistance = distance;
+        }
+      });
+      return bestDistance < 74 ? best : null;
+    }
+
+    function drawLine(from, to, active, options) {
+      var a = nodes[from];
+      var b = nodes[to];
+      if (!a || !b) return;
+      var hot = active === from || active === to;
+      var bend = options && options.bend || 0;
+      var alpha = options && options.alpha || 0.28;
+      var lineWidth = options && options.width || 1;
+      var cx = (a.x + b.x) / 2;
+      var cy = (a.y + b.y) / 2 + bend;
+      ctx.save();
+      ctx.strokeStyle = hot ? pal.accent(0.85) : pal.line(alpha);
+      ctx.lineWidth = hot ? lineWidth + 0.8 : lineWidth;
+      if (options && options.dashed) ctx.setLineDash([6, 8]);
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.quadraticCurveTo(cx, cy, b.x, b.y);
       ctx.stroke();
+      ctx.restore();
+      if (options && options.packet && !reduced) {
+        var t = (packetPhase + (options.offset || 0)) % 1;
+        var inv = 1 - t;
+        var px = inv * inv * a.x + 2 * inv * t * cx + t * t * b.x;
+        var py = inv * inv * a.y + 2 * inv * t * cy + t * t * b.y;
+        ctx.save();
+        ctx.fillStyle = hot ? pal.accent(0.96) : pal.accent(0.72);
+        ctx.shadowColor = pal.accent(0.9);
+        ctx.shadowBlur = hot ? 12 : 8;
+        ctx.beginPath();
+        ctx.arc(px, py, hot ? 4 : 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function drawRailLabels() {
+      ctx.save();
+      ctx.font = '11px "IBM Plex Mono", monospace';
+      ctx.fillStyle = pal.label;
+      if (width >= 700) {
+        ctx.fillText("one owner", width * 0.18 - 56, height * 0.18);
+        ctx.fillText("permission boundary", width * 0.50 - 72, height * 0.18);
+        ctx.fillText("reviewed workflow", width * 0.82 - 74, height * 0.18);
+        ctx.fillText("evidence + recovery stay attached", width * 0.38, height * 0.92);
+      } else {
+        ctx.fillText("owner -> permission -> evidence -> recovery", 18, 30);
+      }
+      ctx.restore();
+    }
+
+    function drawNode(id, active) {
+      var n = nodes[id];
+      var hot = active === id;
+      var x = n.x - n.w / 2;
+      var y = n.y - n.h / 2;
+      var isSmall = n.kind === "gate" || n.kind === "evidence" || n.kind === "rollback";
+      var isHub = n.kind === "hub";
+      ctx.save();
+      if (hot) {
+        ctx.fillStyle = pal.accent(0.1);
+        roundRect(x - 5, y - 5, n.w + 10, n.h + 10, 12);
+        ctx.fill();
+      }
+      ctx.fillStyle = pal.nodeFill;
+      ctx.strokeStyle = hot ? pal.accentSolid : isHub ? pal.accent(0.58) : pal.nodeStroke;
+      ctx.lineWidth = hot ? 1.8 : 1.1;
+      roundRect(x, y, n.w, n.h, isSmall ? 7 : 10);
+      ctx.fill();
+      ctx.stroke();
+      if (isHub) {
+        ctx.fillStyle = pal.accent(0.07);
+        roundRect(x + 7, y + 7, n.w - 14, n.h - 14, 8);
+        ctx.fill();
+        ctx.strokeStyle = pal.accent(0.22);
+        roundRect(x + 7, y + 7, n.w - 14, n.h - 14, 8);
+        ctx.stroke();
+      }
+      ctx.textAlign = "left";
+      ctx.textBaseline = "top";
+      ctx.font = (isSmall ? "10px" : "11px") + ' "IBM Plex Mono", monospace';
+      ctx.fillStyle = hot ? pal.accentSolid : pal.label;
+      ctx.fillText(n.label || n.kind, x + 12, y + (isSmall ? 8 : 11));
+      ctx.font = (isHub ? "18px" : isSmall ? "11px" : "14px") + ' "IBM Plex Mono", monospace';
+      ctx.fillStyle = hot || isHub ? pal.accentSolid : pal.labelHot;
+      ctx.fillText(n.title, x + 12, y + (isSmall ? 20 : 28));
+      if (!isSmall && width >= 700) {
+        ctx.font = '11px "Inter", sans-serif';
+        ctx.fillStyle = pal.label;
+        var words = n.desc.split(" ");
+        var line = "";
+        var lines = [];
+        words.forEach(function (word) {
+          var test = line ? line + " " + word : word;
+          if (ctx.measureText(test).width > n.w - 24 && line) {
+            lines.push(line);
+            line = word;
+          } else {
+            line = test;
+          }
+        });
+        if (line) lines.push(line);
+        lines.slice(0, 2).forEach(function (text, index) {
+          ctx.fillText(text, x + 12, y + 48 + index * 15);
+        });
+      }
+      ctx.restore();
     }
 
     function frame() {
       ctx.clearRect(0, 0, width, height);
       var time = performance.now() / 1000;
+      packetPhase = (time * 0.18) % 1;
       defs.forEach(function (def) {
         var n = nodes[def.id];
-        n.vx = (n.vx || 0) + (n.homeX - n.x) * 0.02;
-        n.vy = (n.vy || 0) + (n.homeY - n.y) * 0.02;
-        if (!reduced) {
-          n.vx += Math.cos(time * 0.8 + n.homeX) * 0.03;
-          n.vy += Math.sin(time * 0.9 + n.homeY) * 0.03;
+        if (drag === def.id) {
+          n.x = mouse.x;
+          n.y = mouse.y;
+          n.vx = 0;
+          n.vy = 0;
+          return;
         }
-        if (mouse.on) {
+        n.vx = (n.vx || 0) + (n.homeX - n.x) * 0.045;
+        n.vy = (n.vy || 0) + (n.homeY - n.y) * 0.045;
+        if (!reduced && n.kind !== "evidence" && n.kind !== "gate") {
+          n.vx += Math.cos(time * 0.8 + n.homeX * 0.02) * 0.018;
+          n.vy += Math.sin(time * 0.9 + n.homeY * 0.02) * 0.018;
+        }
+        if (mouse.on && drag !== def.id) {
           var dx = n.x - mouse.x;
           var dy = n.y - mouse.y;
           var d2 = dx * dx + dy * dy;
-          if (d2 < 9000) {
-            var f = (1 - d2 / 9000) * 2.2;
+          if (d2 < 12000) {
+            var f = (1 - d2 / 12000) * (n.canDrag ? 1.9 : 0.8);
             n.vx += dx / Math.sqrt(d2 + 1) * f;
             n.vy += dy / Math.sqrt(d2 + 1) * f;
           }
         }
-        n.vx *= 0.86;
-        n.vy *= 0.86;
+        n.vx *= 0.78;
+        n.vy *= 0.78;
         n.x += n.vx;
         n.y += n.vy;
       });
 
-      var near = null;
-      var nearestDistance = Infinity;
-      if (mouse.on) {
-        defs.forEach(function (def) {
-          var n = nodes[def.id];
-          var distance = Math.hypot(n.x - mouse.x, n.y - mouse.y);
-          if (distance < nearestDistance) {
-            nearestDistance = distance;
-            near = def.id;
-          }
-        });
-        if (nearestDistance > 90) near = null;
-      }
+      var active = findActive();
+      var activeNode = active && nodes[active];
+      canvas.style.cursor = drag ? "grabbing" : activeNode && activeNode.canDrag ? "grab" : "crosshair";
 
-      rails.forEach(function (edge) { drawLine(edge[0], edge[1], pal.line(0.1), near); });
-      chain.forEach(function (edge) { drawLine(edge[0], edge[1], pal.line(0.3), near); });
+      drawGrid();
+      drawRailLabels();
+      drawLine("input", "control", active, { alpha: 0.34, width: 1.35, packet: true, offset: 0.05, bend: width < 700 ? 0 : -8 });
+      drawLine("control", "workflow", active, { alpha: 0.34, width: 1.35, packet: true, offset: 0.48, bend: width < 700 ? 0 : -8 });
+      drawLine("control", "evidence", active, { alpha: 0.18, width: 1, dashed: true, bend: width < 700 ? 0 : 22 });
+      drawLine("control", "recovery", active, { alpha: 0.18, width: 1, dashed: true, bend: width < 700 ? 0 : 22 });
+      drawLine("evidence", "workflow", active, { alpha: 0.14, width: 1, dashed: true, bend: width < 700 ? 0 : -24 });
+      drawLine("recovery", "control", active, { alpha: 0.14, width: 1, dashed: true, bend: width < 700 ? 0 : -18 });
 
-      defs.forEach(function (def) {
-        var n = nodes[def.id];
-        var hot = near === def.id;
-        var s = n.r;
-        ctx.fillStyle = pal.nodeFill;
-        ctx.strokeStyle = hot ? pal.accentSolid : pal.nodeStroke;
-        ctx.lineWidth = 1.2;
-        ctx.beginPath();
-        ctx.rect(n.x - s, n.y - s, s * 2, s * 2);
-        ctx.fill();
-        ctx.stroke();
-        if (hot) {
-          ctx.fillStyle = pal.accent(0.18);
-          ctx.fillRect(n.x - s - 4, n.y - s - 4, s * 2 + 8, s * 2 + 8);
-        }
-        ctx.fillStyle = hot ? pal.labelHot : pal.label;
-        ctx.font = '11px "IBM Plex Mono", monospace';
-        ctx.textAlign = "center";
-        var rail = def.id === "human" || def.id === "evidence";
-        ctx.fillText(def.title, n.x, rail && def.id === "human" ? n.y - s - 10 : n.y + s + 17);
-      });
+      ["evidence", "recovery"].forEach(function (id) { drawNode(id, active); });
+      pipelineIds.forEach(function (id) { drawNode(id, active); });
 
-      if (near && tip) {
-        var active = nodes[near];
-        tip.innerHTML = "<b>" + active.title + "</b>" + active.desc;
-        tip.style.left = Math.min(Math.max(active.x + 14, 8), width - 250) + "px";
-        tip.style.top = Math.min(Math.max(active.y - 10, 8), height - 84) + "px";
+      if (active && tip) {
+        var tipNode = nodes[active];
+        tip.innerHTML = "<b>" + tipNode.title + "</b>" + tipNode.desc;
+        var tipX = width >= 700 ? (tipNode.x > width * 0.55 ? 16 : width - 268) : Math.min(Math.max(tipNode.x + 16, 8), width - 260);
+        var tipY = width >= 700 ? 52 : Math.min(Math.max(tipNode.y - 12, 8), height - 90);
+        tip.style.left = tipX + "px";
+        tip.style.top = tipY + "px";
         tip.classList.add("on");
       } else if (tip) {
         tip.classList.remove("on");
@@ -411,7 +561,26 @@
       mouse.y = event.clientY - rect.top;
       mouse.on = true;
     });
-    canvas.addEventListener("pointerleave", function () { mouse.on = false; mouse.x = -999; mouse.y = -999; });
+    canvas.addEventListener("pointerdown", function (event) {
+      var rect = canvas.getBoundingClientRect();
+      mouse.x = event.clientX - rect.left;
+      mouse.y = event.clientY - rect.top;
+      mouse.on = true;
+      var active = findActive();
+      if (active && nodes[active] && nodes[active].canDrag) {
+        drag = active;
+        canvas.setPointerCapture(event.pointerId);
+      }
+    });
+    canvas.addEventListener("pointerup", function () { drag = null; });
+    canvas.addEventListener("pointercancel", function () { drag = null; });
+    canvas.addEventListener("pointerleave", function () {
+      if (!drag) {
+        mouse.on = false;
+        mouse.x = -999;
+        mouse.y = -999;
+      }
+    });
     resize();
     window.addEventListener("resize", function () { cancelAnimationFrame(raf); resize(); frame(); });
     document.addEventListener("visibilitychange", function () {
@@ -641,8 +810,7 @@
       { section: "Actions", label: "Copy email", icon: "i-copy", meta: "ali.ozen@rwth-aachen.de", action: copyEmail },
       { section: "Actions", label: "Send email", icon: "i-mail", meta: "mailto", action: function () { location.href = "mailto:ali.ozen@rwth-aachen.de"; } },
       { section: "Theme", label: "Terminal data-field", icon: "i-moon", action: function () { setTheme("terminal"); } },
-      { section: "Theme", label: "Old dark Linear", icon: "i-grid", action: function () { setTheme("linear"); } },
-      { section: "Theme", label: "Old Cursor warm", icon: "i-sun", action: function () { setTheme("cursor"); } }
+      { section: "Theme", label: "Old dark Linear", icon: "i-grid", action: function () { setTheme("linear"); } }
     ];
     var filtered = commands.slice();
     var activeIndex = 0;
