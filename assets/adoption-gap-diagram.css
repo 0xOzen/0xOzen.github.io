@@ -1,0 +1,378 @@
+/* Adoption Gap Curve component for 0xOzen.github.io */
+.adoption-gap {
+  position: relative;
+  margin-top: 26px;
+  scroll-margin-top: 70px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background:
+    radial-gradient(760px 320px at 18% 0%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 62%),
+    radial-gradient(560px 260px at 100% 18%, rgba(255, 194, 102, 0.09), transparent 64%),
+    var(--panel);
+  box-shadow: var(--shadow);
+}
+
+#diagrams {
+  scroll-margin-top: 54px;
+}
+
+.adoption-gap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.024) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.024) 1px, transparent 1px);
+  background-size: 34px 34px;
+}
+
+.adoption-gap__head {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.adoption-gap__head b {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.adoption-gap__live {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+}
+
+.adoption-gap__live i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 9px var(--accent);
+}
+
+.adoption-gap__body {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.52fr) minmax(270px, 0.58fr);
+  gap: 14px;
+  padding: 14px;
+}
+
+.adoption-gap__chart-shell {
+  position: relative;
+  overflow: hidden;
+  min-height: 472px;
+  border: 1px solid color-mix(in srgb, var(--line-2) 78%, #d9cda8 22%);
+  border-radius: 8px;
+  background: #f3efe0;
+}
+
+.adoption-gap__chart-shell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(243, 239, 224, 0.9), transparent 9%, transparent 88%, rgba(243, 239, 224, 0.85)),
+    linear-gradient(180deg, rgba(243, 239, 224, 0.45), transparent 20%, transparent 78%, rgba(243, 239, 224, 0.5));
+}
+
+.adoption-gap__svg {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 472px;
+  cursor: crosshair;
+}
+
+.adoption-gap__grid {
+  stroke: rgba(23, 31, 29, 0.12);
+  stroke-width: 1;
+}
+
+.adoption-gap__axis {
+  stroke: rgba(23, 31, 29, 0.58);
+  stroke-width: 1.8;
+}
+
+.adoption-gap__guide {
+  stroke: rgba(23, 31, 29, 0.45);
+  stroke-width: 1.4;
+  stroke-dasharray: 7 8;
+}
+
+.adoption-gap__contour {
+  fill: none;
+  stroke: rgba(23, 31, 29, 0.11);
+  stroke-width: 1.25;
+}
+
+.adoption-gap__contour-strong {
+  stroke: rgba(23, 31, 29, 0.16);
+}
+
+.adoption-gap__curve-under {
+  fill: none;
+  stroke: rgba(75, 43, 20, 0.88);
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.adoption-gap__curve {
+  fill: none;
+  stroke: #b56a32;
+  stroke-width: 5.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  path-length: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: adoptionGapDraw 1.25s cubic-bezier(.2,.7,.2,1) 0.18s forwards;
+}
+
+@keyframes adoptionGapDraw {
+  to { stroke-dashoffset: 0; }
+}
+
+.adoption-gap__point {
+  fill: #f3efe0;
+  stroke: rgba(23, 31, 29, 0.72);
+  stroke-width: 2.4;
+  transition: r 0.16s ease, stroke 0.16s ease, fill 0.16s ease;
+}
+
+.adoption-gap__point.is-active {
+  fill: var(--accent);
+  stroke: #0a1610;
+  r: 7;
+}
+
+.adoption-gap__crosshair {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+
+.adoption-gap__crosshair.is-on {
+  opacity: 1;
+}
+
+.adoption-gap__probe-line {
+  stroke: rgba(94, 240, 166, 0.5);
+  stroke-width: 1.1;
+  stroke-dasharray: 4 5;
+}
+
+.adoption-gap__probe {
+  fill: var(--accent);
+  stroke: #07100b;
+  stroke-width: 2;
+}
+
+.adoption-gap__label {
+  fill: rgba(23, 31, 29, 0.78);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.adoption-gap__label-muted {
+  fill: rgba(23, 31, 29, 0.47);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.adoption-gap__annotation {
+  fill: rgba(23, 31, 29, 0.78);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.adoption-gap__side {
+  display: grid;
+  align-content: stretch;
+  gap: 12px;
+  min-height: 472px;
+}
+
+.adoption-gap__console {
+  position: relative;
+  overflow: hidden;
+  min-height: 222px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    radial-gradient(320px 160px at var(--gap-x, 28%) var(--gap-y, 16%), var(--accent-dim), transparent 66%),
+    color-mix(in srgb, var(--panel-2) 92%, transparent);
+  padding: 15px;
+}
+
+.adoption-gap__console::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 38%);
+}
+
+.adoption-gap__meta {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--faint);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.adoption-gap__phase {
+  position: relative;
+  margin-top: 18px;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.adoption-gap__copy {
+  position: relative;
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.58;
+}
+
+.adoption-gap__readout {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.adoption-gap__readout span {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel);
+  padding: 8px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.adoption-gap__readout b {
+  display: block;
+  color: var(--fg);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.adoption-gap__controls {
+  display: grid;
+  gap: 8px;
+}
+
+.adoption-gap__control {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 9px;
+  min-height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--panel);
+  color: var(--muted);
+  padding: 9px 10px;
+  text-align: left;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.adoption-gap__control:hover {
+  color: var(--fg);
+  border-color: var(--line-3);
+  background: var(--panel-2);
+}
+
+.adoption-gap__control[aria-pressed="true"] {
+  color: var(--fg);
+  border-color: var(--accent-line);
+  background: var(--accent-dim);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.adoption-gap__control code {
+  color: var(--accent);
+  font-size: 11px;
+}
+
+.adoption-gap__control b {
+  color: currentColor;
+  font-weight: 600;
+}
+
+.adoption-gap__control small {
+  color: var(--faint);
+}
+
+.adoption-gap__foot {
+  color: var(--faint);
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+
+@media (max-width: 1000px) {
+  .adoption-gap__body {
+    grid-template-columns: 1fr;
+  }
+
+  .adoption-gap__side {
+    min-height: 0;
+  }
+
+  .adoption-gap__controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .adoption-gap__body {
+    padding: 10px;
+  }
+
+  .adoption-gap__head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .adoption-gap__chart-shell,
+  .adoption-gap__svg {
+    min-height: 390px;
+  }
+
+  .adoption-gap__controls {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .adoption-gap__curve {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}

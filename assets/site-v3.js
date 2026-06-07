@@ -801,8 +801,9 @@
     if (!backdrop || !input || !list) return;
     var commands = [
       { section: "Navigate", label: "Home", icon: "i-home", meta: "#top", action: function () { location.href = "#top"; } },
-      { section: "Navigate", label: "Work surfaces", icon: "i-grid", meta: "#work", action: function () { go("#work"); } },
-      { section: "Navigate", label: "Operating model", icon: "i-flow", meta: "#model", action: function () { go("#model"); } },
+      { section: "Navigate", label: "Manager brief", icon: "i-grid", meta: "#manager-brief", action: function () { go("#manager-brief"); } },
+      { section: "Navigate", label: "Management questions", icon: "i-grid", meta: "#work", action: function () { go("#work"); } },
+      { section: "Navigate", label: "Control model", icon: "i-flow", meta: "#model", action: function () { go("#model"); } },
       { section: "Navigate", label: "Interactive diagrams", icon: "i-shield", meta: "#diagrams", action: function () { go("#diagrams"); } },
       { section: "Navigate", label: "Ask AI agents", icon: "i-search", meta: "#ask-ai", action: function () { go("#ask-ai"); } },
       { section: "Navigate", label: "Department adoption", icon: "i-grid", meta: "department-adoption.html", action: function () { location.href = "department-adoption.html"; } },
