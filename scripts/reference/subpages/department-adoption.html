@@ -1,0 +1,2128 @@
+<!doctype html>
+<html lang="en" data-theme="terminal" data-page="adoption">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Department AI Adoption Map | Ali Osman Ozen</title>
+  <meta name="description" content="A detailed department-level AI adoption map based on Daily Signal and Signal vs. Noise writing themes: authority, workflow control, governance, evidence and operating boundaries." />
+  <meta property="og:title" content="Department AI Adoption Map" />
+  <meta property="og:description" content="Six operating layers, an autonomy ladder, a control scorecard and a 90-day rollout for accountable AI adoption." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://0xozen.github.io/department-adoption.html" />
+  <meta property="og:image" content="https://0xozen.github.io/assets/og-image.svg" />
+  <meta property="og:image:type" content="image/svg+xml" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Department AI Adoption Map" />
+  <meta name="twitter:description" content="Six operating layers, autonomy ladder, control scorecard, 90-day rollout." />
+  <meta name="twitter:image" content="https://0xozen.github.io/assets/og-image.svg" />
+  <link rel="canonical" href="https://0xozen.github.io/department-adoption.html" />
+  <meta name="theme-color" content="#060707" id="theme-color-meta" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='3' fill='%23060707'/><rect x='2.4' y='2.4' width='27.2' height='27.2' rx='1.8' fill='none' stroke='%23e8ece9' stroke-width='1.1'/><path d='M8.5 21.5 13 9h2l-4.5 12.5h-2Zm7.2 0L20.2 9h2l-4.5 12.5h-2Z' fill='%235ef0a6'/></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'terminal' || t === 'linear') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+  <style>
+    :root, [data-theme="terminal"] {
+      --bg:#060707; --surface-1:#0b0c0c; --surface-2:#111313; --surface-3:#171a18;
+      --border:rgba(232,236,233,0.11); --border-soft:rgba(232,236,233,0.18);
+      --text-1:#e8ece9; --text-2:#aab3ad; --text-3:#7d8780; --text-4:#4f5852;
+      --accent:#5ef0a6; --accent-2:#9ff7c8; --info:#71d6ff; --success:#4ade80; --danger:#ff6b6b;
+      --cta-bg:var(--accent); --cta-bg-hover:var(--accent-2); --cta-text:#04130c;
+      --grid-stroke:rgba(255,255,255,0.024); --glow-1:rgba(94,240,166,0.10); --glow-2:rgba(113,214,255,0.05);
+      --shadow-sm:rgba(0,0,0,0.35) 0 2px 8px 0; --shadow-xl:rgba(0,0,0,0.52) 0 18px 50px -18px;
+      --panel:var(--surface-1); --panel-2:var(--surface-2); --panel-3:var(--surface-3);
+      --line:var(--border); --line-2:var(--border-soft); --line-3:rgba(232,236,233,0.24);
+      --fg:var(--text-1); --muted:var(--text-2); --faint:var(--text-4);
+      --button-bg:var(--cta-bg); --button-bg-hover:var(--cta-bg-hover); --button-text:var(--cta-text);
+      --grid:var(--grid-stroke); --scan:.42; --shadow:rgba(0,0,0,0.52) 0 18px 50px -18px;
+
+      --font-sans:"Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --r-tag:2px; --r-md:6px; --r-lg:10px; --r-pill:9999px;
+
+      --svg-bg:#060707; --svg-grid:rgba(255,255,255,0.035); --svg-panel-1:#111313; --svg-panel-2:#0b0c0c; --svg-stroke:rgba(232,236,233,0.12); --svg-text-1:#e8ece9; --svg-text-2:#aab3ad; --svg-text-3:#7d8780;
+    }
+    [data-theme="linear"] {
+      --pitch-black:#08090a; --graphite:#0f1011; --deep-slate:#161718; --charcoal:#23252a; --muted-ash:#323334; --gunmetal:#383b3f;
+      --fog:#62666d; --storm:#8a8f98; --light-steel:#d0d6e0; --porcelain:#f7f8f8;
+      --neon-lime:#e4f222; --aether-blue:#5e6ad2; --cyan-spark:#02b8cc; --amethyst:#8b5cf6; --emerald:#27a644; --warning-red:#eb5757;
+
+      --bg:var(--pitch-black); --surface-1:var(--graphite); --surface-2:var(--deep-slate); --surface-3:var(--charcoal);
+      --border:var(--charcoal); --border-soft:var(--muted-ash);
+      --text-1:var(--porcelain); --text-2:var(--light-steel); --text-3:var(--storm); --text-4:var(--fog);
+      --accent:var(--aether-blue); --accent-2:var(--amethyst); --info:var(--cyan-spark); --success:var(--emerald); --danger:var(--warning-red);
+      --cta-bg:var(--neon-lime); --cta-bg-hover:#eef82e; --cta-text:var(--pitch-black);
+      --grid-stroke:rgba(255,255,255,0.025); --glow-1:rgba(94,106,210,0.10); --glow-2:rgba(2,184,204,0.06);
+      --shadow-sm:rgba(0,0,0,0.4) 0 2px 4px 0; --shadow-xl:rgba(8,9,10,0.6) 0 4px 32px 0;
+      --panel:var(--surface-1); --panel-2:var(--surface-2); --panel-3:var(--surface-3);
+      --line:var(--border); --line-2:var(--border-soft); --line-3:var(--gunmetal);
+      --fg:var(--text-1); --muted:var(--text-2); --faint:var(--text-4);
+      --button-bg:var(--cta-bg); --button-bg-hover:var(--cta-bg-hover); --button-text:var(--cta-text);
+      --grid:var(--grid-stroke); --scan:.18; --shadow:rgba(8,9,10,0.6) 0 4px 32px 0;
+
+      --font-sans:"Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --r-tag:2px; --r-md:6px; --r-lg:12px; --r-pill:9999px;
+
+      /* SVG-only color hooks (for the diagram inside this page) */
+      --svg-bg:#08090a; --svg-grid:rgba(255,255,255,0.04); --svg-panel-1:#161718; --svg-panel-2:#0f1011; --svg-stroke:#23252a; --svg-text-1:#f7f8f8; --svg-text-2:#d0d6e0; --svg-text-3:#8a8f98;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;min-height:100vh;background:var(--bg);color:var(--fg);
+      font-family:var(--font-mono);font-size:14px;line-height:1.65;letter-spacing:0;
+      font-feature-settings:"cv01","ss03","liga" 1;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+      transition: background-color .25s ease, color .25s ease;
+    }
+    body::before{content:"";position:fixed;inset:0;z-index:0;
+      background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+      background-size:46px 46px;mask-image:radial-gradient(circle at 50% 28%,black 0%,transparent 82%);pointer-events:none;
+    }
+    body::after{content:"";position:fixed;inset:0;z-index:1;
+      opacity:var(--scan);background:repeating-linear-gradient(180deg,transparent 0 2px,rgba(0,0,0,0.18) 2px 3px);pointer-events:none;
+    }
+    a{color:inherit;text-decoration:none}
+    /* Full-screen layout with a safe gutter */
+    .wrap{width:min(1100px,calc(100% - 44px));margin:0 auto;position:relative;z-index:2}
+    .accent{color:var(--accent)}
+    .flag,.faint{color:var(--faint)}
+
+    .ico{width:14px;height:14px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+    .topbar{
+      position:fixed;top:0;left:0;right:0;z-index:50;min-height:48px;
+      display:flex;align-items:center;gap:14px;padding:0 16px;
+      background:color-mix(in srgb,var(--panel) 84%,transparent);
+      backdrop-filter:blur(14px);border-bottom:1px solid var(--line);pointer-events:auto;
+    }
+    .dots{display:flex;gap:7px;flex-shrink:0}
+    .dots i{width:11px;height:11px;border-radius:50%;background:var(--line-2);display:block}
+    .topbar .brand{display:inline-flex;align-items:center;gap:10px;min-width:0;color:var(--muted);font-size:12.5px;white-space:nowrap}
+    .topbar .brand b{color:var(--fg);font-weight:600}
+    .topbar .brand .path{color:var(--accent)}
+    .topbar .brand-mark{width:21px;height:21px;flex-shrink:0;border-radius:0;background:transparent;box-shadow:none}
+    .topbar .brand-mark rect:first-child{fill:var(--panel)}
+    .topbar .brand-mark rect:nth-child(2){fill:none;stroke:var(--fg);stroke-width:1.1}
+    .topbar .brand-mark path{fill:var(--accent)}
+    .topbar .navlinks{margin-left:auto;display:flex;align-items:center;gap:2px;font-size:inherit;color:inherit}
+    .topbar .navlinks a{color:var(--muted);font-size:12.5px;padding:6px 10px;border-radius:6px;transition:color .15s,background .15s}
+    .topbar .navlinks a:hover,.topbar .navlinks a[aria-current="page"]{color:var(--fg);background:var(--panel-2)}
+    .theme-switch{display:inline-flex;align-items:center;gap:0;height:34px;padding:2px;border-radius:7px;border:1px solid var(--line);background:var(--panel-2)}
+    .theme-switch button{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:34px;height:28px;padding:0 9px;border:0;border-radius:6px;background:transparent;color:var(--muted);font-size:11px;transition:color .15s,background .15s}
+    .theme-switch button:hover{color:var(--fg)}
+    .theme-switch button[aria-pressed="true"]{color:var(--fg);background:var(--panel);box-shadow:var(--shadow)}
+    .theme-switch svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    .iconbtn{width:34px;height:34px;display:inline-grid;place-items:center;flex-shrink:0;border:1px solid transparent;border-radius:7px;background:transparent;color:var(--muted);transition:color .15s,background .15s,border-color .15s}
+    .iconbtn:hover{color:var(--fg);background:var(--panel-2);border-color:var(--line)}
+    .iconbtn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    .menutoggle{display:none}
+
+    /* Nav */
+    header:not(.topbar){position:fixed;top:16px;left:0;right:0;z-index:50;pointer-events:none}
+    .nav{
+      width:min(920px,calc(100% - 32px));margin:0 auto;height:48px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding:4px 4px 4px 14px;border:1px solid var(--border);border-radius:var(--r-pill);
+      background:color-mix(in srgb, var(--surface-1) 88%, transparent);
+      backdrop-filter:blur(16px);box-shadow:var(--shadow-sm);pointer-events:auto;
+    }
+    .brand{display:inline-flex;align-items:center;gap:10px;font-weight:510;font-size:14px;color:var(--text-1);white-space:nowrap}
+    .brand-mark{width:18px;height:18px;border-radius:var(--r-md);background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:inset 0 0 0 1px rgba(255,255,255,0.18)}
+    .navlinks{display:flex;align-items:center;gap:2px;font-size:13px;color:var(--text-3)}
+    .navlinks a{padding:8px 10px;border-radius:var(--r-md);transition:color .15s,background .15s}
+    .navlinks a:hover,.navlinks a[aria-current="page"]{color:var(--text-1);background:var(--surface-2)}
+
+    .theme-picker{display:inline-flex;align-items:center;gap:0;height:32px;padding:2px;border-radius:var(--r-pill);border:1px solid var(--border);background:var(--surface-2)}
+    .theme-picker button{display:inline-flex;align-items:center;gap:5px;height:26px;padding:0 9px;border:0;background:transparent;color:var(--text-3);font-family:var(--font-mono);font-size:10px;letter-spacing:0.04em;text-transform:uppercase;border-radius:var(--r-pill);cursor:pointer;transition:background .15s,color .15s}
+    .theme-picker button:hover{color:var(--text-1)}
+    .theme-picker button[aria-pressed="true"]{background:var(--surface-1);color:var(--text-1);box-shadow:var(--shadow-sm)}
+    .theme-picker .ico{width:11px;height:11px}
+
+    .button{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:0 14px;
+      border-radius:var(--r-md);font-family:var(--font-sans);font-size:13px;font-weight:510;letter-spacing:-0.11px;
+      color:var(--text-1);background:var(--surface-2);border:1px solid var(--border);
+      transition:background .15s,border-color .15s,transform .15s,color .15s;cursor:pointer;
+    }
+    .button:hover{background:var(--surface-3);border-color:var(--border-soft)}
+    .button.primary{background:var(--cta-bg);color:var(--cta-text);border-color:var(--cta-bg);font-weight:590}
+    .button.primary:hover{background:var(--cta-bg-hover);border-color:var(--cta-bg-hover);transform:translateY(-1px)}
+    .button.ghost{background:transparent;border-color:transparent;color:var(--text-2)}
+    .button.ghost:hover{background:var(--surface-2);color:var(--text-1)}
+    .button .kbd{font-family:var(--font-mono);font-size:11px;color:inherit;opacity:.7;padding:2px 5px;border-radius:var(--r-tag);background:color-mix(in srgb, currentColor 12%, transparent)}
+    a:focus-visible,.button:focus-visible,.theme-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+    main{position:relative;z-index:2;padding-top:48px}
+    section{position:relative;z-index:2;padding:66px 0;border-bottom:1px solid var(--line);scroll-margin-top:72px}
+    .cmd{color:var(--muted);font-size:13px;margin-bottom:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:5px 9px;border-radius:var(--r-md);border:1px solid var(--border);background:var(--surface-1);color:var(--text-3);font-family:var(--font-mono);font-size:11px;text-transform:uppercase}
+    .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px color-mix(in srgb, var(--accent) 60%, transparent)}
+    .label,.kicker{display:inline-block;font-family:var(--font-mono);font-size:11px;color:var(--text-3);letter-spacing:0.04em;text-transform:uppercase}
+
+    h1{margin:18px 0 0;max-width:980px;font-size:clamp(44px,6vw,80px);line-height:1.0;letter-spacing:-0.024em;font-weight:510}
+    .hero-rotator{position:relative;display:inline-grid;min-width:0;color:var(--accent);vertical-align:baseline}
+    .hero-rotator span{grid-area:1 / 1;display:inline-block;will-change:transform,opacity}
+    .hero-rotator span.swap-out{animation:heroWordOut .34s ease forwards}
+    .hero-rotator span.swap-in{animation:heroWordIn .42s cubic-bezier(.2,.7,.2,1) forwards}
+    @keyframes heroWordOut{to{opacity:0;transform:translateY(-.72em)}}
+    @keyframes heroWordIn{from{opacity:0;transform:translateY(.82em)}to{opacity:1;transform:translateY(0)}}
+    .hero .cmd,.hero h1,.hero .lead,.hero .cta-row{animation:heroRise .72s cubic-bezier(.2,.7,.2,1) both}
+    .hero h1{animation-delay:.08s}.hero .lead{animation-delay:.16s}.hero .cta-row{animation-delay:.24s}
+    @keyframes heroRise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+    @media (prefers-reduced-motion: reduce){.hero .cmd,.hero h1,.hero .lead,.hero .cta-row,.hero-rotator span{animation:none}}
+    h2{margin:8px 0 0;font-size:clamp(28px,3.4vw,48px);line-height:1.08;letter-spacing:-0.022em;font-weight:510}
+    h3{margin:0;font-size:19px;line-height:1.22;letter-spacing:-0.014em;font-weight:590;color:var(--text-1)}
+    .lead{margin:18px 0 0;max-width:760px;font-size:16px;line-height:1.55;color:var(--text-2)}
+    .section-copy{margin:8px 0 0;color:var(--text-2);font-size:15px;line-height:1.6}
+
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal { opacity: 0; transform: translateY(8px); transition: opacity .55s ease, transform .55s ease; }
+      .reveal.in-view { opacity: 1; transform: none; }
+      .reveal[data-d="1"]{transition-delay:.06s}.reveal[data-d="2"]{transition-delay:.12s}.reveal[data-d="3"]{transition-delay:.18s}.reveal[data-d="4"]{transition-delay:.24s}.reveal[data-d="5"]{transition-delay:.30s}.reveal[data-d="6"]{transition-delay:.36s}
+    }
+
+    /* ===================== Animation keyframes ===================== */
+    @keyframes blink { 50% { opacity: 0; } }
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.35); opacity: .55; }
+    }
+    @keyframes svgPulse {
+      0%, 100% { opacity: 1; r: 3; }
+      50% { opacity: .35; r: 4.5; }
+    }
+    @keyframes svgGlow {
+      0%, 100% { opacity: .05; }
+      50% { opacity: .12; }
+    }
+    @keyframes svgRing {
+      0% { stroke-dashoffset: 0; opacity: .32; }
+      50% { opacity: .55; }
+      100% { stroke-dashoffset: -100; opacity: .32; }
+    }
+    @keyframes drawArrow {
+      to { stroke-dashoffset: 0; }
+    }
+    @keyframes fadeUpSvg {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes shimmer {
+      0% { transform: translateX(-120%) skewX(-12deg); }
+      100% { transform: translateX(220%) skewX(-12deg); }
+    }
+    @keyframes barGrow {
+      from { width: 0%; }
+    }
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-2px); }
+    }
+
+    /* Live status dot (eyebrow) */
+    .dot.live { animation: pulseDot 2.2s ease-in-out infinite; }
+
+    /* ============ Hero terminal control-plane ============ */
+    .control-plane {
+      position: relative;
+      margin-top: 32px;
+      border-radius: var(--r-lg);
+      background: var(--surface-1);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+    }
+    .cp-bar {
+      display: grid; grid-template-columns: auto 1fr auto;
+      align-items: center; gap: 12px;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+    .cp-traffic { display: flex; gap: 6px; }
+    .cp-traffic span { width: 10px; height: 10px; border-radius: 50%; background: var(--surface-3); display: inline-block; }
+    [data-theme="linear"] .cp-traffic span:nth-child(1) { background: #ff5f57; }
+    [data-theme="linear"] .cp-traffic span:nth-child(2) { background: #febc2e; }
+    [data-theme="linear"] .cp-traffic span:nth-child(3) { background: #28c840; }
+    [data-theme="terminal"] .cp-traffic span:nth-child(1) { background: #3a3f3c; }
+    [data-theme="terminal"] .cp-traffic span:nth-child(2) { background: #3a3f3c; }
+    [data-theme="terminal"] .cp-traffic span:nth-child(3) { background: #3a3f3c; }
+    .cp-title { justify-self: center; font-family: var(--font-mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.08em; text-transform: uppercase; }
+    .cp-meta  { font-family: var(--font-mono); font-size: 11px; color: var(--text-4); letter-spacing: 0.04em; }
+
+    .cp-body { padding: 22px 24px 8px; font-family: var(--font-mono); font-size: 13px; color: var(--text-2); line-height: 1.75; }
+    .cp-line { display: flex; gap: 10px; align-items: baseline; }
+    .cp-line .glyph { color: var(--accent); }
+    .cp-line .cmd   { color: var(--text-1); }
+    .cp-scan { padding-left: 22px; color: var(--text-3); opacity: 0; transform: translateY(2px); transition: opacity .35s ease, transform .35s ease; }
+    .cp-scan.shown { opacity: 1; transform: none; }
+    .cp-scan b { color: var(--text-2); font-weight: 500; }
+    .cp-check {
+      padding-left: 22px; color: var(--text-2);
+      opacity: 0; transform: translateX(-4px);
+      transition: opacity .3s ease, transform .3s ease;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .cp-check.shown { opacity: 1; transform: none; }
+    .cp-check .tick {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 14px; height: 14px; color: var(--success);
+      font-weight: 590;
+    }
+    .cp-check b { color: var(--accent); font-weight: 500; }
+    .cp-rule { height: 1px; background: var(--border); margin: 14px 0; }
+    .cp-line.suggest { opacity: 0; transition: opacity .4s ease .1s; }
+    .cp-line.suggest.shown { opacity: 1; }
+    .cp-line.suggest .arrow { color: var(--success); }
+
+    .cp-caret {
+      display: inline-block;
+      width: 7px; height: 14px;
+      vertical-align: -2px;
+      background: var(--accent);
+      animation: blink 1s steps(1) infinite;
+      margin-left: 2px;
+    }
+
+    .cp-cards {
+      display: grid; grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 8px;
+      padding: 14px 24px 22px;
+    }
+    .cp-card {
+      border-radius: var(--r-md);
+      padding: 12px 14px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      opacity: 0; transform: translateY(6px);
+      transition: opacity .45s ease, transform .45s ease, border-color .2s ease, background .2s ease;
+    }
+    .cp-card.shown { opacity: 1; transform: none; }
+    .cp-card:hover { border-color: var(--border-soft); background: var(--surface-3); }
+    .cp-card .label { font-family: var(--font-mono); font-size: 10px; color: var(--text-4); letter-spacing: 0.06em; text-transform: uppercase; }
+    .cp-card .v { display: block; margin-top: 8px; font-family: var(--font-mono); color: var(--text-1); font-size: 14px; font-weight: 500; }
+    .cp-card .v small { color: var(--text-3); font-weight: 400; margin-left: 4px; font-size: 11px; }
+
+    @media (max-width: 720px) {
+      .cp-cards { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .cp-caret { animation: none; }
+      .cp-scan, .cp-check, .cp-card, .cp-line.suggest { opacity: 1; transform: none; }
+    }
+
+    /* ============ Source-strip counter ============ */
+    .source-card strong[data-count] { font-variant-numeric: tabular-nums; }
+
+    /* ============ Roadmap visual shimmer ============ */
+    .roadmap-visual { position: relative; }
+    .roadmap-visual::after {
+      content: "";
+      position: absolute; top: 0; bottom: 0; left: 0; width: 40%;
+      background: linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--accent) 8%, transparent) 50%, transparent 100%);
+      pointer-events: none;
+      transform: translateX(-120%) skewX(-12deg);
+      opacity: 0;
+      z-index: 1;
+    }
+    .roadmap-visual.in-view::after { opacity: 1; animation: shimmer 2.4s ease-out 0.4s 1; }
+
+    /* ============ Roadmap diagram (inline SVG replacing PNG) ============ */
+    .roadmap-diagram {
+      display: block; width: 100%; height: auto;
+      background: var(--svg-bg);
+      font-family: var(--font-sans);
+    }
+    @keyframes railTravel {
+      0%   { transform: translateX(0);     opacity: 0; }
+      6%   { opacity: 1; }
+      94%  { opacity: 1; }
+      100% { transform: translateX(1076px); opacity: 0; }
+    }
+    @keyframes iconPulse {
+      0%, 100% { opacity: 1; }
+      50%      { opacity: .55; }
+    }
+    @keyframes ringSpin {
+      to { transform: rotate(360deg); }
+    }
+    @keyframes dotsGlow {
+      0%, 100% { opacity: .55; }
+      50%      { opacity: 1; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .roadmap-diagram .rm-stage  { opacity: 0; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-stage { animation: fadeUpSvg .55s ease forwards; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-stage.s1 { animation-delay: .10s; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-stage.s2 { animation-delay: .22s; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-stage.s3 { animation-delay: .34s; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-stage.s4 { animation-delay: .46s; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-stage.s5 { animation-delay: .58s; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-stage.s6 { animation-delay: .70s; }
+
+      .roadmap-diagram .rm-connector {
+        stroke-dasharray: 18; stroke-dashoffset: 18;
+      }
+      .roadmap-visual.in-view .roadmap-diagram .rm-connector { animation: drawArrow .45s ease forwards; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-connector.c1 { animation-delay: .26s; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-connector.c2 { animation-delay: .38s; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-connector.c3 { animation-delay: .50s; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-connector.c4 { animation-delay: .62s; }
+      .roadmap-visual.in-view .roadmap-diagram .rm-connector.c5 { animation-delay: .74s; }
+
+      .roadmap-diagram .rail-dot { animation: railTravel 5s linear infinite; }
+      .roadmap-diagram .rail-dot.rd2 { animation-delay: -1.65s; }
+      .roadmap-diagram .rail-dot.rd3 { animation-delay: -3.30s; }
+
+      .roadmap-diagram .stage-icon { transform-origin: center; transform-box: fill-box; animation: floatY 3.2s ease-in-out infinite; }
+      .roadmap-diagram .stage-icon.s2 { animation-delay: .3s; }
+      .roadmap-diagram .stage-icon.s3 { animation-delay: .6s; }
+      .roadmap-diagram .stage-icon.s4 { animation-delay: .9s; }
+      .roadmap-diagram .stage-icon.s5 { animation-delay: 1.2s; }
+      .roadmap-diagram .stage-icon.s6 { animation-delay: 1.5s; }
+
+      .roadmap-diagram .rm-dots .indicator { transform-origin: center; transform-box: fill-box; animation: dotsGlow 2.2s ease-in-out infinite; }
+      .roadmap-diagram .rm-dots .indicator:nth-child(2) { animation-delay: .25s; }
+      .roadmap-diagram .rm-dots .indicator:nth-child(3) { animation-delay: .50s; }
+      .roadmap-diagram .rm-dots .indicator:nth-child(4) { animation-delay: .75s; }
+
+      .roadmap-diagram .rm-rail-line {
+        stroke-dasharray: 3 7;
+        animation: dashFlow 2.2s linear infinite;
+      }
+    }
+    @keyframes dashFlow {
+      to { stroke-dashoffset: -40; }
+    }
+
+    /* ============ Operating-map particles + icons ============ */
+    .diagram-shell .arrow-particle { opacity: 0; }
+    .diagram-shell.animate .arrow-particle { opacity: .9; }
+    .diagram-shell .layer-emblem { opacity: 0; transform: translateY(4px); }
+    .diagram-shell.animate .layer-emblem { animation: fadeUpSvg .5s ease forwards 1.1s; }
+    .diagram-shell.animate .layer-emblem.e2 { animation-delay: 1.2s; }
+    .diagram-shell.animate .layer-emblem.e3 { animation-delay: 1.3s; }
+    .diagram-shell.animate .layer-emblem.e4 { animation-delay: 1.4s; }
+    .diagram-shell.animate .layer-emblem.e5 { animation-delay: 1.5s; }
+    .diagram-shell.animate .layer-emblem.e6 { animation-delay: 1.6s; }
+
+    /* ============ SVG diagram animated layers ============ */
+    @media (prefers-reduced-motion: no-preference) {
+      .diagram-shell .layer-group { opacity: 0; }
+      .diagram-shell.animate .layer-group { animation: fadeUpSvg .6s ease forwards; }
+      .diagram-shell.animate .layer-group.l1 { animation-delay: .15s; }
+      .diagram-shell.animate .layer-group.l2 { animation-delay: .25s; }
+      .diagram-shell.animate .layer-group.l3 { animation-delay: .35s; }
+      .diagram-shell.animate .layer-group.l4 { animation-delay: .45s; }
+      .diagram-shell.animate .layer-group.l5 { animation-delay: .55s; }
+      .diagram-shell.animate .layer-group.l6 { animation-delay: .65s; }
+      .diagram-shell .core-group { opacity: 0; }
+      .diagram-shell.animate .core-group { animation: fadeUpSvg .7s ease .8s forwards; }
+      .diagram-shell .core-ring { animation: svgRing 6s linear infinite; }
+      .diagram-shell .core-glow { transform-origin: 620px 360px; transform-box: fill-box; animation: svgGlow 4s ease-in-out infinite; }
+      .diagram-shell .status-dot { transform-origin: center; transform-box: fill-box; animation: svgPulse 2.4s ease-in-out infinite; }
+      .diagram-shell .status-dot.d2 { animation-delay: .4s; }
+      .diagram-shell .status-dot.d3 { animation-delay: .8s; }
+      .diagram-shell .status-dot.d4 { animation-delay: 1.2s; }
+      .diagram-shell .status-dot.d5 { animation-delay: 1.6s; }
+      .diagram-shell .status-dot.d6 { animation-delay: 2.0s; }
+      .diagram-shell .arrow-line {
+        stroke-dasharray: 220;
+        stroke-dashoffset: 220;
+      }
+      .diagram-shell.animate .arrow-line { animation: drawArrow 1.1s ease forwards 1s; }
+      .diagram-shell .autonomy-pill { opacity: 0; }
+      .diagram-shell.animate .autonomy-pill { animation: fadeUpSvg .5s ease forwards 1.6s; }
+      .diagram-shell.animate .autonomy-pill.p2 { animation-delay: 1.75s; }
+      .diagram-shell.animate .autonomy-pill.p3 { animation-delay: 1.9s; }
+    }
+
+    /* ============ Animated progress bars ============ */
+    .bar i { width: 0; transition: width 1.2s cubic-bezier(.2,.7,.2,1); }
+    .metric.in-view .bar i { width: var(--target, 0%); }
+    @media (prefers-reduced-motion: reduce) {
+      .bar i { transition: none; width: var(--target, 0%); }
+    }
+
+    /* ============ Ladder rung stagger ============ */
+    @media (prefers-reduced-motion: no-preference) {
+      .insight .rung { opacity: 0; transform: translateX(-6px); transition: opacity .5s ease, transform .5s ease, background .15s ease, border-color .15s ease; }
+      .insight.in-view .rung { opacity: 1; transform: none; }
+      .insight.in-view .rung:nth-child(1) { transition-delay: .25s; }
+      .insight.in-view .rung:nth-child(2) { transition-delay: .35s; }
+      .insight.in-view .rung:nth-child(3) { transition-delay: .45s; }
+      .insight.in-view .rung:nth-child(4) { transition-delay: .55s; }
+      .insight.in-view .rung:nth-child(5) { transition-delay: .65s; }
+    }
+    .rung { transition: background .15s ease, border-color .15s ease, transform .15s ease; }
+    .rung:hover { background: var(--surface-3); border-color: var(--border-soft); transform: translateX(2px); }
+
+    /* ============ Card lift hover (timeline + cards) ============ */
+    .timeline-step, .card { transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease, background .15s ease; }
+    .timeline-step:hover, .card:hover { border-color: var(--border-soft); transform: translateY(-2px); box-shadow: var(--shadow-xl); background: var(--surface-1); }
+
+    /* ============ Signal list pop-in ============ */
+    @media (prefers-reduced-motion: no-preference) {
+      .insight .signal-list li, .timeline-step .signal-list li {
+        opacity: 0; transform: translateX(-4px);
+        transition: opacity .4s ease, transform .4s ease;
+      }
+      .insight.in-view .signal-list li,
+      .timeline-step.in-view .signal-list li { opacity: 1; transform: none; }
+      .insight.in-view .signal-list li:nth-child(1),
+      .timeline-step.in-view .signal-list li:nth-child(1) { transition-delay: .2s; }
+      .insight.in-view .signal-list li:nth-child(2),
+      .timeline-step.in-view .signal-list li:nth-child(2) { transition-delay: .3s; }
+      .insight.in-view .signal-list li:nth-child(3),
+      .timeline-step.in-view .signal-list li:nth-child(3) { transition-delay: .4s; }
+      .insight.in-view .signal-list li:nth-child(4),
+      .timeline-step.in-view .signal-list li:nth-child(4) { transition-delay: .5s; }
+      .insight.in-view .signal-list li:nth-child(5),
+      .timeline-step.in-view .signal-list li:nth-child(5) { transition-delay: .6s; }
+    }
+
+    /* ============ Map-card lift + tag glow on hover ============ */
+    .map-card .tag { transition: background .15s ease, color .15s ease, border-color .15s ease; }
+    .map-card:hover .tag { color: var(--text-1); border-color: var(--border-soft); background: var(--surface-3); }
+
+    /* ============ Table row hover ============ */
+    tbody tr { transition: background .15s ease, transform .15s ease; }
+    tbody tr:hover td:first-child {
+      box-shadow: inset 3px 0 0 var(--accent);
+    }
+
+    /* ============ Pill hover ============ */
+    .pill { transition: transform .15s ease, background .15s ease; }
+    .pill:hover { transform: translateY(-1px); }
+
+    /* ============ Jump-chip lift ============ */
+    .jump-chip { transition: background .15s, color .15s, border-color .15s, transform .15s; }
+    .jump-chip:hover { transform: translateY(-1px); }
+
+    /* Hero */
+    .hero{padding:56px 0 24px}
+    .cta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+
+    .source-strip{
+      display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:32px;
+      border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface-1);overflow:hidden;
+    }
+    .source-card{padding:18px 20px;border-right:1px solid var(--border)}
+    .source-card:last-child{border-right:none}
+    .source-card strong{display:block;margin-top:12px;font-size:22px;line-height:1;letter-spacing:-0.022em;font-weight:510;color:var(--text-1)}
+    .source-card span{display:block;margin-top:8px;color:var(--text-2);font-size:13px;line-height:1.5}
+
+    .roadmap-visual{margin:20px 0 0;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;background:var(--bg);box-shadow:var(--shadow-sm);width:100%;box-sizing:border-box}
+    .roadmap-visual img{display:block;width:100%;height:auto}
+    .roadmap-visual figcaption{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 16px;
+      color:var(--text-3);font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;text-transform:uppercase;
+      border-top:1px solid var(--border);background:var(--surface-2);
+    }
+
+    /* Quick-jump strip */
+    .jump-strip{margin-top:24px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface-1)}
+    .jump-strip .label{margin-right:6px}
+    .jump-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:var(--r-tag);background:var(--surface-2);border:1px solid var(--border);color:var(--text-2);font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:0.04em;transition:background .15s,color .15s,border-color .15s}
+    .jump-chip:hover{background:var(--surface-3);color:var(--text-1);border-color:var(--border-soft)}
+    .jump-chip .num{color:var(--accent)}
+
+    .section-head{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:48px;align-items:end;margin-bottom:24px}
+
+    .diagram-shell{position:relative;margin-top:20px;border-radius:var(--r-md);border:1px solid var(--border);background:var(--bg);overflow:auto;box-shadow:var(--shadow-sm);-webkit-overflow-scrolling:touch}
+    svg.diagram{display:block;width:100%;min-width:1040px;height:auto;font-family:var(--font-sans)}
+    /* Mobile scroll hint for wide diagrams/tables */
+    .scroll-hint{display:none;position:absolute;top:8px;right:10px;z-index:2;font-family:var(--font-mono);font-size:10px;color:var(--text-3);background:color-mix(in srgb, var(--surface-1) 90%, transparent);border:1px solid var(--border);padding:3px 7px;border-radius:var(--r-tag);pointer-events:none;text-transform:uppercase;letter-spacing:0.04em}
+    @media (max-width:900px){.scroll-hint{display:inline-flex;align-items:center;gap:4px}}
+
+    .insight-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:8px;margin-top:20px}
+    .insight{padding:22px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface-1);box-shadow:var(--shadow-sm)}
+    .insight h3{font-size:18px}
+    .insight p{color:var(--text-2);margin:10px 0 0;font-size:14.5px;line-height:1.6}
+
+    .signal-list{display:grid;gap:8px;margin:14px 0 0;padding:0;list-style:none;color:var(--text-2);font-size:13.5px;line-height:1.55}
+    .signal-list li{position:relative;padding-left:18px}
+    .signal-list li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+
+    .ladder{display:grid;gap:6px;margin-top:16px}
+    .rung{display:grid;grid-template-columns:110px 1fr auto;gap:12px;align-items:center;padding:10px 12px;border-radius:var(--r-md);background:var(--surface-2);border:1px solid var(--border)}
+    .rung strong{font-family:var(--font-mono);font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:0.04em}
+    .rung span{color:var(--text-2);font-size:13px}
+    .risk{font-family:var(--font-mono);font-size:10px;color:var(--text-1);background:var(--surface-3);padding:3px 7px;border-radius:var(--r-tag);text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap;border:1px solid var(--border)}
+    .risk.med{color:var(--info);border-color:color-mix(in srgb, var(--info) 40%, transparent);background:color-mix(in srgb, var(--info) 10%, transparent)}
+    .risk.high{color:var(--accent-2);border-color:color-mix(in srgb, var(--accent-2) 40%, transparent);background:color-mix(in srgb, var(--accent-2) 10%, transparent)}
+    .risk.crit{color:var(--danger);border-color:color-mix(in srgb, var(--danger) 40%, transparent);background:color-mix(in srgb, var(--danger) 10%, transparent)}
+
+    .map-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:24px}
+    .map-card{padding:22px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface-1);box-shadow:var(--shadow-sm);transition:border-color .15s,transform .15s,box-shadow .15s}
+    .map-card:hover{border-color:var(--border-soft);transform:translateY(-2px);box-shadow:var(--shadow-xl)}
+    .map-card .tag{display:inline-flex;margin-bottom:12px;padding:4px 7px;border-radius:var(--r-tag);background:var(--surface-2);border:1px solid var(--border);font-family:var(--font-mono);font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.04em}
+    .map-card p{margin:8px 0 0;color:var(--text-2);font-size:14px;line-height:1.55}
+    .map-card ul{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:8px;color:var(--text-2);font-size:13px;line-height:1.5}
+    .map-card li{position:relative;padding-left:16px}
+    .map-card li::before{content:"•";position:absolute;left:0;color:var(--accent)}
+
+    /* Expand-on-click for map-card (NEW) */
+    .map-card.expandable{cursor:pointer;display:flex;flex-direction:column;gap:0}
+    .map-card.expandable .expand-btn{
+      align-self:flex-start;display:inline-flex;align-items:center;gap:6px;margin-top:14px;
+      padding:5px 9px;border-radius:var(--r-tag);background:var(--surface-2);border:1px solid var(--border);
+      color:var(--text-2);font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:0.04em;
+      cursor:pointer;transition:background .15s,color .15s,border-color .15s;
+    }
+    .map-card.expandable .expand-btn:hover{background:var(--surface-3);color:var(--text-1);border-color:var(--border-soft)}
+    .map-card.expandable .expand-btn .chev{transition:transform .25s ease;display:inline-block}
+    .map-card.expandable.is-open .expand-btn .chev{transform:rotate(180deg)}
+    .map-card .expand-body{
+      max-height:0;overflow:hidden;
+      transition:max-height .35s ease, margin-top .35s ease, opacity .25s ease;
+      opacity:0;margin-top:0;
+    }
+    .map-card.is-open .expand-body{max-height:600px;opacity:1;margin-top:18px}
+    .map-card .expand-body .x-grid{display:grid;grid-template-columns:90px 1fr;gap:8px 14px;padding-top:14px;border-top:1px dashed var(--border)}
+    .map-card .expand-body dt{font-family:var(--font-mono);font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.04em;padding-top:2px}
+    .map-card .expand-body dd{margin:0;color:var(--text-2);font-size:13.5px;line-height:1.55}
+    @media (prefers-reduced-motion: reduce) {
+      .map-card .expand-body, .map-card.expandable .expand-btn .chev{transition:none}
+    }
+
+    .control-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:24px}
+    .metric{padding:18px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface-1);box-shadow:var(--shadow-sm)}
+    .metric .num{font-family:var(--font-mono);color:var(--accent);font-size:12px;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:14px}
+    .metric h3{font-size:16px}
+    .metric p{color:var(--text-2);margin:8px 0 0;font-size:13px;line-height:1.5}
+    .bar{height:4px;border-radius:var(--r-tag);background:var(--surface-2);overflow:hidden;margin-top:16px;border:1px solid var(--border)}
+    .bar i{display:block;height:100%;background:var(--accent)}
+
+    .matrix-wrap{position:relative;margin-top:24px;border:1px solid var(--border);border-radius:var(--r-md);overflow:auto;background:var(--surface-1);box-shadow:var(--shadow-sm);-webkit-overflow-scrolling:touch}
+    table{width:100%;min-width:980px;border-collapse:collapse;font-size:13.5px;color:var(--text-2)}
+    th,td{padding:14px 16px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
+    th{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:0.04em;color:var(--text-3);background:var(--surface-2);font-weight:400}
+    tr:last-child td{border-bottom:0}
+    tr:hover td{background:color-mix(in srgb, var(--accent) 4%, transparent)}
+    td:first-child{color:var(--text-1);font-weight:510}
+
+    .pill{display:inline-flex;align-items:center;padding:3px 7px;border-radius:var(--r-tag);font-family:var(--font-mono);font-size:10px;color:var(--text-1);background:var(--surface-3);margin:2px 4px 2px 0;white-space:nowrap;text-transform:uppercase;letter-spacing:0.04em;border:1px solid var(--border)}
+    .pill.prep{color:var(--info);border-color:color-mix(in srgb, var(--info) 40%, transparent);background:color-mix(in srgb, var(--info) 10%, transparent)}
+    .pill.modify{color:var(--accent-2);border-color:color-mix(in srgb, var(--accent-2) 40%, transparent);background:color-mix(in srgb, var(--accent-2) 10%, transparent)}
+    .pill.trigger{color:var(--accent);border-color:color-mix(in srgb, var(--accent) 40%, transparent);background:color-mix(in srgb, var(--accent) 10%, transparent)}
+
+    .agent-plan-shell{margin-top:24px;border:1px solid var(--border);border-radius:var(--r-md);background:linear-gradient(180deg,var(--surface-1),var(--surface-2));box-shadow:var(--shadow-sm);overflow:hidden}
+    .agent-plan-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px;border-bottom:1px solid var(--border);background:color-mix(in srgb,var(--surface-2) 72%,transparent)}
+    .agent-plan-head strong{font-size:15px;font-weight:510;color:var(--text-1)}
+    .agent-plan-head span,.agent-plan-state,.priority,.tool-chip,.agent-subtask-state{font-family:var(--font-mono);font-size:10.5px;font-style:normal;text-transform:uppercase;letter-spacing:0.04em;color:var(--text-3)}
+    .agent-plan-state{display:inline-flex;align-items:center;gap:7px;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r-tag);background:var(--surface-1);white-space:nowrap}
+    .agent-plan-state::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+    .agent-task{border-top:1px solid var(--border)}
+    .agent-task:first-of-type{border-top:0}
+    .agent-task-row{width:100%;display:grid;grid-template-columns:18px minmax(0,1fr) auto;gap:12px;align-items:center;padding:14px 16px;border:0;background:transparent;color:var(--text-1);text-align:left;cursor:pointer;font:inherit}
+    .agent-task-row:hover{background:color-mix(in srgb,var(--accent) 5%,transparent)}
+    .agent-task-row b{display:block;font-size:15px;font-weight:510;line-height:1.35}
+    .agent-task-row em{display:block;margin-top:3px;color:var(--text-3);font-style:normal;font-size:12.5px;line-height:1.4}
+    .status-dot{width:10px;height:10px;border-radius:50%;background:var(--text-4);box-shadow:0 0 0 4px color-mix(in srgb,var(--text-4) 10%,transparent)}
+    .status-dot.done{background:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 12%,transparent)}
+    .status-dot.active{background:var(--info);box-shadow:0 0 0 4px color-mix(in srgb,var(--info) 12%,transparent)}
+    .status-dot.pending{background:var(--accent-2);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent-2) 12%,transparent)}
+    .priority{justify-self:end;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r-tag);background:var(--surface-2);color:var(--text-2);white-space:nowrap}
+    .priority.high{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 42%,transparent);background:color-mix(in srgb,var(--accent) 10%,transparent)}
+    .priority.med{color:var(--info);border-color:color-mix(in srgb,var(--info) 42%,transparent);background:color-mix(in srgb,var(--info) 10%,transparent)}
+    .agent-subtasks{max-height:0;overflow:hidden;opacity:.65;transition:max-height .34s ease,opacity .22s ease}
+    .agent-task.is-open .agent-subtasks{max-height:360px;opacity:1;border-top:1px dashed var(--border)}
+    .agent-subtask{display:grid;grid-template-columns:18px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 16px 10px 44px}
+    .agent-subtask + .agent-subtask{border-top:1px solid color-mix(in srgb,var(--border) 58%,transparent)}
+    .agent-subtask strong{display:block;color:var(--text-1);font-size:13.5px;font-weight:510;line-height:1.35}
+    .agent-subtask span{display:block;color:var(--text-3);font-size:12px;line-height:1.45}
+    .tool-chip{padding:4px 7px;border:1px solid var(--border);border-radius:var(--r-tag);background:var(--surface-2);color:var(--text-2);white-space:nowrap}
+
+    .timeline{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:24px}
+    .timeline-step{padding:22px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface-1);box-shadow:var(--shadow-sm)}
+    .step-num{font-family:var(--font-mono);font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px}
+    .timeline-step h3{font-size:17px}
+    .timeline-step p{color:var(--text-2);margin:8px 0 0;font-size:13.5px;line-height:1.55}
+    .beveled-timeline{gap:14px}
+    .beveled-timeline .timeline-step{isolation:isolate;position:relative;min-height:100%;padding:20px;border:0;border-radius:0;overflow:hidden;cursor:pointer;background:linear-gradient(145deg,var(--surface-1),var(--surface-2));clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px);box-shadow:0 18px 48px color-mix(in srgb,var(--bg) 70%,transparent)}
+    .beveled-timeline .timeline-step::before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 58%,transparent),var(--border) 28%,color-mix(in srgb,var(--text-1) 18%,transparent) 72%,color-mix(in srgb,var(--accent-2) 48%,transparent));clip-path:inherit}
+    .beveled-timeline .timeline-step::after{content:"";position:absolute;inset:1px;z-index:-1;background:linear-gradient(160deg,color-mix(in srgb,var(--surface-1) 96%,transparent),var(--surface-2));clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px)}
+    .beveled-timeline .timeline-step:hover,.beveled-timeline .timeline-step.is-active{transform:translateY(-3px);box-shadow:0 22px 70px color-mix(in srgb,var(--accent) 12%,transparent)}
+    .beveled-timeline .timeline-step.is-active::before{background:linear-gradient(135deg,var(--accent),var(--border) 34%,color-mix(in srgb,var(--accent-2) 64%,transparent))}
+    .step-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+    .timeline-status{display:inline-flex;align-items:center;gap:7px;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r-tag);background:var(--surface-2);font-family:var(--font-mono);font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap}
+    .timeline-status::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+    .timeline-status.active::before{background:var(--info)}
+    .timeline-status.pending::before{background:var(--accent-2)}
+    .timeline-energy{font-family:var(--font-mono);font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.04em}
+    .energy-bar{height:5px;margin-top:16px;border-radius:var(--r-tag);border:1px solid var(--border);background:var(--surface-2);overflow:hidden}
+    .energy-bar i{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--accent),color-mix(in srgb,var(--accent-2) 72%,var(--accent)));transition:width 1s cubic-bezier(.2,.7,.2,1)}
+    .timeline-step.in-view .energy-bar i{width:var(--energy,0%)}
+    .timeline-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+    .timeline-link{border:1px solid var(--border);border-radius:var(--r-tag);background:var(--surface-2);color:var(--text-2);padding:4px 7px;font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:0.04em;cursor:pointer}
+    .timeline-link:hover{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 42%,transparent);background:color-mix(in srgb,var(--accent) 10%,transparent)}
+
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:20px}
+    .card{padding:22px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface-1);box-shadow:var(--shadow-sm)}
+    .card p{color:var(--text-2);margin:8px 0 0;font-size:14px;line-height:1.55}
+    .card ul{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:8px;color:var(--text-2);font-size:13px;line-height:1.5}
+    .card li{position:relative;padding-left:16px}
+    .card li::before{content:"•";position:absolute;left:0;color:var(--accent)}
+
+    .footer{margin-top:24px;padding:80px 0 40px;border-top:1px solid var(--border);background:var(--surface-1)}
+    .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px;margin-bottom:40px}
+    .footer h2{font-size:clamp(26px,3vw,36px)}
+    .footer p{color:var(--text-2);font-size:14px;line-height:1.6;max-width:480px}
+    .footer .col h4{font-family:var(--font-mono);font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.04em;margin:0 0 14px;font-weight:400}
+    .footer .col ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+    .footer .col a{display:inline-flex;align-items:center;gap:6px;color:var(--text-2);font-size:13.5px;transition:color .15s}
+    .footer .col a:hover{color:var(--text-1)}
+    .footer .col a .ext{font-family:var(--font-mono);color:var(--text-4);font-size:11px}
+    .footer-meta{display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:11px;color:var(--text-4);letter-spacing:0.04em;text-transform:uppercase}
+
+    @media(max-width:980px){
+      .section-head,.insight-grid,.map-grid,.control-grid,.timeline,.grid,.source-strip{grid-template-columns:1fr}
+      .source-card{border-right:none;border-bottom:1px solid var(--border)}.source-card:last-child{border-bottom:none}
+      .nav{padding-left:12px;gap:6px}.navlinks .hide-sm{display:none}.theme-picker .lbl{display:none}
+      h1{letter-spacing:-0.02em}
+      .rung{grid-template-columns:1fr;gap:6px}.risk{justify-self:start}
+      .footer-grid{grid-template-columns:1fr;gap:32px}.footer-meta{flex-direction:column;gap:12px;align-items:flex-start}
+      /* Reduce SVG min-width so it fits closer to viewport on tablets */
+      svg.diagram{min-width:880px}
+    }
+    @media(max-width:720px){
+      .topbar{gap:10px}
+      .topbar .brand .path,.topbar .brand .version{display:none}
+      .topbar .navlinks{display:none}
+      .theme-switch span{display:none}
+      .menutoggle{display:inline-flex}
+      .topbar.open .navlinks{display:flex;position:absolute;top:48px;left:0;right:0;flex-direction:column;align-items:stretch;padding:10px;background:color-mix(in srgb,var(--panel) 96%,transparent);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+      .topbar.open .navlinks a{padding:11px 12px;min-height:44px;display:flex;align-items:center}
+      section{padding:48px 0}
+      main{padding-top:48px}
+      .wrap{width:calc(100% - 32px)}
+      h2{font-size:clamp(24px,5.4vw,34px)}
+      h3{font-size:17px}
+      .lead{font-size:15px}
+      .jump-strip{padding:8px 10px;gap:5px}
+      .jump-chip{padding:6px 10px;font-size:10.5px}
+      .insight,.map-card,.timeline-step,.card{padding:18px}
+      .agent-plan-head{align-items:flex-start;flex-direction:column;gap:8px}
+      .agent-task-row{grid-template-columns:16px minmax(0,1fr);padding:14px}
+      .agent-task-row .priority{grid-column:2;justify-self:start}
+      .agent-subtask{grid-template-columns:16px minmax(0,1fr);padding:10px 14px}
+      .agent-subtask .tool-chip{grid-column:2;justify-self:start}
+      .metric{padding:16px}
+      .matrix-wrap th,.matrix-wrap td{padding:12px 14px;font-size:12.5px}
+      table{min-width:760px}
+      /* Touch target minimum 44px on nav/buttons */
+      .cmdk-trigger kbd{display:none}
+      .button{height:42px}
+      .theme-picker{height:38px}
+      .theme-picker button{height:32px;padding:0 11px}
+      .cmdk-trigger{padding:9px 12px;min-height:38px}
+    }
+    @media(max-width:620px){
+      .wrap{width:calc(100% - 24px)}
+      main{padding-top:48px}
+      h1{font-size:clamp(36px,9vw,52px)}
+      /* SVG narrows further; still scrollable when needed */
+      svg.diagram{min-width:680px}
+    }
+    @media(max-width:480px){
+      section{padding:40px 0}
+      .wrap{width:calc(100% - 20px)}
+      h1{font-size:clamp(32px,9vw,44px);letter-spacing:-0.018em}
+      .hero-rotator{min-width:0}
+      h2{font-size:clamp(22px,6vw,28px)}
+      .lead{font-size:14.5px}
+      .nav{width:calc(100% - 20px);padding:4px 6px 4px 10px;gap:4px}
+      .topbar .brand span:not(.path):not(.version){max-width:116px;overflow:hidden;text-overflow:ellipsis}
+      .insight,.map-card,.timeline-step,.card{padding:16px}
+      .metric{padding:14px}
+      .matrix-wrap th,.matrix-wrap td{padding:10px 12px;font-size:12px}
+      .rung{padding:12px}
+      .footer{padding:48px 0 28px}
+      .cp-cards{grid-template-columns:1fr;padding:12px 16px 16px}
+      .cp-body{padding:16px 18px 4px;font-size:12.5px}
+      .cp-bar{padding:8px 12px}
+      .cp-title{font-size:10px}
+      .map-card .expand-body .x-grid{grid-template-columns:1fr;gap:4px 0}
+    }
+
+    /* ===================== Command palette (Cmd+K) ===================== */
+    .cmdk-backdrop{position:fixed;inset:0;z-index:80;display:none;align-items:flex-start;justify-content:center;background:color-mix(in srgb, var(--bg) 70%, transparent);backdrop-filter:blur(6px);padding-top:96px}
+    .cmdk-backdrop.open{display:flex;animation:cmdkFade .15s ease}
+    @keyframes cmdkFade{from{opacity:0}to{opacity:1}}
+    .cmdk{width:min(640px,calc(100% - 48px));background:var(--surface-1);border:1px solid var(--border-soft);border-radius:var(--r-lg);box-shadow:var(--shadow-xl);display:flex;flex-direction:column;max-height:72vh;overflow:hidden}
+    .cmdk-search{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border);background:var(--surface-1)}
+    .cmdk-search .ico{color:var(--text-3);width:16px;height:16px}
+    .cmdk-input{flex:1;background:transparent;border:0;outline:none;color:var(--text-1);font-family:var(--font-sans);font-size:15px;letter-spacing:-0.13px}
+    .cmdk-input::placeholder{color:var(--text-3)}
+    .cmdk-esc{font-family:var(--font-mono);font-size:11px;color:var(--text-3);padding:3px 6px;border-radius:var(--r-tag);background:var(--surface-2);border:1px solid var(--border)}
+    .cmdk-list{overflow:auto;padding:6px}
+    .cmdk-section{padding:10px 12px 4px;font-family:var(--font-mono);font-size:10px;color:var(--text-4);text-transform:uppercase;letter-spacing:0.06em}
+    .cmdk-result{display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:center;width:100%;text-align:left;padding:9px 12px;border:0;border-radius:var(--r-md);background:transparent;color:var(--text-1);cursor:pointer;font:inherit}
+    .cmdk-result .ico{color:var(--text-3);width:14px;height:14px}
+    .cmdk-result:hover,.cmdk-result.active{background:var(--surface-2)}
+    .cmdk-result:hover .ico,.cmdk-result.active .ico{color:var(--accent)}
+    .cmdk-result .ttl{display:block;font-size:14px;font-weight:510;color:var(--text-1);letter-spacing:-0.012em}
+    .cmdk-result .meta{display:block;margin-top:2px;font-family:var(--font-mono);font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.04em}
+    .cmdk-result .arr{color:var(--accent);opacity:0;transition:opacity .15s;font-family:var(--font-mono);font-size:12px}
+    .cmdk-result .cur{font-family:var(--font-mono);font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:0.06em;padding:2px 6px;border-radius:var(--r-tag);border:1px solid color-mix(in srgb, var(--accent) 30%, transparent);background:color-mix(in srgb, var(--accent) 10%, transparent)}
+    .cmdk-result:hover .arr,.cmdk-result.active .arr{opacity:1}
+    .cmdk-empty{padding:32px 16px;text-align:center;color:var(--text-3);font-size:13px}
+    .cmdk-foot{padding:8px 14px;border-top:1px solid var(--border);background:var(--surface-2);display:flex;justify-content:space-between;color:var(--text-3);font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:0.04em}
+    .cmdk-foot kbd{font-family:var(--font-mono);font-size:10px;color:var(--text-2);padding:1px 5px;border-radius:var(--r-tag);background:var(--surface-1);border:1px solid var(--border);margin:0 2px}
+    .cmdk-trigger{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:var(--r-md);border:1px solid var(--border);background:var(--surface-2);color:var(--text-2);font-family:var(--font-sans);font-size:12px;cursor:pointer;transition:background .15s,border-color .15s,color .15s}
+    .cmdk-trigger:hover{background:var(--surface-3);border-color:var(--border-soft);color:var(--text-1)}
+    .cmdk-trigger kbd{font-family:var(--font-mono);font-size:10px;color:var(--text-3);padding:1px 5px;border-radius:var(--r-tag);background:color-mix(in srgb, currentColor 14%, transparent)}
+    @media (max-width: 700px){
+      .cmdk-backdrop{padding-top:64px}
+      .cmdk-trigger .lbl{display:none}
+    }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></symbol>
+      <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"/></symbol>
+      <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="M14 6l4 4"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+      <symbol id="i-anchor" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M12 7v14"/><path d="M5 13c0 4 3 7 7 7s7-3 7-7"/><path d="M5 13H2M19 13h3M9 9h6"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+      <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 1 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 1 0 5.66 5.66l1-1"/></symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></symbol>
+      <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+      <symbol id="i-stack" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/><path d="M3 18l9 5 9-5"/></symbol>
+    </defs>
+  </svg>
+
+  <header class="topbar">
+    <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <a class="brand" href="index.html" aria-label="Ali Osman Ozen home">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="3"/><rect x="2.4" y="2.4" width="27.2" height="27.2" rx="1.8"/><path d="M8.5 21.5 13 9h2l-4.5 12.5h-2Zm7.2 0L20.2 9h2l-4.5 12.5h-2Z"/></svg>
+      <span><b>0xozen</b> <span class="path">~/adoption/department-map</span> <span class="version">. personal site</span></span>
+    </a>
+    <nav class="navlinks" aria-label="Primary navigation">
+      <a href="index.html#work">work</a>
+      <a href="index.html#model">model</a>
+      <a href="department-adoption.html" aria-current="page">adoption</a>
+      <a href="writing-archive.html">writing</a>
+      <a href="index.html#contact">contact</a>
+    </nav>
+    <button class="iconbtn" id="cmdkTrigger" type="button" aria-label="Open command palette" title="Open command palette">
+      <svg><use href="#i-search"/></svg>
+    </button>
+    <div class="theme-switch" role="group" aria-label="Theme">
+      <button type="button" data-theme-set="terminal" aria-pressed="true" title="Terminal data field">
+        <svg><use href="#i-moon"/></svg><span>Terminal</span>
+      </button>
+      <button type="button" data-theme-set="linear" aria-pressed="false" title="Old dark Linear theme">
+        <svg><use href="#i-grid"/></svg><span>Dark</span>
+      </button>
+    </div>
+    <button class="iconbtn menutoggle" data-menu type="button" aria-label="Menu"><svg><use href="#i-menu"/></svg></button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="cmd"><span class="accent">$</span> 0xozen adoption <span class="flag">--department-map --daily-signal</span></div>
+        <h1>AI adoption becomes real when <span class="hero-rotator" data-hero-words="authority|evidence|recovery|ownership" aria-live="polite"><span data-hero-word>authority</span></span> is designed.</h1>
+        <p class="lead">This page turns the Daily Signal and Signal vs. Noise writing themes into a practical operating map: where AI enters work, which department owns the workflow, what level of autonomy is safe, and which controls make the work reviewable.</p>
+        <div class="cta-row">
+          <a class="button primary" href="#operating-map">Open the map</a>
+          <a class="button" href="writing-archive.html">Read the writing archive</a>
+          <a class="button ghost" href="index.html">Back to home <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+        </div>
+
+        <!-- Animated control-plane terminal -->
+        <div class="control-plane reveal" aria-label="Adoption control-plane status preview">
+          <div class="cp-bar">
+            <div class="cp-traffic" aria-hidden="true"><span></span><span></span><span></span></div>
+            <div class="cp-title">ADOPTION / CONTROL-PLANE</div>
+            <div class="cp-meta">v0.6 · 2026</div>
+          </div>
+          <div class="cp-body" id="cpBody">
+            <div class="cp-line">
+              <span class="glyph">›</span>
+              <span class="cmd" id="cpCmd"></span>
+              <span class="cp-caret" id="cpCaret" aria-hidden="true"></span>
+            </div>
+            <div class="cp-scan" data-step="1">scanning <b>6 operating layers</b> · resolving owners …</div>
+            <div class="cp-check" data-step="2"><span class="tick">✓</span><span>leadership <b>visibility</b> ready</span></div>
+            <div class="cp-check" data-step="3"><span class="tick">✓</span><span>revenue / cx <b>handoffs</b> mapped</span></div>
+            <div class="cp-check" data-step="4"><span class="tick">✓</span><span>operations <b>queues</b> instrumented</span></div>
+            <div class="cp-check" data-step="5"><span class="tick">✓</span><span>finance <b>approvals</b> gated</span></div>
+            <div class="cp-check" data-step="6"><span class="tick">✓</span><span>trust <b>identity</b> bounded</span></div>
+            <div class="cp-check" data-step="7"><span class="tick">✓</span><span>build <b>evals + rollback</b> in place</span></div>
+            <div class="cp-rule"></div>
+            <div class="cp-line suggest" data-step="8">
+              <span class="glyph">›</span>
+              <span class="cmd">adopt next --suggest</span>
+            </div>
+            <div class="cp-line suggest" data-step="9" style="margin-top:4px">
+              <span class="arrow">→</span>
+              <span style="color:var(--text-3)">pick one workflow · define authority · log evidence</span>
+            </div>
+          </div>
+          <div class="cp-cards" id="cpCards" aria-label="Control plane summary">
+            <article class="cp-card"><span class="label">Owner</span><span class="v">named <small>per workflow</small></span></article>
+            <article class="cp-card"><span class="label">Authority</span><span class="v">suggest → commit</span></article>
+            <article class="cp-card"><span class="label">Evidence</span><span class="v">attached <small>before scale</small></span></article>
+            <article class="cp-card"><span class="label">Recovery</span><span class="v">rehearsed</span></article>
+          </div>
+        </div>
+
+        <div class="source-strip reveal" aria-label="Writing source summary">
+          <article class="source-card"><span class="kicker">Source base</span><strong data-count="8" data-suffix=" notes">0 notes</strong><span>Daily Signal posts from Apr 28-May 4 plus weekly Signal vs. Noise synthesis.</span></article>
+          <article class="source-card"><span class="kicker">Central theme</span><strong>Authority</strong><span>The question moves from "can AI help?" to "what is AI allowed to do?"</span></article>
+          <article class="source-card"><span class="kicker">Adoption unit</span><strong>Workflow</strong><span>AI value appears when customer, supplier, ticket, file, record and decision movement is controlled.</span></article>
+          <article class="source-card"><span class="kicker">Control spine</span><strong data-count="6" data-suffix=" gates">0 gates</strong><span>Owner, boundary, permission, approval, evidence and recovery.</span></article>
+        </div>
+
+        <figure class="roadmap-visual reveal" aria-label="AI adoption roadmap from visibility to scale">
+          <svg class="roadmap-diagram" viewBox="0 0 1240 440" role="img" aria-labelledby="rmTitle rmDesc" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+            <title id="rmTitle">AI adoption roadmap from visibility to scale</title>
+            <desc id="rmDesc">Six stages — Visibility, Boundary, Approval, Evidence, Recovery, Scale — linked by a control rail and four outcomes.</desc>
+            <defs>
+              <pattern id="rm-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+                <path d="M32 0H0V32" fill="none" stroke="var(--svg-grid)" stroke-width=".7"/>
+              </pattern>
+              <filter id="rm-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity=".18"/>
+              </filter>
+              <marker id="rm-arrow-marker" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"/>
+              </marker>
+              <linearGradient id="rm-rail-grad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%"  stop-color="var(--accent)" stop-opacity=".0"/>
+                <stop offset="14%" stop-color="var(--accent)" stop-opacity="1"/>
+                <stop offset="86%" stop-color="var(--info)"   stop-opacity="1"/>
+                <stop offset="100%" stop-color="var(--info)"  stop-opacity=".0"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Background -->
+            <rect width="1240" height="440" fill="var(--svg-bg)"/>
+            <rect width="1240" height="440" fill="url(#rm-grid)"/>
+
+            <!-- Header band -->
+            <g font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="0.08em">
+              <text x="32" y="32" fill="var(--svg-text-3)">ADOPTION ROADMAP · v0.6 · 2026</text>
+              <text x="1208" y="32" text-anchor="end" fill="var(--svg-text-3)">VISIBILITY → SCALE</text>
+            </g>
+
+            <!-- ================= STAGE 1: Visibility ================= -->
+            <g class="rm-stage s1">
+              <rect x="26" y="56" width="188" height="216" rx="8" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)" filter="url(#rm-shadow)"/>
+              <text x="44" y="84" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent)" letter-spacing="0.06em">/01</text>
+              <text x="44" y="108" font-family="Inter, sans-serif" font-size="17" font-weight="510" fill="var(--svg-text-1)" letter-spacing="-0.014em">Visibility</text>
+              <g class="stage-icon s1" transform="translate(120 152)">
+                <circle r="22" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                <path d="M-12 0c4-7 9-9 12-9s8 2 12 9c-4 7-9 9-12 9s-8-2-12-9z" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linejoin="round"/>
+                <circle r="3.2" fill="var(--accent)"/>
+              </g>
+              <text font-family="Inter, sans-serif" font-size="11.5" fill="var(--svg-text-2)">
+                <tspan x="44" y="206">AI work becomes visible.</tspan>
+                <tspan x="44" dy="14">Map where AI touches</tspan>
+                <tspan x="44" dy="14">decisions, files, customers</tspan>
+                <tspan x="44" dy="14">and money flows.</tspan>
+              </text>
+              <g class="rm-dots" transform="translate(44 262)">
+                <circle class="indicator" cx="0"  cy="0" r="2" fill="var(--accent)"/>
+                <circle class="indicator" cx="8"  cy="0" r="2" fill="var(--accent)" opacity=".55"/>
+                <circle class="indicator" cx="16" cy="0" r="2" fill="var(--svg-stroke)"/>
+                <circle class="indicator" cx="24" cy="0" r="2" fill="var(--svg-stroke)"/>
+              </g>
+            </g>
+
+            <!-- ================= STAGE 2: Boundary ================= -->
+            <g class="rm-stage s2">
+              <rect x="226" y="56" width="188" height="216" rx="8" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)" filter="url(#rm-shadow)"/>
+              <text x="244" y="84" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent)" letter-spacing="0.06em">/02</text>
+              <text x="244" y="108" font-family="Inter, sans-serif" font-size="17" font-weight="510" fill="var(--svg-text-1)" letter-spacing="-0.014em">Boundary</text>
+              <g class="stage-icon s2" transform="translate(320 152)">
+                <circle r="22" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                <path d="M0 -12 L10 -7 V2 C10 8 5 12 0 13 C-5 12 -10 8 -10 2 V-7 Z" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M-4 0 L-1 3 L5 -3" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+              <text font-family="Inter, sans-serif" font-size="11.5" fill="var(--svg-text-2)">
+                <tspan x="244" y="206">Each workflow gets a clear</tspan>
+                <tspan x="244" dy="14">boundary. What AI may</tspan>
+                <tspan x="244" dy="14">read, suggest, modify, or</tspan>
+                <tspan x="244" dy="14">trigger is explicit.</tspan>
+              </text>
+              <g class="rm-dots" transform="translate(244 262)">
+                <circle class="indicator" cx="0"  cy="0" r="2" fill="var(--accent)"/>
+                <circle class="indicator" cx="8"  cy="0" r="2" fill="var(--accent)"/>
+                <circle class="indicator" cx="16" cy="0" r="2" fill="var(--accent)" opacity=".55"/>
+                <circle class="indicator" cx="24" cy="0" r="2" fill="var(--svg-stroke)"/>
+              </g>
+            </g>
+
+            <!-- ================= STAGE 3: Approval ================= -->
+            <g class="rm-stage s3">
+              <rect x="426" y="56" width="188" height="216" rx="8" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)" filter="url(#rm-shadow)"/>
+              <text x="444" y="84" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent)" letter-spacing="0.06em">/03</text>
+              <text x="444" y="108" font-family="Inter, sans-serif" font-size="17" font-weight="510" fill="var(--svg-text-1)" letter-spacing="-0.014em">Approval</text>
+              <g class="stage-icon s3" transform="translate(520 152)">
+                <circle r="22" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                <circle r="12" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+                <path d="M-5 0 L-1 4 L6 -4" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+              <text font-family="Inter, sans-serif" font-size="11.5" fill="var(--svg-text-2)">
+                <tspan x="444" y="206">Human approval gates are</tspan>
+                <tspan x="444" dy="14">designed. High-risk actions</tspan>
+                <tspan x="444" dy="14">like spend, deploy and</tspan>
+                <tspan x="444" dy="14">external contact need sign-off.</tspan>
+              </text>
+              <g class="rm-dots" transform="translate(444 262)">
+                <circle class="indicator" cx="0"  cy="0" r="2" fill="var(--accent)"/>
+                <circle class="indicator" cx="8"  cy="0" r="2" fill="var(--accent)"/>
+                <circle class="indicator" cx="16" cy="0" r="2" fill="var(--accent)"/>
+                <circle class="indicator" cx="24" cy="0" r="2" fill="var(--svg-stroke)"/>
+              </g>
+            </g>
+
+            <!-- ================= STAGE 4: Evidence ================= -->
+            <g class="rm-stage s4">
+              <rect x="626" y="56" width="188" height="216" rx="8" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)" filter="url(#rm-shadow)"/>
+              <text x="644" y="84" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent)" letter-spacing="0.06em">/04</text>
+              <text x="644" y="108" font-family="Inter, sans-serif" font-size="17" font-weight="510" fill="var(--svg-text-1)" letter-spacing="-0.014em">Evidence</text>
+              <g class="stage-icon s4" transform="translate(720 152)">
+                <circle r="22" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                <path d="M-8 -12 H6 L10 -8 V12 H-8 Z" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M-4 -3 H6 M-4 1 H6 M-4 5 H2" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round"/>
+                <circle cx="7" cy="9" r="3.2" fill="none" stroke="var(--accent)" stroke-width="1.4"/>
+                <path d="M5.5 9 L6.6 10.2 L8.8 7.8" fill="none" stroke="var(--accent)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+              <text font-family="Inter, sans-serif" font-size="11.5" fill="var(--svg-text-2)">
+                <tspan x="644" y="206">Every AI action leaves a trace.</tspan>
+                <tspan x="644" dy="14">Inputs, outputs, owner,</tspan>
+                <tspan x="644" dy="14">decision, reviewer and</tspan>
+                <tspan x="644" dy="14">rollback path are recorded.</tspan>
+              </text>
+              <g class="rm-dots" transform="translate(644 262)">
+                <circle class="indicator" cx="0"  cy="0" r="2" fill="var(--accent)"/>
+                <circle class="indicator" cx="8"  cy="0" r="2" fill="var(--accent)"/>
+                <circle class="indicator" cx="16" cy="0" r="2" fill="var(--accent)"/>
+                <circle class="indicator" cx="24" cy="0" r="2" fill="var(--accent)" opacity=".55"/>
+              </g>
+            </g>
+
+            <!-- ================= STAGE 5: Recovery ================= -->
+            <g class="rm-stage s5">
+              <rect x="826" y="56" width="188" height="216" rx="8" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)" filter="url(#rm-shadow)"/>
+              <text x="844" y="84" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent-2)" letter-spacing="0.06em">/05</text>
+              <text x="844" y="108" font-family="Inter, sans-serif" font-size="17" font-weight="510" fill="var(--svg-text-1)" letter-spacing="-0.014em">Recovery</text>
+              <g class="stage-icon s5" transform="translate(920 152)">
+                <circle r="22" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                <path d="M11 -4 A12 12 0 1 0 11 4" fill="none" stroke="var(--accent-2)" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M11 -10 V-4 H5" fill="none" stroke="var(--accent-2)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle r="3" fill="var(--accent-2)"/>
+              </g>
+              <text font-family="Inter, sans-serif" font-size="11.5" fill="var(--svg-text-2)">
+                <tspan x="844" y="206">The organization safely</tspan>
+                <tspan x="844" dy="14">reverses mistakes. Rollback,</tspan>
+                <tspan x="844" dy="14">escalation and exception</tspan>
+                <tspan x="844" dy="14">handling are built-in.</tspan>
+              </text>
+              <g class="rm-dots" transform="translate(844 262)">
+                <circle class="indicator" cx="0"  cy="0" r="2" fill="var(--accent-2)"/>
+                <circle class="indicator" cx="8"  cy="0" r="2" fill="var(--accent-2)"/>
+                <circle class="indicator" cx="16" cy="0" r="2" fill="var(--accent-2)"/>
+                <circle class="indicator" cx="24" cy="0" r="2" fill="var(--accent-2)" opacity=".55"/>
+              </g>
+            </g>
+
+            <!-- ================= STAGE 6: Scale ================= -->
+            <g class="rm-stage s6">
+              <rect x="1026" y="56" width="188" height="216" rx="8" fill="var(--svg-panel-1)" stroke="var(--info)" stroke-opacity=".55" filter="url(#rm-shadow)"/>
+              <text x="1044" y="84" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--info)" letter-spacing="0.06em">/06</text>
+              <text x="1044" y="108" font-family="Inter, sans-serif" font-size="17" font-weight="510" fill="var(--svg-text-1)" letter-spacing="-0.014em">Scale</text>
+              <g class="stage-icon s6" transform="translate(1120 152)">
+                <circle r="22" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                <!-- 3 cubes -->
+                <path d="M-9 0 L0 -5 L9 0 L0 5 Z" fill="none" stroke="var(--info)" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M-9 0 V6 L0 11 V5"  fill="none" stroke="var(--info)" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M9 0 V6 L0 11"       fill="none" stroke="var(--info)" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M-9 -8 L-3 -11 L3 -8" fill="none" stroke="var(--info)" stroke-width="1.2" stroke-linejoin="round" opacity=".55"/>
+              </g>
+              <text font-family="Inter, sans-serif" font-size="11.5" fill="var(--svg-text-2)">
+                <tspan x="1044" y="206">AI moves from isolated pilots</tspan>
+                <tspan x="1044" dy="14">to department-level loops.</tspan>
+                <tspan x="1044" dy="14">Revenue, ops, finance, trust,</tspan>
+                <tspan x="1044" dy="14">eng and leadership — one model.</tspan>
+              </text>
+              <g class="rm-dots" transform="translate(1044 262)">
+                <circle class="indicator" cx="0"  cy="0" r="2" fill="var(--info)"/>
+                <circle class="indicator" cx="8"  cy="0" r="2" fill="var(--info)"/>
+                <circle class="indicator" cx="16" cy="0" r="2" fill="var(--info)"/>
+                <circle class="indicator" cx="24" cy="0" r="2" fill="var(--info)"/>
+              </g>
+            </g>
+
+            <!-- ================= Connectors between cards ================= -->
+            <g fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" opacity=".75" marker-end="url(#rm-arrow-marker)">
+              <path class="rm-connector c1" d="M214 152 L226 152"/>
+              <path class="rm-connector c2" d="M414 152 L426 152"/>
+              <path class="rm-connector c3" d="M614 152 L626 152"/>
+              <path class="rm-connector c4" d="M814 152 L826 152"/>
+              <path class="rm-connector c5" d="M1014 152 L1026 152"/>
+            </g>
+
+            <!-- ================= Control rail ================= -->
+            <g>
+              <text x="32" y="312" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="0.08em" fill="var(--svg-text-3)">CONTROL RAIL · BUILT FOR TRUST</text>
+              <text x="1208" y="312" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="0.08em" fill="var(--info)">SCALE OUTCOME · ONE MODEL</text>
+
+              <line x1="78" y1="336" x2="1162" y2="336" stroke="var(--svg-stroke)" stroke-width="1"/>
+              <line class="rm-rail-line" x1="78" y1="336" x2="1162" y2="336" stroke="url(#rm-rail-grad)" stroke-width="1.4"/>
+
+              <!-- Anchor dots aligned with the 6 stages -->
+              <g>
+                <circle cx="120"  cy="336" r="5" fill="var(--svg-panel-1)" stroke="var(--accent)" stroke-width="1.5"/>
+                <circle cx="320"  cy="336" r="5" fill="var(--svg-panel-1)" stroke="var(--accent)" stroke-width="1.5"/>
+                <circle cx="520"  cy="336" r="5" fill="var(--svg-panel-1)" stroke="var(--accent)" stroke-width="1.5"/>
+                <circle cx="720"  cy="336" r="5" fill="var(--svg-panel-1)" stroke="var(--accent)" stroke-width="1.5"/>
+                <circle cx="920"  cy="336" r="5" fill="var(--svg-panel-1)" stroke="var(--accent-2)" stroke-width="1.5"/>
+                <circle cx="1120" cy="336" r="5" fill="var(--svg-panel-1)" stroke="var(--info)" stroke-width="1.5"/>
+              </g>
+
+              <!-- Traveling dots -->
+              <g transform="translate(86 336)">
+                <g class="rail-dot rd1"><circle r="3" fill="var(--accent)"/></g>
+                <g class="rail-dot rd2"><circle r="3" fill="var(--accent)"/></g>
+                <g class="rail-dot rd3"><circle r="3" fill="var(--info)"/></g>
+              </g>
+            </g>
+
+            <!-- ================= Outcome chips ================= -->
+            <g font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="0.06em" fill="var(--svg-text-2)">
+              <g transform="translate(180 388)">
+                <circle r="7" fill="none" stroke="var(--success)" stroke-width="1.4"/>
+                <path d="M-3.5 0 L-0.5 3 L4 -3" fill="none" stroke="var(--success)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="16" y="4">REDUCE RISK</text>
+              </g>
+              <g transform="translate(480 388)">
+                <circle r="7" fill="none" stroke="var(--success)" stroke-width="1.4"/>
+                <path d="M-3.5 0 L-0.5 3 L4 -3" fill="none" stroke="var(--success)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="16" y="4">INCREASE TRUST</text>
+              </g>
+              <g transform="translate(780 388)">
+                <path d="M-7 4 L-2 -1 L1 2 L7 -4" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 -4 L7 -4 L7 0" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="16" y="4">ACCELERATE VALUE</text>
+              </g>
+              <g transform="translate(1080 388)">
+                <path d="M0 -7 L7 -3 L0 1 L-7 -3 Z" fill="none" stroke="var(--info)" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M-7 -3 V1 L0 5 V1" fill="none" stroke="var(--info)" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M7 -3 V1 L0 5" fill="none" stroke="var(--info)" stroke-width="1.5" stroke-linejoin="round"/>
+                <text x="16" y="4">OPERATE AT SCALE</text>
+              </g>
+            </g>
+          </svg>
+          <figcaption>
+            <span>Roadmap visual</span>
+            <span>Visibility → Boundary → Approval → Evidence → Recovery → Scale</span>
+          </figcaption>
+        </figure>
+
+        <nav class="jump-strip" aria-label="Page sections">
+          <span class="label">Jump ·</span>
+          <a class="jump-chip" href="#operating-map"><span class="num">/01</span> Operating map</a>
+          <a class="jump-chip" href="#shifts"><span class="num">/02</span> Five shifts</a>
+          <a class="jump-chip" href="#departments"><span class="num">/03</span> Departments</a>
+          <a class="jump-chip" href="#controls"><span class="num">/04</span> Controls</a>
+          <a class="jump-chip" href="#matrix"><span class="num">/05</span> Matrix</a>
+          <a class="jump-chip" href="#rollout"><span class="num">/06</span> 90-day rollout</a>
+          <a class="jump-chip" href="#framing"><span class="num">/07</span> Framing</a>
+        </nav>
+      </div>
+    </section>
+
+    <section id="operating-map">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="label">[ /01 OPERATING MAP ]</span>
+            <h2>One agent control plane across six department layers.</h2>
+          </div>
+          <p class="section-copy">The writing pattern is consistent: AI is leaving the chat box and entering revenue, operations, trust, engineering, finance and leadership workflows. The adoption layer has to connect those departments without hiding ownership.</p>
+        </div>
+        <div class="diagram-shell reveal">
+          <span class="scroll-hint" aria-hidden="true">← scroll →</span>
+          <!-- SVG references CSS variables via currentColor + style attributes -->
+          <svg class="diagram" viewBox="0 0 1240 820" role="img" aria-labelledby="mapTitle mapDesc" xmlns="http://www.w3.org/2000/svg" style="background:var(--svg-bg)">
+            <title id="mapTitle">Department AI adoption control plane map</title>
+            <desc id="mapDesc">Six department layers connected through a central AI authority boundary and control plane.</desc>
+            <defs>
+              <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+                <path d="M32 0H0V32" fill="none" stroke="var(--svg-grid)" stroke-width=".7"/>
+              </pattern>
+              <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+                <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity=".18"/>
+              </filter>
+              <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"/>
+              </marker>
+            </defs>
+
+            <rect width="1240" height="820" fill="var(--svg-bg)"/>
+            <rect width="1240" height="820" fill="url(#grid)"/>
+            <circle class="core-glow" cx="620" cy="360" r="250" fill="var(--accent)" opacity=".05"/>
+            <circle class="core-ring" cx="620" cy="360" r="168" fill="none" stroke="var(--accent)" stroke-opacity=".32" stroke-width="1.2" stroke-dasharray="4 6"/>
+            <circle cx="620" cy="360" r="258" fill="none" stroke="var(--svg-stroke)" stroke-width="1"/>
+
+            <g fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" opacity=".7" marker-end="url(#arrow)">
+              <path class="arrow-line" d="M412 192 C485 215 520 260 555 302"/>
+              <path class="arrow-line" d="M828 192 C755 215 720 260 685 302"/>
+              <path class="arrow-line" d="M355 392 C435 392 493 376 540 360"/>
+              <path class="arrow-line" d="M885 392 C805 392 747 376 700 360"/>
+              <path class="arrow-line" d="M420 632 C492 560 530 496 562 420"/>
+              <path class="arrow-line" d="M820 632 C748 560 710 496 678 420"/>
+            </g>
+
+            <!-- Data-flow particles traveling each arrow toward the control plane -->
+            <g class="arrow-particles">
+              <circle class="arrow-particle" r="2.6" fill="var(--accent)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="0.4s" path="M412 192 C485 215 520 260 555 302"/>
+              </circle>
+              <circle class="arrow-particle" r="2.6" fill="var(--accent)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="2.0s" path="M412 192 C485 215 520 260 555 302"/>
+              </circle>
+              <circle class="arrow-particle" r="2.6" fill="var(--info)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="0.8s" path="M828 192 C755 215 720 260 685 302"/>
+              </circle>
+              <circle class="arrow-particle" r="2.6" fill="var(--info)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="2.4s" path="M828 192 C755 215 720 260 685 302"/>
+              </circle>
+              <circle class="arrow-particle" r="2.6" fill="var(--accent-2)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="0.0s" path="M355 392 C435 392 493 376 540 360"/>
+              </circle>
+              <circle class="arrow-particle" r="2.6" fill="var(--accent-2)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="1.6s" path="M355 392 C435 392 493 376 540 360"/>
+              </circle>
+              <circle class="arrow-particle" r="2.6" fill="var(--accent)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="1.0s" path="M885 392 C805 392 747 376 700 360"/>
+              </circle>
+              <circle class="arrow-particle" r="2.6" fill="var(--accent)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="2.6s" path="M885 392 C805 392 747 376 700 360"/>
+              </circle>
+              <circle class="arrow-particle" r="2.6" fill="var(--info)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="0.6s" path="M420 632 C492 560 530 496 562 420"/>
+              </circle>
+              <circle class="arrow-particle" r="2.6" fill="var(--info)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="2.2s" path="M420 632 C492 560 530 496 562 420"/>
+              </circle>
+              <circle class="arrow-particle" r="2.6" fill="var(--accent-2)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="1.2s" path="M820 632 C748 560 710 496 678 420"/>
+              </circle>
+              <circle class="arrow-particle" r="2.6" fill="var(--accent-2)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="2.8s" path="M820 632 C748 560 710 496 678 420"/>
+              </circle>
+            </g>
+
+            <g class="core-group" filter="url(#shadow)">
+              <rect x="470" y="246" width="300" height="228" rx="8" fill="var(--accent)" opacity=".9"/>
+              <rect x="476" y="252" width="288" height="216" rx="6" fill="var(--svg-panel-2)" stroke="var(--svg-stroke)"/>
+              <text x="620" y="298" text-anchor="middle" fill="var(--svg-text-1)" font-size="13" font-weight="590" font-family="Inter, sans-serif" letter-spacing="0.04em">AI ADOPTION CONTROL PLANE</text>
+              <text x="620" y="324" text-anchor="middle" fill="var(--svg-text-3)" font-size="12" font-family="Inter, sans-serif">authority boundary + operating evidence</text>
+              <line x1="510" y1="346" x2="730" y2="346" stroke="var(--svg-stroke)"/>
+              <g font-size="11" fill="var(--svg-text-2)" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">
+                <text x="520" y="378">OWNER</text><text x="640" y="378">PERMISSION</text>
+                <text x="520" y="406">APPROVAL</text><text x="640" y="406">EVIDENCE</text>
+                <text x="520" y="434">ESCALATION</text><text x="640" y="434">RECOVERY</text>
+              </g>
+              <circle cx="510" cy="375" r="2" fill="var(--accent)"/>
+              <circle cx="510" cy="403" r="2" fill="var(--accent)"/>
+              <circle cx="510" cy="431" r="2" fill="var(--accent)"/>
+              <circle cx="630" cy="375" r="2" fill="var(--info)"/>
+              <circle cx="630" cy="403" r="2" fill="var(--info)"/>
+              <circle cx="630" cy="431" r="2" fill="var(--info)"/>
+            </g>
+
+            <g filter="url(#shadow)">
+              <g class="layer-group l1">
+                <rect x="90" y="88" width="280" height="150" rx="6" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)"/>
+                <text x="118" y="124" fill="var(--accent)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">MONDAY · /01</text>
+                <text x="118" y="156" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">Leadership</text>
+                <text x="118" y="186" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Visibility, operating model, decision logs</text>
+                <!-- Emblem: eye -->
+                <g class="layer-emblem e1" transform="translate(340 210)">
+                  <circle r="13" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                  <path d="M-7 0c2-4 5-5 7-5s5 1 7 5c-2 4-5 5-7 5s-5-1-7-5z" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                  <circle r="2.2" fill="var(--accent)"/>
+                </g>
+                <!-- KPI mini-bar -->
+                <g transform="translate(118 208)">
+                  <text font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--svg-text-3)" letter-spacing="0.06em">VISIBILITY 92%</text>
+                  <rect x="0" y="6" width="120" height="3" rx="1.5" fill="var(--surface-3)"/>
+                  <rect x="0" y="6" width="110" height="3" rx="1.5" fill="var(--accent)"/>
+                </g>
+                <circle class="status-dot d1" cx="350" cy="113" r="3" fill="var(--success)"/>
+              </g>
+
+              <g class="layer-group l2">
+                <rect x="870" y="88" width="280" height="150" rx="6" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)"/>
+                <text x="898" y="124" fill="var(--info)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">MONEY LAYER · /02</text>
+                <text x="898" y="156" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">Finance &amp; Procurement</text>
+                <text x="898" y="186" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Spend, supplier work, approvals, audit</text>
+                <!-- Emblem: dollar sign -->
+                <g class="layer-emblem e2" transform="translate(1120 210)">
+                  <circle r="13" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                  <path d="M0 -7 V7 M4 -4 C2 -5 -1 -5 -3 -3 C-3 0 1 0 3 2 C3 4 1 5 -1 5 C-3 5 -4 4 -4 3" fill="none" stroke="var(--info)" stroke-width="1.4" stroke-linecap="round"/>
+                </g>
+                <g transform="translate(898 208)">
+                  <text font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--svg-text-3)" letter-spacing="0.06em">APPROVALS 88%</text>
+                  <rect x="0" y="6" width="120" height="3" rx="1.5" fill="var(--surface-3)"/>
+                  <rect x="0" y="6" width="105" height="3" rx="1.5" fill="var(--info)"/>
+                </g>
+                <circle class="status-dot d2" cx="1130" cy="113" r="3" fill="var(--success)"/>
+              </g>
+
+              <g class="layer-group l3">
+                <rect x="80" y="318" width="300" height="150" rx="6" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)"/>
+                <text x="108" y="354" fill="var(--accent-2)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">MARKET LAYER · /03</text>
+                <text x="108" y="386" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">Revenue &amp; CX</text>
+                <text x="108" y="416" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Signals, CRM, proposals, customer handoffs</text>
+                <!-- Emblem: trending up -->
+                <g class="layer-emblem e3" transform="translate(350 440)">
+                  <circle r="13" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                  <path d="M-7 4 L-2 -1 L1 2 L7 -5" fill="none" stroke="var(--accent-2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M3 -5 L7 -5 L7 -1" fill="none" stroke="var(--accent-2)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                <g transform="translate(108 438)">
+                  <text font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--svg-text-3)" letter-spacing="0.06em">HANDOFFS 86%</text>
+                  <rect x="0" y="6" width="120" height="3" rx="1.5" fill="var(--surface-3)"/>
+                  <rect x="0" y="6" width="103" height="3" rx="1.5" fill="var(--accent-2)"/>
+                </g>
+                <circle class="status-dot d3" cx="360" cy="343" r="3" fill="var(--success)"/>
+              </g>
+
+              <g class="layer-group l4">
+                <rect x="860" y="318" width="300" height="150" rx="6" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)"/>
+                <text x="888" y="354" fill="var(--accent)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">TRUST LAYER · /04</text>
+                <text x="888" y="386" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">People, Legal, Security</text>
+                <text x="888" y="416" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Identity, policy, account control, recovery</text>
+                <!-- Emblem: shield-check -->
+                <g class="layer-emblem e4" transform="translate(1130 440)">
+                  <circle r="13" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                  <path d="M0 -7 L6 -4 V2 C6 5 3 7 0 8 C-3 7 -6 5 -6 2 V-4 Z" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linejoin="round"/>
+                  <path d="M-2.5 0 L-0.5 2 L3 -2" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                <g transform="translate(888 438)">
+                  <text font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--svg-text-3)" letter-spacing="0.06em">IDENTITY 82%</text>
+                  <rect x="0" y="6" width="120" height="3" rx="1.5" fill="var(--surface-3)"/>
+                  <rect x="0" y="6" width="98" height="3" rx="1.5" fill="var(--accent)"/>
+                </g>
+                <circle class="status-dot d4" cx="1140" cy="343" r="3" fill="var(--success)"/>
+              </g>
+
+              <g class="layer-group l5">
+                <rect x="90" y="590" width="290" height="150" rx="6" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)"/>
+                <text x="118" y="626" fill="var(--info)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">OPERATING LAYER · /05</text>
+                <text x="118" y="658" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">Operations &amp; Service</text>
+                <text x="118" y="688" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Queues, exceptions, SLAs, workflow movement</text>
+                <!-- Emblem: workflow / nodes -->
+                <g class="layer-emblem e5" transform="translate(350 712)">
+                  <circle r="13" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                  <circle cx="-6" cy="-3" r="2.2" fill="var(--info)"/>
+                  <circle cx="6"  cy="-3" r="2.2" fill="var(--info)"/>
+                  <circle cx="0"  cy="5"  r="2.2" fill="var(--info)"/>
+                  <path d="M-6 -3 L0 5 L6 -3 M-6 -3 L6 -3" fill="none" stroke="var(--info)" stroke-width="1.3" stroke-linecap="round"/>
+                </g>
+                <g transform="translate(118 710)">
+                  <text font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--svg-text-3)" letter-spacing="0.06em">QUEUES 78%</text>
+                  <rect x="0" y="6" width="120" height="3" rx="1.5" fill="var(--surface-3)"/>
+                  <rect x="0" y="6" width="94" height="3" rx="1.5" fill="var(--info)"/>
+                </g>
+                <circle class="status-dot d5" cx="360" cy="615" r="3" fill="var(--success)"/>
+              </g>
+
+              <g class="layer-group l6">
+                <rect x="860" y="590" width="290" height="150" rx="6" fill="var(--svg-panel-1)" stroke="var(--svg-stroke)"/>
+                <text x="888" y="626" fill="var(--accent-2)" font-size="11" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">BUILD LAYER · /06</text>
+                <text x="888" y="658" fill="var(--svg-text-1)" font-size="20" font-weight="510" font-family="Inter, sans-serif" letter-spacing="-0.022em">Product, Eng, Data</text>
+                <text x="888" y="688" fill="var(--svg-text-2)" font-size="12" font-family="Inter, sans-serif">Repos, evals, tests, release gates</text>
+                <!-- Emblem: code brackets -->
+                <g class="layer-emblem e6" transform="translate(1130 712)">
+                  <circle r="13" fill="var(--surface-2)" stroke="var(--svg-stroke)"/>
+                  <path d="M-3 -5 L-7 0 L-3 5" fill="none" stroke="var(--accent-2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M3 -5 L7 0 L3 5" fill="none" stroke="var(--accent-2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M1 -5 L-1 5" fill="none" stroke="var(--accent-2)" stroke-width="1.3" stroke-linecap="round"/>
+                </g>
+                <g transform="translate(888 710)">
+                  <text font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--svg-text-3)" letter-spacing="0.06em">EVALS + ROLLBACK 90%</text>
+                  <rect x="0" y="6" width="120" height="3" rx="1.5" fill="var(--surface-3)"/>
+                  <rect x="0" y="6" width="108" height="3" rx="1.5" fill="var(--accent-2)"/>
+                </g>
+                <circle class="status-dot d6" cx="1140" cy="615" r="3" fill="var(--success)"/>
+              </g>
+            </g>
+
+            <g font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--svg-text-2)" letter-spacing="0.04em">
+              <text x="486" y="540">AUTONOMY LADDER</text>
+              <text x="486" y="566" fill="var(--svg-text-3)" font-size="11">suggest → prepare → modify → trigger → commit</text>
+              <text x="486" y="592" fill="var(--svg-text-3)" font-size="11">Each higher level requires stronger control.</text>
+            </g>
+            <g transform="translate(700 532)">
+              <g class="autonomy-pill p1">
+                <rect x="0"   y="0" width="86"  height="22" rx="2" fill="var(--svg-panel-1)" stroke="var(--accent)"/>
+                <text x="43"  y="15" text-anchor="middle" fill="var(--accent)" font-size="10" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">VISIBLE</text>
+              </g>
+              <g class="autonomy-pill p2">
+                <rect x="96"  y="0" width="100" height="22" rx="2" fill="var(--svg-panel-1)" stroke="var(--info)"/>
+                <text x="146" y="15" text-anchor="middle" fill="var(--info)" font-size="10" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">CONTROLLED</text>
+              </g>
+              <g class="autonomy-pill p3">
+                <rect x="206" y="0" width="100" height="22" rx="2" fill="var(--svg-panel-1)" stroke="var(--accent-2)"/>
+                <text x="256" y="15" text-anchor="middle" fill="var(--accent-2)" font-size="10" font-family="IBM Plex Mono, monospace" letter-spacing="0.04em">LEARNING</text>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="shifts">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="label">[ /02 WRITING SYNTHESIS ]</span>
+            <h2>The posts point to five adoption shifts.</h2>
+          </div>
+          <p class="section-copy">The map is not a generic department list. It comes from a repeated pattern in the daily and weekly writing: AI adoption starts as output, then becomes workflow movement, then becomes authority, evidence and recovery.</p>
+        </div>
+        <div class="insight-grid">
+          <article class="insight reveal" data-d="1">
+            <h3>Signal pattern from the writing archive</h3>
+            <ul class="signal-list">
+              <li>Revenue AI moves from content generation into customer signal routing, CRM updates, proposals and support handoffs.</li>
+              <li>Operations and procurement agents move closer to approvals, supplier workflows, ERP-connected sourcing and exception handling.</li>
+              <li>Trust and security become adoption layers because agents touch accounts, memory, documents, payment paths and permissions.</li>
+              <li>Product and engineering teams move from model access toward AI inside terminals, repositories, tests, evals and release workflows.</li>
+              <li>Leadership needs visibility into where AI enters work, what it can do, who approves it and how the company recovers when it is wrong.</li>
+            </ul>
+          </article>
+          <article class="insight reveal" data-d="2">
+            <h3>Autonomy ladder</h3>
+            <p>Every department should classify AI use by the level of authority granted, not by the tool name.</p>
+            <div class="ladder" aria-label="AI autonomy ladder">
+              <div class="rung"><strong>Suggest</strong><span>Summarize, draft, classify, analyze.</span><em class="risk">low</em></div>
+              <div class="rung"><strong>Prepare</strong><span>Create a next action for human review.</span><em class="risk med">medium</em></div>
+              <div class="rung"><strong>Modify</strong><span>Change a file, record, ticket or CRM field.</span><em class="risk high">high</em></div>
+              <div class="rung"><strong>Trigger</strong><span>Start a workflow, escalate, notify, route.</span><em class="risk high">high</em></div>
+              <div class="rung"><strong>Commit</strong><span>Spend, approve, deploy or contact externally.</span><em class="risk crit">critical</em></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="departments">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="label">[ /03 DEPARTMENT ADAPTATION MAP ]</span>
+            <h2>Department-by-department recommendations.</h2>
+          </div>
+          <p class="section-copy">Each layer has a different first pilot, a different control question and a different proof of value. The common thread is controlled workflow movement.</p>
+        </div>
+        <div class="map-grid" id="mapGrid">
+          <article class="map-card expandable reveal" data-d="1">
+            <span class="tag">Leadership / Strategy</span>
+            <h3>Make agent work visible before scaling it.</h3>
+            <p>Leadership should treat AI as an operating-model question, not a collection of disconnected pilots.</p>
+            <ul>
+              <li>Maintain an AI initiative cockpit with owner, risk, autonomy level and review cadence.</li>
+              <li>Require decision logs for workflows where AI prepares or influences strategic choices.</li>
+              <li>Define which exceptions reach executives and which remain at department level.</li>
+            </ul>
+            <button class="expand-btn" type="button" aria-expanded="false">More <span class="chev" aria-hidden="true">▾</span></button>
+            <div class="expand-body">
+              <dl class="x-grid">
+                <dt>Today</dt><dd>Most leadership teams have a deck of pilots, no shared cockpit, and no recurring review cadence.</dd>
+                <dt>Pitfall</dt><dd>Treating AI as a procurement decision instead of an operating-model decision.</dd>
+                <dt>Signal</dt><dd>When the same question reaches the executive twice from different teams - that's an unowned workflow.</dd>
+              </dl>
+            </div>
+          </article>
+          <article class="map-card expandable reveal" data-d="2">
+            <span class="tag">Revenue / Market</span>
+            <h3>Move from content volume to signal routing.</h3>
+            <p>Marketing, sales and CX gain leverage when AI connects customer signals to next actions.</p>
+            <ul>
+              <li>Pilot account context preparation, CRM hygiene and support-to-sales handoff summaries.</li>
+              <li>Route proposals through brand, legal and finance review before external use.</li>
+              <li>Measure quality by pipeline movement and renewal risk visibility, not output count.</li>
+            </ul>
+            <button class="expand-btn" type="button" aria-expanded="false">More <span class="chev" aria-hidden="true">▾</span></button>
+            <div class="expand-body">
+              <dl class="x-grid">
+                <dt>Today</dt><dd>Generative tools live in inboxes and decks; CRM stays dirty and follow-up is inconsistent.</dd>
+                <dt>Pitfall</dt><dd>Counting tokens generated as if they were pipeline movement.</dd>
+                <dt>Signal</dt><dd>Watch whether AI-prepared notes shorten time-to-next-touch - the only metric that connects work to revenue.</dd>
+              </dl>
+            </div>
+          </article>
+          <article class="map-card expandable reveal" data-d="3">
+            <span class="tag">Operations / Service</span>
+            <h3>Use AI where exceptions are visible.</h3>
+            <p>Operations should start with workflow preparation, triage and escalation rather than hidden automation.</p>
+            <ul>
+              <li>Map queues, bottlenecks, SLAs and handoffs before selecting tools.</li>
+              <li>Let agents prepare decisions, compare options and detect exceptions before humans approve.</li>
+              <li>Track every escalation with owner, reason, time saved and failure mode.</li>
+            </ul>
+            <button class="expand-btn" type="button" aria-expanded="false">More <span class="chev" aria-hidden="true">▾</span></button>
+            <div class="expand-body">
+              <dl class="x-grid">
+                <dt>Today</dt><dd>Most ops teams have queue tools but no consistent escalation grammar - exceptions disappear into Slack threads.</dd>
+                <dt>Pitfall</dt><dd>Hiding automation behind a single power-user; the workflow becomes opaque to managers.</dd>
+                <dt>Signal</dt><dd>Time-to-resolution drops without a corresponding rise in re-opened tickets.</dd>
+              </dl>
+            </div>
+          </article>
+          <article class="map-card expandable reveal" data-d="1">
+            <span class="tag">Finance / Procurement</span>
+            <h3>Protect spend authority with explicit gates.</h3>
+            <p>Money workflows are high leverage because they are repetitive, evidence-heavy and risk-sensitive.</p>
+            <ul>
+              <li>Start with invoice preparation, vendor comparison, tail-spend analysis or forecast briefs.</li>
+              <li>Separate recommendation, approval and commitment rights.</li>
+              <li>Log source evidence, model cost, approval path and recovery owner.</li>
+            </ul>
+            <button class="expand-btn" type="button" aria-expanded="false">More <span class="chev" aria-hidden="true">▾</span></button>
+            <div class="expand-body">
+              <dl class="x-grid">
+                <dt>Today</dt><dd>Spend categorisation, supplier comparison and forecast prep are still email-driven for most teams.</dd>
+                <dt>Pitfall</dt><dd>Letting AI both recommend and commit - recommendation and commitment must be different roles.</dd>
+                <dt>Signal</dt><dd>Audit-ready evidence appears on every invoice without anyone having to chase it.</dd>
+              </dl>
+            </div>
+          </article>
+          <article class="map-card expandable reveal" data-d="2">
+            <span class="tag">People / Legal / Trust</span>
+            <h3>Treat agents as identities, not just tools.</h3>
+            <p>Trust becomes operational when AI accounts can access memory, documents, files and delegated actions.</p>
+            <ul>
+              <li>Define onboarding, role-change and offboarding rules for AI accounts and agents.</li>
+              <li>Document what AI may suggest, prepare, send, buy or trigger.</li>
+              <li>Create audit and recovery procedures before expanding access.</li>
+            </ul>
+            <button class="expand-btn" type="button" aria-expanded="false">More <span class="chev" aria-hidden="true">▾</span></button>
+            <div class="expand-body">
+              <dl class="x-grid">
+                <dt>Today</dt><dd>Most companies have no inventory of which agents exist or what they can read; HR and IT inherit the risk.</dd>
+                <dt>Pitfall</dt><dd>Treating agents as &ldquo;tools&rdquo; rather than identities - making offboarding impossible.</dd>
+                <dt>Signal</dt><dd>An agent registry exists, names an owner, and is reviewed at the same cadence as human access.</dd>
+              </dl>
+            </div>
+          </article>
+          <article class="map-card expandable reveal" data-d="3">
+            <span class="tag">Product / Engineering / Data</span>
+            <h3>Turn velocity into disciplined operating loops.</h3>
+            <p>Developer and product AI needs scope, tests, evals, code review and rollback, not just faster generation.</p>
+            <ul>
+              <li>Classify AI workflows by file access, command access, repo scope and deployment authority.</li>
+              <li>Make evals and review gates part of the release workflow.</li>
+              <li>Preserve artifacts: prompt context, diff, test result, reviewer and rollback path.</li>
+            </ul>
+            <button class="expand-btn" type="button" aria-expanded="false">More <span class="chev" aria-hidden="true">▾</span></button>
+            <div class="expand-body">
+              <dl class="x-grid">
+                <dt>Today</dt><dd>AI inside terminals and IDEs accelerates output; release discipline often lags behind.</dd>
+                <dt>Pitfall</dt><dd>Granting unrestricted shell or deploy access to demonstrate &ldquo;agentic&rdquo; capability.</dd>
+                <dt>Signal</dt><dd>Velocity rises without on-call pages - a sign tests, evals and rollback are wired in.</dd>
+              </dl>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="controls">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="label">[ /04 CONTROL SCORECARD ]</span>
+            <h2>Five controls determine whether adoption can scale.</h2>
+          </div>
+          <p class="section-copy">The weekly synthesis repeatedly returns to the same control stack: visible work, explicit boundaries, human approvals, evidence trails and recovery loops.</p>
+        </div>
+        <div class="control-grid" aria-label="AI adoption control scorecard">
+          <article class="metric reveal" data-d="1" style="--target:92%"><div class="num">/01 · Visibility</div><h3>Where does AI live?</h3><p>Which workflows contain AI, which agents exist, and where do they operate?</p><div class="bar"><i></i></div></article>
+          <article class="metric reveal" data-d="2" style="--target:86%"><div class="num">/02 · Boundary</div><h3>What can it touch?</h3><p>What can AI read, write, trigger, change or never touch?</p><div class="bar"><i></i></div></article>
+          <article class="metric reveal" data-d="3" style="--target:88%"><div class="num">/03 · Approval</div><h3>Who signs off?</h3><p>When is a human checkpoint required before movement or commitment?</p><div class="bar"><i></i></div></article>
+          <article class="metric reveal" data-d="4" style="--target:82%"><div class="num">/04 · Evidence</div><h3>What is preserved?</h3><p>Where are inputs, outputs, decisions, logs and review notes preserved?</p><div class="bar"><i></i></div></article>
+          <article class="metric reveal" data-d="5" style="--target:78%"><div class="num">/05 · Recovery</div><h3>How do we undo?</h3><p>How can access be revoked, actions reversed and workflows improved after failure?</p><div class="bar"><i></i></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="matrix">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="label">[ /05 ADOPTION MATRIX ]</span>
+            <h2>Where to start, what to control, how to prove value.</h2>
+          </div>
+          <p class="section-copy">This matrix turns the department map into a practical conversation guide for pilots, hiring interviews and advisory discussions.</p>
+        </div>
+        <div class="matrix-wrap reveal">
+          <span class="scroll-hint" aria-hidden="true">← scroll →</span>
+          <table>
+            <thead>
+              <tr><th>Layer</th><th>Best first pilot</th><th>Safe autonomy level</th><th>Primary control</th><th>Proof of value</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Leadership</td><td>AI initiative cockpit and risk review brief.</td><td><span class="pill">Suggest</span><span class="pill prep">Prepare</span></td><td>Named owner and decision log.</td><td>Faster review cadence, fewer invisible pilots.</td></tr>
+              <tr><td>Revenue / CX</td><td>Account context, CRM updates, support-to-sales handoff.</td><td><span class="pill prep">Prepare</span><span class="pill modify">Modify</span></td><td>External message and data-use approval.</td><td>Better follow-up quality, cleaner CRM, visible renewal risks.</td></tr>
+              <tr><td>Operations</td><td>Queue triage, exception detection, SLA summaries.</td><td><span class="pill prep">Prepare</span><span class="pill trigger">Trigger</span></td><td>Escalation path and exception owner.</td><td>Shorter cycle time, fewer stuck handoffs.</td></tr>
+              <tr><td>Finance / Procurement</td><td>Invoice preparation, vendor comparison, tail spend review.</td><td><span class="pill">Suggest</span><span class="pill prep">Prepare</span></td><td>Approval before commitment or spend.</td><td>Audit-ready evidence, reduced manual chase work.</td></tr>
+              <tr><td>Trust / Legal / Security</td><td>AI account inventory, permission map, policy review workflow.</td><td><span class="pill">Suggest</span><span class="pill prep">Prepare</span></td><td>Identity, permission, recovery procedure.</td><td>Known agent inventory, lower shadow-agent risk.</td></tr>
+              <tr><td>Product / Eng / Data</td><td>Controlled coding workflow with tests, evals and review gates.</td><td><span class="pill prep">Prepare</span><span class="pill modify">Modify</span><span class="pill trigger">Trigger</span></td><td>Scope, sandbox, test, review, rollback.</td><td>Higher delivery velocity without hidden authority.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="rollout">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="label">[ /06 90-DAY ROLLOUT ]</span>
+            <h2>A practical rollout sequence for accountable adoption.</h2>
+          </div>
+          <p class="section-copy">The goal is not to automate everything quickly. The goal is to learn where AI can move work safely while making the controls reusable across departments.</p>
+        </div>
+        <div class="agent-plan-shell reveal" data-agent-plan aria-label="AI adoption execution plan inspired by 21st.dev agent-plan">
+          <div class="agent-plan-head">
+            <span>21st.dev / agent-plan</span>
+            <strong>AI adoption execution plan</strong>
+            <em class="agent-plan-state">3 active MCP rails</em>
+          </div>
+          <article class="agent-task is-open" data-agent-task>
+            <button class="agent-task-row" type="button" aria-expanded="true">
+              <i class="status-dot active" aria-hidden="true"></i>
+              <span><b>Map current AI work</b><em>Inventory tools, owners, data access and hidden pilots.</em></span>
+              <span class="priority high">high</span>
+            </button>
+            <div class="agent-subtasks">
+              <div class="agent-subtask"><i class="status-dot done" aria-hidden="true"></i><span><strong>Collect agent and tool inventory</strong><span>Who uses what, where it runs, what it can read.</span></span><em class="tool-chip">browser</em></div>
+              <div class="agent-subtask"><i class="status-dot active" aria-hidden="true"></i><span><strong>Trace workflow handoffs</strong><span>Surface the steps where AI changes responsibility.</span></span><em class="tool-chip">workflow-map</em></div>
+              <div class="agent-subtask"><i class="status-dot pending" aria-hidden="true"></i><span><strong>Classify autonomy level</strong><span>Suggest, prepare, modify, trigger or commit.</span></span><em class="tool-chip">policy</em></div>
+            </div>
+          </article>
+          <article class="agent-task" data-agent-task>
+            <button class="agent-task-row" type="button" aria-expanded="false">
+              <i class="status-dot pending" aria-hidden="true"></i>
+              <span><b>Pilot with approval gates</b><em>Choose one department pilot and make every boundary visible.</em></span>
+              <span class="priority med">medium</span>
+            </button>
+            <div class="agent-subtasks">
+              <div class="agent-subtask"><i class="status-dot pending" aria-hidden="true"></i><span><strong>Define read and write boundaries</strong><span>What AI can inspect, prepare, change or never touch.</span></span><em class="tool-chip">access</em></div>
+              <div class="agent-subtask"><i class="status-dot pending" aria-hidden="true"></i><span><strong>Add human checkpoints</strong><span>Approval before external messages, spending or deployment.</span></span><em class="tool-chip">review</em></div>
+              <div class="agent-subtask"><i class="status-dot pending" aria-hidden="true"></i><span><strong>Preserve evidence</strong><span>Inputs, outputs, reviewer, decision and rollback path.</span></span><em class="tool-chip">logs</em></div>
+            </div>
+          </article>
+          <article class="agent-task" data-agent-task>
+            <button class="agent-task-row" type="button" aria-expanded="false">
+              <i class="status-dot pending" aria-hidden="true"></i>
+              <span><b>Standardize and scale</b><em>Turn the pilot into templates, dashboards and recovery drills.</em></span>
+              <span class="priority">ready</span>
+            </button>
+            <div class="agent-subtasks">
+              <div class="agent-subtask"><i class="status-dot pending" aria-hidden="true"></i><span><strong>Publish reusable controls</strong><span>Owner, boundary, evidence and approval templates.</span></span><em class="tool-chip">playbook</em></div>
+              <div class="agent-subtask"><i class="status-dot pending" aria-hidden="true"></i><span><strong>Build a cross-team dashboard</strong><span>Adoption status, risks, incidents and value signals.</span></span><em class="tool-chip">dashboard</em></div>
+              <div class="agent-subtask"><i class="status-dot pending" aria-hidden="true"></i><span><strong>Run recovery drills</strong><span>Revoke access, undo actions and update the operating model.</span></span><em class="tool-chip">recovery</em></div>
+            </div>
+          </article>
+        </div>
+        <div class="timeline beveled-timeline" data-rect-timeline aria-label="Beveled rectangular adoption timeline inspired by radial orbital timeline">
+          <article class="timeline-step reveal is-active" data-d="1" data-timeline-step="map" style="--energy: 92%">
+            <div class="step-top"><div class="step-num">/ 0-30 DAYS</div><span class="timeline-status active">in progress</span></div>
+            <h3>Map and classify</h3>
+            <p>Create an inventory of AI use, workflows, data access, department owners and autonomy levels. Pick one pilot where review is easy and failure is recoverable.</p>
+            <div class="energy-bar" aria-hidden="true"><i></i></div><div class="timeline-energy">energy 92</div>
+            <ul class="signal-list"><li>Agent / tool inventory</li><li>Workflow map</li><li>Autonomy classification</li></ul>
+            <div class="timeline-links"><button class="timeline-link" type="button" data-related="pilot">next: pilot</button><button class="timeline-link" type="button" data-related="scale">related: controls</button></div>
+          </article>
+          <article class="timeline-step reveal" data-d="2" data-timeline-step="pilot" style="--energy: 68%">
+            <div class="step-top"><div class="step-num">/ 31-60 DAYS</div><span class="timeline-status active">pilot</span></div>
+            <h3>Pilot with gates</h3>
+            <p>Run one department pilot with explicit boundaries: what AI can read, prepare, modify or trigger, and which actions require approval.</p>
+            <div class="energy-bar" aria-hidden="true"><i></i></div><div class="timeline-energy">energy 68</div>
+            <ul class="signal-list"><li>Approval checkpoints</li><li>Evidence logging</li><li>Escalation rules</li></ul>
+            <div class="timeline-links"><button class="timeline-link" type="button" data-related="map">depends: map</button><button class="timeline-link" type="button" data-related="scale">next: scale</button></div>
+          </article>
+          <article class="timeline-step reveal" data-d="3" data-timeline-step="scale" style="--energy: 42%">
+            <div class="step-top"><div class="step-num">/ 61-90 DAYS</div><span class="timeline-status pending">pending</span></div>
+            <h3>Standardize and scale</h3>
+            <p>Convert the pilot into reusable adoption patterns: control templates, scorecards, review cadence, training notes and rollback procedures.</p>
+            <div class="energy-bar" aria-hidden="true"><i></i></div><div class="timeline-energy">energy 42</div>
+            <ul class="signal-list"><li>Reusable playbooks</li><li>Cross-department dashboard</li><li>Learning loop and recovery drills</li></ul>
+            <div class="timeline-links"><button class="timeline-link" type="button" data-related="map">source: map</button><button class="timeline-link" type="button" data-related="pilot">depends: pilot</button></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="framing">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="label">[ /07 INTERVIEW-READY FRAMING ]</span>
+            <h2>The core adoption argument in one sentence.</h2>
+          </div>
+          <p class="section-copy">AI adoption is no longer mainly a model-selection problem. It is an operating-design problem: what AI can do, under whose authority, with what evidence, and how the organization recovers when it is wrong.</p>
+        </div>
+        <div class="grid">
+          <article class="card reveal" data-d="1"><h3>For hiring conversations</h3><p>Use this map to explain how you think across business, operations, technology and governance without sounding theoretical.</p><ul><li>Shows department empathy</li><li>Connects AI to work movement</li><li>Frames risk as design work</li></ul></article>
+          <article class="card reveal" data-d="2"><h3>For advisory conversations</h3><p>Use the control plane to help teams choose pilots that create evidence without creating unmanaged authority.</p><ul><li>Starts with workflow mapping</li><li>Defines approval gates early</li><li>Creates reusable adoption patterns</li></ul></article>
+          <article class="card reveal" data-d="3"><h3>For content continuity</h3><p>Each future Daily Signal can attach to the map: one signal, one department, one workflow change, one operator takeaway.</p><ul><li>Daily writing feeds the map</li><li>Weekly synthesis updates the thesis</li><li>Portfolio page becomes a living operating model</li></ul></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Command palette overlay -->
+  <div class="cmdk-backdrop" id="cmdkBackdrop" role="dialog" aria-modal="true" aria-label="Command palette">
+    <div class="cmdk">
+      <div class="cmdk-search">
+        <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>
+        <input class="cmdk-input" id="cmdkInput" type="text" placeholder="Type to search or jump (try theme, contact, operating map)…" autocomplete="off" />
+        <span class="cmdk-esc">ESC</span>
+      </div>
+      <div class="cmdk-list" id="cmdkList"></div>
+      <div class="cmdk-foot">
+        <span><kbd>↑</kbd><kbd>↓</kbd> navigate · <kbd>↵</kbd> select · <kbd>esc</kbd> close</span>
+        <span>⌘K anywhere</span>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer" id="contact">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="col">
+          <span class="label">[ CONTACT ]</span>
+          <h2>Need an adoption map for a real team?</h2>
+          <p>I can help translate AI possibilities into workflow ownership, control points, pilots and communication that teams can use.</p>
+          <div class="cta-row">
+            <a class="button primary" href="mailto:ali.ozen@rwth-aachen.de">ali.ozen@rwth-aachen.de</a>
+            <a class="button" href="https://linkedin.com/in/0xozen">LinkedIn <svg class="ico" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+          </div>
+        </div>
+        <div class="col">
+          <h4>Site</h4>
+          <ul>
+            <li><a href="index.html">Home <span class="ext">/01</span></a></li>
+            <li><a href="index.html#work">Work <span class="ext">/02</span></a></li>
+            <li><a href="index.html#diagrams">Interactive diagrams <span class="ext">/03</span></a></li>
+            <li><a href="writing-archive.html">Writing archive <span class="ext">↗</span></a></li>
+          </ul>
+        </div>
+        <div class="col">
+          <h4>Elsewhere</h4>
+          <ul>
+            <li><a href="https://linkedin.com/in/0xozen">LinkedIn <span class="ext">↗</span></a></li>
+            <li><a href="https://github.com/0xOzen">GitHub <span class="ext">↗</span></a></li>
+            <li><a href="mailto:ali.ozen@rwth-aachen.de">Email <span class="ext">↗</span></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <span>Cologne, DE · 2026</span>
+        <span>Terminal · Dark · Cursor</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* Theme picker */
+    (function () {
+      var meta = document.getElementById('theme-color-meta');
+      var btns = document.querySelectorAll('.theme-switch [data-theme-set], .theme-picker [data-theme-set]');
+      var THEME_COLOR = { terminal: '#060707', linear: '#08090a' };
+      var THEMES = ['terminal', 'linear'];
+      function valid(t) { return THEMES.indexOf(t) !== -1; }
+      function setTheme(t) {
+        if (!valid(t)) t = 'terminal';
+        document.documentElement.setAttribute('data-theme', t);
+        try { localStorage.setItem('theme', t); } catch (e) {}
+        if (meta) meta.setAttribute('content', THEME_COLOR[t]);
+        btns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.themeSet === t ? 'true' : 'false'); });
+      }
+      var current = document.documentElement.getAttribute('data-theme') || 'terminal';
+      if (!valid(current)) current = 'terminal';
+      setTheme(current);
+      btns.forEach(function (b) { b.addEventListener('click', function () { setTheme(b.dataset.themeSet); }); });
+    })();
+
+    /* Mobile topbar */
+    (function () {
+      document.addEventListener('click', function (event) {
+        var bar = document.querySelector('.topbar');
+        if (!bar) return;
+        if (event.target.closest('[data-menu]')) {
+          bar.classList.toggle('open');
+          return;
+        }
+        if (bar.classList.contains('open') && !event.target.closest('.navlinks')) {
+          bar.classList.remove('open');
+        }
+      });
+      document.querySelectorAll('.topbar .navlinks a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          var bar = document.querySelector('.topbar');
+          if (bar) bar.classList.remove('open');
+        });
+      });
+    })();
+
+    /* Expand-on-click department cards (single-open accordion) */
+    (function () {
+      var cards = document.querySelectorAll('.map-card.expandable');
+      cards.forEach(function (card) {
+        var btn = card.querySelector('.expand-btn');
+        if (!btn) return;
+        function toggle() {
+          var isOpen = card.classList.toggle('is-open');
+          btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+          btn.firstChild.nodeValue = isOpen ? 'Less ' : 'More ';
+          if (isOpen) {
+            cards.forEach(function (other) {
+              if (other !== card && other.classList.contains('is-open')) {
+                other.classList.remove('is-open');
+                var ob = other.querySelector('.expand-btn');
+                if (ob) { ob.setAttribute('aria-expanded', 'false'); ob.firstChild.nodeValue = 'More '; }
+              }
+            });
+          }
+        }
+        btn.addEventListener('click', function (e) { e.stopPropagation(); toggle(); });
+      });
+    })();
+
+    /* Agent-plan accordion */
+    (function () {
+      var tasks = document.querySelectorAll('[data-agent-task]');
+      if (!tasks.length) return;
+      tasks.forEach(function (task) {
+        var row = task.querySelector('.agent-task-row');
+        if (!row) return;
+        row.addEventListener('click', function () {
+          var isOpen = !task.classList.contains('is-open');
+          tasks.forEach(function (other) {
+            other.classList.remove('is-open');
+            var otherRow = other.querySelector('.agent-task-row');
+            if (otherRow) otherRow.setAttribute('aria-expanded', 'false');
+          });
+          task.classList.toggle('is-open', isOpen);
+          row.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+      });
+    })();
+
+    /* Beveled rectangular timeline interactions */
+    (function () {
+      var steps = document.querySelectorAll('[data-timeline-step]');
+      if (!steps.length) return;
+      function activate(id) {
+        steps.forEach(function (step) {
+          step.classList.toggle('is-active', step.dataset.timelineStep === id);
+        });
+      }
+      steps.forEach(function (step) {
+        step.setAttribute('tabindex', '0');
+        step.addEventListener('click', function () { activate(step.dataset.timelineStep); });
+        step.addEventListener('keydown', function (event) {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            activate(step.dataset.timelineStep);
+          }
+        });
+        step.querySelectorAll('[data-related]').forEach(function (button) {
+          button.addEventListener('click', function (event) {
+            event.stopPropagation();
+            activate(button.dataset.related);
+          });
+        });
+      });
+    })();
+
+    /* Scroll-fade reveal */
+    (function () {
+      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var els = document.querySelectorAll('.reveal');
+      if (prefersReduced || !('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('in-view'); });
+        var d = document.querySelector('.diagram-shell');
+        if (d) d.classList.add('animate');
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('in-view');
+            if (e.target.classList.contains('diagram-shell')) {
+              e.target.classList.add('animate');
+            }
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+
+    /* Control-plane terminal typing animation */
+    (function () {
+      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var cmdEl   = document.getElementById('cpCmd');
+      var caretEl = document.getElementById('cpCaret');
+      var body    = document.getElementById('cpBody');
+      var cards   = document.querySelectorAll('#cpCards .cp-card');
+      if (!cmdEl || !body) return;
+
+      var steps = body.querySelectorAll('[data-step]');
+      function showAll() {
+        cmdEl.textContent = 'adopt status --layer all';
+        steps.forEach(function (s) { s.classList.add('shown'); });
+        cards.forEach(function (c) { c.classList.add('shown'); });
+      }
+      if (prefersReduced) { showAll(); return; }
+
+      var phrase = 'adopt status --layer all';
+      var i = 0;
+      function tick() {
+        if (i <= phrase.length) {
+          cmdEl.textContent = phrase.slice(0, i);
+          i++;
+          setTimeout(tick, 36 + Math.random() * 30);
+        } else {
+          if (caretEl) caretEl.style.animationDuration = '1.4s';
+          steps.forEach(function (s, idx) {
+            setTimeout(function () { s.classList.add('shown'); }, 160 * (idx + 1));
+          });
+          cards.forEach(function (c, idx) {
+            setTimeout(function () { c.classList.add('shown'); }, 160 * (steps.length + 1) + 120 * idx);
+          });
+        }
+      }
+
+      // Trigger when the panel scrolls into view (or right away if already there)
+      var panel = document.querySelector('.control-plane');
+      if (!panel || !('IntersectionObserver' in window)) { setTimeout(tick, 480); return; }
+      var rect = panel.getBoundingClientRect();
+      if (rect.top < window.innerHeight) {
+        setTimeout(tick, 480);
+      } else {
+        var io2 = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              setTimeout(tick, 200);
+              io2.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.2 });
+        io2.observe(panel);
+      }
+    })();
+
+    /* Counter roll-up for source-strip numbers */
+    (function () {
+      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var nodes = document.querySelectorAll('[data-count]');
+      if (!nodes.length) return;
+      function runCount(el) {
+        var target = parseInt(el.dataset.count, 10) || 0;
+        var suffix = el.dataset.suffix || '';
+        if (prefersReduced) { el.textContent = target + suffix; return; }
+        var start = performance.now();
+        var dur = 900;
+        function frame(t) {
+          var p = Math.min(1, (t - start) / dur);
+          // ease-out cubic
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(target * eased) + suffix;
+          if (p < 1) requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+      }
+      if (!('IntersectionObserver' in window)) {
+        nodes.forEach(runCount);
+        return;
+      }
+      var io3 = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { runCount(e.target); io3.unobserve(e.target); }
+        });
+      }, { threshold: 0.5 });
+      nodes.forEach(function (n) { io3.observe(n); });
+    })();
+
+    /* Smooth-scroll offset for sticky nav on jump links */
+    (function () {
+      var links = document.querySelectorAll('a[href^="#"]');
+      links.forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          var id = a.getAttribute('href');
+          if (!id || id === '#' || id.length < 2) return;
+          var t = document.querySelector(id);
+          if (!t) return;
+          e.preventDefault();
+          var y = t.getBoundingClientRect().top + window.pageYOffset - 80;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        });
+      });
+    })();
+
+    /* 21st animated hero adaptation */
+    (function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.querySelectorAll('[data-hero-word]').forEach(function (word) {
+        var host = word.closest('[data-hero-words]');
+        var words = host && host.dataset.heroWords
+          ? host.dataset.heroWords.split('|').map(function (item) { return item.trim(); }).filter(Boolean)
+          : [];
+        var index = Math.max(0, words.indexOf(word.textContent.trim()));
+        if (reduce || words.length < 2) return;
+        setInterval(function () {
+          word.classList.remove('swap-in');
+          word.classList.add('swap-out');
+          setTimeout(function () {
+            index = (index + 1) % words.length;
+            word.textContent = words[index];
+            word.classList.remove('swap-out');
+            word.classList.add('swap-in');
+          }, 260);
+        }, 2200);
+      });
+    })();
+
+    /* Command palette (Cmd+K) */
+    (function () {
+      var backdrop = document.getElementById('cmdkBackdrop');
+      var input = document.getElementById('cmdkInput');
+      var list = document.getElementById('cmdkList');
+      if (!backdrop || !input || !list) return;
+      var trigger = document.getElementById('cmdkTrigger') || document.getElementById('searchTrigger');
+      var pageId = document.documentElement.dataset.page || 'home';
+      function setTheme(t) {
+        if (['terminal','linear'].indexOf(t) < 0) return;
+        document.documentElement.setAttribute('data-theme', t);
+        try { localStorage.setItem('theme', t); } catch (e) {}
+        var meta = document.getElementById('theme-color-meta');
+        var col = { terminal:'#060707', linear:'#08090a' }[t];
+        if (meta && col) meta.setAttribute('content', col);
+        document.querySelectorAll('.theme-switch [data-theme-set], .theme-picker [data-theme-set]').forEach(function (b) {
+          b.setAttribute('aria-pressed', b.dataset.themeSet === t ? 'true' : 'false');
+        });
+      }
+      function toast(msg) {
+        var t = document.createElement('div');
+        t.textContent = msg;
+        t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--surface-1);border:1px solid var(--border-soft);color:var(--text-1);padding:10px 14px;border-radius:8px;font:13px var(--font-sans);box-shadow:var(--shadow-xl);z-index:200;opacity:0;transition:opacity .2s';
+        document.body.appendChild(t);
+        requestAnimationFrame(function(){ t.style.opacity='1'; });
+        setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); }, 250); }, 1600);
+      }
+      function copyEmail() {
+        var email = 'ali.ozen@rwth-aachen.de';
+        if (navigator.clipboard) { navigator.clipboard.writeText(email).then(function(){ toast('Copied ' + email); }).catch(function(){ toast(email); }); }
+        else { toast(email); }
+      }
+      var commands = [];
+      commands.push(
+        { section:'Navigate', label:'Home', icon:'i-home', meta:'index.html', current: pageId==='home', action: function(){ location.href = 'index.html'; } },
+        { section:'Navigate', label:'Writing archive', icon:'i-edit', meta:'writing-archive.html', current: pageId==='writing', action: function(){ location.href = 'writing-archive.html'; } },
+        { section:'Navigate', label:'Department AI adoption', icon:'i-grid', meta:'department-adoption.html', current: pageId==='adoption', action: function(){ location.href = 'department-adoption.html'; } }
+      );
+      var sectionEls = document.querySelectorAll('main section[id]');
+      Array.prototype.forEach.call(sectionEls, function(s){
+        var h = s.querySelector('h2') || s.querySelector('h3');
+        if (!h) return;
+        commands.push({
+          section:'Jump to section',
+          label: h.textContent.trim(), icon:'i-anchor', meta:'#'+s.id,
+          action: function(){
+            var y = s.getBoundingClientRect().top + window.pageYOffset - 80;
+            window.scrollTo({ top:y, behavior:'smooth' });
+            history.replaceState(null, '', '#'+s.id);
+          }
+        });
+      });
+      commands.push(
+        { section:'Theme', label:'Terminal · data field', icon:'i-moon', action: function(){ setTheme('terminal'); toast('Theme: Terminal'); } },
+        { section:'Theme', label:'Dark · Linear', icon:'i-grid', action: function(){ setTheme('linear'); toast('Theme: Dark'); } }
+      );
+      commands.push(
+        { section:'Actions', label:'Copy email — ali.ozen@rwth-aachen.de', icon:'i-copy', action: copyEmail },
+        { section:'Actions', label:'Send email', icon:'i-mail', action: function(){ location.href = 'mailto:ali.ozen@rwth-aachen.de'; } },
+        { section:'Actions', label:'Open LinkedIn', icon:'i-link', meta:'linkedin.com/in/0xozen', action: function(){ window.open('https://linkedin.com/in/0xozen','_blank','noopener'); } },
+        { section:'Actions', label:'Open GitHub',   icon:'i-link', meta:'github.com/0xOzen',      action: function(){ window.open('https://github.com/0xOzen','_blank','noopener'); } }
+      );
+      var filtered = commands.slice(), activeIndex = 0;
+      function escapeHtml(s){ return String(s).replace(/[&<>]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; }); }
+      function render() {
+        if (!filtered.length) { list.innerHTML = '<div class="cmdk-empty">No matches. Try another query.</div>'; return; }
+        var lastSection = '', html = '';
+        filtered.forEach(function (c, idx) {
+          if (c.section !== lastSection) { html += '<div class="cmdk-section">' + escapeHtml(c.section) + '</div>'; lastSection = c.section; }
+          html += '<button class="cmdk-result' + (idx === activeIndex ? ' active' : '') + '" type="button" data-idx="' + idx + '">' +
+                    '<svg class="ico" aria-hidden="true"><use href="#' + c.icon + '"/></svg>' +
+                    '<span><span class="ttl">' + escapeHtml(c.label) + '</span>' + (c.meta ? '<span class="meta">' + escapeHtml(c.meta) + '</span>' : '') + '</span>' +
+                    (c.current ? '<span class="cur">current</span>' : '<span class="arr">↵</span>') +
+                  '</button>';
+        });
+        list.innerHTML = html;
+        Array.prototype.forEach.call(list.querySelectorAll('.cmdk-result'), function (btn) {
+          btn.addEventListener('click', function () { exec(parseInt(btn.dataset.idx, 10)); });
+          btn.addEventListener('mousemove', function () { var i = parseInt(btn.dataset.idx, 10); if (i !== activeIndex) { activeIndex = i; updateActive(); } });
+        });
+      }
+      function updateActive(){ Array.prototype.forEach.call(list.querySelectorAll('.cmdk-result'), function(btn, i){ btn.classList.toggle('active', i === activeIndex); }); }
+      function exec(idx) { var c = filtered[idx]; if (!c) return; close(); setTimeout(function(){ c.action(); }, 50); }
+      function filter(q) {
+        q = (q || '').trim().toLowerCase();
+        if (!q) filtered = commands.slice();
+        else filtered = commands.filter(function (c) { return (c.label + ' ' + c.section + ' ' + (c.meta||'')).toLowerCase().indexOf(q) !== -1; });
+        activeIndex = 0; render();
+      }
+      function open() { backdrop.classList.add('open'); document.body.style.overflow = 'hidden'; setTimeout(function () { input.focus(); input.select(); }, 0); filter(input.value); }
+      function close() { backdrop.classList.remove('open'); document.body.style.overflow = ''; }
+      if (trigger) trigger.addEventListener('click', open);
+      document.addEventListener('keydown', function (e) {
+        var isMod = e.metaKey || e.ctrlKey;
+        if (isMod && (e.key === 'k' || e.key === 'K')) { e.preventDefault(); if (backdrop.classList.contains('open')) close(); else open(); return; }
+        if (!backdrop.classList.contains('open')) return;
+        if (e.key === 'Escape') { e.preventDefault(); close(); }
+        else if (e.key === 'ArrowDown') { e.preventDefault(); activeIndex = Math.min(activeIndex + 1, filtered.length - 1); updateActive(); scrollActive(); }
+        else if (e.key === 'ArrowUp')   { e.preventDefault(); activeIndex = Math.max(activeIndex - 1, 0); updateActive(); scrollActive(); }
+        else if (e.key === 'Enter')     { e.preventDefault(); exec(activeIndex); }
+      });
+      function scrollActive() { var act = list.querySelector('.cmdk-result.active'); if (act) act.scrollIntoView({ block: 'nearest' }); }
+      input.addEventListener('input', function () { filter(input.value); });
+      backdrop.addEventListener('click', function (e) { if (e.target === backdrop) close(); });
+      filter('');
+    })();
+  </script>
+</body>
+</html>

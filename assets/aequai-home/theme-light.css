@@ -1,0 +1,516 @@
+/* GENERATED FILE - do not edit by hand.
+   Built by scripts/build_light_theme.py from:
+     assets/demo.css, assets/demo-ext.css, assets/corporate-pages.css
+   Edit the dark stylesheets or the TAIL block in that script, then re-run it.
+
+   Light (white) theme. Every rule is scoped to html[data-theme="light"], so
+   this sheet is inert until the theme toggle or the system preference selects
+   it. The dark theme remains the site default. */
+
+
+/* ==== derived from assets/demo.css ==== */
+html[data-theme="light"] .glass{box-shadow:0 18px 60px rgba(18,34,24,0.14)}
+html[data-theme="light"] .glass-soft{background:rgba(12,18,14,0.019);border:1px solid rgba(12,18,14,0.09)}
+html[data-theme="light"] .pill-dark{background:rgba(12,18,14,0.039);border:1px solid rgba(12,18,14,0.108)}
+html[data-theme="light"] .pill-dark:hover{background:rgba(12,18,14,0.077)}
+html[data-theme="light"] .pill-green{background:linear-gradient(120deg,rgb(47,124,75),var(--green) 60%,rgb(165,242,189));color:rgb(2,11,6);box-shadow:0 0 34px rgba(17,131,74,0.367)}
+html[data-theme="light"] .green-grad{background:linear-gradient(100deg,rgb(154,167,158) 0%,var(--green) 45%,rgb(198,247,212) 100%)}
+html[data-theme="light"] .dnav{background:rgba(250,252,250,0.55);border:1px solid rgba(12,18,14,0.108)}
+html[data-theme="light"] .chip-ico{background:rgba(12,18,14,0.044)}
+html[data-theme="light"] .chip-ico.doc::before{background:rgba(12,18,14,0.1)}
+html[data-theme="light"] .prompt-send{background:rgb(250,252,250);color:rgb(12,18,14)}
+html[data-theme="light"] .prompt-send:hover{box-shadow:0 0 24px rgba(12,18,14,0.056)}
+html[data-theme="light"] .deck-view{-webkit-mask-image:linear-gradient(90deg,transparent,rgb(250,252,250) 8%,rgb(250,252,250) 92%,transparent);mask-image:linear-gradient(90deg,transparent,rgb(250,252,250) 8%,rgb(250,252,250) 92%,transparent)}
+html[data-theme="light"] .deck .folder .f-body{box-shadow:inset 0 1px 0 rgba(12,18,14,0.039),
+    inset 1px 0 0 rgba(12,18,14,0.011),
+    inset 0 -1px 0 rgba(18,34,24,0.084),
+    0 10px 18px -8px rgba(18,34,24,0.126),
+    0 24px 38px -20px rgba(18,34,24,0.112)}
+html[data-theme="light"] .folder .f-body{background:linear-gradient(154deg,
+      rgba(12,18,14,0.066) 0%,
+      rgba(12,18,14,0.044) 46%,
+      rgba(12,18,14,0.028) 100%),
+    color-mix(in srgb,var(--bg) 90%,transparent);border:1px solid rgba(12,18,14,0.288)}
+html[data-theme="light"] .folder .f-body::after{background:radial-gradient(58% 66% at 20% 10%,rgba(12,18,14,0.1),transparent 72%),
+    radial-gradient(52% 58% at 88% 96%,rgba(12,18,14,0.055),transparent 74%)}
+html[data-theme="light"] .folder .f-tab{background:linear-gradient(180deg,rgba(12,18,14,0.066),rgba(12,18,14,0.044)),
+    color-mix(in srgb,var(--bg) 90%,transparent);border:1px solid rgba(12,18,14,0.18);box-shadow:inset 0 1px 0 rgba(12,18,14,0.039)}
+html[data-theme="light"] .folder .f-label{color:rgba(12,18,14,0.92);text-shadow:0 2px 8px rgba(18,34,24,0.168)}
+html[data-theme="light"] .folder.is-green .f-body{background:linear-gradient(154deg,rgba(17,131,74,0.977),rgba(31,157,78,0.75));border-color:rgba(190,255,210,0.5);box-shadow:inset 0 1px 0 rgba(12,18,14,0.039),
+    inset 1px 0 0 rgba(12,18,14,0.011),
+    inset 0 -1px 0 rgba(18,34,24,0.084),
+    0 24px 70px rgba(17,131,74,0.367)}
+html[data-theme="light"] .folder.is-green .f-tab{background:rgba(17,131,74,0.92);border-color:rgba(190,255,210,0.5)}
+html[data-theme="light"] .board{background:radial-gradient(60% 50% at 50% 60%,rgba(17,131,74,0.069),transparent 70%),
+    rgba(12,18,14,0.017)}
+html[data-theme="light"] .bnode.doc .bn-core{background:linear-gradient(180deg,rgb(250,252,250),rgb(250,252,250));box-shadow:0 16px 40px rgba(18,34,24,0.14)}
+html[data-theme="light"] .bnode.doc .bn-core::before{background:repeating-linear-gradient(180deg,rgb(201,206,201) 0 4px,transparent 4px 12px)}
+html[data-theme="light"] .bnode.person .bn-core{background:linear-gradient(160deg,rgb(250,252,250),rgb(223,229,223));box-shadow:0 16px 40px rgba(18,34,24,0.14)}
+html[data-theme="light"] .bnode.person .bn-core::before{background:rgb(250,252,250);-webkit-mask:radial-gradient(circle at 50% 32%,rgb(250,252,250) 8px,transparent 9px),radial-gradient(circle at 50% 92%,rgb(250,252,250) 16px,transparent 17px);mask:radial-gradient(circle at 50% 32%,rgb(250,252,250) 8px,transparent 9px),radial-gradient(circle at 50% 92%,rgb(250,252,250) 16px,transparent 17px)}
+html[data-theme="light"] .bnode.folder-node .bn-core{background:linear-gradient(180deg,rgb(17,131,74),rgba(31,157,78,0.8));box-shadow:0 20px 60px rgba(17,131,74,0.315)}
+html[data-theme="light"] .bnode.folder-node .bn-core::before{background:repeating-linear-gradient(180deg,rgb(250,252,250) 0 5px,rgb(250,252,250) 5px 10px);box-shadow:0 -6px 18px rgba(18,34,24,0.084)}
+html[data-theme="light"] .bnode.gate .bn-core{background:rgba(250,252,250,0.7)}
+html[data-theme="light"] .bnode .bn-badge{background:rgb(250,252,250);color:rgb(12,18,14);box-shadow:0 8px 22px rgba(18,34,24,0.126)}
+html[data-theme="light"] .bnode:hover .bn-core,html[data-theme="light"] .bnode.sel .bn-core{box-shadow:0 0 0 2px rgba(17,131,74,0.735),0 20px 60px rgba(18,34,24,0.14)}
+html[data-theme="light"] .edge{stroke:rgba(12,18,14,0.22)}
+html[data-theme="light"] .edge-pulse{filter:drop-shadow(0 0 6px rgba(17,131,74,0.92))}
+html[data-theme="light"] #npImg{border:1px solid rgba(12,18,14,0.135)}
+html[data-theme="light"] .node-panel dl div{border-bottom:1px dashed rgba(12,18,14,0.072)}
+html[data-theme="light"] .np-auth span{border:1px solid rgba(12,18,14,0.144)}
+html[data-theme="light"] .np-auth span.ok{border-color:rgba(17,131,74,0.525)}
+html[data-theme="light"] .np-auth span.no{border-color:rgba(255,31,34,0.45);color:rgb(158,66,67)}
+html[data-theme="light"] .act-chart i{background:linear-gradient(180deg,var(--green),rgba(17,131,74,0.287))}
+html[data-theme="light"] .act-chart i.dim{background:rgba(12,18,14,0.077)}
+html[data-theme="light"] .board-activity .bad{color:rgb(158,66,67)}
+html[data-theme="light"] .pwin{border:1px solid rgba(12,18,14,0.108);background:rgba(12,18,14,0.015);box-shadow:0 30px 80px rgba(18,34,24,0.126)}
+html[data-theme="light"] .pwin-bar{border-bottom:1px solid rgba(12,18,14,0.081);background:rgba(12,18,14,0.017)}
+html[data-theme="light"] .pwin-dots i{background:rgba(12,18,14,0.099)}
+html[data-theme="light"] .pwin-dots i:nth-child(1){background:rgb(255,95,87)}
+html[data-theme="light"] .pwin-dots i:nth-child(2){background:rgb(254,188,46)}
+html[data-theme="light"] .pwin-dots i:nth-child(3){background:rgb(40,200,64)}
+html[data-theme="light"] .pwt{border:1px solid rgba(12,18,14,0.144)}
+html[data-theme="light"] .pwt.on{background:rgba(17,131,74,0.184)}
+html[data-theme="light"] .pwin-stats span{color:rgba(11,122,62,0.85)}
+html[data-theme="light"] .pwin-detail{background:rgba(250,252,250,0.86)}
+html[data-theme="light"] .rn text{fill:rgba(12,18,14,0.75)}
+html[data-theme="light"] .rn.dep text{fill:rgb(12,18,14)}
+html[data-theme="light"] .r-edge{stroke:rgba(12,18,14,0.1)}
+html[data-theme="light"] .r-edge.hot{stroke:rgba(11,122,62,0.85);filter:drop-shadow(0 0 5px rgba(17,131,74,0.805))}
+html[data-theme="light"] #mapWin[data-mode="workflow"] .r-edge.e-wf{stroke:rgba(11,122,62,0.34)}
+html[data-theme="light"] #mapWin[data-mode="automation"] .r-edge.e-agent{stroke:rgba(78,124,158,0.4)}
+html[data-theme="light"] #mapWin[data-mode="control"] .r-edge.e-dep{stroke:rgba(11,122,62,0.4)}
+html[data-theme="light"] .tl-ruler i{background:rgba(12,18,14,0.1)}
+html[data-theme="light"] .tl-ruler i.dot::after{background:var(--c,rgb(11,122,62));box-shadow:0 0 12px var(--c,rgb(17,131,74))}
+html[data-theme="light"] .tl-chip{color:rgb(3,20,9);box-shadow:0 0 34px rgba(17,131,74,0.525)}
+html[data-theme="light"] .cta-green{color:rgb(2,11,6);background:radial-gradient(120% 200% at 50% 50%,rgb(143,240,171) 0%,rgb(47,157,87) 55%,rgb(23,87,47) 100%);box-shadow:0 0 60px rgba(17,131,74,0.473),inset 0 0 30px rgba(12,18,14,0.035)}
+html[data-theme="light"] .cta-green:hover{box-shadow:0 0 90px rgba(17,131,74,0.683),inset 0 0 30px rgba(12,18,14,0.042)}
+html[data-theme="light"] .dfoot{border-top:1px solid rgba(12,18,14,0.072)}
+
+/* ==== derived from assets/demo-ext.css ==== */
+html[data-theme="light"] .dnav-trigger:hover,html[data-theme="light"] .dnav-trigger.here,html[data-theme="light"] .dnav-group.open .dnav-trigger{background:rgba(17,131,74,0.069)}
+html[data-theme="light"] .nav-command{border:1px solid rgba(17,131,74,0.63);background:rgba(250,252,250,0.96);box-shadow:0 0 0 1px rgba(17,131,74,0.126),0 16px 36px rgba(18,34,24,0.112)}
+html[data-theme="light"] .nav-panel{border:1px solid rgba(12,18,14,0.144);background:rgba(250,252,250,0.94);box-shadow:0 28px 75px rgba(18,34,24,0.157)}
+html[data-theme="light"] .dnav-links .nav-list a:hover,html[data-theme="light"] .dnav-links .nav-list a:focus-visible,html[data-theme="light"] .dnav-links .nav-list a.here{background:rgba(17,131,74,0.081)}
+html[data-theme="light"] .dnav-links .nav-list a.nav-all{border-top:1px solid rgba(12,18,14,0.09)}
+html[data-theme="light"] .df2-col a.df2-pill{color:rgb(2,11,6)}
+html[data-theme="light"] .df2-bottom{border-top:1px solid rgba(12,18,14,0.072)}
+html[data-theme="light"] .console-results{background:rgba(250,252,250,0.92)}
+html[data-theme="light"] .cr-item:hover,html[data-theme="light"] .cr-item.sel{background:rgba(17,131,74,0.115);border-color:rgba(17,131,74,0.263)}
+html[data-theme="light"] .cr-item i{border:1px solid rgba(12,18,14,0.162)}
+html[data-theme="light"] .cr-item.k-service i{border-color:rgba(17,131,74,0.473)}
+html[data-theme="light"] .cr-item.k-dept i{border-color:rgba(126,200,255,0.4);color:rgb(78,124,158)}
+html[data-theme="light"] .cr-item.k-wf i{border-color:rgba(255,209,102,0.4);color:rgb(158,129,63)}
+html[data-theme="light"] .cr-item.cr-ask{border-color:rgba(17,131,74,0.315);background:rgba(17,131,74,0.069)}
+html[data-theme="light"] .cr-item.cr-ask i{border-color:rgba(17,131,74,0.525)}
+html[data-theme="light"] .console-mode{border:1px solid rgba(12,18,14,0.108);background:rgba(12,18,14,0.039)}
+html[data-theme="light"] .console-mode:hover,html[data-theme="light"] .console-mode:focus-visible{border-color:rgba(17,131,74,0.473)}
+html[data-theme="light"] .console-mode[aria-pressed="true"]{background:rgba(17,131,74,0.161);border-color:rgba(17,131,74,0.525)}
+html[data-theme="light"] .prompt.is-ask{border-color:rgba(17,131,74,0.367)}
+html[data-theme="light"] .console-answer{border:1px solid rgba(12,18,14,0.09);background:rgba(12,18,14,0.019)}
+html[data-theme="light"] .console-answer.is-refused{border-color:rgba(255,209,102,0.4);background:rgba(255,193,80,0.14)}
+html[data-theme="light"] .ca-sources a{border:1px solid rgba(17,131,74,0.315);background:rgba(17,131,74,0.081)}
+html[data-theme="light"] .ca-sources a:hover{background:rgba(17,131,74,0.172)}
+html[data-theme="light"] .svc-card:hover{border-color:rgba(17,131,74,0.473)}
+html[data-theme="light"] .svc-more dl{border-top:1px solid rgba(12,18,14,0.09)}
+html[data-theme="light"] .svc-more dd{color:rgba(12,18,14,0.85)}
+html[data-theme="light"] .iframe-wrap{border:1px solid rgba(17,131,74,0.315);box-shadow:0 30px 90px rgba(18,34,24,0.168),0 0 60px rgba(17,131,74,0.084);background:rgb(250,252,250)}
+html[data-theme="light"] .ladder .step:hover,html[data-theme="light"] .ladder .step.on{border-color:var(--lc,rgb(17,131,74))}
+html[data-theme="light"] .form-glass input,html[data-theme="light"] .form-glass textarea,html[data-theme="light"] .form-glass select{background:rgba(12,18,14,0.028);border:1px solid rgba(12,18,14,0.126)}
+html[data-theme="light"] .sitemap-wrap{border-top:1px solid rgba(12,18,14,0.063)}
+html[data-theme="light"] .sm-node text{fill:rgba(12,18,14,0.7)}
+html[data-theme="light"] .sm-node.hub text{fill:rgb(12,18,14)}
+html[data-theme="light"] .sm-edge{stroke:rgba(12,18,14,0.1)}
+html[data-theme="light"] .sm-edge.hot{stroke:rgba(11,122,62,0.8);filter:drop-shadow(0 0 4px rgba(17,131,74,0.69))}
+html[data-theme="light"] .sm-tip{background:rgba(250,252,250,0.85);border:1px solid rgba(17,131,74,0.42)}
+html[data-theme="light"] .tx-overview h3 i{background:var(--dcol,rgb(11,122,62));box-shadow:0 0 14px var(--dcol,rgb(17,131,74))}
+html[data-theme="light"] .tx-ov-never{color:rgb(158,66,67)}
+html[data-theme="light"] .tx-bar .bar{border:1px solid rgba(12,18,14,0.108)}
+html[data-theme="light"] .ladder-flow::before{background:linear-gradient(180deg,transparent,rgba(17,131,74,0.575) 12%,rgba(17,131,74,0.575) 88%,transparent)}
+html[data-theme="light"] .lf-num{background:rgba(250,252,250,0.9);border:1.5px solid rgba(17,131,74,0.525);box-shadow:0 0 22px rgba(17,131,74,0.158)}
+html[data-theme="light"] .lf-item:hover .lf-num{box-shadow:0 0 34px rgba(17,131,74,0.473)}
+html[data-theme="light"] .lf-card:hover{border-color:rgba(17,131,74,0.473)}
+html[data-theme="light"] .lf-chips span{border:1px solid rgba(12,18,14,0.144)}
+html[data-theme="light"] .lf-chips span.grn{border-color:rgba(17,131,74,0.42)}
+html[data-theme="light"] .lf-more dl{border-top:1px solid rgba(12,18,14,0.09)}
+html[data-theme="light"] .lf-more dd{color:rgba(12,18,14,0.85)}
+html[data-theme="light"] .route-chips button{border:1px solid rgba(12,18,14,0.144);background:rgba(12,18,14,0.022)}
+html[data-theme="light"] .route-chips button.on{background:rgba(17,131,74,0.161)}
+html[data-theme="light"] .lf-item.rec .lf-card{box-shadow:0 0 40px rgba(17,131,74,0.126)}
+html[data-theme="light"] .lf-item.rec .lf-num{background:rgba(17,131,74,0.207)}
+html[data-theme="light"] .gate-card .g-fail p{color:rgb(158,85,86)}
+html[data-theme="light"] .gate-card.on{border-color:rgba(17,131,74,0.525)}
+html[data-theme="light"] .shelf:hover{border-color:rgba(17,131,74,0.525)}
+html[data-theme="light"] .shelf .sh-glyph{text-shadow:0 0 18px rgba(17,131,74,0.525)}
+html[data-theme="light"] .shelf .sh-count{border:1px solid rgba(12,18,14,0.126)}
+html[data-theme="light"] .mnav{background:rgba(250,252,250,0.96)}
+html[data-theme="light"] .alt-hero{border-top:1px solid rgba(12,18,14,0.063)}
+html[data-theme="light"] .alt-graphite h2 .el{background:linear-gradient(100deg,rgb(154,167,158),var(--green) 50%,rgb(198,247,212))}
+html[data-theme="light"] .btn-electric{color:rgb(2,11,6);background:linear-gradient(120deg,rgb(47,124,75),var(--green) 60%,rgb(165,242,189));box-shadow:0 0 34px rgba(17,131,74,0.367)}
+html[data-theme="light"] .btn-electric:hover{box-shadow:0 0 54px rgba(17,131,74,0.525)}
+html[data-theme="light"] .ah-ghost{border:1px solid rgba(12,18,14,0.144)}
+html[data-theme="light"] .ah-stats{border-top:1px solid rgba(12,18,14,0.09)}
+html[data-theme="light"] .ah-stats div{border-right:1px solid rgba(12,18,14,0.09)}
+html[data-theme="light"] .ah-stats div:first-child{border-left:1px solid rgba(12,18,14,0.09)}
+html[data-theme="light"] .product,html[data-theme="light"] .tasks-x{border-top:1px solid rgba(12,18,14,0.063)}
+html[data-theme="light"] .gold-grad{background:linear-gradient(100deg,rgb(154,167,158),var(--green) 50%,rgb(198,247,212))}
+html[data-theme="light"] .p-stats div{border-right:1px solid rgba(17,131,74,0.231)}
+html[data-theme="light"] .p-stats div:first-child{border-left:1px solid rgba(17,131,74,0.231)}
+html[data-theme="light"] .p-stats span{color:rgba(11,122,62,0.85)}
+html[data-theme="light"] .p-stage{background:rgba(12,18,14,0.019);border:1px solid rgba(12,18,14,0.09)}
+html[data-theme="light"] .p-filters button{border:1px solid rgba(12,18,14,0.162)}
+html[data-theme="light"] .p-filters button.on{background:rgba(17,131,74,0.184)}
+html[data-theme="light"] .p-panel .rowline{border-bottom:1px dashed rgba(12,18,14,0.09)}
+html[data-theme="light"] .acm-node text{fill:rgba(12,18,14,0.68)}
+html[data-theme="light"] .acm-node.dep text{fill:rgb(12,18,14)}
+html[data-theme="light"] .acm-edge{stroke:rgba(12,18,14,0.1)}
+html[data-theme="light"] .acm-edge.e-dep{stroke:rgba(12,18,14,0.08)}
+html[data-theme="light"] .acm-edge.e-gate{stroke:rgba(131,110,65,0.28)}
+html[data-theme="light"] .acm-edge.hot{stroke:rgba(131,110,65,0.9);filter:drop-shadow(0 0 5px rgba(212,179,106,0.6))}
+html[data-theme="light"] .acm-lane rect{fill:rgba(12,18,14,0.018);stroke:rgba(131,110,65,0.14)}
+html[data-theme="light"] .acm-lane .acm-lane-lab{fill:rgba(131,110,65,0.72)}
+html[data-theme="light"] .acm-lane.lane-on rect{fill:rgba(131,110,65,0.05);stroke:rgba(131,110,65,0.4)}
+html[data-theme="light"] .acm-node.wf text{fill:rgba(12,18,14,0.82)}
+html[data-theme="light"] .acm-node.gate text{fill:rgba(131,110,65,0.85)}
+html[data-theme="light"] .acm-node.dep text{fill:rgba(12,18,14,0.78)}
+html[data-theme="light"] .acm-node.wf:hover rect:first-child{fill:rgba(12,18,14,0.09)}
+html[data-theme="light"] .tx-depts button{border:1px solid rgba(12,18,14,0.126);background:rgba(12,18,14,0.022)}
+html[data-theme="light"] .tx-depts button i{background:var(--dc,rgb(136,136,136))}
+html[data-theme="light"] .tx-depts button.on{background:rgba(17,131,74,0.161)}
+html[data-theme="light"] .tx-group .who{color:rgba(11,122,62,0.8)}
+html[data-theme="light"] .tx-task{background:rgba(12,18,14,0.019);border:1px solid rgba(12,18,14,0.054);color:rgba(12,18,14,0.85)}
+html[data-theme="light"] .tx-task:hover{background:rgba(12,18,14,0.039)}
+html[data-theme="light"] .tx-task i{background:var(--lc,rgb(136,136,136))}
+html[data-theme="light"] .alt-light{border-top:1px solid rgba(12,18,14,0.063)}
+html[data-theme="light"] .alt-light h2 em{background:linear-gradient(100deg,rgb(154,167,158),var(--green) 50%,rgb(198,247,212))}
+html[data-theme="light"] .btn-emerald{color:rgb(2,11,6);background:radial-gradient(120% 200% at 50% 50%,rgb(143,240,171) 0%,rgb(47,157,87) 55%,rgb(23,87,47) 100%);box-shadow:0 0 50px rgba(17,131,74,0.42),inset 0 0 26px rgba(12,18,14,0.035)}
+html[data-theme="light"] .btn-emerald:hover{box-shadow:0 0 74px rgba(17,131,74,0.578),inset 0 0 26px rgba(12,18,14,0.042)}
+html[data-theme="light"] .al-card:hover{border-color:rgba(17,131,74,0.473)}
+html[data-theme="light"] .spot::after{background:radial-gradient(320px circle at var(--sx,-500px) var(--sy,-500px),rgba(17,131,74,0.092),transparent 70%)}
+html[data-theme="light"] .hspot .hs-card{background:rgba(250,252,250,0.75);border:1px solid rgba(17,131,74,0.367);box-shadow:0 18px 50px rgba(18,34,24,0.14),0 0 30px rgba(17,131,74,0.126)}
+html[data-theme="light"] .hspot .hs-card{box-shadow:0 18px 50px rgba(18,34,24,0.14),0 0 30px color-mix(in srgb,var(--hc) 15%,transparent)}
+html[data-theme="light"] .bnode.blocked .bn-core{border-color:rgba(224,108,91,0.55);color:rgb(138,66,56);background:rgba(224,108,91,0.08);box-shadow:0 0 18px rgba(156,75,63,0.075)}
+html[data-theme="light"] .bnode.blocked .bn-name{color:rgb(138,66,56)}
+html[data-theme="light"] .page-head .ph-dot.d1{background:radial-gradient(circle,rgba(17,131,74,0.345),transparent 70%)}
+html[data-theme="light"] .page-head .ph-dot.d2{background:radial-gradient(circle,rgba(126,200,255,0.24),transparent 70%)}
+
+/* ==== derived from assets/corporate-pages.css ==== */
+html[data-theme="light"] .skip-link{background:rgb(11,122,62);color:rgb(12,18,14)}
+html[data-theme="light"] .interface-switch{border:1px solid rgba(12,18,14,0.126);background:rgba(12,18,14,0.019)}
+html[data-theme="light"] .interface-switch:hover{border-color:rgba(17,131,74,0.525);background:rgba(17,131,74,0.092)}
+html[data-theme="light"] .dnav-trigger:hover,html[data-theme="light"] .dnav-trigger.here,html[data-theme="light"] .dnav-group.open .dnav-trigger{background:rgba(17,131,74,0.063)}
+html[data-theme="light"] .nav-panel{border:1px solid rgba(12,18,14,0.144);background:rgba(250,252,250,0.94);box-shadow:0 28px 75px rgba(18,34,24,0.157)}
+html[data-theme="light"] .corporate-page .dnav-links .nav-list a:hover,html[data-theme="light"] .corporate-page .dnav-links .nav-list a:focus-visible,html[data-theme="light"] .corporate-page .dnav-links .nav-list a.here{background:rgba(17,131,74,0.081)}
+html[data-theme="light"] .corporate-page .dnav-links .nav-list a.nav-all{border-top:1px solid rgba(12,18,14,0.09)}
+html[data-theme="light"] .mnav-group{border-bottom:1px solid rgba(12,18,14,0.09)}
+html[data-theme="light"] .mnav .mnav-list a.here{background:rgba(17,131,74,0.092)}
+html[data-theme="light"] .corporate-source .phead,html[data-theme="light"] .corporate-source .hero.compact{border-bottom:1px solid rgba(12,18,14,0.063)}
+html[data-theme="light"] .corporate-source section{border-top:1px solid rgba(12,18,14,0.063)}
+html[data-theme="light"] .corporate-source .cmd{border:1px solid rgba(17,131,74,0.263);background:rgba(17,131,74,0.069)}
+html[data-theme="light"] .corporate-source .tag{border:1px solid rgba(12,18,14,0.135)}
+html[data-theme="light"] .corporate-source .tag.acc{border-color:rgba(17,131,74,0.42)}
+html[data-theme="light"] .corporate-source .note,html[data-theme="light"] .corporate-source .samplenote{border:1px solid rgba(12,18,14,0.117);background:rgba(12,18,14,0.025)}
+html[data-theme="light"] .corporate-source .cell:hover,html[data-theme="light"] .corporate-source .it:hover,html[data-theme="light"] .corporate-source .minicard:hover{border-color:rgba(17,131,74,0.473)}
+html[data-theme="light"] .corporate-source .it .n{border:1px solid rgba(17,131,74,0.367)}
+html[data-theme="light"] .corporate-source .titem .body{border-top:1px solid rgba(12,18,14,0.072)}
+html[data-theme="light"] .corporate-source .tbl{background:rgba(12,18,14,0.014)}
+html[data-theme="light"] .corporate-source .tbl th,html[data-theme="light"] .corporate-source .tbl td{border:1px solid rgba(12,18,14,0.09)}
+html[data-theme="light"] .corporate-source .btn{border:1px solid rgba(12,18,14,0.162)}
+html[data-theme="light"] .corporate-source .btn:hover{border-color:rgba(17,131,74,0.473)}
+html[data-theme="light"] .corporate-source .btn.solid{color:rgb(12,18,14);box-shadow:0 0 45px rgba(17,131,74,0.263)}
+html[data-theme="light"] .corporate-source .cta{border:1px solid rgba(17,131,74,0.294);background:linear-gradient(145deg,rgba(17,131,74,0.115),rgba(12,18,14,0.022))}
+html[data-theme="light"] .corporate-source .graphbar{border-bottom:1px solid rgba(12,18,14,0.072)}
+html[data-theme="light"] .corporate-source .graphfallback .grp{border:1px solid rgba(12,18,14,0.09);background:rgba(12,18,14,0.014)}
+html[data-theme="light"] .corporate-source .graphfallback .grp:hover{border-color:rgba(17,131,74,0.42)}
+html[data-theme="light"] .al-card--link:focus-visible{border-color:rgba(17,131,74,0.473)}
+html[data-theme="light"] .corporate-source .blog-article blockquote{border-left:2px solid rgba(17,131,74,0.525);background:rgba(17,131,74,0.057)}
+html[data-theme="light"] .corporate-source .report-toc a{border-top:1px solid rgba(12,18,14,0.063)}
+html[data-theme="light"] .corporate-source .report-section+.report-section{border-top:1px solid rgba(12,18,14,0.072)}
+html[data-theme="light"] .corporate-source .source-card:hover,html[data-theme="light"] .corporate-source .dev-card:hover,html[data-theme="light"] .corporate-source .dept-card:hover{border-color:rgba(17,131,74,0.42)}
+html[data-theme="light"] .corporate-source .safety-note{border:1px solid rgba(255,31,34,0.28);background:rgba(255,31,34,0.05)}
+html[data-theme="light"] .corporate-source .mini-link{border:1px solid rgba(12,18,14,0.144)}
+html[data-theme="light"] .corporate-source .mini-link:hover,html[data-theme="light"] .corporate-source .mini-link:focus-visible{border-color:rgba(17,131,74,0.473);background:rgba(17,131,74,0.081)}
+html[data-theme="light"] .corporate-page .nav-head{border-bottom:1px solid rgba(12,18,14,0.09)}
+html[data-theme="light"] .corporate-page .dnav-links .nav-head .nav-all,html[data-theme="light"] .corporate-page .nav-head .nav-all{border:1px solid rgba(17,131,74,0.357);border-top:1px solid rgba(17,131,74,0.357);background:rgba(17,131,74,0.069)}
+html[data-theme="light"] .corporate-page .nav-head .nav-all:hover,html[data-theme="light"] .corporate-page .nav-head .nav-all:focus-visible{background:rgba(17,131,74,0.149);border-color:rgba(17,131,74,0.63)}
+html[data-theme="light"] .corporate-page .nav-panel .nav-list+.nav-sub{border-top:1px solid rgba(12,18,14,0.072)}
+html[data-theme="light"] .mnav{background:linear-gradient(180deg,rgba(250,252,250,0.985),rgba(250,252,250,0.995))}
+html[data-theme="light"] .mnav-head{border-bottom:1px solid rgba(12,18,14,0.081)}
+html[data-theme="light"] .mnav-close{border:1px solid rgba(12,18,14,0.18)}
+html[data-theme="light"] .mnav-close:hover,html[data-theme="light"] .mnav-close:focus-visible{background:rgba(17,131,74,0.092)}
+html[data-theme="light"] .mnav-all{border:1px solid rgba(17,131,74,0.357);background:rgba(17,131,74,0.069)}
+html[data-theme="light"] .mnav .mnav-contact{border-top:1px solid rgba(12,18,14,0.081)}
+html[data-theme="light"] .dfoot.cfoot{border-top:1px solid rgba(12,18,14,0.081);background:rgba(250,252,250,0.6)}
+html[data-theme="light"] .cfoot-cta{border:1px solid rgba(17,131,74,0.42);background:rgba(17,131,74,0.081)}
+html[data-theme="light"] .cfoot-cta:hover{background:rgba(17,131,74,0.172)}
+html[data-theme="light"] .cfoot-legal{border-top:1px solid rgba(12,18,14,0.072)}
+html[data-theme="light"] .sbar{border-top:1px solid rgba(12,18,14,0.063);background:rgba(250,252,250,0.9)}
+html[data-theme="light"] .sbar-mode{color:rgb(2,11,7)}
+html[data-theme="light"] .sbar-sep{color:rgba(12,18,14,0.18)}
+html[data-theme="light"] .corporate-page .sbar-top{border-bottom:1px dotted rgba(12,18,14,0.198)}
+html[data-theme="light"] .sbar-dot{box-shadow:0 0 6px rgba(17,131,74,0.63)}
+html[data-theme="light"] .cat-item{background:rgba(12,18,14,0.019)}
+html[data-theme="light"] .cat-note{border-top:1px dashed rgba(12,18,14,0.108)}
+html[data-theme="light"] .aud{border:1px solid rgba(12,18,14,0.081);background:rgba(250,252,250,0.5)}
+html[data-theme="light"] .vm-quote{background:rgba(12,18,14,0.019)}
+html[data-theme="light"] .rnav-crumb-sep{color:rgba(12,18,14,0.28)}
+html[data-theme="light"] .rnav-box{border:1px solid rgba(17,131,74,0.231);background:linear-gradient(180deg,rgba(17,131,74,0.057),rgba(12,18,14,0.014))}
+html[data-theme="light"] .rnav-inputrow{border:1px solid rgba(12,18,14,0.162);background:rgba(250,252,250,0.72)}
+html[data-theme="light"] .rnav-inputrow:focus-within{border-color:rgba(17,131,74,0.683);box-shadow:0 0 0 3px rgba(17,131,74,0.126)}
+html[data-theme="light"] .rnav-input::placeholder{color:rgba(12,18,14,0.34)}
+html[data-theme="light"] .rnav-ask{border:1px solid rgba(17,131,74,0.525);background:rgba(17,131,74,0.161)}
+html[data-theme="light"] .rnav-ask:hover,html[data-theme="light"] .rnav-ask:focus-visible{background:rgba(17,131,74,0.299)}
+html[data-theme="light"] .rnav-tag{background:rgba(255,193,80,0.14);border:1px solid rgba(255,193,80,0.34);color:rgb(158,119,49)}
+html[data-theme="light"] .rnav-chip{border:1px solid rgba(12,18,14,0.144);background:rgba(12,18,14,0.022)}
+html[data-theme="light"] .rnav-chip:hover,html[data-theme="light"] .rnav-chip:focus-visible{border-color:rgba(17,131,74,0.525);background:rgba(17,131,74,0.092)}
+html[data-theme="light"] .rnav-chip-edge{border-color:rgba(255,120,120,0.34);color:rgba(158,108,108,0.82)}
+html[data-theme="light"] .rnav-chip-edge:hover,html[data-theme="light"] .rnav-chip-edge:focus-visible{border-color:rgba(255,120,120,0.7);background:rgba(255,80,80,0.09);color:rgb(158,133,133)}
+html[data-theme="light"] .rnav-chip-edge::before{color:rgba(158,74,74,0.75)}
+html[data-theme="light"] .rnav-card{border:1px solid rgba(12,18,14,0.126);background:rgba(250,252,250,0.66)}
+html[data-theme="light"] .rnav-card-ok{border-color:rgba(17,131,74,0.336)}
+html[data-theme="light"] .rnav-card-no{border-color:rgba(255,120,120,0.34)}
+html[data-theme="light"] .rnav-status-ok{background:rgba(17,131,74,0.172)}
+html[data-theme="light"] .rnav-status-no{background:rgba(255,90,90,0.14);color:rgb(158,95,95)}
+html[data-theme="light"] .rnav-quote blockquote{background:rgba(12,18,14,0.019)}
+html[data-theme="light"] .rnav-no-why b{color:rgb(158,95,95)}
+html[data-theme="light"] .rnav-disc{border-top:1px solid rgba(12,18,14,0.081)}
+html[data-theme="light"] .rnav-bullets li{border:1px solid rgba(12,18,14,0.09);background:rgba(12,18,14,0.014)}
+html[data-theme="light"] .rnav-not{border-left:2px solid rgba(255,120,120,0.45)}
+html[data-theme="light"] .rnav-footline{border-top:1px solid rgba(12,18,14,0.081)}
+html[data-theme="light"] .corporate-page .sbar{border-top:1px solid rgba(17,131,74,0.273);background:rgb(250,252,250)}
+html[data-theme="light"] .corporate-page .sbar-in{color:rgba(11,122,62,0.72)}
+html[data-theme="light"] .corporate-page .sbar-mode{color:rgb(2,11,7)}
+html[data-theme="light"] .corporate-page .sbar-path{color:rgba(11,122,62,0.78)}
+html[data-theme="light"] .corporate-page .sbar-sep{color:rgba(11,122,62,0.32)}
+html[data-theme="light"] .corporate-page .sbar-top{color:rgba(11,122,62,0.72);border-bottom-color:rgba(17,131,74,0.42)}
+html[data-theme="light"] .corporate-page .sbar-flags{color:rgba(11,122,62,0.62)}
+html[data-theme="light"] .corporate-page .sbar-pct{color:rgba(11,122,62,0.78)}
+html[data-theme="light"] .corporate-page .nav-list a.nav-hot{border:1px solid rgba(17,131,74,0.315);background:rgba(17,131,74,0.081)}
+html[data-theme="light"] .corporate-page .mnav-list a.nav-hot{border:1px solid rgba(17,131,74,0.315);background:rgba(17,131,74,0.081)}
+html[data-theme="light"] .corporate-page .nav-list a.nav-hot:hover,html[data-theme="light"] .corporate-page .mnav-list a.nav-hot:hover{background:rgba(17,131,74,0.172)}
+html[data-theme="light"] .theme-switch{border:1px solid rgba(12,18,14,0.126);background:rgba(12,18,14,0.019)}
+html[data-theme="light"] .theme-switch:hover{border-color:rgba(17,131,74,0.525);background:rgba(17,131,74,0.092)}
+@media(min-width:901px){html[data-theme="light"] .corporate-page .nav-panel{border-top:1px solid rgba(17,131,74,0.231);border-bottom:1px solid rgba(12,18,14,0.108);background:rgba(250,252,250,0.97);box-shadow:0 30px 70px rgba(18,34,24,0.154)}}
+@media(min-width:901px){html[data-theme="light"] .corporate-page .nav-panel .nav-head{border-bottom:1px solid rgba(12,18,14,0.09)}}
+@media(min-width:901px){html[data-theme="light"] .corporate-page .nav-cat{border-top:1px solid rgba(12,18,14,0.063)}}
+@media(min-width:901px){html[data-theme="light"] .corporate-page .nav-ico{border:1px solid rgba(12,18,14,0.126);background:rgba(12,18,14,0.022)}}
+@media(min-width:901px){html[data-theme="light"] .corporate-page .dnav-links .nav-item:hover,html[data-theme="light"] .corporate-page .dnav-links .nav-item:focus-visible,html[data-theme="light"] .corporate-page .dnav-links .nav-item.here{background:rgba(17,131,74,0.081);border-color:rgba(17,131,74,0.231)}}
+@media(min-width:901px){html[data-theme="light"] .corporate-page .dnav-links .nav-item:hover .nav-ico,html[data-theme="light"] .corporate-page .dnav-links .nav-item:focus-visible .nav-ico,html[data-theme="light"] .corporate-page .dnav-links .nav-item.here .nav-ico{border-color:rgba(17,131,74,0.473);background:rgba(17,131,74,0.115)}}
+@media(min-width:901px){html[data-theme="light"] .corporate-page .dnav-links .nav-item.nav-hot{border-color:rgba(17,131,74,0.336);background:rgba(17,131,74,0.069)}}
+@media(min-width:901px){html[data-theme="light"] .corporate-page .dnav-links .nav-item.nav-hot .nav-ico{border-color:rgba(17,131,74,0.525);background:rgba(17,131,74,0.138)}}
+@media(min-width:901px){html[data-theme="light"] .corporate-page .dnav-links .nav-feat-card{border:1px solid rgba(17,131,74,0.294);background:rgba(17,131,74,0.057)}}
+@media(min-width:901px){html[data-theme="light"] .corporate-page .dnav-links .nav-feat-card:hover,html[data-theme="light"] .corporate-page .dnav-links .nav-feat-card:focus-visible{border-color:rgba(17,131,74,0.578);background:rgba(17,131,74,0.103)}}
+@media(min-width:901px){html[data-theme="light"] .corporate-page .nav-feat-art{border:1px solid rgba(12,18,14,0.09);background:rgba(250,252,250,0.72)}}
+@media(min-width:901px){html[data-theme="light"] .corporate-page .nav-feat-go{border-top:1px solid rgba(12,18,14,0.09)}}
+
+/* --- hand-written light-theme corrections -------------------------------
+   The block above is mechanical. These are the cases where a colour cannot be
+   derived from its dark counterpart: the base palette, solid accent buttons
+   (dark ink on a dark green fill would be unreadable), the page background,
+   and images that were drawn for a dark canvas. */
+html[data-theme="light"]{
+  --bg:#f7f9f7;
+  --ink:#0c120e;
+  --mut:rgba(12,18,14,.68);
+  --dim:rgba(12,18,14,.6);
+  --green:#0b7a3e;
+  --green-deep:#075c2e;
+  --red:#c31417;
+  --glass:rgba(12,18,14,.035);
+  --glass2:rgba(12,18,14,.06);
+  --gbrd:rgba(12,18,14,.14);
+
+  /* Service identity colours, restated rather than derived. A hue keeps its
+     meaning across themes but not its lightness: the dark theme uses bright
+     pastels that carry on near-black, and the same values on near-white go
+     either invisible or garish. Amber was the clearest failure -- confident at
+     #ffb454 on the dark ground, unusable on the light one until it came down
+     to a burnt tone. Each is roughly 40-45% lightness here, so a filled card
+     holds white text at AA.
+
+     A mechanical mapping cannot do this: it works from what a colour *is*,
+     and this depends on what the colour has to mean once the ground flips. */
+  --svc-diagnostic:#0f857f;
+  --svc-safety:#a85f08;
+  --svc-navigator:#0b7a3e;
+  --svc-pilot:#1c6bb0;
+  --svc-simulation:#6a3caf;
+  --svc-governance:#3f5390;
+  --svc-training:#8a6410;
+  --svc-dpp:#7d5f1c;
+  --svc-token:#9c4a26;
+  /* Every light-theme service hue is deep, so white sits on all of them. */
+  --ink-on-svc:#ffffff;
+  color-scheme:light;
+}
+/* The service cards are glass. The mapper cannot produce that here: the dark
+   card is white at low alpha, and the honest translation of white-on-dark is
+   dark-ink-on-light, which is the one thing this deck must not be -- eighteen
+   overlapping translucent greys compose into a solid slab under the strip.
+
+   So the glass is built out of a definite grey at high alpha rather than out of
+   ink at low alpha. That inverts the failure mode. Ink at low alpha darkens
+   whatever it stacks over, and nine overlaps darken nine times into a slab; a
+   fixed grey at high alpha converges on itself no matter how many cards deep
+   the stack goes, because each card is mostly its own colour and only slightly
+   what is behind it. The overlap is still see-through -- a card behind shows as
+   a soft ghost, which is the whole point of glass -- but it cannot compose into
+   a band.
+
+   The grey is a step off the ground rather than white on white. #f7f9f7 with a
+   white card gives an edge and nothing else; the card has to hold a value of
+   its own or the shape depends entirely on its outline.
+
+   Diagonal fill for the sheen, a white catch-light along the top and left
+   edges, a hairline shade along the bottom for thickness, and a fall for lift.
+
+   The fall is what separates a near-white card from a near-white ground, so it
+   has to be visible rather than polite. It stays safe to stack because the
+   spread is negative and the offset is downward: the ~32px a card bleeds to the
+   right sits under the next card, and the deck track reserves 26px below the
+   strip for the rest of it. */
+html[data-theme="light"] .deck .folder .f-body{
+  background:
+    linear-gradient(154deg,
+      rgba(238,242,239,.93) 0%,
+      rgba(231,237,232,.91) 46%,
+      rgba(222,230,225,.89) 100%);
+  border-color:rgba(12,18,14,.19);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.98),
+    inset 1px 0 0 rgba(255,255,255,.80),
+    inset 0 -1px 0 rgba(12,18,14,.09),
+    0 10px 20px -8px rgba(18,34,24,.16),
+    0 28px 48px -22px rgba(18,34,24,.24);
+  backdrop-filter:blur(16px) saturate(115%);
+  -webkit-backdrop-filter:blur(16px) saturate(115%);
+}
+/* The frost pools are a highlight, not a surface. The mapper turns white at low
+   alpha into ink at low alpha, which is right for a fill and exactly wrong here
+   -- it would paint two soft grey bruises into the card. They stay white on
+   both grounds; only the strength comes down, because white reads harder over a
+   light grey than over near-black. */
+html[data-theme="light"] .deck .folder .f-body::after{
+  background:
+    radial-gradient(58% 66% at 20% 10%,rgba(255,255,255,.85),transparent 72%),
+    radial-gradient(52% 58% at 88% 96%,rgba(255,255,255,.34),transparent 74%);
+}
+html[data-theme="light"] .deck .folder .f-tab{
+  background:linear-gradient(180deg,rgba(238,242,239,.93),rgba(229,236,231,.9));
+  border-color:rgba(12,18,14,.17);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95);
+  backdrop-filter:blur(16px) saturate(115%);
+  -webkit-backdrop-filter:blur(16px) saturate(115%);
+}
+/* Restated after the paper rule above, which is specific enough to strip the
+   featured card of its fill. The navigator is the one service that stays
+   filled at rest, in both themes. */
+html[data-theme="light"] .deck .folder.is-green .f-body{
+  background:linear-gradient(154deg,rgba(17,131,74,.96),rgba(11,122,62,.82));
+  border-color:rgba(11,122,62,.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.34),
+    inset 1px 0 0 rgba(255,255,255,.14),
+    inset 0 -1px 0 rgba(4,40,20,.22),
+    0 24px 60px -18px rgba(11,122,62,.42);
+}
+html[data-theme="light"] .deck .folder.is-green .f-tab{
+  background:linear-gradient(180deg,rgba(17,131,74,.94),rgba(13,116,60,.9));
+  border-color:rgba(11,122,62,.5);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.3);
+}
+html[data-theme="light"] .deck .folder.is-green .f-label,
+html[data-theme="light"] .deck .folder.is-green .f-count{color:#fff;text-shadow:none}
+html[data-theme="light"] body{background:var(--bg);color:var(--ink)}
+html[data-theme="light"] .bg{background:var(--bg)}
+html[data-theme="light"] .bg img{display:none}
+html[data-theme="light"] ::selection{background:rgba(11,122,62,.2)}
+
+/* Solid accent surfaces keep white text rather than the dark ink they carry
+   on the dark theme. */
+html[data-theme="light"] .pill-green,
+html[data-theme="light"] .skip-link,
+html[data-theme="light"] .corporate-page .btn.primary,
+html[data-theme="light"] .corporate-page .pill.pill-green{
+  background:#0b7a3e;color:#fff;border-color:#0b7a3e;
+}
+html[data-theme="light"] .pill-green:hover,
+html[data-theme="light"] .corporate-page .pill.pill-green:hover{background:#096b36;color:#fff}
+
+/* Header, nav panels, footer and status bar: light surfaces, borders instead
+   of glows. */
+html[data-theme="light"] .dnav{
+  background:rgba(255,255,255,.82);border-color:rgba(12,18,14,.12);
+  box-shadow:0 10px 30px rgba(18,34,24,.09);
+}
+html[data-theme="light"] .corporate-page .nav-panel{
+  background:rgba(255,255,255,.985);border-top-color:rgba(11,122,62,.3);
+  border-bottom-color:rgba(12,18,14,.12);box-shadow:0 26px 60px rgba(18,34,24,.13);
+}
+html[data-theme="light"] .nav-command{
+  background:#fff;border-color:rgba(11,122,62,.5);color:#0b7a3e;
+  box-shadow:0 6px 18px rgba(18,34,24,.1);
+}
+html[data-theme="light"] .corporate-page .nav-feat-art{
+  background:rgba(12,18,14,.035);border-color:rgba(12,18,14,.1);color:#0b7a3e;
+}
+html[data-theme="light"] .mnav{
+  background:linear-gradient(180deg,rgba(255,255,255,.985),rgba(247,249,247,.995));
+}
+html[data-theme="light"] .dfoot.cfoot{background:rgba(240,244,240,.9);border-top-color:rgba(12,18,14,.12)}
+html[data-theme="light"] .sbar{background:rgba(236,241,237,.95);border-top-color:rgba(12,18,14,.1)}
+html[data-theme="light"] .corporate-page .sbar-flags{color:rgba(11,122,62,.8)}
+html[data-theme="light"] .sbar-sep{color:rgba(12,18,14,.25)}
+
+/* Tables and cards read as bordered paper rather than glass. */
+html[data-theme="light"] .corporate-source .tbl{background:#fff}
+html[data-theme="light"] .corporate-source .tbl th,
+html[data-theme="light"] .corporate-source .tbl td{border-color:rgba(12,18,14,.14)}
+html[data-theme="light"] .corporate-source .cell,
+html[data-theme="light"] .corporate-source .it,
+html[data-theme="light"] .corporate-source .minicard,
+html[data-theme="light"] .corporate-source .titem,
+html[data-theme="light"] .corporate-source .note,
+html[data-theme="light"] .corporate-source .samplenote{
+  background:#fff;border-color:rgba(12,18,14,.13);box-shadow:0 1px 2px rgba(18,34,24,.05);
+}
+
+/* The regulatory navigator demo surfaces. */
+html[data-theme="light"] .rnav,
+html[data-theme="light"] .rnav-card,
+html[data-theme="light"] .rnav-answer,
+html[data-theme="light"] .rnav-shell{background:#fff;border-color:rgba(12,18,14,.13)}
+html[data-theme="light"] .rnav-quote{background:rgba(11,122,62,.06);border-color:rgba(11,122,62,.28)}
+
+/* Gradient headline text. The dark-theme gradient runs grey to pale mint,
+   which disappears on white, so the light theme uses a dark green ramp. */
+html[data-theme="light"] .green-grad,
+html[data-theme="light"] .gold-grad,
+html[data-theme="light"] .alt-graphite h2 .el,
+html[data-theme="light"] .alt-light h2 em{
+  background:linear-gradient(100deg,#1d6b41,#0b7a3e 50%,#12864a);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+
+/* Inverted controls: solid white fills that read as high contrast on the dark
+   theme would disappear on a white page, so they flip to solid ink. */
+html[data-theme="light"] .prompt-send{background:#0c120e;color:#fff}
+html[data-theme="light"] .prompt-send:hover{box-shadow:0 6px 18px rgba(18,34,24,.22)}
+html[data-theme="light"] .bnode .bn-badge{background:#0c120e;color:#fff;box-shadow:0 8px 22px rgba(18,34,24,.18)}
+html[data-theme="light"] .bnode .bn-badge.grn{background:#0b7a3e;color:#fff}
+html[data-theme="light"] .caret,
+html[data-theme="light"] .nav-burger2 span{background:#0c120e}
+
+/* Remaining solid-green surfaces that carried dark ink on the dark theme. */
+html[data-theme="light"] .tl-chip,
+html[data-theme="light"] .corporate-source .btn.solid{
+  background:#0b7a3e;color:#fff;border-color:#0b7a3e;
+}
+html[data-theme="light"] .tl-chip::after{background:#0b7a3e}
+
+html[data-theme="light"] .theme-switch{
+  border-color:rgba(12,18,14,.16);background:rgba(12,18,14,.03);color:rgba(12,18,14,.66);
+}
+html[data-theme="light"] .theme-switch:hover{
+  color:#0b7a3e;border-color:rgba(11,122,62,.5);background:rgba(11,122,62,.08);
+}
+

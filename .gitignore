@@ -2,7 +2,13 @@
 .env
 node_modules/
 dist/
+.playwright-cli/
 # Local generated/source material not published directly
 /data/linkedin_articles.json
 /assets/adoption-map/ChatGPT Image*.png
 /department-adoption-*-preview.html
+
+# Python caches and local-only design previews
+__pycache__/
+*.py[cod]
+/scripts/reference/subpages/*-preview.html

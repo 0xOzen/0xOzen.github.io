@@ -1,0 +1,2817 @@
+/* ============================================================================
+   AequAI Glass Kit v3 — GENERATED, do not edit.
+   Source: assets/gk-v3-tokens.css + assets/glass-kit.css + assets/gk-v3-additions.css
+   Build:  node tools/build-gk-v3.mjs
+   ----------------------------------------------------------------------------
+   v3 = v1's component library, driven by one theme-aware token engine.
+   164 ink surfaces and 16 shade layers channelled;
+   v1's own token blocks are superseded by layer order, not by editing.
+   gk-graph.css is folded in as @layer gk.graph — it no longer needs to be
+   linked separately, and the theme layer can now reach the runbar.
+   ========================================================================= */
+@layer gk.components, gk.graph, gk.tokens, gk.theme, gk.v3;
+
+@layer gk.components {
+/* ============================================================
+   AequAI Glass Kit  —  gk-*  (v1, 2026-08-28)
+   Dark node-canvas + frosted-glass component library.
+   Additive: nothing here overrides site.css. Namespace = .gk-*
+   Accent is themeable:  <div class="gk-scope" data-gk-accent="amber|green">
+   ============================================================ */
+
+.gk-scope{
+  /* ---- accent (default: AequAI green) ---- */
+  --gk-a:#68e78e;
+  --gk-a-2:#1f9d4e;
+  --gk-a-rgb:104 231 142;
+  --gk-glow:rgb(var(--gk-a-rgb) / .32);
+
+  /* ---- ground ---- */
+  --gk-bg:#050506;
+  --gk-bg-2:#0a0a0c;
+  --gk-line:rgb(var(--gk-ink-rgb) / .07);
+  --gk-line-2:rgb(var(--gk-ink-rgb) / .13);
+  --gk-tx:rgb(var(--gk-ink-rgb) / .92);
+  --gk-tx-2:rgb(var(--gk-ink-rgb) / .46);
+  --gk-tx-3:rgb(var(--gk-ink-rgb) / .22);
+
+  /* ---- glass ---- */
+  --gk-glass-sf:rgb(var(--gk-ink-rgb) / .055);
+  --gk-glass-bd:rgb(var(--gk-ink-rgb) / .12);
+  --gk-glass-hi:rgb(var(--gk-ink-rgb) / .30);
+  --gk-blur:26px;
+
+  --gk-r:18px;
+  --gk-r-lg:26px;
+  --gk-ease:cubic-bezier(.22,.61,.2,1);
+
+  font-family:"Urbanist",-apple-system,"Segoe UI",sans-serif;
+  color:var(--gk-tx);
+  -webkit-font-smoothing:antialiased;
+}
+.gk-scope[data-gk-accent="amber"]{
+  --gk-a:#ff8a3d;
+  --gk-a-2:#d13a1f;
+  --gk-a-rgb:255 138 61;
+}
+.gk-scope[data-gk-accent="green"]{
+  --gk-a:#68e78e;
+  --gk-a-2:#1f9d4e;
+  --gk-a-rgb:104 231 142;
+}
+.gk-scope *{box-sizing:border-box}
+
+/* ------------------------------------------------------------
+   1. CANVAS — dotted node ground with ambient bloom
+   ------------------------------------------------------------ */
+.gk-canvas{
+  position:relative;overflow:hidden;isolation:isolate;
+  background:var(--gk-bg);
+  border-radius:var(--gk-r-lg);
+  border:1px solid var(--gk-line);
+  min-height:420px;
+}
+.gk-canvas::before{           /* dot grid */
+  content:"";position:absolute;inset:-2px;pointer-events:none;
+  background-image:radial-gradient(rgb(var(--gk-ink-rgb) / .16) 1px,transparent 1px);
+  background-size:22px 22px;
+  -webkit-mask-image:radial-gradient(120% 90% at 50% 40%,#000 20%,transparent 78%);
+          mask-image:radial-gradient(120% 90% at 50% 40%,#000 20%,transparent 78%);
+  opacity:.5;
+}
+.gk-canvas::after{            /* accent bloom that follows the pointer */
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(38rem 28rem at var(--gk-mx,50%) var(--gk-my,42%),
+             rgb(var(--gk-a-rgb) / .16), transparent 68%);
+  transition:background .35s var(--gk-ease);
+}
+.gk-canvas > *{position:relative;z-index:1}
+
+/* film grain — drop on any container */
+.gk-grain::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:6;opacity:.32;
+  mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'>\
+<filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/>\
+<feColorMatrix type='saturate' values='0'/></filter>\
+<rect width='140' height='140' filter='url(%23n)' opacity='.5'/></svg>");
+}
+
+/* ------------------------------------------------------------
+   2. NODE — graph card with typed ports
+   ------------------------------------------------------------ */
+.gk-node{
+  position:absolute;min-width:210px;
+  border-radius:14px;
+  background:linear-gradient(180deg,rgb(var(--gk-ink-rgb) / .055),rgb(var(--gk-ink-rgb) / .022));
+  border:1px solid var(--gk-line-2);
+  box-shadow:0 22px 50px -22px #000, inset 0 1px 0 rgb(var(--gk-ink-rgb) / .07);
+  -webkit-backdrop-filter:blur(12px) saturate(150%);
+          backdrop-filter:blur(12px) saturate(150%);
+  transition:transform .4s var(--gk-ease),box-shadow .4s var(--gk-ease),border-color .3s;
+  will-change:transform;
+}
+.gk-node:hover{
+  transform:translateY(-3px);
+  border-color:rgb(var(--gk-a-rgb) / .45);
+  box-shadow:0 30px 60px -24px #000, 0 0 40px -12px var(--gk-glow),
+             inset 0 1px 0 rgb(var(--gk-ink-rgb) / .12);
+}
+.gk-node--hot{                 /* the "active" node: warm accent fill */
+  background:linear-gradient(115deg,
+     rgb(var(--gk-a-rgb) / .55), rgb(var(--gk-a-rgb) / .12) 62%, rgb(var(--gk-ink-rgb) / .03));
+  border-color:rgb(var(--gk-a-rgb) / .5);
+  box-shadow:0 26px 60px -24px #000, 0 0 60px -18px var(--gk-glow);
+}
+.gk-node__head{
+  display:flex;align-items:center;gap:.55rem;
+  padding:.7rem .9rem;font-size:.86rem;font-weight:600;letter-spacing:.01em;
+  border-bottom:1px solid var(--gk-line);
+}
+.gk-node__head .gk-dot{width:7px;height:7px;border-radius:50%;background:var(--gk-a);
+  box-shadow:0 0 10px var(--gk-a)}
+.gk-node__out{margin-left:auto;font-size:.66rem;letter-spacing:.14em;color:var(--gk-tx-2)}
+.gk-node__body{padding:.55rem 0 .7rem}
+.gk-port{
+  position:relative;display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;padding:.3rem .9rem;font-size:.8rem;color:var(--gk-tx-2);
+}
+.gk-port b{font-weight:500;color:var(--gk-tx)}
+.gk-port__pin{
+  position:absolute;top:50%;width:11px;height:11px;border-radius:50%;
+  translate:0 -50%;background:#e9e9ea;
+  box-shadow:0 0 0 3px var(--gk-bg),0 0 14px rgb(var(--gk-ink-rgb) / .45);
+}
+.gk-port--in  .gk-port__pin{left:-5.5px}
+.gk-port--out .gk-port__pin{right:-5.5px}
+.gk-port--accent .gk-port__pin{background:var(--gk-a);box-shadow:0 0 0 3px var(--gk-bg),0 0 16px var(--gk-a)}
+.gk-node__row{
+  display:flex;align-items:center;justify-content:space-between;
+  margin:.28rem .55rem 0;padding:.34rem .55rem;border-radius:9px;
+  background:rgb(var(--gk-ink-rgb) / .035);font-size:.76rem;color:var(--gk-tx-2);
+}
+.gk-node__row span:last-child{color:var(--gk-tx);font-variant-numeric:tabular-nums}
+
+/* wires (SVG injected by glass-kit.js) */
+.gk-wires{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:visible}
+.gk-wires path{fill:none;stroke:rgb(var(--gk-ink-rgb) / .22);stroke-width:1.2}
+.gk-wires path.is-live{stroke:var(--gk-a);stroke-width:1.6;filter:drop-shadow(0 0 6px var(--gk-glow))}
+.gk-wires path.is-flow{stroke-dasharray:5 9;animation:gk-flow 1.1s linear infinite}
+.gk-wires path.gk-pulse{stroke:#fff;stroke-width:2.2;stroke-dasharray:14 190;opacity:.85;
+  animation:gk-pulse 2.4s linear infinite;filter:drop-shadow(0 0 6px var(--gk-a))}
+@keyframes gk-pulse{from{stroke-dashoffset:204}to{stroke-dashoffset:0}}
+@keyframes gk-flow{to{stroke-dashoffset:-28}}
+
+/* collaborator cursor */
+.gk-cursor{position:absolute;display:flex;align-items:flex-start;gap:.3rem;pointer-events:none;z-index:5}
+.gk-cursor svg{width:15px;height:15px;filter:drop-shadow(0 2px 4px #000a)}
+.gk-cursor span{
+  background:#fff;color:#111;font-size:.68rem;font-weight:600;
+  padding:.14rem .42rem;border-radius:6px;margin-top:.55rem;
+  box-shadow:0 6px 16px -6px #000c;
+}
+
+/* ------------------------------------------------------------
+   3. GLASS PANEL + PROMPT BAR
+   ------------------------------------------------------------ */
+.gk-glass{
+  position:relative;border-radius:var(--gk-r);
+  background:var(--gk-glass-sf);
+  border:1px solid var(--gk-glass-bd);
+  -webkit-backdrop-filter:blur(var(--gk-blur)) saturate(190%);
+          backdrop-filter:blur(var(--gk-blur)) saturate(190%);
+  box-shadow:0 30px 70px -30px #000,inset 0 1px 0 var(--gk-glass-hi);
+}
+.gk-glass--warm{               /* the tinted prompt slab from the shots */
+  background:linear-gradient(160deg,rgb(var(--gk-a-rgb) / .30),rgb(var(--gk-a-rgb) / .07) 55%,rgb(var(--gk-ink-rgb) / .04));
+  border-color:rgb(var(--gk-a-rgb) / .30);
+}
+.gk-prompt{position:relative;z-index:4;padding:1.05rem 1.15rem .85rem;max-width:640px}
+.gk-prompt__text{
+  font-size:1.02rem;line-height:1.5;letter-spacing:-.005em;
+  color:var(--gk-tx);
+}
+.gk-prompt__text .gk-fade{color:rgb(var(--gk-ink-rgb) / .34);filter:blur(.4px)}
+.gk-prompt__text .gk-fade2{color:rgb(var(--gk-ink-rgb) / .16);filter:blur(1.4px)}
+.gk-caret{
+  display:inline-block;width:2px;height:1.02em;translate:0 .16em;margin:0 .12em;
+  background:var(--gk-tx);animation:gk-blink 1.05s steps(1) infinite;
+}
+@keyframes gk-blink{50%{opacity:0}}
+.gk-prompt__bar{display:flex;align-items:center;gap:1rem;margin-top:1rem}
+.gk-icon{
+  flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:11px;
+  background:rgb(var(--gk-ink-rgb) / .07);border:1px solid var(--gk-line);
+  color:var(--gk-tx);cursor:pointer;
+  transition:background .25s,transform .25s var(--gk-ease),border-color .25s;
+}
+.gk-icon:hover{background:rgb(var(--gk-ink-rgb) / .13);transform:translateY(-1px);border-color:var(--gk-line-2)}
+.gk-icon svg{width:17px;height:17px}
+.gk-wave{flex:1;display:flex;align-items:center;justify-content:center;gap:3px;height:24px}
+.gk-wave i{
+  display:block;width:2px;border-radius:2px;background:rgb(var(--gk-ink-rgb) / .75);
+  height:6px;animation:gk-wave 1.15s var(--gk-ease) infinite alternate;
+}
+@keyframes gk-wave{to{height:20px;opacity:.55}}
+.gk-prompt__hint{text-align:center;font-size:.78rem;color:var(--gk-tx-2);margin-top:.35rem}
+
+/* ------------------------------------------------------------
+   4. CHIP STACK — the floating parameter cards
+   ------------------------------------------------------------ */
+.gk-chips{display:flex;align-items:flex-end;gap:.55rem;perspective:900px}
+.gk-chip{
+  --gk-lift:0px;
+  min-width:132px;padding:.7rem .85rem 2.4rem;border-radius:14px 14px 6px 6px;
+  background:linear-gradient(180deg,rgb(var(--gk-ink-rgb) / .085),rgb(var(--gk-ink-rgb) / .03));
+  border:1px solid var(--gk-line-2);border-bottom:0;
+  -webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);
+  translate:0 var(--gk-lift);cursor:pointer;
+  transition:translate .4s var(--gk-ease),background .3s,border-color .3s;
+}
+.gk-chip:hover,.gk-chip.is-active{
+  --gk-lift:-12px;
+  background:linear-gradient(150deg,rgb(var(--gk-a-rgb) / .55),rgb(var(--gk-a-rgb) / .10));
+  border-color:rgb(var(--gk-a-rgb) / .5);
+}
+.gk-chip strong{display:block;font-size:.94rem;font-weight:600}
+.gk-chip small{display:block;font-size:.78rem;color:var(--gk-tx-2);margin-top:.1rem}
+
+/* ------------------------------------------------------------
+   5. FOLDER STACK — layered documents (legal/green shots)
+   ------------------------------------------------------------ */
+.gk-folder{position:relative;width:min(420px,100%);aspect-ratio:16/10}
+.gk-folder__back,.gk-folder__front{
+  position:absolute;inset:auto 0 0 0;height:64%;border-radius:16px;
+  background:linear-gradient(165deg,var(--gk-a),var(--gk-a-2));
+  box-shadow:0 30px 60px -28px #000;
+}
+.gk-folder__front{height:52%;z-index:3;
+  background:linear-gradient(165deg,rgb(var(--gk-a-rgb) / .95),var(--gk-a-2));}
+.gk-folder__front-label{position:absolute;left:1.1rem;bottom:.9rem;z-index:4;color:#04140b}
+.gk-folder__front-label b{display:block;font-size:1.25rem;font-weight:600;letter-spacing:-.01em}
+.gk-folder__front-label span{font-size:.8rem;opacity:.65}
+.gk-sheet{
+  position:absolute;left:50%;bottom:30%;z-index:2;width:31%;aspect-ratio:3/4;
+  border-radius:11px;translate:-50% 0;
+  background:linear-gradient(180deg,rgb(var(--gk-ink-rgb) / .26),rgb(var(--gk-a-rgb) / .10) 60%,rgb(var(--gk-ink-rgb) / .10));
+  border:1px solid rgb(var(--gk-ink-rgb) / .42);
+  box-shadow:0 18px 40px -20px #000;
+  -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);
+  transition:translate .45s var(--gk-ease),rotate .45s var(--gk-ease);
+}
+.gk-sheet:nth-child(2){rotate:-7deg;translate:-92% 0}
+.gk-sheet:nth-child(4){rotate:7deg;translate:-8% 0}
+.gk-folder:hover .gk-sheet{translate:-50% -14%}
+.gk-folder:hover .gk-sheet:nth-child(2){translate:-98% -8%;rotate:-11deg}
+.gk-folder:hover .gk-sheet:nth-child(4){translate:-2% -8%;rotate:11deg}
+
+/* ------------------------------------------------------------
+   6. CTA PILL + section type
+   ------------------------------------------------------------ */
+.gk-cta{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  width:100%;max-width:420px;padding:1.05rem 1.4rem;border:0;cursor:pointer;
+  border-radius:999px;font:inherit;font-size:1.12rem;font-weight:500;color:#04140b;
+  background:radial-gradient(120% 180% at 50% 0%,rgb(var(--gk-a-rgb) / 1),var(--gk-a-2));
+  box-shadow:0 22px 50px -20px var(--gk-glow),inset 0 1px 0 rgb(var(--gk-ink-rgb) / .45);
+  transition:transform .3s var(--gk-ease),box-shadow .3s var(--gk-ease);
+}
+.gk-cta:hover{transform:translateY(-2px);box-shadow:0 30px 60px -20px var(--gk-glow),inset 0 1px 0 rgb(var(--gk-ink-rgb) / .6)}
+.gk-tabs{display:flex;gap:.4rem;margin-top:.7rem}
+.gk-tab{
+  flex:1;display:flex;align-items:center;justify-content:center;gap:.4rem;
+  padding:.7rem .8rem;border-radius:999px;background:rgb(var(--gk-ink-rgb) / .05);
+  border:1px solid var(--gk-line);font-size:.86rem;color:var(--gk-tx-2);cursor:pointer;
+  transition:background .25s,color .25s;
+}
+.gk-tab:hover{background:rgb(var(--gk-ink-rgb) / .1);color:var(--gk-tx)}
+.gk-title{font-size:clamp(1.6rem,3.6vw,2.5rem);font-weight:500;letter-spacing:-.02em;line-height:1.1}
+.gk-title em{font-style:normal;
+  background:linear-gradient(90deg,var(--gk-tx-3),var(--gk-a));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.gk-sub{color:var(--gk-tx-2);font-size:.95rem;margin-top:.35rem}
+.gk-eyebrow{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gk-tx-2)}
+
+@media (prefers-reduced-motion:reduce){
+  .gk-scope *{animation:none!important;transition:none!important}
+}
+
+/* ============================================================
+   GLASS KIT v2  —  service palette + document components
+   Base is black & white; colour only ever marks a service.
+   Set a scope's accent with  data-gk-service="<slug>"
+   ============================================================ */
+
+/* ---- service palette (one accent per service) -------------- */
+.gk-scope[data-gk-service="adoption-diagnostic"]{--gk-a:#29bf12;--gk-a-2:#12780a;--gk-a-rgb:41 191 18}
+.gk-scope[data-gk-service="pilot-design"]      {--gk-a:#ff8a3d;--gk-a-2:#c2521a;--gk-a-rgb:255 138 61}
+.gk-scope[data-gk-service="agent-safety"]      {--gk-a:#f2280e;--gk-a-2:#9c1607;--gk-a-rgb:242 40 14}
+.gk-scope[data-gk-service="governance-kit"]    {--gk-a:#2e5bff;--gk-a-2:#0f2bb8;--gk-a-rgb:46 91 255}
+.gk-scope[data-gk-service="simulation-lab"]    {--gk-a:#a06bff;--gk-a-2:#5c2fb8;--gk-a-rgb:160 107 255}
+.gk-scope[data-gk-service="literacy-training"] {--gk-a:#22d3ee;--gk-a-2:#0b7f92;--gk-a-rgb:34 211 238}
+.gk-scope[data-gk-service="dpp-readiness"]     {--gk-a:#d4b36a;--gk-a-2:#8a6f28;--gk-a-rgb:212 179 106}
+.gk-scope[data-gk-service="tokenization"]      {--gk-a:#7ec8ff;--gk-a-2:#2b6ea8;--gk-a-rgb:126 200 255}
+
+/* ---- 7. NODE STATES + hard glow wires ---------------------- */
+.gk-node__flag{margin-left:.4rem;display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%}
+.gk-node.is-ok .gk-node__flag{color:var(--gk-a)}
+.gk-node.is-off{opacity:.45;filter:saturate(.4)}
+.gk-node.is-off .gk-dot{background:var(--gk-tx-3);box-shadow:none}
+.gk-node.is-danger{border-color:rgb(242 40 14 / .5)}
+.gk-node.is-danger .gk-node__flag{color:#f2280e}
+.gk-node__caption{
+  position:absolute;left:50%;top:calc(100% + .5rem);translate:-50% 0;
+  width:max-content;max-width:15ch;text-align:center;font-size:.74rem;color:var(--gk-tx-2);line-height:1.25;
+}
+.gk-wires.is-bright path{stroke:rgb(var(--gk-a-rgb) / .75);stroke-width:1.6;
+  filter:drop-shadow(0 0 4px var(--gk-a)) drop-shadow(0 0 14px var(--gk-glow))}
+.gk-wires.is-bright path.is-live{stroke:var(--gk-a);stroke-width:2}
+.gk-wire-label{position:absolute;font-size:.66rem;color:var(--gk-tx-2);translate:-50% -50%;
+  background:var(--gk-bg);padding:0 .3rem;border-radius:4px}
+
+/* ---- 8. DOCUMENT TILE (folder + app badges) ---------------- */
+.gk-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1.1rem}
+.gk-tile{display:block;text-align:center;cursor:pointer;text-decoration:none;color:inherit}
+.gk-tile__art{
+  display:block;position:relative;aspect-ratio:5/4;border-radius:14px;overflow:hidden;
+  background:linear-gradient(180deg,#f4f5f6,#c8ccd0);
+  box-shadow:0 20px 40px -22px #000,inset 0 1px 0 #fff9;
+  transition:transform .4s var(--gk-ease),box-shadow .4s var(--gk-ease);
+}
+.gk-tile:hover .gk-tile__art{transform:translateY(-4px);
+  box-shadow:0 28px 50px -22px #000,0 0 34px -14px var(--gk-glow)}
+.gk-tile__art::before{                     /* paper peeking out of the pocket */
+  content:"";position:absolute;left:16%;right:24%;top:8%;height:34%;border-radius:4px;
+  background:repeating-linear-gradient(#fff 0 3px,#e3e6e9 3px 6px);
+  box-shadow:0 6px 14px -8px #000a;rotate:-2deg;
+}
+.gk-tile__art::after{                      /* pocket front */
+  content:"";position:absolute;inset:34% 6% 6%;border-radius:10px;
+  background:linear-gradient(180deg,#eef0f2,#d3d7db);box-shadow:0 -6px 16px -10px #0006;
+}
+.gk-tile__flag{                            /* accent document in the pocket */
+  position:absolute;right:16%;top:6%;width:26%;height:38%;border-radius:5px;z-index:1;rotate:3deg;
+  background:linear-gradient(180deg,rgb(var(--gk-a-rgb) / .95),var(--gk-a-2));
+}
+.gk-tile__apps{position:absolute;left:8%;bottom:9%;z-index:3;display:flex}
+.gk-tile__apps span{
+  width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
+  font-size:.66rem;font-weight:600;color:#fff;margin-right:-7px;
+  border:2px solid #eef0f2;box-shadow:0 4px 10px -4px #0009;
+}
+.gk-tile__name{display:block;margin-top:.6rem;font-size:.88rem;color:var(--gk-tx)}
+.gk-tile__meta{display:block;font-size:.74rem;color:var(--gk-tx-2)}
+.gk-tile--add .gk-tile__art{
+  background:rgb(var(--gk-ink-rgb) / .05);border:1px solid var(--gk-line-2);
+  display:grid;place-items:center;color:var(--gk-tx-2);font-size:1.6rem;font-weight:300;
+}
+.gk-tile--add .gk-tile__art::before,.gk-tile--add .gk-tile__art::after{content:none}
+
+/* ---- 9. FAN SHELF (fanned document spines) ----------------- */
+.gk-fan{
+  --gk-fan-i:0;
+  position:relative;display:flex;justify-content:center;align-items:flex-end;
+  gap:0;padding:2.5rem 1rem 3.5rem;perspective:1400px;
+}
+.gk-spine{
+  --i:0;--n:9;
+  position:relative;width:32px;height:225px;flex:none;margin:0 1px;
+  rotate:calc((var(--i) - (var(--n) - 1) / 2) * 2.6deg);
+  border-radius:6px 6px 3px 3px;
+  background:linear-gradient(170deg,rgb(var(--gk-ink-rgb) / .58),rgb(var(--gk-ink-rgb) / .20));
+  border:1px solid rgb(var(--gk-ink-rgb) / .45);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  box-shadow:0 22px 40px -26px #000;
+  transform-origin:50% 100%;
+  transition:transform .45s var(--gk-ease),background .35s,border-color .35s,filter .35s;
+  cursor:pointer;
+}
+.gk-spine span{
+  position:absolute;left:50%;bottom:.7rem;translate:-50% 0;rotate:90deg;transform-origin:50% 50%;
+  font-size:.62rem;letter-spacing:.06em;color:rgb(10 14 11 / .62);white-space:nowrap;
+}
+.gk-fan:hover .gk-spine{filter:blur(1.1px);opacity:.72}
+.gk-spine:hover,.gk-spine.is-active{
+  filter:none;opacity:1;transform:translateY(-18px) scale(1.07);z-index:4;
+  background:linear-gradient(170deg,rgb(var(--gk-a-rgb) / .95),var(--gk-a-2));
+  border-color:rgb(var(--gk-a-rgb) / .8);
+  box-shadow:0 26px 50px -22px #000,0 0 46px -14px var(--gk-glow);
+}
+.gk-spine.is-active span{color:#04140b}
+.gk-fan__card{
+  position:absolute;left:50%;top:10%;translate:-50% -50%;z-index:6;
+  min-width:190px;padding:1rem 1.15rem 1.15rem;border-radius:16px;
+  background:linear-gradient(160deg,rgb(var(--gk-ink-rgb) / .82),rgb(var(--gk-ink-rgb) / .55));
+  border:1px solid rgb(var(--gk-ink-rgb) / .7);color:#0b0f0c;
+  -webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%);
+  box-shadow:0 30px 60px -26px #000c;
+  transition:left .4s var(--gk-ease);
+}
+.gk-fan__card b{display:block;font-size:1.12rem;font-weight:600;letter-spacing:-.01em}
+.gk-fan__card small{display:block;font-size:.8rem;color:#0b0f0c8f;margin-top:.05rem}
+.gk-fan__card strong{display:block;margin-top:.7rem;font-size:2rem;font-weight:400;letter-spacing:-.03em}
+.gk-fan__card strong i{font-style:normal;font-size:.95rem;color:#0b0f0c8f}
+.gk-fan__card .gk-fan__pin{
+  position:absolute;right:1rem;bottom:1rem;width:12px;height:12px;border-radius:50%;
+  background:#0b0f0c;box-shadow:0 0 0 6px rgb(var(--gk-a-rgb) / .45);
+}
+
+/* ---- 10. ACTIVITY PANEL (solid accent + stacked sheets) ---- */
+.gk-activity{
+  position:relative;border-radius:var(--gk-r-lg);padding:3.4rem 1.4rem 1.3rem;overflow:hidden;
+  background:linear-gradient(165deg,rgb(var(--gk-a-rgb) / .92),var(--gk-a-2));
+  color:#04140b;box-shadow:0 34px 70px -30px #000;
+}
+.gk-activity__sheets{position:absolute;left:26%;right:5%;top:-2.6rem;height:4.6rem;display:flex;gap:.45rem;align-items:flex-end}
+.gk-activity__sheets i{
+  flex:1;border-radius:10px;font-style:normal;font-size:.6rem;padding:.4rem .5rem;
+  height:76%;color:#04140bb5;background:rgb(var(--gk-ink-rgb) / .34);border:1px solid rgb(var(--gk-ink-rgb) / .5);
+  border-bottom:0;border-radius:10px 10px 0 0;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+}
+.gk-activity h4{margin:0;font-size:1.35rem;font-weight:600;letter-spacing:-.015em}
+.gk-activity h4 + span{font-size:.82rem;color:#04140b9e}
+.gk-activity__bar{display:flex;align-items:center;gap:.6rem;margin:1.1rem 0 .2rem;font-size:.86rem}
+.gk-activity__bar .gk-track{flex:1;height:1px;background:#04140b40;position:relative}
+.gk-activity__bar .gk-track::after{content:"";position:absolute;left:0;top:-2px;height:5px;
+  width:var(--gk-pct,62%);background:#fff;border-radius:3px}
+.gk-activity__row{
+  display:flex;align-items:center;gap:.7rem;margin-top:.7rem;padding:.6rem .7rem;border-radius:12px;
+  background:rgb(var(--gk-ink-rgb) / .22);border:1px solid rgb(var(--gk-ink-rgb) / .3);
+}
+.gk-activity__row b{display:block;font-size:.92rem;font-weight:500}
+.gk-activity__row small{display:block;font-size:.76rem;color:#04140b9e}
+.gk-avatars{margin-left:auto;display:flex}
+.gk-avatars i{width:22px;height:22px;border-radius:50%;margin-left:-7px;
+  background:#04140b30;border:2px solid #ffffffd0}
+
+/* ---- 11. DATA ROWS (key dates) ----------------------------- */
+.gk-rows{border-radius:var(--gk-r);border:1px solid var(--gk-line);overflow:hidden}
+.gk-rows header,.gk-rows div{display:grid;grid-template-columns:1fr 1fr;gap:1rem;padding:.75rem 1rem;align-items:center}
+.gk-rows div > span:last-child{color:var(--gk-tx-2);font-size:.9rem}
+.gk-rows header{font-size:.76rem;color:var(--gk-tx-2);border-bottom:1px solid var(--gk-line)}
+.gk-rows div{border-bottom:1px solid var(--gk-line)}
+.gk-rows div:last-child{border-bottom:0}
+.gk-rows b{display:block;font-size:.95rem;font-weight:500}
+.gk-rows small{display:block;font-size:.74rem;color:var(--gk-tx-2)}
+
+/* ---- 12. SPEC CARD (type + palette) ------------------------ */
+.gk-spec{position:relative;border-radius:var(--gk-r-lg);overflow:hidden;padding:2.2rem 1.6rem 1.6rem;
+  background:#0a0a0b;border:1px solid var(--gk-line)}
+.gk-spec__slabs{position:absolute;inset:0;display:flex}
+.gk-spec__slabs i{flex:1}
+.gk-spec__slabs i:first-child{background:#020202}
+.gk-spec__slabs i:last-child{background:radial-gradient(120% 120% at 80% 30%,#fff,#ffffff00 62%)}
+.gk-spec > *{position:relative;z-index:1}
+.gk-spec__label{font-size:.82rem;color:var(--gk-tx-2)}
+.gk-spec__name{font-size:clamp(2rem,6vw,3.6rem);font-weight:400;letter-spacing:-.03em;margin:.2rem 0 1.6rem;
+  mix-blend-mode:difference;color:#fff}
+.gk-spec__glyphs{font-size:.8rem;letter-spacing:.34em;color:var(--gk-tx-2);word-break:break-all;line-height:1.9}
+.gk-swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:.7rem;margin-top:1.4rem}
+.gk-swatch{text-align:center}
+.gk-swatch i{display:block;height:7px;border-radius:4px;background:var(--sw)}
+.gk-swatch b{display:block;margin-top:.4rem;font-size:.72rem;font-weight:500;color:var(--gk-tx)}
+.gk-swatch small{display:block;font-size:.66rem;color:var(--gk-tx-2);font-family:ui-monospace,monospace}
+
+/* ============================================================
+   GLASS KIT — PART 2 (2026-08-28)
+   Spec cards · file tiles · flow canvas · sheet fan · green panel
+   ============================================================ */
+
+/* ---- 7. SPEC / BRAND CARD --------------------------------- */
+.gk-spec{position:relative;padding:2.2rem 2rem 1.4rem;border-radius:var(--gk-r-lg);
+  background:#0b0b0c;border:1px solid var(--gk-line);overflow:hidden}
+.gk-spec__stack{position:relative;height:300px;margin-bottom:1.6rem}
+.gk-spec__card{position:absolute;border-radius:22px;overflow:hidden}
+.gk-spec__card--dark{left:0;top:0;width:62%;height:88%;background:#020202;
+  box-shadow:0 40px 80px -40px #000}
+.gk-spec__card--light{right:0;top:0;width:52%;height:92%;
+  background:radial-gradient(120% 100% at 78% 42%,#fff 34%,rgb(var(--gk-ink-rgb) / .55) 62%,rgb(var(--gk-ink-rgb) / .06) 88%);
+  box-shadow:0 40px 80px -40px #000}
+.gk-spec__card--glass{left:4%;right:0;top:13%;bottom:0;z-index:3;border-radius:24px;
+  background:linear-gradient(120deg,rgb(var(--gk-ink-rgb) / .05),rgb(var(--gk-ink-rgb) / .16) 62%,rgb(var(--gk-ink-rgb) / .55));
+  -webkit-backdrop-filter:blur(26px) saturate(150%);backdrop-filter:blur(26px) saturate(150%);
+  border:1px solid rgb(var(--gk-ink-rgb) / .16);
+  box-shadow:0 40px 90px -40px #000,inset 0 1px 0 rgb(var(--gk-ink-rgb) / .3);
+  padding:1.6rem 1.8rem;display:flex;flex-direction:column;justify-content:center}
+.gk-spec__hex{position:absolute;top:.85rem;left:0;right:0;text-align:center;
+  font-size:.7rem;letter-spacing:.02em}
+.gk-spec__card--dark .gk-spec__hex{color:rgb(var(--gk-ink-rgb) / .5)}
+.gk-spec__card--light .gk-spec__hex{color:rgb(var(--gk-shade-rgb) / .45)}
+.gk-spec__label{font-size:.95rem;color:var(--gk-tx);opacity:.85}
+.gk-spec__font{margin:.3rem 0 0;font-size:clamp(2rem,5vw,3.4rem);font-weight:400;
+  letter-spacing:-.03em;line-height:1.05;color:#fff;mix-blend-mode:difference}
+.gk-spec__glyphs{margin-top:auto;display:flex;flex-direction:column;gap:.35rem;
+  font-size:.8rem;letter-spacing:.34em;color:rgb(var(--gk-ink-rgb) / .5);mix-blend-mode:difference}
+.gk-swatches{display:grid;gap:.9rem;grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+.gk-swatch b{display:block;height:7px;border-radius:99px;background:var(--c,var(--gk-a))}
+.gk-swatch span{display:block;margin-top:.55rem;text-align:center;font-size:.72rem;
+  letter-spacing:.06em;color:var(--gk-tx-2);font-family:ui-monospace,monospace}
+
+/* ---- 8. FILE TILE (folder with app badges) ---------------- */
+.gk-files{display:flex;align-items:flex-start;gap:1.4rem;flex-wrap:wrap}
+.gk-file{width:170px;cursor:pointer}
+.gk-file__art{position:relative;height:118px}
+.gk-file__docs{position:absolute;left:12%;right:12%;top:0;height:58%;
+  border-radius:7px;background:linear-gradient(180deg,#f6f7f8,#cfd3d6);
+  box-shadow:0 8px 20px -10px #000}
+.gk-file__docs::before,.gk-file__docs::after{content:"";position:absolute;inset:8% 6% auto;
+  height:6px;border-radius:2px;background:rgb(var(--gk-shade-rgb) / .16)}
+.gk-file__docs::after{top:26%;right:34%}
+.gk-file__pocket{position:absolute;inset:auto 0 0 0;height:70%;border-radius:12px;
+  background:linear-gradient(180deg,rgb(var(--gk-ink-rgb) / .82),rgb(var(--gk-ink-rgb) / .55));
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border:1px solid rgb(var(--gk-ink-rgb) / .5);box-shadow:0 22px 44px -20px #000;
+  transition:transform .4s var(--gk-ease)}
+.gk-file--accent .gk-file__pocket{
+  background:linear-gradient(180deg,rgb(var(--gk-a-rgb) / .85),rgb(var(--gk-a-rgb) / .55))}
+.gk-file:hover .gk-file__pocket{transform:translateY(-5px)}
+.gk-badges{position:absolute;left:.55rem;bottom:.5rem;z-index:3;display:flex}
+.gk-badges i{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;
+  font-size:.62rem;font-weight:600;color:#fff;border:2px solid #0b0b0c;margin-left:-7px;
+  font-style:normal}
+.gk-badges i:first-child{margin-left:0}
+.gk-file__name{margin-top:.6rem;text-align:center;font-size:.92rem;color:var(--gk-tx)}
+.gk-add{width:64px;height:64px;border-radius:50%;margin-top:26px;display:grid;place-items:center;
+  background:rgb(var(--gk-ink-rgb) / .07);border:1px solid var(--gk-line);color:var(--gk-tx);
+  font-size:1.5rem;cursor:pointer;transition:background .25s,transform .3s var(--gk-ease)}
+.gk-add:hover{background:rgb(var(--gk-ink-rgb) / .13);transform:scale(1.05)}
+.gk-listrow{display:flex;align-items:center;gap:.7rem;padding:.7rem .2rem;font-size:1.05rem;
+  color:var(--gk-tx-2);border-top:1px solid var(--gk-line)}
+.gk-listrow b{margin-left:auto;font-weight:500;font-size:.8rem;color:var(--gk-tx);
+  background:rgb(var(--gk-ink-rgb) / .07);border-radius:7px;padding:.2rem .55rem}
+
+/* ---- 9. FLOW CANVAS (n8n-style, glowing wires) ------------ */
+.gk-canvas--flow .gk-wires path{stroke:rgb(var(--gk-ink-rgb) / .16)}
+.gk-canvas--flow .gk-wires path.is-live{
+  stroke:var(--gk-a);stroke-width:2;
+  filter:drop-shadow(0 0 4px var(--gk-a)) drop-shadow(0 0 14px var(--gk-glow))}
+.gk-wire-label{position:absolute;translate:-50% -50%;pointer-events:none;z-index:2;
+  font-size:.62rem;letter-spacing:.04em;color:var(--gk-tx-2);
+  background:#0007;padding:.1rem .3rem;border-radius:5px;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.gk-fnode{position:absolute;min-width:184px;padding:.85rem .95rem;border-radius:15px;
+  background:linear-gradient(180deg,#141416,#0c0c0e);
+  border:1px solid var(--gk-line-2);
+  box-shadow:0 24px 50px -26px #000,inset 0 1px 0 rgb(var(--gk-ink-rgb) / .06);
+  display:flex;align-items:center;gap:.7rem;
+  transition:transform .4s var(--gk-ease),box-shadow .4s var(--gk-ease),border-color .3s}
+.gk-fnode:hover{transform:translateY(-3px);border-color:rgb(var(--gk-a-rgb) / .45);
+  box-shadow:0 30px 60px -26px #000,0 0 44px -14px var(--gk-glow)}
+.gk-fnode__ico{flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
+  background:rgb(var(--gk-ink-rgb) / .08);color:var(--gk-tx)}
+.gk-fnode__ico svg{width:17px;height:17px}
+.gk-fnode__tx{line-height:1.25;min-width:0}
+.gk-fnode__tx b{display:block;font-size:.86rem;font-weight:600}
+.gk-fnode__tx span{font-size:.76rem;color:var(--gk-tx-2)}
+.gk-fnode__ok{margin-left:auto;color:var(--gk-a);font-size:.8rem}
+.gk-fnode--active{
+  background:linear-gradient(160deg,rgb(var(--gk-a-rgb) / .92),rgb(var(--gk-a-rgb) / .55) 55%,rgb(var(--gk-a-rgb) / .35));
+  border-color:rgb(var(--gk-a-rgb) / .7);color:#04140b;
+  box-shadow:0 30px 70px -26px #000,0 0 70px -18px var(--gk-glow);
+  display:block;min-width:250px}
+.gk-fnode--active .gk-fnode__ico{background:rgb(var(--gk-ink-rgb) / .28);color:#04140b}
+.gk-fnode--active .gk-fnode__tx span{color:rgb(4 20 11 / .6)}
+.gk-fnode__head{display:flex;align-items:center;gap:.7rem}
+.gk-field{margin-top:.75rem}
+.gk-field > small{display:block;font-size:.7rem;color:rgb(4 20 11 / .55);margin-bottom:.25rem}
+.gk-field__box{display:flex;align-items:center;justify-content:space-between;gap:.6rem;
+  padding:.5rem .65rem;border-radius:9px;font-size:.8rem;color:#04140b;
+  background:rgb(var(--gk-ink-rgb) / .55);border:1px solid rgb(var(--gk-ink-rgb) / .5)}
+.gk-dock{position:absolute;left:50%;bottom:14px;translate:-50% 0;z-index:6;display:flex;gap:.4rem;
+  padding:.45rem;border-radius:16px;background:rgb(20 20 22 / .8);border:1px solid var(--gk-line-2);
+  -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);box-shadow:0 20px 44px -22px #000}
+.gk-dock button{width:38px;height:38px;border-radius:11px;border:0;cursor:pointer;
+  background:rgb(var(--gk-ink-rgb) / .06);color:var(--gk-tx);display:grid;place-items:center}
+.gk-dock button:hover{background:rgb(var(--gk-ink-rgb) / .14)}
+.gk-dock button svg{width:16px;height:16px}
+.gk-dock .is-live{background:rgb(var(--gk-a-rgb) / .18);color:var(--gk-a)}
+
+/* ---- 10. SHEET FAN (arc of translucent tabs) -------------- */
+.gk-fan{position:relative;height:360px;display:grid;place-items:center;perspective:1200px}
+.gk-fan__row{position:relative;display:flex;align-items:flex-end;height:100%}
+.gk-fan__sheet{
+  --i:0;--n:1;
+  position:relative;width:32px;height:198px;margin:0 3px;border-radius:11px;
+  background:linear-gradient(180deg,rgb(var(--gk-ink-rgb) / .92),rgb(var(--gk-ink-rgb) / .48));
+  border:1px solid rgb(var(--gk-ink-rgb) / .8);
+  box-shadow:0 24px 46px -26px #000,inset 0 1px 0 rgb(var(--gk-ink-rgb) / .7);
+  transform-origin:50% 135%;
+  rotate:calc((var(--i) - (var(--n) - 1) / 2) * 5deg);
+  translate:0 calc(-1 * (1 - (2 * var(--i) / (var(--n) - 1) - 1) * (2 * var(--i) / (var(--n) - 1) - 1)) * 34px);
+  transition:rotate .5s var(--gk-ease),translate .5s var(--gk-ease),background .3s;
+}
+.gk-fan__sheet::after{content:attr(data-label);position:absolute;left:50%;bottom:14px;
+  translate:-50% 0;rotate:90deg;transform-origin:50% 50%;
+  font-size:.6rem;letter-spacing:.06em;color:rgb(13 20 16 / .55);white-space:nowrap}
+.gk-fan__sheet.is-active{
+  background:linear-gradient(180deg,rgb(var(--gk-a-rgb) / .95),var(--gk-a-2));
+  border-color:rgb(var(--gk-a-rgb) / .8);width:34px;
+  box-shadow:0 26px 60px -22px #000,0 0 60px -16px var(--gk-glow)}
+.gk-fan__sheet.is-active::after{color:#04140b}
+.gk-fan__sheet:hover{background:linear-gradient(180deg,#fff,rgb(var(--gk-ink-rgb) / .45))}
+.gk-tabcard{
+  position:absolute;left:50%;top:44%;translate:-50% -50%;z-index:5;
+  width:250px;padding:1.1rem 1.2rem 1rem;border-radius:20px;color:#0d1410;
+  background:linear-gradient(150deg,rgb(var(--gk-ink-rgb) / .82),rgb(var(--gk-ink-rgb) / .6));
+  -webkit-backdrop-filter:blur(16px) saturate(160%);backdrop-filter:blur(16px) saturate(160%);
+  border:1px solid rgb(var(--gk-ink-rgb) / .7);
+  box-shadow:0 36px 70px -30px #000}
+.gk-tabcard b{display:block;font-size:1.25rem;font-weight:500;letter-spacing:-.01em}
+.gk-tabcard small{display:block;font-size:.85rem;color:rgb(13 20 16 / .55)}
+.gk-tabcard strong{display:block;margin-top:.7rem;font-size:2.1rem;font-weight:400;letter-spacing:-.03em}
+.gk-tabcard strong sup{font-size:.9rem;vertical-align:super;opacity:.6}
+.gk-tabcard__blob{position:absolute;right:-14px;top:14px;width:96px;height:96px;border-radius:26px;
+  background:radial-gradient(70% 70% at 40% 35%,rgb(var(--gk-a-rgb) / .85),rgb(var(--gk-a-rgb) / .25));
+  filter:blur(2px)}
+.gk-tabcard__dot{position:absolute;right:26px;top:62px;width:12px;height:12px;border-radius:50%;background:#0d1410}
+.gk-tabcard__arrow{position:absolute;right:26px;top:22px;color:#0d1410}
+
+/* ---- 11. GREEN PANEL (compliance / activity) -------------- */
+.gk-gpanel{position:relative;padding:1.4rem 1.5rem 1.5rem;border-radius:22px;color:#062b16;
+  background:linear-gradient(165deg,rgb(var(--gk-a-rgb) / .95),var(--gk-a-2));
+  box-shadow:0 40px 80px -36px #000;overflow:hidden}
+.gk-gpanel__cards{position:absolute;right:1.2rem;top:-2.2rem;display:flex}
+.gk-gpanel__cards i{display:block;width:96px;height:104px;border-radius:14px;margin-left:-30px;
+  background:rgb(var(--gk-ink-rgb) / .22);border:1px solid rgb(var(--gk-ink-rgb) / .4);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-style:normal;
+  font-size:.55rem;color:rgb(6 43 22 / .65);padding:.4rem .45rem}
+.gk-gpanel h3{margin:0;font-size:1.35rem;font-weight:500;letter-spacing:-.01em}
+.gk-gpanel h3 + span{font-size:.85rem;opacity:.62}
+.gk-track{position:relative;margin:1.3rem 0 .3rem;display:flex;align-items:center;
+  justify-content:space-between;font-size:.85rem}
+.gk-track__line{position:absolute;left:0;right:0;top:calc(100% + .5rem);height:1px;
+  background:repeating-linear-gradient(90deg,rgb(var(--gk-ink-rgb) / .85) 0 6px,transparent 6px 12px)}
+.gk-track__line b{position:absolute;left:0;top:0;height:1px;width:var(--p,62%);background:#fff}
+.gk-track__line b::after{content:"";position:absolute;right:-4px;top:-3.5px;width:8px;height:8px;
+  border-radius:50%;background:#fff}
+.gk-frow{display:flex;align-items:center;gap:.75rem;margin-top:1.5rem;
+  padding-top:.9rem;border-top:1px solid rgb(var(--gk-ink-rgb) / .28)}
+.gk-frow__ico{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
+  background:rgb(var(--gk-ink-rgb) / .3)}
+.gk-frow__ico svg{width:16px;height:16px}
+.gk-frow b{display:block;font-size:.95rem;font-weight:500}
+.gk-frow span{display:block;font-size:.78rem;opacity:.62}
+.gk-faces{margin-left:auto;display:flex}
+.gk-faces i{width:24px;height:24px;border-radius:50%;margin-left:-8px;font-style:normal;
+  border:2px solid rgb(var(--gk-a-rgb) / .9);background:#dfe6e0;display:grid;place-items:center;
+  font-size:.6rem;color:#0d1410;font-weight:600}
+
+/* ---- 12. DATA TABLE + ROUND STEPPERS ---------------------- */
+.gk-table{width:100%;border-collapse:collapse;font-size:.9rem}
+.gk-table th{text-align:left;font-weight:400;color:var(--gk-tx-2);font-size:.8rem;
+  padding:.4rem .6rem;border-bottom:1px solid var(--gk-line)}
+.gk-table td{padding:.7rem .6rem;border-bottom:1px solid var(--gk-line)}
+.gk-table td b{display:block;font-weight:500;color:var(--gk-tx)}
+.gk-table td small{color:var(--gk-tx-3);font-size:.72rem}
+.gk-round{width:40px;height:40px;border-radius:50%;border:1px solid var(--gk-line);
+  background:rgb(var(--gk-ink-rgb) / .05);color:var(--gk-tx);font-size:1.1rem;cursor:pointer;
+  display:grid;place-items:center;transition:background .25s}
+.gk-round:hover{background:rgb(var(--gk-ink-rgb) / .12)}
+
+/* ============================================================
+   GLASS KIT — PART 3 (2026-08-28)
+   Rebuilt: file tiles · sheet shelf · activity panel
+   New: device frames, asset tree, media cards, intake screen, app frame
+   Rules below intentionally come last and win over PART 2.
+   ============================================================ */
+
+/* ---- 8b. FILE TILE, rebuilt ------------------------------- */
+.gk-file{width:186px}
+.gk-file__art{position:relative;height:132px}
+.gk-file__docs{position:absolute;left:16%;right:14%;top:0;height:62%;border-radius:6px;
+  background:#f7f8f9;box-shadow:0 10px 24px -12px #000;rotate:-2deg;overflow:hidden;
+  transition:rotate .4s var(--gk-ease),translate .4s var(--gk-ease)}
+.gk-file__docs::before,.gk-file__docs::after{content:none}
+.gk-file__docs i{position:absolute;left:10%;right:10%;height:3px;border-radius:2px;
+  background:rgb(15 20 18 / .18);font-style:normal}
+.gk-file__docs i:nth-child(1){top:16%}
+.gk-file__docs i:nth-child(2){top:30%;right:42%}
+.gk-file__docs i:nth-child(3){top:44%}
+.gk-file__docs i:nth-child(4){top:58%;right:30%}
+.gk-file__docs--2{left:24%;right:8%;top:4%;height:56%;rotate:5deg;background:#e9ebed;z-index:0}
+.gk-file__pocket{position:absolute;inset:auto 0 0 0;height:72%;border-radius:14px;
+  background:linear-gradient(175deg,rgb(var(--gk-ink-rgb) / .96),rgb(226 231 228 / .72));
+  border:1px solid rgb(var(--gk-ink-rgb) / .7);
+  box-shadow:0 26px 50px -22px #000,inset 0 1px 0 #fff;z-index:2}
+.gk-file--accent .gk-file__pocket{
+  background:linear-gradient(175deg,rgb(var(--gk-a-rgb) / .96),var(--gk-a-2));
+  border-color:rgb(var(--gk-a-rgb) / .7)}
+.gk-file:hover .gk-file__docs{translate:0 -8px;rotate:-5deg}
+.gk-file:hover .gk-file__docs--2{translate:0 -6px;rotate:9deg}
+.gk-badges{left:.7rem;bottom:.7rem}
+.gk-badges i{width:26px;height:26px;border-radius:50%;margin-left:-9px;font-size:.66rem;
+  border:2px solid rgb(var(--gk-ink-rgb) / .85);box-shadow:0 4px 10px -4px #000}
+
+/* ---- 10b. SHEET SHELF (3D accordion, replaces flat fan) --- */
+.gk-fan{height:auto;padding:1rem 0}
+.gk-shelf{position:relative;display:flex;justify-content:center;align-items:flex-end;
+  gap:4px;height:280px;perspective:1400px;perspective-origin:50% 40%}
+.gk-shelf__sheet{
+  position:relative;width:34px;height:206px;flex:none;border-radius:9px;cursor:pointer;
+  transform-style:preserve-3d;
+  transform:rotateY(calc((var(--i) - (var(--n) - 1) / 2) * -11deg))
+            translateZ(calc((1 - (2 * var(--i) / (var(--n) - 1) - 1) * (2 * var(--i) / (var(--n) - 1) - 1)) * -62px))
+            translateY(calc((1 - (2 * var(--i) / (var(--n) - 1) - 1) * (2 * var(--i) / (var(--n) - 1) - 1)) * -10px));
+  background:linear-gradient(180deg,rgb(var(--gk-ink-rgb) / .90),rgb(233 238 235 / .55));
+  border:1px solid rgb(var(--gk-ink-rgb) / .75);
+  box-shadow:0 26px 44px -26px #000,inset 0 1px 0 #fff;
+  transition:transform .5s var(--gk-ease),width .35s var(--gk-ease),background .3s}
+.gk-shelf__sheet i{position:absolute;left:14%;right:14%;height:2px;border-radius:2px;
+  background:rgb(15 20 18 / .16);font-style:normal}
+.gk-shelf__sheet i:nth-of-type(1){top:14%}
+.gk-shelf__sheet i:nth-of-type(2){top:22%;right:34%}
+.gk-shelf__sheet i:nth-of-type(3){top:30%}
+.gk-shelf__sheet i:nth-of-type(4){top:38%;right:28%}
+.gk-shelf__sheet i:nth-of-type(5){top:46%}
+.gk-shelf__sheet::after{content:attr(data-label);position:absolute;left:50%;bottom:12px;
+  translate:-50% 0;rotate:90deg;font-size:.58rem;letter-spacing:.08em;
+  color:rgb(15 20 18 / .5);white-space:nowrap}
+.gk-shelf__sheet:hover{width:42px}
+.gk-shelf__sheet.is-active{
+  width:52px;
+  background:linear-gradient(180deg,rgb(var(--gk-a-rgb) / .98),var(--gk-a-2));
+  border-color:rgb(var(--gk-a-rgb) / .85);
+  box-shadow:0 30px 60px -22px #000,0 0 70px -14px var(--gk-glow)}
+.gk-shelf__sheet.is-active i{background:rgb(4 20 11 / .25)}
+.gk-shelf__sheet.is-active::after{color:#04140b;font-weight:600}
+.gk-tabcard{top:46%}
+
+/* ---- 11b. ACTIVITY PANEL, rebuilt ------------------------- */
+.gk-gpanel{padding:3.4rem 1.5rem 1.5rem;border-radius:26px}
+.gk-gpanel__peek{position:absolute;left:16%;right:5%;top:-3.1rem;height:6.1rem;display:flex;
+  align-items:flex-start;pointer-events:none}
+.gk-gpanel__peek i{flex:1;max-width:150px;height:100%;margin-left:-26px;border-radius:14px;
+  background:rgb(var(--gk-ink-rgb) / .26);border:1px solid rgb(var(--gk-ink-rgb) / .45);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  padding:.5rem .55rem;font-style:normal;font-size:.5rem;line-height:1.5;
+  color:rgb(4 30 15 / .72);overflow:hidden}
+.gk-gpanel__peek i:first-child{margin-left:0}
+.gk-gpanel__peek i b{display:block;font-size:.6rem;margin-bottom:.25rem}
+.gk-gpanel__head{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem}
+.gk-gpanel__head span.gk-gpanel__stage{font-size:.95rem;opacity:.8}
+.gk-progress{margin-top:1.1rem}
+.gk-progress b{display:block;font-size:.98rem;font-weight:500}
+.gk-progress__line{position:relative;margin-top:.6rem;height:10px;
+  background:radial-gradient(circle,#fff 1.1px,transparent 1.2px) 0 50%/9px 100% repeat-x}
+.gk-progress__line span{position:absolute;left:0;top:calc(50% - .5px);height:1px;width:var(--p,58%);
+  background:#fff}
+.gk-progress__line span::after{content:"";position:absolute;right:-5px;top:-5px;
+  border:5px solid transparent;border-left-color:#fff}
+
+/* ---- 13. DEVICE FRAMES ----------------------------------- */
+.gk-phone{position:relative;width:330px;max-width:100%;aspect-ratio:9/19.2;
+  border-radius:44px;padding:9px;background:linear-gradient(160deg,#3a3c3f,#0d0e10 40%,#26282b);
+  box-shadow:0 60px 100px -50px #000,inset 0 0 0 1px rgb(var(--gk-ink-rgb) / .1)}
+.gk-phone__screen{position:relative;height:100%;border-radius:36px;overflow:hidden;
+  background:#050506;isolation:isolate}
+.gk-phone__notch{position:absolute;left:50%;top:8px;translate:-50% 0;z-index:9;
+  width:98px;height:26px;border-radius:99px;background:#000}
+.gk-phone__bar{position:absolute;left:50%;bottom:7px;translate:-50% 0;z-index:9;
+  width:112px;height:4px;border-radius:99px;background:rgb(var(--gk-ink-rgb) / .55)}
+.gk-screen{position:relative;height:100%;padding:2.6rem .85rem 1.6rem;overflow:hidden;
+  background:#050506}
+.gk-screen::before{content:"";position:absolute;inset:0;
+  background-image:radial-gradient(rgb(var(--gk-ink-rgb) / .13) 1px,transparent 1px);
+  background-size:18px 18px;opacity:.5;pointer-events:none}
+.gk-screen > *{position:relative;z-index:1}
+.gk-screen__top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem}
+.gk-screen__top .gk-icon{width:30px;height:30px;border-radius:9px}
+.gk-screen__top .gk-icon svg{width:14px;height:14px}
+.gk-search{display:flex;align-items:center;gap:.5rem;padding:.55rem .7rem;border-radius:12px;
+  background:rgb(var(--gk-ink-rgb) / .06);border:1px solid var(--gk-line);font-size:.8rem}
+.gk-search svg{width:14px;height:14px;color:var(--gk-tx-2);flex:none}
+.gk-search em{font-style:normal;color:var(--gk-tx-3)}
+.gk-sechead{display:flex;align-items:center;justify-content:space-between;
+  margin:1rem 0 .5rem;font-size:.76rem;color:var(--gk-tx-2)}
+
+/* ---- 14. ASSET TREE -------------------------------------- */
+.gk-tree{font-size:.78rem}
+.gk-tree__row{display:flex;align-items:center;gap:.5rem;padding:.42rem .3rem;border-radius:9px;
+  color:var(--gk-tx);transition:background .2s}
+.gk-tree__row:hover{background:rgb(var(--gk-ink-rgb) / .05)}
+.gk-tree__row svg{width:15px;height:15px;color:var(--gk-tx-2);flex:none}
+.gk-count{margin-left:auto;font-size:.66rem;padding:.08rem .4rem;border-radius:6px;
+  background:rgb(var(--gk-ink-rgb) / .09);color:var(--gk-tx-2)}
+.gk-tree__kids{margin:.1rem 0 .2rem 1.1rem;padding-left:.7rem;
+  border-left:1px solid var(--gk-line)}
+.gk-check{width:17px;height:17px;border-radius:6px;display:grid;place-items:center;flex:none;
+  background:rgb(var(--gk-ink-rgb) / .1);color:transparent;font-size:.6rem;margin-left:auto}
+.gk-check.is-on{background:#fff;color:#0b0d0c}
+
+/* ---- 15. MEDIA / PERSONA CARDS --------------------------- */
+.gk-media{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}
+.gk-mcard{position:relative;height:104px;border-radius:14px;overflow:hidden;padding:.6rem .65rem;
+  background:linear-gradient(180deg,rgb(var(--gk-ink-rgb) / .07),rgb(var(--gk-ink-rgb) / .025));
+  border:1px solid var(--gk-line-2);cursor:pointer;
+  transition:border-color .3s,transform .35s var(--gk-ease)}
+.gk-mcard:hover{transform:translateY(-3px);border-color:rgb(var(--gk-a-rgb) / .45)}
+.gk-mcard b{display:block;font-size:.82rem;font-weight:500}
+.gk-mcard span{display:block;font-size:.72rem;color:var(--gk-tx-2)}
+.gk-mcard__thumb{position:absolute;left:26%;right:6%;bottom:-14px;height:58px;border-radius:12px 12px 0 0;
+  background:linear-gradient(180deg,#f3f4f5,#c9cdd0);
+  box-shadow:0 -8px 22px -10px #000}
+.gk-mcard__thumb::before,.gk-mcard__thumb::after{content:"";position:absolute;bottom:0;width:38%;
+  height:74%;border-radius:10px 10px 0 0;background:#e7eaec;box-shadow:0 -6px 16px -8px #000}
+.gk-mcard__thumb::before{left:6%}
+.gk-mcard__thumb::after{right:6%;background:#d3d7da}
+.gk-mcard__pin{position:absolute;right:.55rem;top:.55rem;width:22px;height:22px;border-radius:8px;
+  background:rgb(var(--gk-ink-rgb) / .09)}
+
+/* ---- 16. INTAKE SCREEN (green folder + composer) --------- */
+.gk-intake{position:relative;height:210px;margin:.6rem 0 1rem}
+.gk-intake__wires{position:absolute;inset:0}
+.gk-intake__wires path{fill:none;stroke:rgb(var(--gk-ink-rgb) / .17);stroke-width:1}
+.gk-intake__wires circle{fill:var(--gk-a);filter:drop-shadow(0 0 6px var(--gk-glow))}
+.gk-ifolder{position:absolute;left:50%;top:14%;translate:-50% 0;width:52%;aspect-ratio:5/4}
+.gk-ifolder__back{position:absolute;inset:14% 0 0 0;border-radius:10px 10px 12px 12px;
+  background:linear-gradient(160deg,rgb(var(--gk-a-rgb) / .95),var(--gk-a-2));
+  box-shadow:0 24px 44px -22px #000}
+.gk-ifolder__doc{position:absolute;left:12%;right:16%;top:0;height:66%;border-radius:4px;
+  background:#fff;box-shadow:0 10px 22px -12px #000;overflow:hidden;rotate:-3deg}
+.gk-ifolder__doc i{position:absolute;left:8%;right:8%;height:3px;border-radius:2px;
+  background:rgb(15 20 18 / .16);font-style:normal}
+.gk-ifolder__doc i:nth-child(1){top:14%}
+.gk-ifolder__doc i:nth-child(2){top:30%;right:44%}
+.gk-ifolder__doc i:nth-child(3){top:46%}
+.gk-ifolder__doc i:nth-child(4){top:62%;right:32%}
+.gk-ifolder__front{position:absolute;inset:38% 0 0 0;border-radius:10px;
+  background:linear-gradient(160deg,rgb(var(--gk-a-rgb) / .85),rgb(31 157 78 / .92));
+  border-top:1px solid rgb(var(--gk-ink-rgb) / .35)}
+.gk-icard{position:absolute;left:26%;top:44%;width:44%;border-radius:9px;background:#fff;
+  color:#0d1410;padding:.4rem .45rem;font-size:.42rem;line-height:1.55;
+  box-shadow:0 20px 40px -18px #000;z-index:3}
+.gk-icard b{font-size:.5rem}
+.gk-icard__grid{display:grid;grid-template-columns:1fr 1fr;gap:.15rem .4rem;margin-top:.2rem;
+  color:rgb(13 20 16 / .55)}
+.gk-composer{display:flex;flex-direction:column;gap:.6rem;padding:.75rem .8rem;border-radius:18px;
+  background:rgb(var(--gk-ink-rgb) / .055);border:1px solid var(--gk-glass-bd);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);
+  box-shadow:0 24px 50px -26px #000,inset 0 1px 0 var(--gk-glass-hi)}
+.gk-composer__line{display:flex;align-items:center;justify-content:space-between;gap:.6rem;
+  font-size:.9rem;color:var(--gk-tx)}
+.gk-composer__tools{display:flex;align-items:center;gap:.45rem}
+.gk-pill{display:inline-flex;align-items:center;gap:.3rem;padding:.3rem .6rem;border-radius:999px;
+  background:rgb(var(--gk-ink-rgb) / .07);border:1px solid var(--gk-line);font-size:.75rem;
+  color:var(--gk-tx);cursor:pointer}
+.gk-pill:hover{background:rgb(var(--gk-ink-rgb) / .13)}
+.gk-send{margin-left:auto;width:32px;height:32px;border-radius:50%;border:0;cursor:pointer;
+  background:#fff;color:#0b0d0c;display:grid;place-items:center}
+.gk-send svg{width:15px;height:15px}
+.gk-round--sm{width:30px;height:30px;font-size:.9rem}
+
+/* ---- 17. DESKTOP APP FRAME ------------------------------- */
+.gk-app{position:relative;border-radius:16px;overflow:hidden;background:#0a0a0b;
+  border:1px solid var(--gk-line-2);box-shadow:0 60px 110px -50px #000;
+  display:grid;grid-template-rows:auto 1fr}
+.gk-app__bar{display:flex;align-items:center;gap:.7rem;padding:.55rem .8rem;
+  border-bottom:1px solid var(--gk-line);font-size:.76rem;color:var(--gk-tx-2)}
+.gk-app__dots{display:flex;gap:.35rem}
+.gk-app__dots i{width:9px;height:9px;border-radius:50%;background:rgb(var(--gk-ink-rgb) / .18)}
+.gk-app__tab{margin-left:.8rem;padding:.2rem .6rem;border-radius:8px;
+  background:rgb(var(--gk-ink-rgb) / .07);color:var(--gk-tx)}
+.gk-app__body{display:grid;grid-template-columns:212px 1fr;min-height:470px}
+.gk-app__side{border-right:1px solid var(--gk-line);padding:.8rem .7rem;overflow:hidden}
+.gk-app__main{position:relative;overflow:hidden}
+.gk-app__main .gk-canvas{border:0;border-radius:0;height:100%;min-height:470px}
+.gk-preview{position:absolute;right:16px;top:26px;width:196px;z-index:4;border-radius:14px;
+  padding:.55rem;background:rgb(18 18 20 / .86);border:1px solid var(--gk-line-2);
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  box-shadow:0 30px 60px -28px #000}
+.gk-preview__head{font-size:.7rem;color:var(--gk-tx-2);margin-bottom:.4rem}
+.gk-preview__frame{position:relative;height:150px;border-radius:10px;overflow:hidden;
+  background:radial-gradient(90% 80% at 50% 30%,rgb(var(--gk-a-rgb) / .5),#140806 70%)}
+.gk-preview__frame b{position:absolute;left:50%;top:52%;translate:-50% -50%;width:44%;height:64%;
+  border-radius:40% 40% 30% 30%;background:linear-gradient(180deg,#0006,#0000);
+  filter:blur(6px)}
+.gk-preview__ctrl{display:flex;align-items:center;gap:.4rem;margin-top:.45rem;
+  font-size:.66rem;color:var(--gk-tx-2)}
+.gk-preview__ctrl .gk-icon{width:26px;height:26px;border-radius:8px}
+.gk-preview__ctrl .gk-icon svg{width:12px;height:12px}
+
+/* ============================================================
+   GLASS KIT — PART 4 (2026-08-28)
+   Intake scene: every piece is draggable and resizable.
+   .gk-board  → the stage      .gk-item → a movable, resizable piece
+   ============================================================ */
+
+.gk-board{position:relative;overflow:hidden;isolation:isolate;
+  background:#050506;border-radius:var(--gk-r-lg);border:1px solid var(--gk-line);
+  min-height:560px;touch-action:none}
+.gk-board::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(rgb(var(--gk-ink-rgb) / .15) 1px,transparent 1px);
+  background-size:20px 20px;opacity:.55}
+.gk-board::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(34rem 26rem at var(--gk-mx,50%) var(--gk-my,38%),
+             rgb(var(--gk-a-rgb) / .12),transparent 70%)}
+
+.gk-item{position:absolute;z-index:2;cursor:grab;container-type:inline-size;
+  transition:box-shadow .25s var(--gk-ease)}
+.gk-item.is-dragging{cursor:grabbing;z-index:8}
+.gk-item.is-picked{outline:1px dashed rgb(var(--gk-a-rgb) / .55);outline-offset:6px;border-radius:6px}
+.gk-item__grip{position:absolute;right:-9px;bottom:-9px;width:18px;height:18px;border-radius:5px;
+  background:var(--gk-a);border:2px solid #050506;cursor:nwse-resize;opacity:0;z-index:9;
+  transition:opacity .2s;box-shadow:0 0 14px var(--gk-glow)}
+.gk-item:hover .gk-item__grip,.gk-item.is-picked .gk-item__grip{opacity:1}
+.gk-board__hint{position:absolute;left:1rem;bottom:.9rem;z-index:9;font-size:.68rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--gk-tx-3);pointer-events:none}
+
+/* --- wires drawn under the pieces --- */
+.gk-board .gk-wires path{stroke:rgb(var(--gk-ink-rgb) / .16);stroke-width:1.1}
+.gk-board .gk-wires path.is-live{stroke:rgb(var(--gk-ink-rgb) / .3)}
+.gk-anchor{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--gk-a);
+  box-shadow:0 0 12px var(--gk-glow);z-index:3}
+.gk-anchor--ring{width:22px;height:22px;background:none;border:2px solid var(--gk-a);
+  display:grid;place-items:center}
+.gk-anchor--ring::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--gk-a);
+  box-shadow:0 0 12px var(--gk-glow)}
+.gk-node-label{position:absolute;z-index:3;font-size:.8rem;color:var(--gk-tx-2)}
+
+/* --- the green folder ------------------------------------- */
+.gk-gfolder{position:relative;width:100%;aspect-ratio:107/86;
+  filter:drop-shadow(0 40px 60px rgb(var(--gk-shade-rgb) / .55))}
+
+/* paper standing out of the pocket */
+.gk-gfolder__sheet{position:absolute;left:16%;right:12%;top:0;height:52%;z-index:2;
+  border-radius:3px;background:#fdfdfd;overflow:hidden;
+  box-shadow:0 6px 18px -8px rgb(var(--gk-shade-rgb) / .55)}
+.gk-gfolder__sheet--back{left:23%;right:5%;top:-4%;height:48%;z-index:1;background:#e8eaec;
+  rotate:2.2deg;box-shadow:none}
+.gk-gfolder__bar{position:absolute;left:7%;top:8%;width:26%;height:3.4%;border-radius:2px;
+  background:#c4c8ca}
+.gk-gfolder__lines{position:absolute;left:7%;right:7%;top:17%;bottom:5%;
+  background:repeating-linear-gradient(180deg,
+    #d5d9db 0 2.6%, transparent 2.6% 8.2%)}
+.gk-gfolder__lines::after{content:"";position:absolute;left:38%;bottom:0;right:0;height:9%;
+  background:#fdfdfd}
+
+/* the pocket: back leaf, then the front face */
+.gk-gfolder__back{position:absolute;left:0;right:0;top:20%;bottom:12%;z-index:0;
+  border-radius:0 9px 5px 5px;background:linear-gradient(165deg,#3ecf6a,#1da24d)}
+.gk-gfolder__back::before{content:"";position:absolute;left:0;top:-9.5%;width:31%;height:11%;
+  border-radius:8px 8px 0 0;background:#3ecf6a}
+.gk-gfolder__front{position:absolute;left:0;right:0;top:44%;bottom:0;z-index:3;
+  border-radius:4px 4px 13px 13px;
+  background:
+    linear-gradient(180deg,rgb(var(--gk-ink-rgb) / .22) 0 2.5%,transparent 2.5%),
+    radial-gradient(120% 130% at 22% 0%,#4ad873 0%,#2bbe5b 42%,#159a47 100%);
+  box-shadow:inset 0 1px 0 rgb(var(--gk-ink-rgb) / .45),0 24px 40px -28px rgb(var(--gk-shade-rgb) / .9)}
+/* the softer inner face you can see through the pocket wall */
+.gk-gfolder__front::before{content:"";position:absolute;left:8%;right:8%;top:13%;height:38%;
+  border-radius:7px;background:rgb(var(--gk-ink-rgb) / .055)}
+/* tiny colour chips */
+.gk-gfolder__chips{position:absolute;left:7%;bottom:26%;display:flex;gap:1.6%;z-index:4}
+.gk-gfolder__chips i{display:block;width:.42em;height:.42em;border-radius:1.5px;font-style:normal;
+  box-shadow:0 1px 2px rgb(var(--gk-shade-rgb) / .25)}
+.gk-gfolder__chips i:nth-child(1){background:#e8564a}
+.gk-gfolder__chips i:nth-child(2){background:#f0a63c}
+.gk-gfolder__chips i:nth-child(3){background:#4a86f0}
+.gk-gfolder__chips i:nth-child(4){background:#8ff0ab}
+
+/* --- the white form card ---------------------------------- */
+.gk-formcard{position:relative;width:100%;border-radius:10px;background:#fff;color:#0d1410;
+  padding:5cqw 5cqw 6cqw;box-shadow:0 34px 60px -28px #000;font-size:2.4cqw;line-height:1.7}
+.gk-formcard__top{display:flex;align-items:center;justify-content:space-between;
+  font-size:3.6cqw;font-weight:600;margin-bottom:3cqw}
+.gk-formcard__top span{width:5cqw;height:5cqw;border-radius:50%;background:#0d1410;color:#fff;
+  display:grid;place-items:center;font-size:2.6cqw;font-weight:500}
+.gk-formcard__grid{display:grid;grid-template-columns:1fr 1fr;gap:3cqw 5cqw}
+.gk-formcard__grid b{display:block;font-weight:600;font-size:2.7cqw}
+.gk-formcard__grid span{display:block;color:rgb(13 20 16 / .45)}
+.gk-formcard__rule{height:1px;background:rgb(13 20 16 / .1);margin:4cqw 0}
+
+/* --- the composer bar ------------------------------------- */
+.gk-bar{position:relative;width:100%;border-radius:5cqw;padding:5.5cqw 5.5cqw 5cqw;
+  background:linear-gradient(160deg,rgb(var(--gk-ink-rgb) / .09),rgb(var(--gk-ink-rgb) / .03) 55%,rgb(var(--gk-ink-rgb) / .06));
+  border:1px solid rgb(var(--gk-ink-rgb) / .16);
+  -webkit-backdrop-filter:blur(28px) saturate(180%);backdrop-filter:blur(28px) saturate(180%);
+  box-shadow:0 40px 80px -36px #000,inset 0 1px 0 rgb(var(--gk-ink-rgb) / .32)}
+.gk-bar__text{display:flex;align-items:center;font-size:5.4cqw;font-weight:400;letter-spacing:-.01em;
+  color:rgb(var(--gk-ink-rgb) / .92)}
+.gk-bar__caret{display:inline-block;width:.09em;height:1.1em;margin-left:.22em;
+  background:rgb(var(--gk-ink-rgb) / .9);animation:gk-blink 1.05s steps(1) infinite}
+.gk-bar__row{display:flex;align-items:center;gap:2.4cqw;margin-top:5.5cqw}
+.gk-bar__btn{width:7.6cqw;height:7.6cqw;border-radius:50%;border:1px solid rgb(var(--gk-ink-rgb) / .18);
+  background:rgb(var(--gk-ink-rgb) / .06);color:rgb(var(--gk-ink-rgb) / .8);display:grid;place-items:center;
+  font-size:4cqw;cursor:pointer;flex:none}
+.gk-bar__docs{position:relative;width:7.6cqw;height:7.6cqw;flex:none}
+.gk-bar__docs i{position:absolute;inset:14% 26% 8% 10%;border-radius:1.4cqw;background:#d9dcde;
+  font-style:normal}
+.gk-bar__docs i:last-child{inset:8% 10% 14% 26%;background:#f4f5f6}
+.gk-bar__pill{display:inline-flex;align-items:center;gap:1.8cqw;padding:1.9cqw 3.8cqw;
+  border-radius:99px;border:1px solid rgb(var(--gk-ink-rgb) / .2);color:rgb(var(--gk-ink-rgb) / .85);
+  font-size:3.6cqw;cursor:pointer}
+.gk-bar__pill:hover{background:rgb(var(--gk-ink-rgb) / .08)}
+.gk-bar__send{margin-left:auto;width:9cqw;height:9cqw;border-radius:50%;border:0;cursor:pointer;
+  background:#fff;color:#0b0d0c;display:grid;place-items:center;flex:none;
+  box-shadow:0 10px 24px -12px #000}
+.gk-bar__send svg{width:4cqw;height:4cqw}
+
+/* --- the small scanned chip ------------------------------- */
+.gk-chipcard{width:100%;aspect-ratio:3/4;border-radius:6px;background:#fbfbfb;
+  box-shadow:0 20px 40px -22px #000}
+
+/* ============================================================
+   GLASS KIT — PART 5 (2026-08-28)
+   Vault tile: frosted folder over papers, source badges, green wires.
+   ============================================================ */
+
+.gk-board--light{background:
+  radial-gradient(90% 70% at 30% 20%,#f2f3f4,#d7d9da 55%,#b9bcbe);
+  border-color:rgb(var(--gk-shade-rgb) / .08)}
+.gk-board--light::before{
+  background-image:radial-gradient(rgb(var(--gk-shade-rgb) / .10) 1px,transparent 1px);opacity:.35}
+.gk-board--light::after{background:radial-gradient(30rem 22rem at var(--gk-mx,50%) var(--gk-my,40%),
+  rgb(var(--gk-ink-rgb) / .55),transparent 70%)}
+.gk-board--light .gk-board__hint{color:rgb(var(--gk-shade-rgb) / .35)}
+.gk-board--light .gk-wires path{stroke:rgb(var(--gk-shade-rgb) / .18)}
+.gk-board--light .gk-wires path.is-live{stroke:var(--gk-a);stroke-width:1.6;
+  filter:drop-shadow(0 0 3px var(--gk-a)) drop-shadow(0 0 12px var(--gk-glow))}
+.gk-board--light .gk-item__grip{border-color:#fff}
+
+/* --- the tile -------------------------------------------- */
+.gk-vault{position:relative;width:100%;aspect-ratio:20/17}
+
+/* dark card sitting behind the papers */
+.gk-vault__card{position:absolute;left:16%;right:6%;top:7%;height:52%;border-radius:9px;
+  background:linear-gradient(160deg,#2c2e30,#151617);
+  box-shadow:0 22px 40px -22px rgb(var(--gk-shade-rgb) / .8)}
+
+/* the papers */
+.gk-vault__paper{position:absolute;left:9%;right:26%;top:2%;height:47%;border-radius:4px;
+  background:#fcfcfb;color:#15181a;overflow:hidden;rotate:-2deg;
+  box-shadow:0 14px 26px -14px rgb(var(--gk-shade-rgb) / .55);
+  font-size:.2em;line-height:1.5;padding:7% 8%}
+.gk-vault__paper b{display:block;font-size:1.45em;font-weight:700;letter-spacing:.02em}
+.gk-vault__paper i{position:absolute;right:8%;height:2.5%;border-radius:1px;
+  background:rgb(21 24 26 / .3);font-style:normal}
+.gk-vault__paper i:nth-of-type(1){top:14%;width:34%}
+.gk-vault__paper i:nth-of-type(2){top:22%;width:30%}
+.gk-vault__paper i:nth-of-type(3){top:30%;width:34%}
+.gk-vault__paper--2{left:40%;right:4%;top:9%;height:40%;rotate:3deg;background:#f4f5f6;
+  z-index:0;padding:5% 6%}
+.gk-vault__paper--2 i:nth-of-type(1){top:26%;width:60%;right:12%}
+.gk-vault__paper--2 i:nth-of-type(2){top:38%;width:44%;right:12%}
+.gk-vault__paper--2 i:nth-of-type(3){top:50%;width:56%;right:12%}
+
+/* the frosted pocket */
+.gk-vault__glass{position:absolute;left:0;right:0;top:26%;bottom:6%;z-index:3;border-radius:16px;
+  background:linear-gradient(180deg,rgb(var(--gk-ink-rgb) / .58),rgb(var(--gk-ink-rgb) / .40));
+  border:1px solid rgb(var(--gk-ink-rgb) / .7);
+  -webkit-backdrop-filter:blur(15px) saturate(115%);backdrop-filter:blur(15px) saturate(115%);
+  box-shadow:0 30px 50px -26px rgb(var(--gk-shade-rgb) / .55),inset 0 1px 0 rgb(var(--gk-ink-rgb) / .9)}
+/* faint blocks that read as blurred paperwork behind the frost */
+.gk-vault__glass::before{content:"";position:absolute;left:9%;top:17%;width:32%;height:22%;
+  border-radius:5px;background:rgb(20 24 26 / .05)}
+.gk-vault__glass::after{content:"";position:absolute;right:9%;top:17%;width:24%;height:40%;
+  border-radius:5px;background:rgb(20 24 26 / .04)}
+
+/* source badges + caption */
+.gk-vault .gk-badges{left:8%;bottom:13%;z-index:5}
+.gk-vault .gk-badges i{font-size:.3em;width:2.55em;height:2.55em;margin-left:-.6em;
+  line-height:1;font-weight:600;
+  border:.16em solid rgb(var(--gk-ink-rgb) / .72);box-shadow:0 .2em .5em rgb(var(--gk-shade-rgb) / .32)}
+.gk-vault .gk-badges i:first-child{margin-left:0}
+.gk-vault__name{margin-top:.34em;text-align:center;font-size:.3em;color:#15181a;letter-spacing:.01em}
+.gk-board--light .gk-vault__name{color:#15181a}
+
+/* ============================================================
+   GLASS KIT — PART 6 (2026-08-28)
+   MONO palette: black / white / silver leads, green and orange
+   stay as meaning, not decoration.
+     data-gk-accent="mono"   → silver primary
+     --gk-ok    (green)      → success, live, allowed
+     --gk-warn  (orange)     → waiting, attention
+     --gk-danger(red)        → blocked, refused
+   ============================================================ */
+
+.gk-scope{
+  --gk-ok:#68e78e;     --gk-ok-rgb:104 231 142;
+  --gk-warn:#ff8a3d;   --gk-warn-rgb:255 138 61;
+  --gk-danger:#ff5a5a; --gk-danger-rgb:255 90 90;
+}
+.gk-scope[data-gk-accent="mono"]{
+  --gk-a:#e9ecef;
+  --gk-a-2:#98a0a6;
+  --gk-a-rgb:233 236 239;
+  --gk-glow:rgb(var(--gk-ink-rgb) / .30);
+  --gk-bg:#050506;
+  --gk-line:rgb(var(--gk-ink-rgb) / .08);
+  --gk-line-2:rgb(var(--gk-ink-rgb) / .15);
+}
+
+/* anything filled with the accent needs dark ink in mono */
+[data-gk-accent="mono"] .gk-node--hot,
+[data-gk-accent="mono"] .gk-gnode--hot,
+[data-gk-accent="mono"] .gk-fnode--active,
+[data-gk-accent="mono"] .gk-cta,
+[data-gk-accent="mono"] .gk-gpanel,
+[data-gk-accent="mono"] .gk-runbar button.is-primary,
+[data-gk-accent="mono"] .gk-approve button.ok{color:#0c1013}
+[data-gk-accent="mono"] .gk-node--hot .gk-node__out,
+[data-gk-accent="mono"] .gk-gnode--hot .gk-gnode__tx span,
+[data-gk-accent="mono"] .gk-fnode--active .gk-fnode__tx span{color:rgb(12 16 19 / .6)}
+[data-gk-accent="mono"] .gk-node--hot{
+  background:linear-gradient(150deg,#f3f5f6,rgb(233 236 239 / .32) 62%,rgb(var(--gk-ink-rgb) / .05))}
+[data-gk-accent="mono"] .gk-gnode--hot{
+  background:linear-gradient(150deg,#eef1f3,rgb(233 236 239 / .28) 60%,rgb(var(--gk-ink-rgb) / .04))}
+[data-gk-accent="mono"] .gk-cta{
+  background:radial-gradient(120% 180% at 50% 0%,#ffffff,#9aa2a8)}
+[data-gk-accent="mono"] .gk-title em{
+  background:linear-gradient(90deg,rgb(var(--gk-ink-rgb) / .28),#fff);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+[data-gk-accent="mono"] .gk-chip:hover,[data-gk-accent="mono"] .gk-chip.is-active{
+  background:linear-gradient(150deg,rgb(var(--gk-ink-rgb) / .5),rgb(var(--gk-ink-rgb) / .1));color:#0c1013}
+[data-gk-accent="mono"] .gk-chip.is-active small{color:rgb(12 16 19 / .55)}
+[data-gk-accent="mono"] .gk-glass--warm{
+  background:linear-gradient(160deg,rgb(var(--gk-ink-rgb) / .16),rgb(var(--gk-ink-rgb) / .05) 55%,rgb(var(--gk-ink-rgb) / .09));
+  border-color:rgb(var(--gk-ink-rgb) / .22)}
+
+/* silver folder / vault variants keep the green only as an accent chip */
+[data-gk-accent="mono"] .gk-gfolder__back{background:linear-gradient(165deg,#cfd4d8,#8d959b)}
+[data-gk-accent="mono"] .gk-gfolder__back::before{background:#cfd4d8}
+[data-gk-accent="mono"] .gk-gfolder__front{
+  background:linear-gradient(160deg,#e6eaec,#9aa2a8);
+  box-shadow:inset 0 1px 0 rgb(var(--gk-ink-rgb) / .8),0 24px 40px -28px rgb(var(--gk-shade-rgb) / .9)}
+[data-gk-accent="mono"] .gk-folder__back,[data-gk-accent="mono"] .gk-folder__front{
+  background:linear-gradient(165deg,#dfe3e6,#8f979d)}
+
+/* ---- semantic colours: these never follow the accent ------ */
+.gk-gnode.is-done{border-color:rgb(var(--gk-ok-rgb) / .5)}
+.gk-gnode.is-done .gk-gstate{color:var(--gk-ok);border-color:rgb(var(--gk-ok-rgb) / .45)}
+.gk-gnode.is-waiting{border-color:var(--gk-warn);
+  box-shadow:0 24px 50px -26px #000,0 0 44px -14px rgb(var(--gk-warn-rgb) / .45)}
+.gk-gnode.is-waiting .gk-gstate{color:var(--gk-warn);border-color:rgb(var(--gk-warn-rgb) / .5)}
+.gk-gnode.is-blocked{border-color:var(--gk-danger);
+  box-shadow:0 24px 50px -26px #000,0 0 44px -14px rgb(var(--gk-danger-rgb) / .5)}
+.gk-gnode.is-blocked .gk-gstate{color:#ff9a9a;border-color:rgb(var(--gk-danger-rgb) / .5)}
+.gk-report .ok i{background:var(--gk-ok)}
+.gk-report .wait i{background:var(--gk-warn)}
+.gk-report .stop i{background:var(--gk-danger)}
+.gk-approve button.ok{background:rgb(var(--gk-ok-rgb) / .85);color:#04140b;border-color:transparent}
+.gk-approve button.no{background:rgb(var(--gk-danger-rgb) / .16);color:#ff9a9a;
+  border-color:rgb(var(--gk-danger-rgb) / .4)}
+/* a live wire reads as "allowed to flow" → green, in every palette */
+.gk-graph__edges path.is-live{stroke:var(--gk-ok);
+  filter:drop-shadow(0 0 5px rgb(var(--gk-ok-rgb) / .45))}
+.gk-graph__edges path.is-firing{stroke:var(--gk-ok);
+  filter:drop-shadow(0 0 8px var(--gk-ok))}
+.gk-token{fill:#fff;filter:drop-shadow(0 0 6px var(--gk-ok))}
+.gk-gpin[data-type="control"]{background:var(--gk-ok)}
+
+/* ============================================================
+   GLASS KIT — PART 7 (2026-08-28)
+   QUIET mode + the ah-* bridge.
+
+   .gk-scope[data-gk-quiet]  → the site register: one border weight,
+   no ambient glow, no drop shadows on dark, movement capped at 2px,
+   and only a SELECTED element is allowed to glow. Loud stays the
+   default for portfolio and reference work.
+
+   Every semantic colour now defers to the ah-* token if the page
+   defines one, so the UX system spec stays the single source.
+   ============================================================ */
+
+.gk-scope{
+  --gk-ok:var(--ah-ok,#68e78e);
+  --gk-warn:var(--ah-gate,#ff8a3d);
+  --gk-danger:var(--ah-stop,#ff5a5a);
+  --gk-dur-fast:.18s; --gk-dur:.24s; --gk-dur-slow:.32s; --gk-move:6px;
+}
+
+/* ---- quiet -------------------------------------------------- */
+.gk-scope[data-gk-quiet]{
+  --gk-move:2px;
+  --gk-blur:18px;
+  --gk-glow:transparent;
+  --gk-line:rgb(var(--gk-ink-rgb) / .1);
+  --gk-line-2:rgb(var(--gk-ink-rgb) / .16);
+}
+/* no ambient bloom, no film grain, quieter dots */
+[data-gk-quiet] .gk-canvas::after,
+[data-gk-quiet] .gk-board::after,
+[data-gk-quiet] .gk-graph::after{background:none}
+[data-gk-quiet] .gk-grain::after{opacity:.12}
+[data-gk-quiet] .gk-canvas::before,
+[data-gk-quiet] .gk-graph::before{opacity:.34}
+
+/* one border weight, depth from surface alpha — not from shadow */
+[data-gk-quiet] .gk-node,
+[data-gk-quiet] .gk-fnode,
+[data-gk-quiet] .gk-gnode,
+[data-gk-quiet] .gk-glass,
+[data-gk-quiet] .gk-chip,
+[data-gk-quiet] .gk-mcard,
+[data-gk-quiet] .gk-composer,
+[data-gk-quiet] .gk-preview,
+[data-gk-quiet] .gk-dock,
+[data-gk-quiet] .gk-runbar,
+[data-gk-quiet] .gk-report{box-shadow:none;border-width:1px}
+[data-gk-quiet] .gk-cta{box-shadow:none}
+[data-gk-quiet] .gk-node--hot,
+[data-gk-quiet] .gk-fnode--active,
+[data-gk-quiet] .gk-gnode--hot{box-shadow:none}
+
+/* movement capped, timings from the tokens */
+[data-gk-quiet] .gk-node:hover,
+[data-gk-quiet] .gk-fnode:hover,
+[data-gk-quiet] .gk-mcard:hover,
+[data-gk-quiet] .gk-cta:hover,
+[data-gk-quiet] .gk-icon:hover{transform:translateY(calc(-1 * var(--gk-move)))}
+[data-gk-quiet] .gk-chip:hover,[data-gk-quiet] .gk-chip.is-active{--gk-lift:calc(-1 * var(--gk-move))}
+[data-gk-quiet] .gk-node,[data-gk-quiet] .gk-fnode,[data-gk-quiet] .gk-gnode,
+[data-gk-quiet] .gk-chip,[data-gk-quiet] .gk-mcard,[data-gk-quiet] .gk-cta{
+  transition-duration:var(--gk-dur)}
+
+/* nothing breathes, nothing pulses; wires stay still until a run */
+[data-gk-quiet] .gk-wires path.is-flow,
+[data-gk-quiet] .gk-wires path.gk-pulse{animation:none}
+[data-gk-quiet] .gk-wires path.gk-pulse{opacity:0}
+[data-gk-quiet] .gk-gnode.is-running{animation:none}
+[data-gk-quiet] .gk-node--hot,[data-gk-quiet] .gk-gnode--hot{
+  background:linear-gradient(150deg,rgb(var(--gk-a-rgb) / .22),rgb(var(--gk-ink-rgb) / .03))}
+
+/* the one exception: a SELECTED thing may glow, faintly */
+[data-gk-quiet] .gk-gnode.is-selected,
+[data-gk-quiet] .gk-shelf__sheet.is-active,
+[data-gk-quiet] .gk-item.is-picked{
+  box-shadow:0 0 0 1px rgb(var(--gk-a-rgb) / .5),0 0 10px rgb(var(--gk-a-rgb) / .3)}
+[data-gk-quiet] .gk-gnode.is-running{box-shadow:0 0 0 1px rgb(var(--gk-a-rgb) / .5)}
+[data-gk-quiet] .gk-gnode.is-blocked{box-shadow:0 0 0 1px rgb(var(--gk-danger-rgb) / .55)}
+[data-gk-quiet] .gk-gnode.is-waiting{box-shadow:0 0 0 1px rgb(var(--gk-warn-rgb) / .55)}
+[data-gk-quiet] .gk-graph__edges path.is-live,
+[data-gk-quiet] .gk-graph__edges path.is-firing,
+[data-gk-quiet] .gk-token{filter:none}
+[data-gk-quiet] .gk-graph__edges path.is-live{stroke-width:1.4}
+[data-gk-quiet] .gk-gpin:hover,[data-gk-quiet] .gk-gpin.is-armed,
+[data-gk-quiet] .gk-gpin.is-target{box-shadow:0 0 0 3px var(--gk-bg);transform:scale(1.25)}
+[data-gk-quiet] .gk-anchor,[data-gk-quiet] .gk-intake__wires circle{filter:none}
+[data-gk-quiet] .gk-dot{box-shadow:none}
+
+@media (prefers-reduced-motion:reduce){
+  .gk-scope{--gk-dur-fast:0s;--gk-dur:0s;--gk-dur-slow:0s;--gk-move:0px}
+}
+
+/* ============================================================
+   GLASS KIT — PART 8 (2026-08-29)
+   Type scale from the UX system, and the 11px metadata floor.
+   Sizes defer to the ah-* tokens when a page defines them, and
+   the family defers to the site's own --font, so the kit reads as
+   an evolution of the root design rather than a second system.
+   ============================================================ */
+
+.gk-scope{
+  --gk-display:var(--ah-display,clamp(30px,4.4vw,52px));
+  --gk-h2:var(--ah-h2,clamp(24px,3.2vw,40px));
+  --gk-h3:var(--ah-h3,17px);
+  --gk-body:var(--ah-body,14px);
+  --gk-small:var(--ah-small,12.5px);
+  --gk-meta-sz:var(--ah-meta-sz,11px);   /* hard floor, non-critical labels only */
+  --gk-input:var(--ah-input,16px);       /* mobile input floor */
+  font-family:var(--font,"Urbanist",-apple-system,"Segoe UI",sans-serif);
+  font-size:var(--gk-body);
+}
+
+/* headings */
+.gk-scope .gk-display{font-size:var(--gk-display);font-weight:500;letter-spacing:-.03em;
+  line-height:1.06;text-wrap:balance;margin:0}
+.gk-scope .gk-title{font-size:var(--gk-h2);line-height:1.1;text-wrap:balance}
+.gk-scope .gk-sub{font-size:var(--gk-body)}
+.gk-scope .gk-eyebrow{font-size:var(--gk-meta-sz);letter-spacing:.22em}
+
+/* component type, on the scale */
+.gk-scope .gk-node__head,
+.gk-scope .gk-gnode__head,
+.gk-scope .gk-fnode__tx b{font-size:var(--gk-body)}
+.gk-scope .gk-port,
+.gk-scope .gk-gport,
+.gk-scope .gk-gnode__tx span,
+.gk-scope .gk-fnode__tx span,
+.gk-scope .gk-node__row,
+.gk-scope .gk-gnode__field,
+.gk-scope .gk-tree,
+.gk-scope .gk-listrow{font-size:var(--gk-small)}
+
+/* the 11px floor: every label that used to sit under it is raised */
+.gk-scope .gk-node__out,
+.gk-scope .gk-gnode__badge,
+.gk-scope .gk-gstate,
+.gk-scope .gk-gtools span,
+.gk-scope .gk-wire-label,
+.gk-scope .gk-count,
+.gk-scope .gk-runbar .gk-runmode,
+.gk-scope .gk-graph__status,
+.gk-scope .gk-board__hint,
+.gk-scope .gk-swatch span,
+.gk-scope .gk-report__foot,
+.gk-scope .gk-preview__head,
+.gk-scope .gk-preview__ctrl{font-size:var(--gk-meta-sz)}
+.gk-graph__edges .gk-edge-label{font-size:11px}
+.gk-scope .gk-report li,
+.gk-scope .gk-report li b,
+.gk-scope .gk-runbar button,
+.gk-scope .gk-runbar select,
+.gk-scope .gk-pill,
+.gk-scope .gk-tab{font-size:var(--gk-small)}
+.gk-scope .gk-report h4{font-size:var(--gk-h3)}
+
+/* terminal texture comes from spacing and case, not a second family */
+.gk-scope .gk-eyebrow,
+.gk-scope .gk-graph__status,
+.gk-scope .gk-board__hint,
+.gk-scope .gk-node__out,
+.gk-scope .gk-gnode__badge,
+.gk-scope .gk-gstate{text-transform:uppercase;letter-spacing:.14em}
+
+/* any client-side input keeps the mobile floor */
+.gk-scope input,.gk-scope textarea,.gk-scope select{font-size:var(--gk-input)}
+.gk-scope .gk-runbar select{font-size:var(--gk-small)}
+
+/* ============================================================
+   GLASS KIT — PART 9 (2026-08-29)
+   Light theme. The site ships light and dark; the kit has to
+   follow the page rather than punch a dark slab into it.
+   Triggered by the site's own switch (html[data-theme="light"])
+   and by the OS preference when the site has not stamped one.
+   ============================================================ */
+
+html[data-theme="light"] .gk-scope,
+.gk-scope[data-gk-theme="light"]{
+  --gk-bg:#f4f6f5;
+  --gk-bg-2:#eceeed;
+  --gk-line:rgb(12 18 14 / .12);
+  --gk-line-2:rgb(12 18 14 / .18);
+  --gk-tx:#0c120e;
+  --gk-tx-2:rgb(12 18 14 / .58);
+  --gk-tx-3:rgb(12 18 14 / .34);
+  --gk-glass-sf:rgb(var(--gk-ink-rgb) / .62);
+  --gk-glass-bd:rgb(12 18 14 / .12);
+  --gk-glass-hi:rgb(var(--gk-ink-rgb) / .9);
+  --gk-a:#3a4046;          /* silver reads as graphite on light */
+  --gk-a-2:#6b7278;
+  --gk-a-rgb:58 64 70;
+  --gk-glow:rgb(12 18 14 / .12);
+  --gk-ok:var(--ah-ok,#0b7a3e);      /* the site's light-theme green */
+  --gk-ok-rgb:11 122 62;
+  --gk-warn:var(--ah-gate,#9e7731);
+  --gk-warn-rgb:158 119 49;
+  --gk-danger:var(--ah-stop,#8a4238);
+  --gk-danger-rgb:138 66 56;
+}
+@media (prefers-color-scheme:light){
+  html:not([data-theme="dark"]) .gk-scope{
+    --gk-bg:#f4f6f5;--gk-bg-2:#eceeed;
+    --gk-line:rgb(12 18 14 / .12);--gk-line-2:rgb(12 18 14 / .18);
+    --gk-tx:#0c120e;--gk-tx-2:rgb(12 18 14 / .58);--gk-tx-3:rgb(12 18 14 / .34);
+    --gk-glass-sf:rgb(var(--gk-ink-rgb) / .62);--gk-glass-bd:rgb(12 18 14 / .12);
+    --gk-glass-hi:rgb(var(--gk-ink-rgb) / .9);
+    --gk-a:#3a4046;--gk-a-2:#6b7278;--gk-a-rgb:58 64 70;--gk-glow:rgb(12 18 14 / .12);
+    --gk-ok:var(--ah-ok,#0b7a3e);--gk-ok-rgb:11 122 62;
+    --gk-warn:var(--ah-gate,#9e7731);--gk-warn-rgb:158 119 49;
+    --gk-danger:var(--ah-stop,#8a4238);--gk-danger-rgb:138 66 56;
+  }
+}
+
+/* surfaces that were written as white-alpha need the mirror on light */
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-canvas,
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-graph,
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-board{background:var(--gk-bg)}
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-canvas::before,
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-graph::before{
+  background-image:radial-gradient(rgb(12 18 14 / .16) 1px,transparent 1px)}
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-node,
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-gnode,
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-fnode{
+  background:linear-gradient(180deg,#ffffff,rgb(var(--gk-ink-rgb) / .78))}
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-node__row,
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-gnode__field,
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-gtools span,
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-icon,
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-pill,
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-tab,
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-count,
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-gnode__ico,
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-fnode__ico{background:rgb(12 18 14 / .05)}
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-gpin,
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-port__pin{background:#5c6469;box-shadow:0 0 0 3px var(--gk-bg)}
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-gpin[data-type="control"]{background:var(--gk-ok)}
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-graph__edges path{stroke:rgb(12 18 14 / .28)}
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-graph__edges path.is-hit{stroke:transparent}
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-graph__edges path.gk-graph__ghost{stroke:var(--gk-ok);filter:none}
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-graph__edges path.is-live,
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-graph__edges path.is-firing{stroke:var(--gk-ok);filter:none}
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-graph__edges path.is-selected{stroke:var(--gk-ok);stroke-width:2.4}
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-graph__edges path.gk-pulse{stroke:#fff;opacity:.9}
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-token{fill:var(--gk-ok)}
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-wires path{stroke:rgb(12 18 14 / .26)}
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-wires path.is-live{stroke:var(--gk-ok);filter:none}
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-runbar,
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-report,
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-dock,
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-graph__ui{background:rgb(var(--gk-ink-rgb) / .9);color:var(--gk-tx)}
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-runbar button,
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-graph__ui button,
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-dock button{background:rgb(12 18 14 / .05);color:var(--gk-tx)}
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-runbar button.is-primary{background:var(--gk-ok);color:#fff}
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-gstate{background:#fff}
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-graph__edges .gk-edge-label{stroke:var(--gk-bg)}
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-wire-label{background:rgb(var(--gk-ink-rgb) / .8)}
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-node--hot,
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-gnode--hot{
+  background:linear-gradient(150deg,rgb(11 122 62 / .16),rgb(var(--gk-ink-rgb) / .8));
+  border-color:rgb(11 122 62 / .4);color:var(--gk-tx)}
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-cta{background:var(--gk-ok);color:#fff}
+html[data-theme="light"] .gk-scope:not([data-gk-theme="dark"]) .gk-grain::after{opacity:.06}
+
+/* ---- pin a scope to the dark set, whatever the page theme is ---- */
+html .gk-scope[data-gk-theme="dark"]{
+  --gk-bg:#050506; --gk-bg-2:#0a0a0c;
+  --gk-line:rgb(var(--gk-ink-rgb) / .08); --gk-line-2:rgb(var(--gk-ink-rgb) / .15);
+  --gk-tx:rgb(var(--gk-ink-rgb) / .92); --gk-tx-2:rgb(var(--gk-ink-rgb) / .46); --gk-tx-3:rgb(var(--gk-ink-rgb) / .22);
+  --gk-glass-sf:rgb(var(--gk-ink-rgb) / .055); --gk-glass-bd:rgb(var(--gk-ink-rgb) / .12);
+  --gk-glass-hi:rgb(var(--gk-ink-rgb) / .30);
+  --gk-a:#e9ecef; --gk-a-2:#98a0a6; --gk-a-rgb:233 236 239; --gk-glow:rgb(var(--gk-ink-rgb) / .30);
+  --gk-ok:var(--ah-ok,#68e78e); --gk-ok-rgb:104 231 142;
+  --gk-warn:var(--ah-gate,#ff8a3d); --gk-warn-rgb:255 138 61;
+  --gk-danger:var(--ah-stop,#ff5a5a); --gk-danger-rgb:255 90 90;
+  color:var(--gk-tx);
+}
+html .gk-scope[data-gk-theme="dark"] .gk-canvas,
+html .gk-scope[data-gk-theme="dark"] .gk-graph,
+html .gk-scope[data-gk-theme="dark"] .gk-board{background:var(--gk-bg)}
+html .gk-scope[data-gk-theme="dark"] .gk-canvas::before{
+  background-image:radial-gradient(rgb(var(--gk-ink-rgb) / .15) 1px,transparent 1px)}
+
+/* ============================================================
+   GLASS KIT — PART 10 (2026-08-29)
+   Site layout parts: full-bleed bands, the dot grid off in quiet,
+   and the folder fan (the 2026-08-06 hero shape, kit materials).
+   ============================================================ */
+
+/* the site register has no background dot grid */
+[data-gk-quiet] .gk-canvas::before,
+[data-gk-quiet] .gk-graph::before,
+[data-gk-quiet] .gk-board::before{background-image:none}
+
+/* full-bleed band with its own inner gutter */
+.gk-band{width:100%;margin:0;padding:clamp(48px,6vw,96px) clamp(16px,4vw,48px)}
+.gk-band__in{max-width:1440px;margin:0 auto;width:100%}
+.gk-band--flush{padding-left:0;padding-right:0}
+
+/* ---- folder fan ------------------------------------------- */
+.gk-fanwrap{position:relative;width:100%;display:flex;justify-content:center;
+  padding:clamp(28px,5vw,64px) 0 clamp(18px,3vw,34px)}
+.gk-fanfolders{
+  --gk-fan-ang:6deg;          /* per-step rotation  */
+  --gk-fan-x:152px;           /* per-step offset    */
+  --gk-fan-drop:9px;          /* how far the outer folders sit down */
+  --gk-fan-w:178px;
+  --gk-fan-h:140px;
+  position:relative;height:calc(var(--gk-fan-h) + 82px);
+  width:calc(var(--gk-fan-x) * (var(--n) - 1) + var(--gk-fan-w));
+  max-width:100%;
+}
+@media(max-width:1100px){.gk-fanfolders{--gk-fan-x:124px;--gk-fan-w:156px;--gk-fan-h:124px}}
+@media(max-width:900px){.gk-fanfolders{--gk-fan-ang:5deg;--gk-fan-x:92px;--gk-fan-w:124px;--gk-fan-h:100px;--gk-fan-drop:6px}}
+@media(max-width:560px){.gk-fanfolders{--gk-fan-ang:4deg;--gk-fan-x:62px;--gk-fan-w:96px;--gk-fan-h:80px;--gk-fan-drop:4px}}
+
+.gk-folderf{
+  position:absolute;left:50%;bottom:22px;width:var(--gk-fan-w);height:var(--gk-fan-h);
+  translate:-50% 0;transform-origin:50% 100%;cursor:pointer;text-decoration:none;color:inherit;
+  --gk-off:calc(var(--i) - (var(--n) - 1) / 2);
+  transform:translateX(calc(var(--gk-off) * var(--gk-fan-x)))
+            translateY(calc(var(--gk-off) * var(--gk-off) * var(--gk-fan-drop)))
+            rotate(calc(var(--gk-off) * var(--gk-fan-ang)));
+  transition:transform .38s var(--gk-ease),filter .3s;
+  z-index:var(--i);
+}
+.gk-folderf__tab{position:absolute;left:14%;top:-9px;width:34%;height:14px;border-radius:6px 6px 0 0;
+  background:linear-gradient(180deg,#f2f4f5,#dfe3e5);border:1px solid rgb(12 18 14 / .08);border-bottom:0}
+.gk-folderf__body{position:absolute;inset:0;border-radius:14px;overflow:hidden;
+  background:linear-gradient(160deg,#fbfcfc,#e3e7e9);
+  border:1px solid rgb(12 18 14 / .1);
+  box-shadow:0 22px 40px -26px rgb(var(--gk-shade-rgb) / .5);
+  transition:background .3s,border-color .3s,box-shadow .3s}
+.gk-folderf__count{position:absolute;left:11%;top:13%;font-size:var(--gk-meta-sz,11px);
+  letter-spacing:.04em;color:rgb(12 18 14 / .5);white-space:nowrap}
+.gk-folderf__label{position:absolute;left:11%;bottom:14%;font-size:clamp(13px,1.2vw,17px);
+  font-weight:600;letter-spacing:-.01em;color:#0c120e}
+.gk-folderf:hover,.gk-folderf:focus-visible{
+  transform:translateX(calc(var(--gk-off) * var(--gk-fan-x)))
+            translateY(calc(var(--gk-off) * var(--gk-off) * var(--gk-fan-drop) - 16px))
+            rotate(calc(var(--gk-off) * var(--gk-fan-ang)))
+            scale(1.05);
+  z-index:30;outline:none}
+.gk-folderf:hover .gk-folderf__body,.gk-folderf:focus-visible .gk-folderf__body{
+  background:linear-gradient(160deg,rgb(var(--gk-ok-rgb) / .95),rgb(var(--gk-ok-rgb) / .62));
+  border-color:rgb(var(--gk-ok-rgb) / .7)}
+.gk-folderf.is-lead .gk-folderf__body{
+  background:linear-gradient(160deg,rgb(var(--gk-ok-rgb) / .95),rgb(var(--gk-ok-rgb) / .55));
+  border-color:rgb(var(--gk-ok-rgb) / .7)}
+.gk-folderf.is-lead .gk-folderf__count{color:rgb(4 20 11 / .62)}
+.gk-folderf.is-lead .gk-folderf__label{color:#04140b}
+.gk-fanhint{text-align:center;font-size:var(--gk-small,12.5px);color:var(--gk-tx-2);margin:0}
+.gk-fanhint b{color:var(--gk-tx);font-weight:500}
+@media (prefers-reduced-motion:reduce){.gk-folderf{transition:none}}
+
+/* the quiet register always wins over the theme pins: no dot grid on site pages */
+html .gk-scope[data-gk-quiet] .gk-canvas::before,
+html .gk-scope[data-gk-quiet] .gk-graph::before,
+html .gk-scope[data-gk-quiet] .gk-board::before,
+html .gk-scope[data-gk-theme="dark"][data-gk-quiet] .gk-canvas::before,
+html .gk-scope[data-gk-theme="dark"][data-gk-quiet] .gk-graph::before{background-image:none}
+
+}
+
+@layer gk.graph {
+/* ============================================================
+   GLASS KIT — GRAPH ENGINE  (gk-graph, v1, 2026-08-28)
+   Node editor styling. Loads on top of glass-kit.css and reuses
+   its tokens; the look is the Glass Kit look.
+   ============================================================ */
+
+.gk-graph{position:relative;overflow:hidden;isolation:isolate;touch-action:none;
+  background:var(--gk-bg);border:1px solid var(--gk-line);border-radius:var(--gk-r-lg);
+  min-height:520px;cursor:grab;user-select:none}
+.gk-graph.is-panning{cursor:grabbing}
+.gk-graph::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-image:radial-gradient(rgb(var(--gk-ink-rgb) / .15) 1px,transparent 1px);
+  background-size:calc(22px * var(--gk-k,1)) calc(22px * var(--gk-k,1));
+  background-position:var(--gk-tx,0px) var(--gk-ty,0px);opacity:.5}
+.gk-graph::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(36rem 26rem at var(--gk-mx,50%) var(--gk-my,40%),
+             rgb(var(--gk-a-rgb) / .13),transparent 70%)}
+.gk-graph__world{position:absolute;left:0;top:0;width:0;height:0;z-index:1;
+  transform-origin:0 0;will-change:transform}
+.gk-graph__edges{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
+.gk-graph__edges path{fill:none;stroke:rgb(var(--gk-ink-rgb) / .22);stroke-width:1.4;
+  pointer-events:stroke;cursor:pointer}
+.gk-graph__edges path.is-live{stroke:var(--gk-ok,var(--gk-a));stroke-width:1.8;
+  filter:drop-shadow(0 0 5px rgb(var(--gk-ok-rgb,var(--gk-a-rgb)) / .45))}
+.gk-graph__edges path.is-hit{stroke:transparent;stroke-width:16;pointer-events:stroke;filter:none}
+.gk-graph__edges path.is-selected{stroke:var(--gk-a);stroke-width:2.4;
+  filter:drop-shadow(0 0 8px var(--gk-a))}
+.gk-graph__edges path.gk-pulse{pointer-events:none}
+.gk-graph__edges .gk-edge-label{fill:var(--gk-tx-2);font-size:11px;letter-spacing:.04em;
+  paint-order:stroke;stroke:#050506;stroke-width:4px;stroke-linejoin:round;pointer-events:none}
+.gk-graph__ghost{stroke:var(--gk-a);stroke-width:2;stroke-dasharray:5 6;
+  filter:drop-shadow(0 0 6px var(--gk-glow));pointer-events:none}
+
+/* --- node ------------------------------------------------- */
+.gk-gnode{position:absolute;min-width:190px;border-radius:15px;cursor:grab;
+  background:linear-gradient(180deg,rgb(var(--gk-ink-rgb) / .06),rgb(var(--gk-ink-rgb) / .025));
+  border:1px solid var(--gk-line-2);
+  box-shadow:0 24px 50px -26px #000,inset 0 1px 0 rgb(var(--gk-ink-rgb) / .07);
+  -webkit-backdrop-filter:blur(12px) saturate(150%);backdrop-filter:blur(12px) saturate(150%);
+  transition:border-color .25s,box-shadow .25s}
+.gk-gnode:hover{border-color:rgb(var(--gk-a-rgb) / .4)}
+.gk-gnode.is-dragging{cursor:grabbing}
+.gk-gnode.is-selected{border-color:rgb(var(--gk-a-rgb) / .8);
+  box-shadow:0 26px 56px -24px #000,0 0 0 1px rgb(var(--gk-a-rgb) / .35),0 0 44px -12px var(--gk-glow)}
+.gk-gnode--hot{
+  background:linear-gradient(150deg,rgb(var(--gk-a-rgb) / .55),rgb(var(--gk-a-rgb) / .12) 62%,rgb(var(--gk-ink-rgb) / .03));
+  border-color:rgb(var(--gk-a-rgb) / .5)}
+.gk-gnode--ghost{opacity:.55;border-style:dashed}
+.gk-gnode__head{display:flex;align-items:center;gap:.55rem;padding:.65rem .8rem;
+  border-bottom:1px solid var(--gk-line);font-size:.85rem;font-weight:600}
+.gk-gnode__ico{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;flex:none;
+  background:rgb(var(--gk-ink-rgb) / .08);font-size:.8rem}
+.gk-gnode__ico img{width:70%;height:70%;object-fit:contain}
+.gk-gnode__tx{min-width:0;line-height:1.25}
+.gk-gnode__tx b{display:block;font-weight:600}
+.gk-gnode__tx span{display:block;font-size:.74rem;font-weight:400;color:var(--gk-tx-2)}
+.gk-gnode__badge{margin-left:auto;font-size:.62rem;letter-spacing:.12em;color:var(--gk-tx-2);
+  text-transform:uppercase}
+.gk-gnode__body{padding:.5rem 0 .65rem;position:relative}
+.gk-gnode__field{display:flex;justify-content:space-between;gap:.8rem;margin:.25rem .55rem 0;
+  padding:.3rem .55rem;border-radius:8px;background:rgb(var(--gk-ink-rgb) / .035);
+  font-size:.74rem;color:var(--gk-tx-2)}
+.gk-gnode__field b{font-weight:500;color:var(--gk-tx);font-variant-numeric:tabular-nums}
+
+/* --- ports ------------------------------------------------ */
+.gk-gport{position:relative;display:flex;align-items:center;gap:.5rem;
+  padding:.26rem .8rem;font-size:.78rem;color:var(--gk-tx-2)}
+.gk-gport--out{flex-direction:row-reverse}
+.gk-gport b{font-weight:500;color:var(--gk-tx)}
+.gk-gpin{position:absolute;top:50%;width:12px;height:12px;border-radius:50%;translate:0 -50%;
+  background:#e9e9ea;box-shadow:0 0 0 3px var(--gk-bg);cursor:crosshair;
+  transition:transform .18s var(--gk-ease),background .18s,box-shadow .18s}
+.gk-gport--in .gk-gpin{left:-6px}
+.gk-gport--out .gk-gpin{right:-6px}
+.gk-gpin[data-type="control"]{background:var(--gk-ok,var(--gk-a))}
+.gk-gpin[data-type="data"]{background:#7ec8ff}
+.gk-gpin[data-type="doc"]{background:#d4b36a}
+.gk-gpin:hover,.gk-gpin.is-armed{transform:scale(1.45);box-shadow:0 0 0 3px var(--gk-bg),0 0 16px var(--gk-a)}
+.gk-gpin.is-target{background:var(--gk-a);transform:scale(1.6);
+  box-shadow:0 0 0 3px var(--gk-bg),0 0 20px var(--gk-a)}
+.gk-gpin.is-blocked{background:#ff6b6d;transform:scale(1.3)}
+.gk-graph.is-linking .gk-gnode{cursor:default}
+.gk-graph.is-linking .gk-gpin{transform:scale(1.15)}
+.gk-graph.is-linking .gk-gpin.is-invalid{opacity:.25;transform:none}
+
+/* --- edge delete button ----------------------------------- */
+.gk-edge-cut{position:absolute;z-index:5;width:22px;height:22px;border-radius:50%;
+  translate:-50% -50%;display:none;place-items:center;cursor:pointer;
+  background:#ff5a5a;color:#fff;border:2px solid var(--gk-bg);font-size:.7rem;line-height:1}
+.gk-edge-cut.is-on{display:grid}
+
+/* --- controls & status ------------------------------------ */
+.gk-graph__ui{position:absolute;right:12px;bottom:12px;z-index:6;display:flex;gap:.35rem;
+  padding:.35rem;border-radius:13px;background:rgb(18 18 20 / .82);border:1px solid var(--gk-line-2);
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+.gk-graph__ui button{width:32px;height:32px;border-radius:9px;border:0;cursor:pointer;
+  background:rgb(var(--gk-ink-rgb) / .06);color:var(--gk-tx);display:grid;place-items:center;font-size:.85rem}
+.gk-graph__ui button:hover{background:rgb(var(--gk-ink-rgb) / .14)}
+.gk-graph__status{position:absolute;left:12px;bottom:12px;z-index:6;font-size:.7rem;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--gk-tx-2);pointer-events:none}
+.gk-graph__status b{color:var(--gk-a);font-weight:500}
+.gk-graph__toast{position:absolute;left:50%;top:14px;translate:-50% 0;z-index:7;
+  padding:.35rem .7rem;border-radius:9px;font-size:.76rem;opacity:0;pointer-events:none;
+  background:rgb(255 90 90 / .16);border:1px solid rgb(255 90 90 / .45);color:#ff9a9a;
+  transition:opacity .25s}
+.gk-graph__toast.is-on{opacity:1}
+
+/* ============================================================
+   gk-run — simulation layer (dry run, nothing is called)
+   ============================================================ */
+
+.gk-runbar{position:absolute;left:12px;top:12px;z-index:6;display:flex;align-items:center;gap:.4rem;
+  padding:.35rem;border-radius:13px;background:rgb(18 18 20 / .84);border:1px solid var(--gk-line-2);
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+.gk-runbar button{height:32px;padding:0 .75rem;border-radius:9px;border:0;cursor:pointer;
+  background:rgb(var(--gk-ink-rgb) / .07);color:var(--gk-tx);font:inherit;font-size:.8rem;
+  display:inline-flex;align-items:center;gap:.35rem}
+.gk-runbar button:hover{background:rgb(var(--gk-ink-rgb) / .14)}
+.gk-runbar button.is-primary{background:rgb(var(--gk-a-rgb) / .9);color:#04140b;font-weight:500}
+.gk-runbar button.is-primary:hover{background:var(--gk-a)}
+.gk-runbar select{height:32px;border-radius:9px;border:1px solid var(--gk-line);font:inherit;
+  font-size:.76rem;background:rgb(var(--gk-ink-rgb) / .05);color:var(--gk-tx);padding:0 .4rem}
+.gk-runbar .gk-runmode{font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gk-tx-3);padding:0 .5rem 0 .3rem}
+
+/* node states */
+.gk-gnode{--gk-state:transparent}
+.gk-gnode.is-queued{border-color:rgb(var(--gk-ink-rgb) / .3)}
+.gk-gnode.is-running{border-color:rgb(var(--gk-a-rgb) / .9);
+  box-shadow:0 26px 56px -24px #000,0 0 0 1px rgb(var(--gk-a-rgb) / .5),0 0 60px -14px var(--gk-glow);
+  animation:gk-breathe 1.1s ease-in-out infinite}
+@keyframes gk-breathe{50%{box-shadow:0 26px 56px -24px #000,0 0 0 1px rgb(var(--gk-a-rgb) / .8),0 0 80px -10px var(--gk-glow)}}
+.gk-gnode.is-done{border-color:rgb(var(--gk-ok-rgb,var(--gk-a-rgb)) / .5)}
+.gk-gnode.is-skipped{opacity:.42}
+.gk-gnode.is-blocked{border-color:var(--gk-danger,#ff5a5a);
+  box-shadow:0 24px 50px -26px #000,0 0 44px -14px rgb(var(--gk-danger-rgb,255 90 90) / .5)}
+.gk-gnode.is-waiting{border-color:var(--gk-warn,#ffc150);
+  box-shadow:0 24px 50px -26px #000,0 0 44px -14px rgb(var(--gk-warn-rgb,255 193 80) / .45)}
+.gk-gstate{position:absolute;right:.55rem;top:-.6rem;z-index:3;font-size:.58rem;letter-spacing:.14em;
+  text-transform:uppercase;padding:.14rem .45rem;border-radius:99px;display:none;
+  background:#141416;border:1px solid var(--gk-line-2);color:var(--gk-tx-2)}
+.gk-gnode.is-queued .gk-gstate,.gk-gnode.is-running .gk-gstate,.gk-gnode.is-done .gk-gstate,
+.gk-gnode.is-skipped .gk-gstate,.gk-gnode.is-blocked .gk-gstate,.gk-gnode.is-waiting .gk-gstate{display:block}
+.gk-gnode.is-running .gk-gstate{color:var(--gk-a);border-color:rgb(var(--gk-a-rgb) / .5)}
+.gk-gnode.is-done .gk-gstate{color:var(--gk-ok,var(--gk-a));border-color:rgb(var(--gk-ok-rgb,var(--gk-a-rgb)) / .45)}
+.gk-gnode.is-blocked .gk-gstate{color:#ff9a9a;border-color:rgb(255 90 90 / .5)}
+.gk-gnode.is-waiting .gk-gstate{color:var(--gk-warn,#ffd166);border-color:rgb(var(--gk-warn-rgb,255 193 80) / .5)}
+
+/* tool tags (Atlantic-style: what this step may touch) */
+.gk-gtools{display:flex;flex-wrap:wrap;gap:.25rem;padding:.4rem .8rem 0}
+.gk-gtools span{font-size:.62rem;padding:.1rem .4rem;border-radius:6px;
+  background:rgb(var(--gk-ink-rgb) / .06);border:1px solid var(--gk-line);color:var(--gk-tx-2)}
+
+/* approval prompt on a waiting node */
+.gk-approve{display:flex;gap:.35rem;padding:.5rem .8rem .1rem}
+.gk-approve button{flex:1;height:28px;border-radius:8px;border:1px solid var(--gk-line-2);
+  background:rgb(var(--gk-ink-rgb) / .06);color:var(--gk-tx);font:inherit;font-size:.74rem;cursor:pointer}
+.gk-approve button.ok{background:rgb(var(--gk-ok-rgb,var(--gk-a-rgb)) / .85);color:#04140b;border-color:transparent}
+.gk-approve button.no{background:rgb(255 90 90 / .16);color:#ff9a9a;border-color:rgb(255 90 90 / .4)}
+
+/* travelling token */
+.gk-token{r:4;fill:#fff;filter:drop-shadow(0 0 6px var(--gk-ok,var(--gk-a)))}
+.gk-graph__edges path.is-firing{stroke:var(--gk-ok,var(--gk-a));stroke-width:2.4;
+  filter:drop-shadow(0 0 8px var(--gk-ok,var(--gk-a)))}
+
+/* run report */
+.gk-report{position:absolute;right:12px;top:12px;z-index:7;width:250px;max-height:calc(100% - 90px);
+  overflow:auto;padding:.8rem .9rem;border-radius:15px;display:none;
+  background:rgb(12 12 14 / .92);border:1px solid var(--gk-line-2);
+  -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  box-shadow:0 30px 60px -28px #000}
+.gk-report.is-on{display:block}
+.gk-report h4{margin:0 0 .1rem;font-size:.9rem;font-weight:600}
+.gk-report .gk-report__sub{font-size:.72rem;color:var(--gk-tx-2);margin-bottom:.6rem}
+.gk-report ul{list-style:none;margin:0;padding:0;font-size:.76rem}
+.gk-report li{display:flex;gap:.5rem;align-items:baseline;padding:.22rem 0;
+  border-top:1px solid var(--gk-line)}
+.gk-report li:first-child{border-top:0}
+.gk-report li i{font-style:normal;width:8px;height:8px;border-radius:50%;flex:none;translate:0 -1px}
+.gk-report li b{margin-left:auto;font-weight:500;color:var(--gk-tx-2);font-size:.7rem}
+.gk-report .ok i{background:var(--gk-ok,var(--gk-a))}
+.gk-report .skip i{background:rgb(var(--gk-ink-rgb) / .3)}
+.gk-report .stop i{background:var(--gk-danger,#ff5a5a)}
+.gk-report .wait i{background:var(--gk-warn,#ffc150)}
+.gk-report__foot{margin-top:.7rem;padding-top:.6rem;border-top:1px solid var(--gk-line);
+  font-size:.68rem;line-height:1.55;color:var(--gk-tx-3)}
+.gk-report__foot b{color:var(--gk-tx-2);font-weight:500}
+
+}
+
+/* ============================================================================
+   Glass Kit v3 — token engine                                    @layer gk.tokens
+   ----------------------------------------------------------------------------
+   One source of truth. Every surface, line, text step and status hue in the kit
+   resolves from here, so a theme is a token swap and never a per-rule patch.
+
+   THE TWO CHANNELS
+     --gk-ink-rgb    the foreground channel. Everything that reads as "toward
+                     the viewer" — panel fills, hairlines, text, frost — is
+                     rgb(var(--gk-ink-rgb) / a). White on dark, near-black on
+                     light. This is what makes 180 v1 rules theme-aware.
+     --gk-shade-rgb  the shadow channel. Always dark; depth comes from shade in
+                     both themes, it just does more work on light.
+
+   Paper (#fff documents, form cards) and true black shadows stay literal.
+   A document is white in both themes; that is the design, not an oversight.
+
+   STATUS IS A WORD FIRST
+     .gk-state carries the word; the hue reinforces it. Both sets are measured
+     against their own theme's darkest surface with alpha composited, so a chip
+     holds on a card as well as on the page.
+   ========================================================================= */
+
+@layer gk.tokens {  /* declared after gk.components — see the build script */
+
+  .gk-scope{
+    color-scheme:dark;
+
+    /* -- channels ------------------------------------------------------- */
+    --gk-ink-rgb:255 255 255;
+    --gk-shade-rgb:0 0 0;
+
+    /* -- ground --------------------------------------------------------- */
+    --gk-bg:#050506;
+    --gk-bg-2:#0a0a0c;
+    --gk-bg-3:#111114;
+    --gk-paper:#ffffff;              /* documents, form cards — both themes */
+
+    /* -- text scale. Three steps, measured on this theme's own ground. --- */
+    --gk-tx:rgb(242 242 243);        /* 18.3:1  primary                     */
+    --gk-tx-2:rgb(170 170 170);      /*  8.8:1  body and secondary          */
+    --gk-tx-3:rgb(130 130 130);      /*  5.3:1  large text and UI only      */
+
+    /* -- lines ---------------------------------------------------------- */
+    --gk-line:rgb(var(--gk-ink-rgb) / .09);
+    --gk-line-2:rgb(var(--gk-ink-rgb) / .16);
+
+    /* -- glass ---------------------------------------------------------- */
+    --gk-glass-sf:rgb(var(--gk-ink-rgb) / .055);
+    --gk-glass-bd:rgb(var(--gk-ink-rgb) / .12);
+    --gk-glass-hi:rgb(255 255 255 / .30);   /* specular: white in both      */
+    --gk-blur:26px;
+
+    /* -- elevation. Layered, never a single blurred box. ----------------- */
+    --gk-e1:0 1px 2px rgb(var(--gk-shade-rgb) / .28);
+    --gk-e2:0 2px 6px rgb(var(--gk-shade-rgb) / .30), 0 8px 24px rgb(var(--gk-shade-rgb) / .22);
+    --gk-e3:0 4px 12px rgb(var(--gk-shade-rgb) / .34), 0 18px 48px rgb(var(--gk-shade-rgb) / .30);
+
+    /* -- status --------------------------------------------------------- */
+    --gk-ok:var(--ah-ok,#68e78e);       --gk-ok-rgb:104 231 142;    /* 13.3:1 */
+    --gk-warn:var(--ah-gate,#ffb03c);   --gk-warn-rgb:255 176 60;   /* 11.4:1 */
+    --gk-danger:var(--ah-stop,#ff6b5a); --gk-danger-rgb:255 107 90; /*  7.4:1 */
+
+    /* -- accent (default: AequAI green) --------------------------------- */
+    --gk-a:#68e78e;                  /* the DEFINED accent: strokes, labels,
+                                        borders. Always clears its ground.   */
+    --gk-a-soft:#a9edc0;             /* the PASTEL: large fills, folder tint,
+                                        anything the eye rests on.           */
+    --gk-a-2:#1f9d4e;
+    --gk-a-rgb:104 231 142;
+    --gk-a-ink:#06180d;              /* ink to lay ON --gk-a-soft            */
+    --gk-glow:rgb(var(--gk-a-rgb) / .32);
+
+    /* -- geometry ------------------------------------------------------- */
+    --gk-r:18px;
+    --gk-r-sm:12px;
+    --gk-r-lg:26px;
+    --gk-k:1;                        /* graph scale hook                    */
+    --gk-tap:44px;                   /* WCAG 2.5.5 floor                    */
+
+    /* -- motion --------------------------------------------------------- */
+    --gk-ease:cubic-bezier(.22,.61,.2,1);
+    --gk-dur-fast:.18s; --gk-dur:.24s; --gk-dur-slow:.32s;
+    --gk-move:6px;
+    /* E square language: identical geometry on header, sections and figures. */
+    --gk-square-pitch:7px;
+    --gk-square-size:6px;
+    --gk-square-mesh-alpha:.058;
+    --gk-square-shape-alpha:.5;
+    --gk-square-fade:linear-gradient(to bottom,#000 35%,transparent 100%);
+
+    font-family:Urbanist,-apple-system,"Segoe UI",sans-serif;
+    color:var(--gk-tx);
+    -webkit-font-smoothing:antialiased;
+  }
+  .gk-scope *{box-sizing:border-box}
+
+  /* ==========================================================================
+     LIGHT
+     The channel flips and the ground inverts together — that pairing is the
+     whole fix. Status and accent hues are re-picked, not reused: the dark
+     greens and ambers measure 1.4–1.7:1 on a light ground.
+     ====================================================================== */
+  :where(html[data-theme="light"]) .gk-scope,
+  .gk-scope[data-gk-theme="light"]{
+    color-scheme:light;
+
+    --gk-ink-rgb:12 18 14;
+    --gk-shade-rgb:12 18 14;
+
+    --gk-bg:#f4f6f5;
+    --gk-bg-2:#eceeed;
+    --gk-bg-3:#e2e5e3;
+
+    --gk-tx:rgb(24 29 26);           /* 15.7:1 */
+    --gk-tx-2:rgb(82 86 83);         /*  6.9:1 */
+    --gk-tx-3:rgb(114 118 116);      /*  4.2:1 — large text and UI only */
+
+    --gk-line:rgb(var(--gk-ink-rgb) / .13);
+    --gk-line-2:rgb(var(--gk-ink-rgb) / .22);
+
+    --gk-glass-sf:rgb(255 255 255 / .62);
+    --gk-glass-bd:rgb(var(--gk-ink-rgb) / .12);
+    --gk-glass-hi:rgb(255 255 255 / .92);
+
+    --gk-e1:0 1px 2px rgb(var(--gk-shade-rgb) / .07);
+    --gk-e2:0 2px 6px rgb(var(--gk-shade-rgb) / .07), 0 8px 24px rgb(var(--gk-shade-rgb) / .06);
+    --gk-e3:0 4px 12px rgb(var(--gk-shade-rgb) / .10), 0 18px 48px rgb(var(--gk-shade-rgb) / .10);
+
+    --gk-ok:var(--ah-ok,#147b32);       --gk-ok-rgb:20 123 50;    /* 4.9:1 */
+    --gk-warn:var(--ah-gate,#9a5c00);   --gk-warn-rgb:154 92 0;   /* 4.9:1 */
+    --gk-danger:var(--ah-stop,#d41600); --gk-danger-rgb:212 22 0; /* 4.9:1 */
+
+    /* --gk-a goes deep so a stroke or a label is DEFINED on a light ground;
+       --gk-a-soft stays pastel, because a fill is judged by comfort and a
+       stroke by legibility, and one value cannot be both. */
+    --gk-a:#12793c;
+    --gk-a-soft:#a9edc0;
+    --gk-a-2:#0b4f27;
+    --gk-a-rgb:18 121 60;
+    --gk-a-ink:#06180d;
+    --gk-glow:rgb(var(--gk-a-rgb) / .18);
+  }
+
+  /* ==========================================================================
+     ACCENTS
+     --gk-a is identity. Status never changes with it: ok/warn/danger mean the
+     same thing on every page, which is what lets a reader trust the colour.
+     ====================================================================== */
+  .gk-scope[data-gk-accent="green"]{
+    --gk-a:#68e78e; --gk-a-soft:#a9edc0; --gk-a-2:#1f9d4e; --gk-a-rgb:104 231 142; --gk-a-ink:#06180d;
+  }
+  .gk-scope[data-gk-accent="amber"]{
+    --gk-a:#ff8a3d; --gk-a-soft:#ffcfa8; --gk-a-2:#d13a1f; --gk-a-rgb:255 138 61; --gk-a-ink:#1e0d03;
+  }
+  /* mono: black, white, silver — the site's primary language. Colour is left
+     to mean something, so the accent stops decorating and becomes metal. */
+  .gk-scope[data-gk-accent="mono"]{
+    --gk-a:#e9ecef; --gk-a-soft:#eef1f3; --gk-a-2:#98a0a6; --gk-a-rgb:233 236 239; --gk-a-ink:#08090a;
+    --gk-glow:rgb(255 255 255 / .26);
+  }
+
+  :where(html[data-theme="light"]) .gk-scope[data-gk-accent="green"],
+  .gk-scope[data-gk-theme="light"][data-gk-accent="green"]{
+    --gk-a:#12793c; --gk-a-soft:#a9edc0; --gk-a-2:#0b4f27; --gk-a-rgb:18 121 60; --gk-a-ink:#06180d;
+  }
+  :where(html[data-theme="light"]) .gk-scope[data-gk-accent="amber"],
+  .gk-scope[data-gk-theme="light"][data-gk-accent="amber"]{
+    --gk-a:#9a5000; --gk-a-soft:#ffcfa8; --gk-a-2:#6d3800; --gk-a-rgb:154 80 0; --gk-a-ink:#1e0d03;
+  }
+  :where(html[data-theme="light"]) .gk-scope[data-gk-accent="mono"],
+  .gk-scope[data-gk-theme="light"][data-gk-accent="mono"]{
+    --gk-a:#3a4046; --gk-a-soft:#dfe3e6; --gk-a-2:#6b7278; --gk-a-rgb:58 64 70; --gk-a-ink:#14171a;
+    --gk-glow:rgb(var(--gk-ink-rgb) / .12);
+  }
+
+  /* ==========================================================================
+     NO SERVICE PALETTE.
+
+     v1 carried eight per-offering hues and v3 briefly kept them as pastels.
+     They are gone, on Ali's call (2026-08-30): the site's language is
+     mono — black, white, silver — and colour is reserved for meaning.
+
+     Eight decorative hues cost more than they returned. Every one had to be
+     re-picked per theme, every one competed with ok / warn / danger for the
+     reader's attention, and none of them told anyone anything: a blue folder
+     and a purple folder differ in hue, not in what they hold. The palette is
+     now three: mono by default, with green and amber available when a page
+     genuinely needs a second colour.
+
+     data-gk-service is still accepted as a hook — it just no longer changes
+     any colour. Nothing breaks if a page still stamps it. (v1's own
+     data-gk-service rules live in the earlier gk.components layer, so this
+     engine already supersedes them without editing v1.)
+     ====================================================================== */
+
+  /* ==========================================================================
+     REGISTERS
+     loud  (default) — portfolio and reference work: bloom, grain, glow.
+     quiet (data-gk-quiet) — the site: one border weight, no ambient glow,
+           depth from surface alpha, movement capped at 2px. Only a SELECTED
+           element is allowed to glow.
+     doc   (data-gk-doc) — the company register. See below.
+     ====================================================================== */
+  .gk-scope[data-gk-quiet]{
+    --gk-move:2px;
+    --gk-blur:18px;
+    --gk-glow:transparent;
+    --gk-line:rgb(var(--gk-ink-rgb) / .10);
+    --gk-line-2:rgb(var(--gk-ink-rgb) / .17);
+    --gk-e1:none; --gk-e2:none; --gk-e3:none;
+  }
+
+  /* ==========================================================================
+     DOCUMENT REGISTER  (data-gk-doc)  — added 2026-09-01
+
+     The brief was "company weight". Weight is not more decoration; it is
+     FEWER, more deliberate elements plus typographic authority plus structure
+     a reader can point at. So this register does almost nothing but take
+     things away, and gives back one thing: a display face with gravity.
+
+       glass    -> off. A pane that blurs the page behind it is a product
+                   surface. A document does not blur.
+       shadow   -> off. Separation comes from a hairline, not from lift.
+       radius   -> near-square. Round corners are the SaaS tell.
+       lines    -> stronger, because they are now the only structure there is.
+       motion   -> near zero. Restraint is what reads as seriousness.
+       accent   -> demoted. It may state status; it may not fill a surface.
+                   Enforced in gk-v3-additions.css, not here, because it is a
+                   component rule rather than a token value.
+
+     It is theme-agnostic on purpose: doc + light is the company face, doc +
+     dark is the same document at night, and neither is hardcoded here.
+     ====================================================================== */
+  .gk-scope[data-gk-doc]{
+    /* structure instead of depth */
+    --gk-glass-sf:transparent;
+    --gk-glass-bd:rgb(var(--gk-ink-rgb) / .14);
+    --gk-blur:0px;
+    --gk-glow:transparent;
+    --gk-e1:none; --gk-e2:none; --gk-e3:none;
+    --gk-line:rgb(var(--gk-ink-rgb) / .14);
+    --gk-line-2:rgb(var(--gk-ink-rgb) / .26);
+
+    /* near-square: 4px still softens a hairline box, 18px makes it an app */
+    --gk-r:4px; --gk-r-sm:3px; --gk-r-lg:6px;
+    --gk-pad:16px;
+
+    /* restraint */
+    --gk-move:0px;
+    --gk-dur-fast:.12s; --gk-dur:.16s; --gk-dur-slow:.2s;
+
+    /* the one thing added rather than removed: a display face with gravity.
+       Swap this single token to go back to the geometric sans. */
+    --gk-display-family:"Source Serif 4",Charter,"Iowan Old Style",Georgia,serif;
+    --gk-mono-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+
+    /* an editorial scale: the display is LARGE but the steps below it are
+       small and tight, which is what makes a page read as typeset rather
+       than as a slide. */
+    --gk-display:clamp(38px,5.4vw,70px);
+    --gk-h2:clamp(22px,2.5vw,31px);
+    --gk-h3:clamp(16px,1.5vw,19px);
+    --gk-body:16px;
+    --gk-small:14px;
+    --gk-meta-sz:11.5px;
+    --gk-rule:1px;            /* the register's structural unit */
+  }
+
+  /* ==========================================================================
+     DENSITY — a container style query hook, so a component reacts to the
+     density it is dropped into rather than to a class the author remembered.
+     ====================================================================== */
+  .gk-scope[data-gk-density="compact"]{--gk-r:14px;--gk-r-lg:20px;--gk-pad:12px}
+  .gk-scope{--gk-pad:18px}
+
+  @media (prefers-reduced-motion:reduce){
+    .gk-scope{--gk-dur-fast:0s;--gk-dur:0s;--gk-dur-slow:0s;--gk-move:0px}
+  }
+
+  /* Forced colours: the kit's meaning lives in shadow, glow and alpha, all of
+     which are stripped. Give every surface a real border back. */
+  @media (forced-colors:active){
+    .gk-scope :is(.gk-node,.gk-glass,.gk-gnode,.gk-fnode,.gk-chip,.gk-tile,.gk-mcard){
+      border:1px solid CanvasText;
+    }
+  }
+}
+
+
+/* ============================================================================
+   Glass Kit v3 — corrections + new components        @layer gk.theme, gk.v3
+   ========================================================================= */
+
+@layer gk.theme {
+
+  /* ------------------------------------------------------------------------
+     INK ON ACCENT — a local token flip, not a colour patch.
+
+     v1 solved this once, for the mono palette only: eight selectors hardcoding
+     #0c1013 on accent-filled surfaces. That does not survive contact with
+     eleven accents across two themes — a graphite fill on a light page needs
+     white ink, a mint fill needs near-black, and the text INSIDE the surface
+     (subtitles, field labels, badges) has the same problem as the title.
+
+     So an accent-filled surface re-points the text tokens at --gk-a-ink for
+     its whole subtree. Every descendant that already reads --gk-tx / --gk-tx-2
+     — which is all of them — becomes legible without naming a single one.
+     --------------------------------------------------------------------- */
+  .gk-scope :is(.gk-node--hot,.gk-gnode--hot,.gk-fnode--active,.gk-cta,.gk-gpanel){
+    background:linear-gradient(158deg, var(--gk-a-soft),
+               color-mix(in oklab, var(--gk-a-soft) 84%, black));
+    border-color:color-mix(in oklab, var(--gk-a-soft) 62%, black);
+    --gk-tx:var(--gk-a-ink);
+    --gk-tx-2:color-mix(in oklab, var(--gk-a-ink) 74%, transparent);
+    --gk-tx-3:color-mix(in oklab, var(--gk-a-ink) 54%, transparent);
+    --gk-line:color-mix(in oklab, var(--gk-a-ink) 20%, transparent);
+    --gk-line-2:color-mix(in oklab, var(--gk-a-ink) 32%, transparent);
+    color:var(--gk-a-ink);
+  }
+  .gk-scope .gk-runbar button.is-primary,
+  .gk-scope .gk-approve button.ok{ color:var(--gk-a-ink); }
+
+  /* ------------------------------------------------------------------------
+     SPECULAR STAYS WHITE.
+     The channel transform is right for surfaces, lines and text — all of which
+     mean "toward the foreground". It is wrong for one thing: a specular
+     highlight is light hitting glass, and light is white in both themes.
+     These are the edges where that reading matters.
+     --------------------------------------------------------------------- */
+  :where(html[data-theme="light"]) .gk-scope,
+  .gk-scope[data-gk-theme="light"]{
+
+    /* glass panels: frost the ground rather than darkening it */
+    .gk-glass,.gk-composer,.gk-preview,.gk-dock,.gk-runbar,.gk-report,.gk-mcard{
+      background:linear-gradient(160deg,
+        rgb(255 255 255 / .78), rgb(255 255 255 / .52) 60%, rgb(255 255 255 / .66));
+      box-shadow:var(--gk-e2), inset 0 1px 0 var(--gk-glass-hi);
+    }
+
+    /* the canvas is a drafting table on light, not an inverted night sky */
+    .gk-canvas,.gk-board,.gk-graph{
+      background:var(--gk-bg-2);
+      border-color:var(--gk-line);
+    }
+    .gk-grain::after{opacity:.05}
+
+    /* Plain nodes read as cards: paper-white face, real border, shade for depth.
+       The accent-filled variants are excluded — they are not cards, and giving
+       them a white face is how you get white ink on a white node. */
+    :is(.gk-node,.gk-gnode,.gk-fnode):not(.gk-node--hot,.gk-gnode--hot,.gk-fnode--active){
+      background:linear-gradient(160deg, rgb(255 255 255 / .96), rgb(255 255 255 / .82));
+      border-color:var(--gk-line-2);
+      box-shadow:var(--gk-e2);
+    }
+    /* the accent-filled variants keep the pastel fill declared in gk.theme;
+       only the shadow changes, because a light page carries less of it */
+    :is(.gk-node--hot,.gk-gnode--hot,.gk-fnode--active){ box-shadow:var(--gk-e3); }
+
+    /* Objects that carry their own light.
+       The folder, the vault and their papers are renders of physical things
+       lit from above — a silver pocket does not become a white pocket because
+       the wall behind it changed. So they re-pin the channel locally: inside
+       these, "toward the foreground" still means white, exactly as it did on
+       the dark page they were drawn for. */
+    :is(.gk-vault,.gk-gfolder,.gk-folder){
+      --gk-ink-rgb:255 255 255;
+      --gk-shade-rgb:0 0 0;
+    }
+  }
+
+  /* ------------------------------------------------------------------------
+     QUIET REGISTER, restated on the tokens rather than per-component.
+     --------------------------------------------------------------------- */
+  .gk-scope[data-gk-quiet] :is(.gk-canvas,.gk-board,.gk-graph)::after{background:none}
+  .gk-scope[data-gk-quiet] .gk-grain::after{opacity:.1}
+}
+
+
+@layer gk.v3 {
+
+  /* ========================================================================
+     1. STATE — status is a word before it is a colour.
+     The dot is reinforcement. A screen reader, a greyscale print and a
+     colour-blind reader all still get the status, because the status is text.
+     ===================================================================== */
+  .gk-scope .gk-state{
+    display:inline-flex;align-items:center;gap:7px;
+    padding:4px 10px 4px 8px;border-radius:999px;
+    font-size:11.5px;font-weight:600;letter-spacing:.04em;
+    text-transform:uppercase;white-space:nowrap;
+    border:1px solid currentColor;
+    color:var(--gk-tx-2);
+    background:rgb(var(--gk-ink-rgb) / .04);
+  }
+  .gk-scope .gk-state::before{
+    content:"";inline-size:6px;block-size:6px;border-radius:50%;
+    background:currentColor;flex:none;
+  }
+  .gk-scope .gk-state[data-state="ok"]      {color:var(--gk-ok);     background:rgb(var(--gk-ok-rgb) / .10)}
+  .gk-scope .gk-state[data-state="waiting"] {color:var(--gk-warn);   background:rgb(var(--gk-warn-rgb) / .10)}
+  .gk-scope .gk-state[data-state="blocked"] {color:var(--gk-danger); background:rgb(var(--gk-danger-rgb) / .10)}
+  .gk-scope .gk-state[data-state="idle"]    {color:var(--gk-tx-3);   background:transparent}
+  /* running: the dot breathes, so a glance distinguishes it from idle */
+  .gk-scope .gk-state[data-state="running"]{color:var(--gk-a);background:rgb(var(--gk-a-rgb) / .10)}
+  .gk-scope .gk-state[data-state="running"]::before{animation:gk-breathe 1.6s var(--gk-ease) infinite}
+  @keyframes gk-breathe{50%{opacity:.25;transform:scale(.7)}}
+
+  /* ========================================================================
+     2. LENS — the glass upgrade.
+     v1's glass was one translucent fill. Real glass has three readings: the
+     frost, a bright top edge where light catches the bevel, and a darker
+     bottom edge where the panel casts into itself. Splitting them is the
+     difference between "a transparent div" and "a pane of glass".
+     ===================================================================== */
+  .gk-scope .gk-lens{
+    position:relative;isolation:isolate;
+    border-radius:var(--gk-r-lg);
+    padding:var(--gk-pad);
+    background:linear-gradient(158deg var(--gk-in-oklab,),
+      rgb(var(--gk-ink-rgb) / .10), rgb(var(--gk-ink-rgb) / .04) 52%, rgb(var(--gk-ink-rgb) / .07));
+    border:1px solid var(--gk-glass-bd);
+    -webkit-backdrop-filter:blur(var(--gk-blur)) saturate(140%);
+    backdrop-filter:blur(var(--gk-blur)) saturate(140%);
+    box-shadow:var(--gk-e2);
+  }
+  /* the bevel: bright at the top, shaded at the bottom, both inset */
+  .gk-scope .gk-lens::before{
+    content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+    box-shadow:inset 0 1px 0 var(--gk-glass-hi),
+               inset 0 -1px 0 rgb(var(--gk-shade-rgb) / .28);
+  }
+  /* the sheen: a soft off-axis highlight that reads as a light source */
+  .gk-scope .gk-lens::after{
+    content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+    background:radial-gradient(120% 70% at 12% -10%, rgb(255 255 255 / .16), transparent 60%);
+    mix-blend-mode:plus-lighter;opacity:.9;
+  }
+  :where(html[data-theme="light"]) .gk-scope .gk-lens{
+    background:linear-gradient(158deg, rgb(255 255 255 / .82), rgb(255 255 255 / .55) 55%, rgb(255 255 255 / .7));
+  }
+  :where(html[data-theme="light"]) .gk-scope .gk-lens::after{mix-blend-mode:normal;opacity:.6}
+  .gk-scope[data-gk-quiet] .gk-lens::after{display:none}
+  @supports not (backdrop-filter:blur(1px)){
+    .gk-scope .gk-lens{background:var(--gk-bg-2)}
+  }
+
+  /* ========================================================================
+     3. METER — one bar, a number, and a label. Used for confidence,
+     coverage and readiness, which are the three things a diagnostic reports.
+     ===================================================================== */
+  .gk-scope .gk-meter{display:grid;gap:6px}
+  .gk-scope .gk-meter__head{
+    display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+    font-size:12.5px;color:var(--gk-tx-2);
+  }
+  .gk-scope .gk-meter__head b{
+    color:var(--gk-tx);font-variant-numeric:tabular-nums;
+    font-size:13px;font-weight:650;
+  }
+  .gk-scope .gk-meter__track{
+    block-size:6px;border-radius:999px;overflow:hidden;
+    background:rgb(var(--gk-ink-rgb) / .10);
+  }
+  .gk-scope .gk-meter__fill{
+    block-size:100%;border-radius:inherit;
+    inline-size:calc(var(--gk-pct,0) * 1%);
+    background:linear-gradient(90deg, var(--gk-a-2), var(--gk-a));
+    transition:inline-size var(--gk-dur-slow) var(--gk-ease);
+  }
+  .gk-scope .gk-meter[data-state="waiting"] .gk-meter__fill{background:var(--gk-warn)}
+  .gk-scope .gk-meter[data-state="blocked"] .gk-meter__fill{background:var(--gk-danger)}
+
+  /* ========================================================================
+     4. STAT — a figure with its unit and its caveat. The caveat is part of
+     the component on purpose: a number without its basis is a claim.
+     ===================================================================== */
+  .gk-scope .gk-stats{
+    display:grid;gap:10px;
+    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  }
+  .gk-scope .gk-stat{
+    container-type:inline-size;
+    padding:16px;border-radius:var(--gk-r);
+    border:1px solid var(--gk-line);
+    background:rgb(var(--gk-ink-rgb) / .03);
+    display:grid;gap:4px;align-content:start;
+  }
+  .gk-scope .gk-stat__n{
+    font-size:clamp(22px, 14cqi, 34px);
+    line-height:1.05;letter-spacing:-.03em;font-weight:600;
+    font-variant-numeric:tabular-nums;color:var(--gk-tx);
+  }
+  .gk-scope .gk-stat__n sup{font-size:.44em;vertical-align:super;color:var(--gk-tx-3);font-weight:500}
+  .gk-scope .gk-stat__k{
+    font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--gk-tx-3);
+  }
+  .gk-scope .gk-stat__note{font-size:12px;color:var(--gk-tx-2);line-height:1.45;text-wrap:pretty}
+
+  /* ========================================================================
+     5. STACK — layered sheets that fan on hover. The document metaphor the
+     kit already uses, reduced to a primitive any content can sit in.
+     ===================================================================== */
+  .gk-scope .gk-stack{position:relative;display:grid;isolation:isolate}
+  .gk-scope .gk-stack > *{grid-area:1/1}
+  .gk-scope .gk-stack__sheet{
+    border-radius:var(--gk-r);border:1px solid var(--gk-line-2);
+    background:var(--gk-bg-2);box-shadow:var(--gk-e2);
+    translate:0 calc(var(--gk-i,0) * 8px);
+    scale:calc(1 - var(--gk-i,0) * .035);
+    z-index:calc(10 - var(--gk-i,0));
+    transition:translate var(--gk-dur) var(--gk-ease), scale var(--gk-dur) var(--gk-ease);
+  }
+  .gk-scope .gk-stack:hover .gk-stack__sheet,
+  .gk-scope .gk-stack:focus-within .gk-stack__sheet{
+    translate:calc(var(--gk-i,0) * 10px) calc(var(--gk-i,0) * 14px);
+    scale:1;
+  }
+
+  /* ========================================================================
+     6. SCAN — the "working on it" treatment. A sweep across the surface,
+     compositor-only (transform + opacity), and gone under reduced motion.
+     ===================================================================== */
+  .gk-scope [data-gk-scan]{position:relative;overflow:hidden;isolation:isolate}
+  .gk-scope [data-gk-scan]::after{
+    content:"";position:absolute;inset-block:0;inline-size:38%;
+    background:linear-gradient(90deg, transparent,
+      rgb(var(--gk-a-rgb) / .16), transparent);
+    animation:gk-scan 2.2s linear infinite;pointer-events:none;
+  }
+  @keyframes gk-scan{from{translate:-120% 0}to{translate:360% 0}}
+  @media (prefers-reduced-motion:reduce){
+    .gk-scope [data-gk-scan]::after{animation:none;opacity:0}
+    .gk-scope .gk-state[data-state="running"]::before{animation:none}
+  }
+
+  /* ========================================================================
+     7. REVEAL — scroll-driven, no JS, no observer. Progressive: a browser
+     without scroll timelines simply shows the content, which is the correct
+     failure mode for a reveal.
+     ===================================================================== */
+  @supports (animation-timeline:view()){
+    @media (prefers-reduced-motion:no-preference){
+      .gk-scope [data-gk-reveal]{
+        animation:gk-reveal linear both;
+        animation-timeline:view();
+        animation-range:entry 8% cover 26%;
+      }
+      @keyframes gk-reveal{
+        from{opacity:0;translate:0 calc(var(--gk-move) * 2.4)}
+        to{opacity:1;translate:0 0}
+      }
+    }
+  }
+
+  /* ========================================================================
+     8. SIZE-AWARE NODES — a node in a 200px rail and a node in a 900px
+     canvas are the same component at two densities, decided by the slot it
+     lands in rather than by a class the author has to remember.
+     ===================================================================== */
+  .gk-scope :is(.gk-node,.gk-gnode,.gk-fnode){container-type:inline-size}
+  @container (max-width: 210px){
+    .gk-scope :is(.gk-node,.gk-gnode) :is(.gk-node__out,.gk-gtools,.gk-node__sub){display:none}
+    .gk-scope :is(.gk-node,.gk-gnode){padding-block:10px}
+  }
+
+  /* ========================================================================
+     9. FOCUS — one visible ring for the whole kit. v1 relied on the browser
+     default, which vanishes against a dark canvas.
+     ===================================================================== */
+  .gk-scope :is(a,button,[tabindex],input,select,textarea,[data-gk-item]):focus-visible{
+    outline:2px solid var(--gk-a);
+    outline-offset:2px;
+    border-radius:var(--gk-r-sm);
+  }
+  .gk-scope :is(button,a.gk-cta,.gk-chip,.gk-tab){min-block-size:var(--gk-tap)}
+  .gk-scope .gk-chip,.gk-scope .gk-tab{min-block-size:36px}
+}
+
+
+/* ============================================================================
+   GRAPH CHROME — corrections that only became possible once gk-graph.css was
+   folded into a layer. While it loaded unlayered it beat every theme rule, so
+   the run bar, the edge labels and the zoom controls stayed dark on a light
+   page: the engine looked bolted on rather than built in.
+   ========================================================================= */
+@layer gk.theme {
+
+  /* the run bar takes its primary ink from the accent token, not from the
+     one green it was written against */
+  .gk-scope .gk-runbar button.is-primary{ color:var(--gk-a-ink); }
+
+  /* the graph's own floating chrome is glass, so it should read as glass */
+  .gk-scope :is(.gk-runbar,.gk-report,.gk-graph__ui,.gk-graph__toast){
+    -webkit-backdrop-filter:blur(var(--gk-blur)) saturate(140%);
+    backdrop-filter:blur(var(--gk-blur)) saturate(140%);
+  }
+
+  :where(html[data-theme="light"]) .gk-scope,
+  .gk-scope[data-gk-theme="light"]{
+
+    :is(.gk-runbar,.gk-report,.gk-graph__ui,.gk-graph__toast){
+      background:rgb(255 255 255 / .82);
+      border:1px solid var(--gk-line-2);
+      box-shadow:var(--gk-e2);
+      color:var(--gk-tx);
+    }
+    :is(.gk-runbar,.gk-graph__ui) button{
+      background:rgb(var(--gk-ink-rgb) / .06);
+      color:var(--gk-tx);
+    }
+    :is(.gk-runbar,.gk-graph__ui) button:hover{ background:rgb(var(--gk-ink-rgb) / .12); }
+    .gk-runbar button.is-primary{ background:var(--gk-a-soft); color:var(--gk-a-ink); }
+    .gk-runbar select{ background:rgb(255 255 255 / .9); color:var(--gk-tx); }
+
+    /* an edge label rides over the wire; on light it needs the page behind it,
+       not a dark chip */
+    .gk-graph__edges .gk-edge-label{ fill:var(--gk-tx-2); paint-order:stroke; stroke:var(--gk-bg-2); stroke-width:4px; stroke-linejoin:round; }
+
+    .gk-gport, .gk-gnode__field{ color:var(--gk-tx-2); }
+  }
+}
+
+
+/* ============================================================================
+   THE FOLDER                                                    @layer gk.v3
+   ----------------------------------------------------------------------------
+   Ali supplied 3D renders for the pieces where render fidelity beats CSS. The
+   problem with shipping a render is that it arrives in one colour, and this
+   kit has eleven accents across two themes — eight tinted copies per state is
+   not a component, it is a sprite sheet that goes stale.
+
+   So the render stays neutral and the colour is applied live:
+
+     the image    a neutral grey folder, lit from above
+     the tint     a flat --gk-a-soft layer in mix-blend-mode: multiply, which
+                  takes the hue from the token and every highlight, bevel and
+                  shadow from the render
+     the mask     that tint is masked to the folder BODY only, so the papers
+                  stay white — exactly as they do in the reference
+
+   The masks were derived from the green renders: in those, the body is
+   saturated and the paper is not, so the saturation channel IS the body mask.
+   Nothing was traced by hand.
+   ========================================================================= */
+@layer gk.v3 {
+
+  .gk-scope .gk-folder3d{
+    --gk-f-src:url("img/gk-folder-neutral-closed.webp");
+    --gk-f-mask:url("img/gk-folder-closed-mask.webp");
+    display:block;              /* a span is inline, and aspect-ratio does not
+                                   apply to an inline box — the folders were
+                                   there, sized 0×0 */
+    position:relative;
+    inline-size:100%;
+    aspect-ratio:1;
+    isolation:isolate;                       /* the tint blends with the
+                                                render, never with the page */
+    background:var(--gk-f-src) center/contain no-repeat;
+    transition:translate var(--gk-dur) var(--gk-ease),
+               rotate var(--gk-dur) var(--gk-ease);
+  }
+  .gk-scope .gk-folder3d[data-gk-open]{
+    --gk-f-src:url("img/gk-folder-neutral-open.webp");
+    --gk-f-mask:url("img/gk-folder-open-mask.webp");
+  }
+  /* The tint is OPT-IN, and silver is the answer for almost every folder.
+     A folder does not become more informative by being purple, and eight
+     hues of folder is a palette pretending to be a taxonomy. So the render
+     ships as it was lit — silver — and a page asks for colour only where it
+     means something, with data-gk-tint. Since the accent is mono by default,
+     even an opted-in folder stays silver until the scope says green or amber. */
+  .gk-scope .gk-folder3d[data-gk-tint]::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:var(--gk-a-soft);
+    mix-blend-mode:multiply;
+    -webkit-mask:var(--gk-f-mask) center/contain no-repeat;
+    mask:var(--gk-f-mask) center/contain no-repeat;
+  }
+
+  /* A row of them, fanned — the shape a set of folders actually makes on a
+     desk. The label rides under each one and takes the DEFINED accent, so it
+     is readable on both grounds while the folder itself stays pastel. */
+  /* The fan. Each child is told its index and the set's size by
+     GlassKit3.init, so the geometry is computed from the centre outward and
+     the row works for three folders or nine — no nth-child ladder that breaks
+     the moment someone adds one. */
+  .gk-scope .gk-folders{
+    display:flex;justify-content:center;align-items:flex-end;
+    padding-block:26px 8px;
+    --gk-fan-rot:5deg;          /* per step away from the centre */
+    --gk-fan-lift:14px;
+    --gk-fan-lap:-1.5%;         /* how much each folder tucks behind the next */
+  }
+  .gk-scope .gk-folders > *{
+    --gk-d:calc(var(--gk-i, 0) - (var(--gk-n, 1) - 1) / 2);   /* signed distance */
+    flex:0 1 clamp(88px, 15%, 168px);
+    text-align:center;
+    padding-block-end:6px;
+    margin-inline:var(--gk-fan-lap);
+    rotate:calc(var(--gk-d) * var(--gk-fan-rot));
+    translate:0 calc(abs(var(--gk-d)) * var(--gk-fan-lift));
+    transform-origin:50% 130%;
+    transition:translate var(--gk-dur) var(--gk-ease),
+               rotate var(--gk-dur) var(--gk-ease);
+  }
+  @supports not (width: abs(1px)){    /* abs() is newer than the rest of this */
+    .gk-scope .gk-folders > *{translate:none}
+  }
+  .gk-scope .gk-folders > *:hover,
+  .gk-scope .gk-folders > *:focus-within{
+    translate:0 calc(abs(var(--gk-d)) * var(--gk-fan-lift) - var(--gk-move) * 2);
+    z-index:2;
+  }
+  .gk-scope .gk-folder-label{
+    display:block;margin-block-start:2px;
+    font-size:12.5px;font-weight:600;letter-spacing:-.01em;
+    color:var(--gk-tx);
+  }
+  .gk-scope .gk-folder-count{
+    display:block;font-size:11px;color:var(--gk-tx-3);
+    font-variant-numeric:tabular-nums;
+  }
+  /* the one that is current gets the only ring — colour alone would not
+     survive a greyscale print or a colour-blind reader */
+  .gk-scope .gk-folders [aria-current]{
+    translate:0 calc(abs(var(--gk-d)) * var(--gk-fan-lift) - var(--gk-move) * 2);
+    z-index:3;
+  }
+  /* With every folder the same silver, "which one is current" cannot be
+     carried by hue. It is carried by position and a rule: the current folder
+     lifts and gets the only underline. That reading survives greyscale, which
+     the colour version never did. */
+  .gk-scope .gk-folders [aria-current] .gk-folder-label{ color:var(--gk-tx) }
+  .gk-scope .gk-folders [aria-current] .gk-folder-label::after{
+    content:"";display:block;inline-size:18px;block-size:2px;margin:5px auto 0;
+    border-radius:2px;background:currentColor;
+  }
+  .gk-scope .gk-folders > *:not([aria-current]) .gk-folder-label{ color:var(--gk-tx-2) }
+
+  @media (prefers-reduced-motion:reduce){
+    .gk-scope .gk-folders > *{transition:none}
+  }
+}
+
+/* ============================================================================
+   DOCUMENT REGISTER — component rules                          @layer gk.v3
+   ----------------------------------------------------------------------------
+   The token half of this register lives in gk-v3-tokens.css. These are the
+   rules a token cannot express: what a component is ALLOWED to do here.
+
+   The governing rule: the accent may state status, it may not fill a surface.
+   In the default registers an accent-filled surface is how a thing says "this
+   one". In a document, that job belongs to a rule, a number and a position —
+   which is also the only version of the hierarchy that survives greyscale, a
+   photocopier, and a reader who cannot separate the hues.
+   ========================================================================= */
+@layer gk.v3 {
+
+  /* An accent fill becomes an ink fill. Ink on ground inverts with the theme
+     for free: near-black pill on the light page, near-white on the dark one,
+     one declaration, no second rule. */
+  .gk-scope[data-gk-doc] :is(.gk-cta,.gk-gpanel){
+    background:rgb(var(--gk-ink-rgb));
+    border-color:transparent;
+    --gk-tx:var(--gk-bg);
+    --gk-tx-2:color-mix(in oklab, var(--gk-bg) 78%, transparent);
+    --gk-tx-3:color-mix(in oklab, var(--gk-bg) 58%, transparent);
+    --gk-line:color-mix(in oklab, var(--gk-bg) 24%, transparent);
+    color:var(--gk-bg);
+    border-radius:var(--gk-r-sm);
+  }
+
+  /* Panes stop being panes. A lens in a document is a bordered block on the
+     page's own paper, not a frosted sheet floating over it. */
+  .gk-scope[data-gk-doc] :is(.gk-lens,.gk-glass,.gk-tile,.gk-mcard,.gk-icard,
+                             .gk-formcard,.gk-tabcard,.gk-sheet){
+    background:transparent;
+    -webkit-backdrop-filter:none; backdrop-filter:none;
+    border:var(--gk-rule) solid var(--gk-line);
+    box-shadow:none;
+  }
+
+  /* Status keeps its hue - it is the one place colour still carries meaning -
+     but loses the pill's lift, because nothing in this register lifts. */
+  .gk-scope[data-gk-doc] .gk-state{
+    box-shadow:none; border-radius:var(--gk-r-sm);
+  }
+
+  /* Display type gets the serif; everything operational stays in the sans, and
+     metadata goes monospace. Three voices, each with one job. */
+  .gk-scope[data-gk-doc] :is(.gk-display,.gk-title,h1,h2){
+    font-family:var(--gk-display-family);
+    font-weight:400;
+    letter-spacing:-.012em;
+    line-height:1.04;
+  }
+  .gk-scope[data-gk-doc] :is(.gk-eyebrow,.gk-state,.gk-spec,.gk-token,
+                             .gk-folder-count,.gk-meter){
+    font-family:var(--gk-mono-family);
+    font-size:var(--gk-meta-sz);
+    letter-spacing:.09em;
+    text-transform:uppercase;
+  }
+
+  /* A figure in a document is a number over a rule with its basis under it -
+     never a card. .gk-stat already refuses to ship a figure without its basis;
+     here it also refuses to ship it in a box. */
+  .gk-scope[data-gk-doc] .gk-stat{
+    background:transparent; border:0; border-top:var(--gk-rule) solid var(--gk-line-2);
+    border-radius:0; padding:14px 0 0; box-shadow:none;
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .gk-scope[data-gk-doc] *{ transition:none !important; animation:none !important }
+  }
+}
+
+/* E public components, 2026-09-16: existing graph primitives in a reading flow.
+   No drag affordance: these graphs explain boundaries, not an editable canvas. */
+@layer gk.v3 {
+  .gk-control-map{margin:0;min-width:0}
+  .gk-control-map figcaption,.gk-control-foot{display:flex;justify-content:space-between;align-items:center;gap:var(--gk-pad);font:var(--gk-meta-sz)/1.6 var(--lv-mono);color:var(--gk-tx-2)}
+  .gk-control-map figcaption{margin-bottom:var(--gk-pad)}
+  .gk-control-board{min-height:0;padding:calc(var(--gk-pad)*2) var(--gk-pad) var(--gk-pad);touch-action:auto;user-select:auto;cursor:default;background:var(--gk-glass-sf);border-radius:var(--gk-r-sm)}
+  .gk-control-board::before,.gk-control-board::after{display:none}
+  .gk-control-flow{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:calc(var(--gk-pad)*2);margin:0;padding:0;list-style:none;align-items:start}
+  .gk-control-flow>li{position:relative;min-width:0}
+  .gk-control-flow>li:not(:last-child)::after{content:"";position:absolute;top:50%;left:100%;width:calc(var(--gk-pad)*2);border-top:1px solid var(--gk-line-2)}
+  .gk-control-node{position:relative;min-width:0;cursor:default;background:var(--gk-bg-2);border-radius:var(--gk-r-sm);box-shadow:var(--gk-e1);backdrop-filter:blur(var(--gk-blur));-webkit-backdrop-filter:blur(var(--gk-blur))}
+  .gk-control-node summary{cursor:pointer;list-style:none;min-height:var(--gk-tap)}
+  .gk-control-node summary::-webkit-details-marker{display:none}
+  .gk-control-node .gk-gnode__head{padding:var(--gk-pad);font:var(--gk-meta-sz)/1.5 var(--lv-mono);gap:12px;color:var(--gk-tx-2)}
+  .gk-control-number{font-variant-numeric:tabular-nums;color:var(--gk-tx-3)}
+  .gk-control-expand{margin-left:auto}
+  .gk-control-node[open] .gk-control-expand{transform:rotate(45deg)}
+  .gk-control-title{display:block;font:500 var(--gk-h3)/1.2 var(--lv-sans);letter-spacing:-.025em;padding:var(--gk-pad) var(--gk-pad) 0}
+  .gk-control-copy{display:block;padding:12px var(--gk-pad) var(--gk-pad);font:var(--gk-small)/1.55 var(--lv-sans);color:var(--gk-tx-2)}
+  .gk-control-detail{padding:0 var(--gk-pad) var(--gk-pad);font:var(--gk-small)/1.6 var(--lv-sans);color:var(--gk-tx-2)}
+  .gk-control-gate{border-color:var(--gk-a)}
+  .gk-control-gate .gk-gnode__head{color:var(--gk-a)}
+  .gk-control-port{padding:var(--gk-pad) 0 0;font:var(--gk-meta-sz)/1.5 var(--lv-mono);gap:10px}
+  .gk-control-port .gk-gpin{position:static;translate:none;display:block;flex:none;width:var(--gk-square-size);height:var(--gk-square-size);border-radius:0;background:var(--gk-tx-3);box-shadow:none;cursor:default}
+  .gk-control-return{position:relative;z-index:1;margin:calc(var(--gk-pad)*1.5) 0 0 50%;border-top:1px dashed var(--gk-line-2);padding-top:var(--gk-pad);font:var(--gk-meta-sz)/1.6 var(--lv-mono);color:var(--gk-tx-2)}
+  .gk-control-return>span{color:var(--gk-a);margin-right:12px}
+  .gk-control-foot{padding-top:var(--gk-pad)}
+  .gk-control-foot a{display:inline-flex;align-items:center;gap:12px;min-height:var(--gk-tap);color:var(--gk-tx);text-decoration:none}
+  .gk-control-node:focus-within{outline:2px solid var(--gk-a);outline-offset:4px}
+
+  .gk-workbench{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(160px,1fr) minmax(0,4fr);border:1px solid var(--gk-line-2);border-radius:var(--gk-r-sm);background:var(--gk-glass-sf);overflow:hidden;backdrop-filter:blur(var(--gk-blur));-webkit-backdrop-filter:blur(var(--gk-blur))}
+  .gk-workbench__bar{grid-column:1/-1;display:flex;justify-content:space-between;gap:var(--gk-pad);padding:var(--gk-pad);border-bottom:1px solid var(--gk-line);font:var(--gk-meta-sz)/1.6 var(--lv-mono);color:var(--gk-tx-2)}
+  .gk-workbench__bar>span:first-child{color:var(--gk-tx)}
+  .gk-workbench .le-phase-filter{display:flex;align-content:start;flex-direction:column;gap:0;margin:0;padding:var(--gk-pad);border-right:1px solid var(--gk-line)}
+  .gk-workbench .le-phase-filter[hidden]{display:none}
+  .gk-workbench .le-phase-filter button{text-align:left;border:0;flex:none;justify-content:flex-start}
+  .gk-workbench .le-phase-filter button[aria-pressed=true]{background:var(--gk-glass-sf);box-shadow:inset 2px 0 var(--gk-a)}
+  .gk-workbench .le-departments{padding:var(--gk-pad);grid-template-columns:repeat(3,minmax(0,1fr));align-content:start;align-items:start}
+  .gk-workbench:has(.le-phase-filter[hidden]) .le-departments{grid-column:1/-1}
+  .gk-workbench .le-department{background:var(--gk-bg);border-color:var(--gk-line);border-radius:var(--gk-r-sm)}
+  .gk-workbench .le-department[open]{background:var(--gk-glass-sf);border-color:var(--gk-line-2)}
+  .gk-workbench #le-map-count{grid-column:1/-1;margin:0;padding:var(--gk-pad);border-top:1px solid var(--gk-line)}
+
+  .gk-site-footer{position:relative;isolation:isolate;overflow:hidden;min-height:100svh;min-height:100dvh;padding:calc(var(--gk-pad)*4) var(--lv-inset) 0;border-top:1px solid var(--gk-line);scroll-snap-align:start;display:flex;flex-direction:column;color:var(--gk-tx);font-family:var(--lv-sans)}
+  .gk-footer-top{position:relative;z-index:1;display:grid;grid-template-columns:1fr 2fr;gap:calc(var(--gk-pad)*3)}
+  .gk-footer-contact p{font-size:var(--gk-h3);line-height:1.25;letter-spacing:-.025em;margin:0 0 var(--gk-pad)}
+  .gk-footer-contact>a{color:var(--gk-tx-2);font-size:var(--gk-small);min-height:var(--gk-tap);display:inline-flex;align-items:center;text-underline-offset:4px}
+  .gk-footer-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gk-pad)}
+  .gk-footer-tree h3{font:var(--gk-meta-sz)/1.6 var(--lv-mono);color:var(--gk-tx);margin:0 0 12px}
+  .gk-footer-tree ul{list-style:none;padding:0;margin:0}
+  .gk-footer-tree li{position:relative;padding-left:18px}
+  .gk-footer-tree li::before{content:"";position:absolute;left:0;top:0;width:10px;height:calc(var(--gk-tap)/2);border-left:1px solid var(--gk-line-2);border-bottom:1px solid var(--gk-line-2)}
+  .gk-footer-tree li:not(:last-child)::after{content:"";position:absolute;left:0;top:calc(var(--gk-tap)/2);height:calc(var(--gk-tap)/2);border-left:1px solid var(--gk-line-2)}
+  .gk-footer-tree a{display:flex;align-items:center;min-height:var(--gk-tap);font:var(--gk-small)/1.4 var(--lv-sans);color:var(--gk-tx-2);text-decoration:none}
+  .gk-site-footer a:hover{color:var(--gk-a)}
+  .gk-site-footer a:focus-visible,.gk-site-footer button:focus-visible{outline:2px solid var(--gk-a);outline-offset:4px}
+  .gk-pixel-sequence{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gk-pad);padding:calc(var(--gk-pad)*3) 0;margin:auto 0}
+  .gk-pixel-figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:var(--gk-pad);min-width:0}
+  .gk-pixel-figure figcaption{font:var(--gk-meta-sz)/1.5 var(--lv-mono);color:var(--gk-tx-2);text-align:center}
+  @media(max-width:760px){.gk-pixel-sequence{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:calc(var(--gk-pad)*2)}}
+  @media(max-width:380px){.gk-pixel-sequence{grid-template-columns:1fr}}
+  .gk-footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--gk-pad);font:var(--gk-meta-sz)/1.5 var(--lv-mono);color:var(--gk-tx-2);margin-top:auto;position:relative;z-index:1}
+  .gk-footer-bottom nav{display:flex;gap:var(--gk-pad);flex-wrap:wrap}
+  .gk-footer-bottom a,.gk-footer-bottom button{display:inline-flex;align-items:center;min-height:var(--gk-tap);font:inherit;color:var(--gk-tx-2);text-decoration:none;background:none;border:0;padding:0;cursor:pointer}
+  .gk-footer-bottom button[hidden]{display:none}
+  .gk-footer-wordmark{font:500 clamp(80px,21.5vw,480px)/.9 var(--lv-sans);letter-spacing:-.075em;color:var(--gk-line-2);margin:var(--gk-pad) 0 -.1em;user-select:none;text-align:center}
+
+  @media(max-width:1100px){.gk-control-flow{gap:var(--gk-pad)}.gk-control-flow>li:not(:last-child)::after{width:var(--gk-pad)}.gk-control-title{font-size:var(--gk-body)}.gk-workbench .le-departments{grid-template-columns:repeat(2,minmax(0,1fr))}.gk-footer-top{grid-template-columns:1fr}.gk-footer-contact p{font-size:var(--gk-h3)}}
+  @media(max-width:760px){
+    .gk-control-board{padding:var(--gk-pad)}
+    .gk-control-flow{grid-template-columns:1fr;gap:calc(var(--gk-pad)*2)}
+    .gk-control-flow>li:not(:last-child)::after{top:100%;left:50%;width:0;height:calc(var(--gk-pad)*2);border-top:0;border-left:1px solid var(--gk-line-2)}
+    .gk-control-title{font-size:var(--gk-h3)}
+    .gk-control-map figcaption,.gk-control-foot{flex-wrap:wrap}
+    .gk-control-return{margin-left:0}
+    .gk-workbench{grid-template-columns:1fr}
+    .gk-workbench__bar{flex-wrap:wrap}
+    .gk-workbench .le-phase-filter{flex-direction:row;flex-wrap:wrap;border-right:0;border-bottom:1px solid var(--gk-line)}
+    .gk-workbench .le-phase-filter button{flex:1 1 40%}
+    .gk-site-footer{padding-top:calc(var(--gk-pad)*3)}
+    .gk-footer-nav{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:calc(var(--gk-pad)*2)}
+    .gk-footer-bottom{gap:12px}
+  }
+  @media(max-width:480px){.gk-workbench .le-departments{grid-template-columns:1fr}.gk-footer-nav{grid-template-columns:1fr 1fr}.gk-footer-wordmark{font-size:23vw}}
+}
+
+/* E diagnostic: v2's fine glass edges, using the current graph/token system. */
+@layer gk.v3 {
+.gk-diagnostic{font-family:var(--lv-sans);color:var(--gk-tx)}
+.gk-diagnostic[hidden]{display:none}
+.gk-diagnostic-picker{border:0;margin:0;padding:0;min-width:0}
+.gk-diagnostic-picker legend,.gk-diagnostic-secondary-label,.gk-diagnostic-mode,.gk-diagnostic-caption{font:var(--gk-meta-sz)/1.4 var(--lv-mono);color:var(--gk-tx-2)}
+.gk-diagnostic-picker legend{padding:0;margin-bottom:8px;letter-spacing:.06em}
+.gk-diagnostic-primary,.gk-diagnostic-secondary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.gk-diagnostic-secondary{grid-template-columns:repeat(4,minmax(0,1fr))}
+.gk-diagnostic-secondary-label{margin:12px 0 4px;letter-spacing:.06em}
+.gk-diagnostic-input{position:relative;display:grid;grid-template-columns:12px 24px 1fr;align-items:start;gap:8px;min-height:var(--gk-tap);padding:10px 0;border-top:1px solid var(--gk-line);font-size:var(--gk-small);line-height:1.4;cursor:pointer;transition:border-color var(--gk-dur),color var(--gk-dur)}
+.gk-diagnostic-input input{appearance:none;flex-shrink:0;width:10px;height:10px;margin:5px 0 0;border:1px solid var(--gk-line-2);border-radius:0;background:transparent;cursor:pointer}
+.gk-diagnostic-id{font:var(--gk-meta-sz)/1.8 var(--lv-mono);color:var(--gk-tx-2)}
+.gk-diagnostic-input:hover{border-color:var(--gk-tx-2)}
+.gk-diagnostic-input:has(:focus-visible){outline:2px solid var(--gk-a);outline-offset:4px}
+.gk-diagnostic-input:has(:checked){color:var(--gk-a);border-color:var(--gk-a)}
+.gk-diagnostic-input input:checked{background:var(--gk-a);border-color:var(--gk-a)}
+.gk-diagnostic-input.is-preview{border-color:var(--gk-a);border-top-style:dashed}
+.gk-diagnostic-input.is-preview input{border-color:var(--gk-a);box-shadow:inset 0 0 0 2px var(--gk-bg);background:var(--gk-a)}
+.gk-diagnostic-scenario{padding:12px 0;border-top:1px solid var(--gk-line);margin:12px 0}
+.gk-diagnostic-mode{display:block;margin-bottom:6px}
+.gk-diagnostic-routes{display:grid}
+.gk-diagnostic-route{grid-area:1/1;visibility:hidden;pointer-events:none;display:grid;grid-template-columns:minmax(180px,1fr) 3fr;gap:16px;align-content:start;font-size:var(--gk-small);line-height:1.45}
+.gk-diagnostic-route[data-route-panel=idle]{visibility:visible;pointer-events:auto}
+.gk-diagnostic-route[data-route-panel=idle] p{grid-column:1/-1}
+.gk-diagnostic-route a{display:flex;align-items:flex-start;gap:8px;color:var(--gk-tx);text-decoration:underline;text-underline-offset:4px}
+.gk-diagnostic-route a svg{flex:none;margin-top:3px}
+.gk-diagnostic-route a:focus-visible{outline:2px solid var(--gk-a);outline-offset:4px}
+.gk-diagnostic-route p{margin:0;color:var(--gk-tx)}
+.gk-diagnostic-route p span{color:var(--gk-tx-2)}
+.gk-diagnostic-output{display:none}
+.gk-diagnostic-map{margin:0}
+.gk-diagnostic-map>figcaption{font-size:var(--gk-h3);font-weight:500;margin:0 0 12px;letter-spacing:-.02em}
+.gk-diagnostic-flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) minmax(116px,.65fr);gap:24px;margin:0;padding:0;list-style:none}
+.gk-diagnostic-stage{position:relative;inset:auto;width:auto;min-width:0;padding:12px;border:1px solid var(--gk-line-2);border-radius:var(--gk-r-sm);background:var(--gk-glass-sf);backdrop-filter:blur(var(--gk-blur));-webkit-backdrop-filter:blur(var(--gk-blur));box-shadow:inset 0 1px 0 var(--gk-glass-bd);overflow:visible;transition:border-color var(--gk-dur)}
+.gk-diagnostic-stage h3,.gk-diagnostic-verdict h3{display:flex;align-items:center;gap:8px;font-size:var(--gk-h3);font-weight:500;line-height:1.2;margin:0 0 12px;padding-bottom:12px;border-bottom:1px solid var(--gk-line)}
+.gk-diagnostic-stage h3>span:first-child{font:var(--gk-meta-sz) var(--lv-mono);color:var(--gk-tx-2)}
+.gk-diagnostic-stage .gk-gpin{position:static;display:inline-block;flex:none;border-radius:0;margin-left:auto;width:6px;height:6px;background:var(--gk-tx-2);box-shadow:none}
+.gk-diagnostic-stage ol{display:grid;gap:10px;list-style:none;padding:0;margin:0}
+.gk-diagnostic-stage ol li{display:grid;grid-template-columns:18px 1fr;gap:6px;font-size:var(--gk-small);line-height:1.4;color:var(--gk-tx-2)}
+.gk-diagnostic-stage ol li>span{font:var(--gk-meta-sz)/1.7 var(--lv-mono)}
+.gk-diagnostic-wire{position:absolute;left:100%;top:28px;width:26px;height:1px;background:var(--gk-line-2);transform-origin:left}
+.gk-diagnostic-wire::after{content:'';position:absolute;right:0;top:-2px;width:5px;height:5px;border:1px solid var(--gk-line-2);background:var(--gk-bg)}
+.gk-diagnostic-stage.is-active{border-color:var(--gk-a)}
+.gk-diagnostic-stage.is-active .gk-gpin,.gk-diagnostic-stage.is-active .gk-diagnostic-wire{background:var(--gk-a)}
+.gk-diagnostic-stage.is-active .gk-diagnostic-wire::after{border-color:var(--gk-a)}
+.gk-diagnostic-verdict{padding:12px 0;min-width:0;border-top:1px solid transparent}
+.gk-diagnostic-verdict p{font-size:var(--gk-small);line-height:1.6;margin:0 0 8px}
+.gk-diagnostic-verdict>span{font:var(--gk-meta-sz)/1.5 var(--lv-mono);color:var(--gk-tx-2)}
+.gk-diagnostic-verdict.is-active h3{color:var(--gk-a)}
+.gk-diagnostic-caption{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--gk-line);margin-top:16px;padding-top:10px}
+.gk-diagnostic-announcement{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.gk-diagnostic:has(input:checked) [data-route-panel=idle],.gk-diagnostic[data-route] [data-route-panel=idle]{visibility:hidden;pointer-events:none}
+@media(max-width:1100px){.gk-diagnostic-flow{gap:16px}.gk-diagnostic-wire{width:18px}.gk-diagnostic-stage{padding:10px}.gk-diagnostic-stage ol li{font-size:13px}}
+@media(max-width:1023px){
+ .gk-diagnostic-flow{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+ .gk-diagnostic-stage:nth-child(2) .gk-diagnostic-wire,.gk-diagnostic-stage:nth-child(4) .gk-diagnostic-wire{left:50%;top:100%;height:26px;width:1px}
+ .gk-diagnostic-stage:nth-child(2) .gk-diagnostic-wire::after,.gk-diagnostic-stage:nth-child(4) .gk-diagnostic-wire::after{top:auto;bottom:0;right:-2px}
+ .gk-diagnostic-stage:nth-child(3){grid-column:2;grid-row:2}
+ .gk-diagnostic-stage:nth-child(3) .gk-diagnostic-wire{left:auto;right:100%;width:26px}
+ .gk-diagnostic-stage:nth-child(4){grid-column:1;grid-row:2}
+ .gk-diagnostic-verdict{grid-column:1/-1;border-top:1px solid var(--gk-line);margin-top:0}
+ .gk-diagnostic-verdict p{display:flex;gap:16px}.gk-diagnostic-verdict p br{display:none}
+ .gk-diagnostic-primary,.gk-diagnostic-secondary{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .gk-diagnostic-primary .gk-diagnostic-input:last-child{grid-column:1/-1}
+ .gk-diagnostic-stage ol li{font-size:var(--gk-small)}
+}
+@media(max-width:600px){
+ .gk-diagnostic-primary,.gk-diagnostic-secondary,.gk-diagnostic-flow{grid-template-columns:1fr;gap:0}
+ .gk-diagnostic-input{padding:14px 0}
+ .gk-diagnostic-route{display:block}.gk-diagnostic-route a{margin-bottom:8px}.gk-diagnostic-output{display:block;color:var(--gk-tx-2);margin-top:8px}
+ .gk-diagnostic-scenario{margin:16px 0 24px;padding:16px 0}
+ .gk-diagnostic-flow{gap:24px}
+ .gk-diagnostic-flow .gk-diagnostic-stage{grid-column:auto;grid-row:auto;padding:16px}
+ .gk-diagnostic-flow .gk-diagnostic-wire{left:28px;right:auto;top:100%;width:1px;height:26px}
+ .gk-diagnostic-flow .gk-diagnostic-wire::after{top:auto;bottom:0;right:-2px}
+ .gk-diagnostic-verdict p{display:block}.gk-diagnostic-verdict p br{display:initial}
+ .gk-diagnostic-caption{flex-direction:column;gap:6px}
+}
+@media(prefers-reduced-motion:reduce){.gk-diagnostic *{transition:none!important}}
+@media(forced-colors:active){.gk-diagnostic-input input:checked{appearance:auto}.gk-diagnostic-input:has(:checked){outline:1px solid Highlight}.gk-diagnostic-stage{border-color:CanvasText}}
+}
+
+@layer gk.v3 {
+.gk-diagnostic:has(input[value="S1"]:checked) [data-route-panel="S1"],.gk-diagnostic[data-route="S1"] [data-route-panel="S1"]{visibility:visible;pointer-events:auto}
+.gk-diagnostic:has(input[value="S2"]:checked) [data-route-panel="S2"],.gk-diagnostic[data-route="S2"] [data-route-panel="S2"]{visibility:visible;pointer-events:auto}
+.gk-diagnostic:has(input[value="S3"]:checked) [data-route-panel="S3"],.gk-diagnostic[data-route="S3"] [data-route-panel="S3"]{visibility:visible;pointer-events:auto}
+.gk-diagnostic:has(input[value="S4"]:checked) [data-route-panel="S4"],.gk-diagnostic[data-route="S4"] [data-route-panel="S4"]{visibility:visible;pointer-events:auto}
+.gk-diagnostic:has(input[value="S5"]:checked) [data-route-panel="S5"],.gk-diagnostic[data-route="S5"] [data-route-panel="S5"]{visibility:visible;pointer-events:auto}
+.gk-diagnostic:has(input[value="S6"]:checked) [data-route-panel="S6"],.gk-diagnostic[data-route="S6"] [data-route-panel="S6"]{visibility:visible;pointer-events:auto}
+.gk-diagnostic:has(input[value="S7"]:checked) [data-route-panel="S7"],.gk-diagnostic[data-route="S7"] [data-route-panel="S7"]{visibility:visible;pointer-events:auto}
+}
+@layer gk.v3 {
+ .gk-diagnostic-stage{cursor:default}
+ .gk-diagnostic-stage:not(.is-active):hover{border-color:var(--gk-line-2)}
+ @media(max-width:1023px){.gk-diagnostic-input,.gk-diagnostic-route,.gk-diagnostic-stage ol li,.gk-diagnostic-verdict p{font-size:var(--gk-body)}}
+}
+
+@layer gk.v3 {
+/* Disclosure first: quiet inputs; the node workspace exists only when opened. */
+.gk-route-explorer{font-family:var(--lv-sans);width:100%;color:var(--gk-tx)}
+.gk-route-choice{border-top:1px solid var(--gk-line-2)}
+.gk-route-choice>summary{display:grid;grid-template-columns:32px 1fr 24px;align-items:center;gap:16px;min-height:76px;padding:18px 0;list-style:none;cursor:pointer;font-size:var(--gk-h3);line-height:1.4}
+.gk-route-choice summary::-webkit-details-marker,.gk-route-more>summary::-webkit-details-marker,.gk-route-scope>summary::-webkit-details-marker{display:none}
+.gk-route-id{font:var(--gk-meta-sz) var(--lv-mono);color:var(--gk-tx-2)}
+.gk-route-plus{font-size:18px;color:var(--gk-tx-2);display:inline-block;transition:transform var(--gk-dur)}
+.gk-route-choice[open]>summary .gk-route-plus,.gk-route-more[open]>summary>.gk-route-plus,.gk-route-node[open] .gk-route-plus,.gk-route-scope[open]>summary .gk-route-plus{transform:rotate(45deg)}
+.gk-route-choice>summary:hover,.gk-route-choice[open]>summary{color:var(--gk-a)}
+.gk-route-choice summary:focus-visible,.gk-route-more>summary:focus-visible,.gk-route-scope>summary:focus-visible{outline:2px solid var(--gk-a);outline-offset:4px}
+.gk-route-more{border-top:1px solid var(--gk-line-2);border-bottom:1px solid var(--gk-line-2)}
+.gk-route-more>summary{display:flex;align-items:center;gap:16px;min-height:64px;padding:16px 0;list-style:none;cursor:pointer;font-size:var(--gk-body);color:var(--gk-tx-2)}
+.gk-route-more>summary>span:first-child{font:var(--gk-meta-sz) var(--lv-mono);margin-left:auto}
+.gk-route-more>.gk-route-choice{margin-left:48px}
+.gk-route-note{font-size:var(--gk-small);color:var(--gk-tx-2);margin:18px 0 0}
+.gk-route-answer{padding:8px 0 28px}
+.gk-route-answer-head{display:flex;justify-content:space-between;align-items:center;gap:24px}
+.gk-route-answer-head p{font:var(--gk-meta-sz) var(--lv-mono);color:var(--gk-tx-2);margin:0 0 8px}
+.gk-route-answer-head a{display:inline-flex;align-items:center;gap:8px;color:var(--gk-tx);font-size:var(--gk-small);min-height:var(--gk-tap);text-decoration:none;border-bottom:1px solid var(--gk-line-2)}
+.gk-route-reason{font-size:var(--gk-body);line-height:1.5;color:var(--gk-tx-2);margin:16px 0 24px;max-width:70ch}
+.gk-route-map{margin:0}
+.gk-route-map>figcaption{display:flex;justify-content:space-between;gap:16px;font:var(--gk-meta-sz)/1.5 var(--lv-mono);color:var(--gk-tx-2);padding-bottom:16px}
+.gk-route-canvas{position:relative;padding:12px 0 24px}
+.gk-route-nodes{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:start;gap:40px;list-style:none;padding:0;margin:0}
+.gk-route-nodes>li{position:relative;min-width:0}
+.gk-route-nodes>li:nth-child(1){margin-top:36px}.gk-route-nodes>li:nth-child(3){margin-top:60px}.gk-route-nodes>li:nth-child(4){margin-top:24px}
+.gk-route-node{position:relative;z-index:1;border:1px solid var(--gk-glass-bd);border-radius:var(--gk-r-sm);background:linear-gradient(145deg,var(--gk-glass-sf),var(--gk-bg-2));box-shadow:inset 0 1px 0 var(--gk-glass-bd);backdrop-filter:blur(var(--gk-blur));-webkit-backdrop-filter:blur(var(--gk-blur));overflow:hidden}
+.gk-route-node>summary{padding:16px;display:block;cursor:pointer;list-style:none}
+.gk-route-node-head{display:flex;gap:8px;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--gk-line)}
+.gk-route-node-head b{font-size:var(--gk-body);font-weight:500}.gk-route-node-head>span:last-child{margin-left:auto;font:var(--gk-meta-sz) var(--lv-mono);color:var(--gk-tx-2)}
+.gk-route-dot{width:6px;height:6px;flex:none;background:var(--gk-tx-2);border-radius:50%}
+.gk-route-node-description{display:block;min-height:66px;padding:14px 0;font-size:var(--gk-small);line-height:1.5;color:var(--gk-tx-2)}
+.gk-route-param{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--gk-glass-sf);border-radius:var(--gk-r-sm);padding:8px 10px;font:var(--gk-meta-sz)/1.5 var(--lv-mono);color:var(--gk-tx-2)}
+.gk-route-param>span:last-child{display:flex;gap:16px;align-items:center;color:var(--gk-tx)}
+.gk-route-node--focus{border-color:var(--gk-a)}.gk-route-node--focus .gk-route-dot{background:var(--gk-a)}
+.gk-route-output-list{list-style:none;margin:0;padding:0 16px 16px;display:grid;gap:12px}
+.gk-route-output-list li{display:grid;grid-template-columns:18px 1fr;gap:8px;font-size:var(--gk-small);line-height:1.5;color:var(--gk-tx-2)}
+.gk-route-output-list li>span{font:var(--gk-meta-sz)/1.7 var(--lv-mono)}
+.gk-route-port{position:absolute;top:44px;width:7px;height:7px;border-radius:50%;background:var(--gk-tx-2);border:1px solid var(--gk-bg);z-index:2}
+.gk-route-port--in{left:-3px}.gk-route-port--out{right:-3px}
+.gk-route-nodes>li:has(.gk-route-node--focus)>.gk-route-port{background:var(--gk-a)}
+.gk-route-wires{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;display:none}
+[data-wires-ready]>.gk-route-wires{display:block}
+.gk-route-wires path{fill:none;stroke:var(--gk-line-2);stroke-width:1;vector-effect:non-scaling-stroke}
+.gk-route-wires path.is-emphasized{stroke:var(--gk-a);opacity:.7}
+.gk-route-verdict{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:14px 0;border-top:1px solid var(--gk-line);color:var(--gk-tx-2);font:var(--gk-meta-sz)/1.5 var(--lv-mono)}
+.gk-route-verdict p{font:var(--gk-small)/1.5 var(--lv-sans);margin:0;color:var(--gk-tx)}.gk-route-verdict i{font-style:normal;margin:0 8px;color:var(--gk-tx-2)}
+.gk-route-scope{margin-top:8px}
+.gk-route-scope>summary{display:flex;gap:16px;align-items:center;justify-content:space-between;cursor:pointer;list-style:none;min-height:44px;color:var(--gk-tx-2);font-size:var(--gk-small)}
+.gk-route-scope dl{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:8px 0 16px}.gk-route-scope dt{font:var(--gk-meta-sz) var(--lv-mono);color:var(--gk-tx-2);margin-bottom:8px}.gk-route-scope dd{margin:0;font-size:var(--gk-body);line-height:1.5}
+.gk-route-boundary{font-size:var(--gk-small);color:var(--gk-tx-2);line-height:1.5;margin:8px 0 0}
+@media(max-width:1100px){.gk-route-nodes{gap:24px}.gk-route-node>summary{padding:12px}.gk-route-node-description{min-height:80px}}
+@media(max-width:760px){
+ .gk-route-choice>summary{grid-template-columns:24px 1fr 20px;gap:12px;font-size:var(--gk-body);min-height:76px}
+ .gk-route-more>.gk-route-choice{margin-left:0}
+ .gk-route-answer-head{display:block}.gk-route-answer-head a{margin-top:8px}
+ .gk-route-map>figcaption{flex-direction:column;gap:4px}
+ .gk-route-nodes{grid-template-columns:1fr;gap:28px;padding:0 8px}
+ .gk-route-nodes>li:nth-child(n){margin-top:0}
+ .gk-route-port--in{top:-3px;left:32px}.gk-route-port--out{top:auto;bottom:-3px;left:32px;right:auto}
+ .gk-route-node-description{min-height:0}.gk-route-node>summary{padding:16px}
+ .gk-route-verdict{display:block}.gk-route-verdict p{margin-top:8px}.gk-route-verdict i{margin:0 4px}
+ .gk-route-scope dl{grid-template-columns:1fr;gap:16px}
+}
+@media(prefers-reduced-motion:reduce){.gk-route-plus{transition:none}}
+
+/* Reference integration: a local workspace material, not a document-wide theme.
+   Uses existing tonal/elevation tokens; disclosure never lifts off its wires. */
+@layer gk.v3 {
+  .gk-scope[data-gk-doc] .gk-control-board,
+  .gk-scope[data-gk-doc] .gk-workbench{background:var(--gk-bg-2);border:1px solid var(--gk-line-2)}
+  .gk-scope[data-gk-doc] .gk-control-node,
+  .gk-scope[data-gk-doc] .gk-workbench .le-department{
+    background:linear-gradient(145deg,var(--gk-bg-3),var(--gk-bg-2));
+    box-shadow:var(--gk-e2),inset 0 1px 0 var(--gk-line-2);
+  }
+  .gk-control-node .gk-gnode__head{background:var(--gk-glass-sf);border-bottom:1px solid var(--gk-line);align-items:center}
+  .gk-control-detail{margin:0 var(--gk-pad) var(--gk-pad);padding:var(--gk-pad);background:var(--gk-bg);border-left:1px solid var(--gk-line-2)}
+  .gk-control-flow>li:not(:last-child)::after{top:calc(var(--gk-pad)*2);pointer-events:none}
+  .gk-control-node:hover{border-color:var(--gk-tx-3)}
+  .gk-control-gate:hover{border-color:var(--gk-a)}
+  .gk-film{margin:0;min-width:0;align-self:center}
+  .gk-film video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:rgb(var(--gk-shade-rgb));border:1px solid var(--gk-line-2);border-radius:var(--gk-r-sm);object-fit:contain;color-scheme:dark}
+  .gk-film video:focus-visible{outline:2px solid var(--gk-a);outline-offset:4px}
+  .gk-film figcaption{display:flex;justify-content:space-between;flex-wrap:wrap;gap:var(--gk-pad);padding-top:var(--gk-pad);color:var(--gk-tx-2);font:var(--gk-meta-sz)/1.5 var(--lv-mono)}
+  .gk-artifact-preview{display:block;padding:calc(var(--gk-pad)*1.5);margin-top:calc(var(--gk-pad)*2);text-decoration:none;color:var(--gk-tx);background:var(--gk-bg-2);border:1px solid var(--gk-line-2);box-shadow:var(--gk-e2)}
+  .gk-artifact-preview>.le-meta{display:block;margin-bottom:var(--gk-pad)}
+  .gk-artifact-preview strong{display:block;font:500 var(--gk-h3)/1.3 var(--lv-sans)}
+  .gk-artifact-fields{display:grid;grid-template-columns:1fr 1fr;gap:var(--gk-pad);margin:calc(var(--gk-pad)*2) 0}
+  .gk-artifact-fields>span{border-top:1px solid var(--gk-line-2);padding-top:var(--gk-pad);font:var(--gk-small)/1.5 var(--lv-sans)}
+  .gk-artifact-preview:hover{border-color:var(--gk-tx-3)}
+  @media(max-width:760px){.gk-control-flow>li:not(:last-child)::after{top:100%}}
+}
+.gk-route-node{background:linear-gradient(145deg,var(--gk-bg-3),var(--gk-bg-2));box-shadow:var(--gk-e2),inset 0 1px 0 var(--gk-line-2)}
+.gk-route-param{background:var(--gk-bg);border:1px solid var(--gk-line)}
+}
+

@@ -1,0 +1,70 @@
+/* Shared E field geometry. The original header's mesh and fade are unchanged. */
+.e-field-band,.e-square-surface{position:relative;isolation:isolate;min-height:192px;overflow:hidden}
+.e-field-band{position:absolute;inset:0 0 auto;height:192px;pointer-events:none;z-index:0;
+  mask-image:var(--gk-square-fade);-webkit-mask-image:var(--gk-square-fade)}
+.e-field-band::before,.e-square-surface::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:rgb(var(--gk-ink-rgb) / var(--gk-square-mesh-alpha));
+  --e-tile:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='7'%3E%3Crect x='.5' y='.5' width='5' height='5' fill='none' stroke='black'/%3E%3C/svg%3E");
+  mask:var(--e-tile) repeat;-webkit-mask:var(--e-tile) repeat;mask-size:7px 7px;-webkit-mask-size:7px 7px}
+.e-square-surface::before{background:linear-gradient(to bottom,rgb(var(--gk-ink-rgb) / var(--gk-square-mesh-alpha)) 35%,transparent 100%)}
+.e-field-band canvas,.e-square-surface canvas[data-e-squares],.e-pixel-art canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;display:none}
+canvas[data-e-field-ready]{display:block!important}
+.e-square-surface canvas{mask-image:var(--gk-square-fade)}
+.e-square-content{position:relative;z-index:1;padding:var(--gk-pad);margin:var(--gk-pad)}
+.e-pixel-art{position:relative;width:147px;height:147px;pointer-events:none;flex:none}
+.e-pixel-fallback{display:block;color:rgb(var(--gk-ink-rgb));fill:currentColor;opacity:var(--gk-square-shape-alpha);shape-rendering:crispEdges}
+.e-pixel-fallback .e-pixel-a{fill:var(--gk-a)}
+.e-pixel-art:has([data-e-field-ready]) .e-pixel-fallback{visibility:hidden}
+.le-screen>.e-field-band~*{position:relative}
+[data-e-scroll-progress]{transform-origin:left center;height:2px;background:var(--gk-tx);pointer-events:none}
+.e-motion-paused .lv-plate rect{animation-play-state:paused!important}
+[data-e-motion-root]:not(.e-motion-ready) .lv-plate rect{animation:none!important}
+[data-e-motion-root]:not(.e-motion-ready) [data-e-motion-toggle]{display:none}
+@media(prefers-reduced-motion:reduce){
+  [data-e-reveal],[data-e-panel-body]{opacity:1!important;transform:none!important}
+  [data-e-scroll-progress]{transform:none!important}
+}
+/* One travelling population; section canvases and repeating textures are absent. */
+.le-page-particles{position:fixed;inset:0;width:100%;height:100dvh;pointer-events:none;z-index:0;display:none}
+.le-page-particles[data-ready]{display:block}
+.le-pages:has(.le-page-particles){position:relative;isolation:isolate}
+.le-pages:has(.le-page-particles)>.le-screen,.le-pages:has(.le-page-particles)>.gk-site-footer{position:relative;z-index:1}
+.le-sculpture-slot{position:absolute;right:var(--lv-inset);top:48px;width:231px;height:147px;pointer-events:none;display:flex;justify-content:flex-end}
+.le-sculpture-fallback{flex:none;fill:var(--gk-tx);opacity:.35;shape-rendering:crispEdges}
+.le-sculpture-fallback .e-pixel-a{fill:var(--gk-a)}
+.le-particles-ready .le-sculpture-fallback{visibility:hidden}
+[data-e-particle-target]>.le-section-head,[data-e-particle-target]>.le-close-content{padding-right:270px}
+.gk-site-footer[data-e-particle-target]{padding-top:210px}
+@media(max-width:900px){
+ .le-screen[data-e-particle-target]{padding-top:220px}
+ [data-e-particle-target]>.le-section-head,[data-e-particle-target]>.le-close-content{padding-right:0}
+ .le-sculpture-slot{top:40px}
+}
+
+/* V4 geometric square surfaces; method uses the former film footprint. */
+.le-geometry-figure{background:transparent}
+.le-geometry-figure .le-sculpture-slot{position:relative;inset:auto;width:100%;height:auto;aspect-ratio:16/9;align-items:center;justify-content:center}
+.le-geometry-figure .le-sculpture-fallback{width:100%;height:100%}
+.le-sculpture-fallback{opacity:1}
+.le-sculpture-fallback .e-pixel-a{fill:var(--gk-warn)}
+.e-motion-paused [data-e-reveal],.e-motion-paused [data-e-panel-body]{opacity:1!important;transform:none!important}
+
+/* A reserved reading/geometry lane keeps intermediate forms out of service cards. */
+@media(min-width:901px){
+ .le-screen[data-e-particle-target],.gk-site-footer[data-e-particle-target]{padding-right:calc(var(--lv-inset) + 300px)}
+ [data-e-particle-target]>.le-section-head,[data-e-particle-target]>.le-close-content{padding-right:0}
+ .le-sculpture-slot{width:270px;height:220px}
+ #le-method .le-method-intro{display:block}
+ .le-geometry-figure{position:absolute;right:var(--lv-inset);top:48px;width:270px;margin:0}
+ .le-geometry-figure .le-sculpture-slot{height:220px;aspect-ratio:auto}
+ .le-geometry-figure figcaption{display:none}
+}
+@media(max-width:900px){
+ [data-e-particle-target] :is(a,button,summary){scroll-margin-top:220px}
+ .le-geometry-figure{position:absolute;right:var(--lv-inset);top:40px;width:231px;margin:0}
+ .le-geometry-figure .le-sculpture-slot{height:147px;aspect-ratio:auto}
+ .le-geometry-figure figcaption{display:none}
+}
+
+/* Free native scroll exposes every intermediate V4 pose instead of forcing section jumps. */
+html:has([data-e-particle-canvas]){scroll-snap-type:none}

@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><link rel="icon" href="data:,"><title>AequAI · AI Control Map System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>:root{color-scheme:dark;--bg:#000;--tx:#f2f2f3;--tx2:#aaa;--tx3:#828282;--line:rgb(255 255 255 / .16);--gk-a:#ff8a3d;--sans:Geist,Archivo,Urbanist,"Helvetica Neue",Arial,sans-serif;--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+*{box-sizing:border-box}[hidden]{display:none!important}html,body{margin:0;height:100%;background:var(--bg);color:var(--tx);font-family:var(--sans);overflow:hidden}
+.app{display:flex;height:100%}
+.map{position:relative;flex:1;min-width:0}
+svg{width:100%;height:100%;display:block}
+.mesh{opacity:.035}
+.pill{position:absolute;z-index:3;display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 18px;border-radius:22px;border:1px solid var(--line);background:rgb(24 24 24 / .92);color:var(--tx);font:14px var(--sans);cursor:pointer;text-decoration:none}
+.pill:hover{border-color:var(--tx)}
+.pill:focus-visible,.node:focus-visible{outline:2px solid var(--gk-a);outline-offset:3px}
+.back{left:24px;top:22px}
+.history{position:absolute;right:24px;top:22px;z-index:4}
+.history .pill{position:static}
+#historyList{position:absolute;right:0;top:48px;margin:0;padding:6px;list-style:none;background:#111;border:1px solid var(--line);min-width:220px;max-height:320px;overflow:auto}
+#historyList button{width:100%;text-align:left;background:none;border:0;color:var(--tx2);font:13px var(--sans);padding:9px 10px;min-height:36px;cursor:pointer}
+#historyList button:hover,#historyList [aria-current=true]{color:var(--tx)}
+.panel-toggle{right:24px;bottom:20px}
+.foot{position:absolute;left:24px;bottom:18px;margin:0;font:11px/1.6 var(--mono);color:var(--tx3);max-width:50%}
+.panel{width:320px;flex:none;border-left:1px solid var(--line);padding:28px 24px;overflow:auto;background:#050505}
+.app.no-panel .panel{display:none}
+.kicker{font:11px var(--mono);letter-spacing:.1em;color:var(--gk-a);margin:22px 0 8px;text-transform:uppercase}
+.kicker:first-child{margin-top:0}
+.panel h1{font-size:28px;line-height:1.08;font-weight:500;letter-spacing:-.035em;margin:0 0 12px}
+.desc{color:var(--tx2);font-size:14px;line-height:1.6;margin:0}
+.desc.small{font-size:12px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.actions .pill{position:static;font-size:13px}
+.actions .primary{background:var(--tx);color:#000;border-color:var(--tx)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{min-height:34px;border:1px solid var(--line);background:none;color:var(--tx);font:12px var(--sans);padding:4px 12px;border-radius:17px;cursor:pointer}
+.chips button:hover{border-color:var(--gk-a);color:var(--gk-a)}
+.hint{font:11px/1.6 var(--mono);color:var(--tx3);margin-top:22px}
+.node{cursor:pointer;outline:none}
+.node text{fill:var(--tx);font-family:var(--sans);paint-order:stroke;stroke:#000;stroke-width:3px;stroke-linejoin:round}
+.node .mark{fill:#1b1b1b;stroke:#f2f2f3;stroke-width:1.2}
+.node.inner text{font-weight:600}
+.node.dim{opacity:.22}
+.node.hot .mark{stroke:var(--gk-a);fill:#2a1a10}
+.node.hot text{fill:var(--gk-a)}
+.link{fill:none;stroke:#fff;stroke-width:.7;opacity:.22}
+.link.dim{opacity:.05}
+.link.hot{stroke:var(--gk-a);opacity:.85;stroke-width:1.1}
+.ring-outer{fill:none;stroke:#fff;stroke-width:1;opacity:.55}
+.ring-inner{fill:none;stroke:var(--gk-a);stroke-width:1.6}
+.hub-title{fill:var(--tx);font:600 20px var(--sans);text-anchor:middle;paint-order:stroke;stroke:#000;stroke-width:4px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media(max-width:760px){.panel{position:absolute;inset:auto 0 0 0;width:auto;max-height:46%;border-left:0;border-top:1px solid var(--line)}.app{display:block}.map{height:100%}.foot{display:none}.panel-toggle{bottom:auto;top:70px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+/* v7.12: hub = the mark in mesh squares; field version */
+.hub-sub{fill:var(--tx2);font:500 12px var(--mono);letter-spacing:.08em;text-anchor:middle;text-transform:uppercase;paint-order:stroke;stroke:#000;stroke-width:4px}
+.field{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.with-field svg{position:relative}
+.with-field .mesh{opacity:.05}
+
+/* v19 · embedded in the homepage cover (labs #maps/cli-field, AI Control Map System items) */
+.embed body,.embed{background:transparent}.embed .history,.embed .panel-toggle,.embed .foot,.embed .panel{display:none!important}
+.embed .back{left:8px;top:8px;min-height:34px;font-size:13px}.light .pill{background:rgb(255 255 255 / .92)}
+.embed .node text,.embed .hub-sub,.embed .hub-title{stroke:var(--bg)}
+.embed .node .mark{fill:var(--bg)}
+.embed .link{stroke:var(--tx)}.embed .ring-outer{stroke:var(--tx)}.embed .link.hot{stroke:var(--gk-a)}.embed .node.hot .mark{fill:#2a1a10}   /* the hot links stay amber, as in the lab */
+#mesh rect{stroke:var(--tx)}
+.embed .mesh,.embed .field,.embed .hub-cell{display:none}.ent{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}   /* v19b (Ali): no squares in the background — only the map and its centre mark */
+.embed .field{-webkit-mask-image:radial-gradient(closest-side,#000 60%,transparent);mask-image:radial-gradient(closest-side,#000 60%,transparent)}
+.compact .node text{display:none}.cap{display:none}.compact .cap{display:block;position:absolute;z-index:2;left:2px;top:0;margin:0;font:600 13px var(--sans);color:var(--gk-a)}.compact .back{display:none!important}
+.light{color-scheme:light;--bg:#f4f6f5;--tx:#101412;--tx2:#5b625e;--tx3:#7c837f;--line:rgb(16 20 18 / .16)}
+.light .node .mark{stroke:var(--tx)}.light .node.hot .mark{fill:#fbe3d2}
+.embed .node.inner .mark{fill:var(--bg)}.embed .node.inner.hot .mark{fill:var(--bg);stroke:var(--gk-a)}.film .node.inner .mark,.film .node.inner.hot .mark{fill:transparent}   /* v20b: the page's film draws the block under the map, so the key squares stay see-through */   /* v19g (Ali): hollow key squares; the selected one fills with the 3×3 block */
+.embed .node.inner.dim{opacity:1}.embed .node.inner.dim text{opacity:.3}   /* they stay solid while another key item is selected; only their names step back */
+.light .hub-cell[fill="#f2f2f3"]{fill:var(--tx)}
+.det-l{fill:none;stroke:var(--tx);stroke-width:1;opacity:.55}.det text{font:10.5px var(--mono);letter-spacing:.02em;fill:var(--tx2)}.det .det-st{fill:var(--tx);font-weight:500;letter-spacing:.08em}.det .amb,.det .det-v.amb{fill:var(--gk-a)}.det .det-h{font:600 13px var(--sans);letter-spacing:0;fill:var(--tx)}.det .det-k{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase}.det .det-v{font:12.5px var(--sans);letter-spacing:0;fill:var(--tx)}.det .det-m{font-size:10px;letter-spacing:.01em;fill:var(--tx2)}   /* v29 · the Partner studies' detail */
+.light .link{opacity:.28}.light .link.hot{opacity:.85}.light .link.dim{opacity:.07}.light .ring-outer{opacity:.45}.light .mesh{opacity:.05}
+</style></head>
+<body>
+<div class="app" id="app">
+ <div class="map" id="map">
+  <svg id="svg" role="img" aria-labelledby="mapTitle"><title id="mapTitle">AequAI site map</title><defs><pattern id="mesh" width="7" height="7" patternUnits="userSpaceOnUse"><rect x=".5" y=".5" width="5" height="5" fill="none" stroke="#fff" stroke-width="1"/></pattern></defs><rect class="mesh" width="100%" height="100%" fill="url(#mesh)"/><g id="links"></g><g id="rings"></g><g id="hub"></g><g id="nodes"></g></svg>
+  <button class="pill back" id="back" hidden>← <span id="backLabel"></span></button>
+  <div class="history"><button class="pill" id="historyBtn" aria-expanded="false" aria-controls="historyList">History <span aria-hidden="true">⌄</span></button><ol id="historyList" hidden></ol></div>
+  <p class="foot" id="foot"></p>
+  <button class="pill panel-toggle" id="panelToggle" aria-expanded="true">Hide panel →</button>
+ </div>
+ <aside class="panel" id="panel" aria-live="polite">
+  <p class="kicker" id="pKicker"></p>
+  <h1 id="pTitle"></h1>
+  <p class="desc" id="pDesc"></p>
+  <div class="actions"><a class="pill primary" id="pOpen" target="_blank" rel="noopener">Open page ↗</a><a class="pill" id="pCli" target="_blank" rel="noopener">CLI version ↗</a></div>
+  <p class="kicker">Directly connected</p>
+  <div class="chips" id="pInner"></div>
+  <p class="kicker">Around it</p>
+  <p class="desc small" id="pOuter"></p>
+  <p class="hint">Select a key page on the inner ring to see its links. Select any page to put it at the centre.</p>
+ </aside>
+</div>
+<p class="sr-only" id="live" aria-live="polite"></p>
+<script>window.SITE_MAP={"title":"AI Control Map System","root":"chief-agent","noun":["items","links"],"maxLabel":19,"innerWrap":10,"groupOuter":true,"innerAbove":true,"categories":[{"name":"Company"},{"name":"Control & gates"},{"name":"Departments"},{"name":"Workflows"},{"name":"Human owners"},{"name":"Co-pilots & agents"},{"name":"Tools"}],"nodes":[{"id":"chief-agent","name":"chief-agent","label":"AI Brain / Control Agent","desc":"Routes requests, logs decisions, and never bypasses gates.","category":1,"symbolSize":23,"href":"","cliHref":""},{"id":"sales","name":"sales","label":"Sales","desc":"Sales Lead","category":2,"symbolSize":9,"href":"","cliHref":""},{"id":"finance","name":"finance","label":"Finance","desc":"Finance Lead","category":2,"symbolSize":7,"href":"","cliHref":""},{"id":"sales-lead","name":"sales-lead","label":"Sales Lead","desc":"Human owner for Sales","category":4,"symbolSize":2,"href":"","cliHref":""},{"id":"sales-copilot","name":"sales-copilot","label":"Sales Co-Pilot","desc":"Phase 1 assisted work interface","category":5,"symbolSize":2,"href":"","cliHref":""},{"id":"sales-brain","name":"sales-brain","label":"Sales Brain","desc":"Phase 2 shared intelligence / memory","category":5,"symbolSize":3,"href":"","cliHref":""},{"id":"sales-agent","name":"sales-agent","label":"Sales Agent","desc":"Phase 3 supervised agent with approval gates","category":5,"symbolSize":3,"href":"","cliHref":""},{"id":"finance-lead","name":"finance-lead","label":"Finance Lead","desc":"Human owner for Finance","category":4,"symbolSize":2,"href":"","cliHref":""},{"id":"finance-copilot","name":"finance-copilot","label":"Finance Co-Pilot","desc":"Phase 1 assisted work interface","category":5,"symbolSize":2,"href":"","cliHref":""},{"id":"finance-brain","name":"finance-brain","label":"Finance Brain","desc":"Phase 2 shared intelligence / memory","category":5,"symbolSize":2,"href":"","cliHref":""},{"id":"finance-agent","name":"finance-agent","label":"Finance Agent","desc":"Phase 3 supervised agent with approval gates","category":5,"symbolSize":2,"href":"","cliHref":""},{"id":"sales-lead-research","name":"sales-lead-research","label":"Lead research & CRM enrichment","desc":"P1 · medium risk","category":3,"symbolSize":5,"href":"","cliHref":""},{"id":"sales-proposal-agent","name":"sales-proposal-agent","label":"Proposal drafting assistant","desc":"P3 · high risk","category":3,"symbolSize":4,"href":"","cliHref":""},{"id":"support-kb-drafts","name":"support-kb-drafts","label":"Support answer drafts from approved KB","desc":"P1 · high risk","category":3,"symbolSize":5,"href":"","cliHref":""},{"id":"support-triage-agent","name":"support-triage-agent","label":"Ticket triage and routing agent","desc":"P3 · medium risk","category":3,"symbolSize":4,"href":"","cliHref":""},{"id":"marketing-content-repurpose","name":"marketing-content-repurpose","label":"Content repurposing and campaign drafts","desc":"P1 · medium risk","category":3,"symbolSize":4,"href":"","cliHref":""},{"id":"marketing-signal-brain","name":"marketing-signal-brain","label":"Market signal memory and campaign brain","desc":"P2 · medium risk","category":3,"symbolSize":5,"href":"","cliHref":""},{"id":"ops-exception-monitor","name":"ops-exception-monitor","label":"Operations exception monitor","desc":"P2 · medium risk","category":3,"symbolSize":4,"href":"","cliHref":""},{"id":"data-dashboard-notes","name":"data-dashboard-notes","label":"Dashboard narrative and anomaly notes","desc":"P1 · medium risk","category":3,"symbolSize":4,"href":"","cliHref":""},{"id":"tech-integration-sandbox","name":"tech-integration-sandbox","label":"Integration inventory and sandbox smoke tests","desc":"P1 · high risk","category":3,"symbolSize":4,"href":"","cliHref":""},{"id":"tech-supervised-runner","name":"tech-supervised-runner","label":"Supervised automation runner","desc":"P3 · very high risk","category":3,"symbolSize":4,"href":"","cliHref":""},{"id":"finance-invoice-classifier","name":"finance-invoice-classifier","label":"Invoice classification draft","desc":"P1 · very high risk","category":3,"symbolSize":4,"href":"","cliHref":""},{"id":"hr-policy-draft","name":"hr-policy-draft","label":"Policy Q&A and role description drafts","desc":"P1 · very high risk","category":3,"symbolSize":5,"href":"","cliHref":""},{"id":"leadership-decision-brief","name":"leadership-decision-brief","label":"Cross-functional decision brief","desc":"P2 · high risk","category":3,"symbolSize":5,"href":"","cliHref":""},{"id":"product-discovery-synthesis","name":"product-discovery-synthesis","label":"Discovery evidence synthesis","desc":"P1 · medium risk","category":3,"symbolSize":4,"href":"","cliHref":""},{"id":"product-roadmap-brain","name":"product-roadmap-brain","label":"Product decision memory","desc":"P2 · medium risk","category":3,"symbolSize":5,"href":"","cliHref":""},{"id":"procurement-vendor-brief","name":"procurement-vendor-brief","label":"Vendor evidence comparison","desc":"P1 · high risk","category":3,"symbolSize":4,"href":"","cliHref":""},{"id":"procurement-risk-monitor","name":"procurement-risk-monitor","label":"Supply and vendor risk monitor","desc":"P2 · high risk","category":3,"symbolSize":4,"href":"","cliHref":""},{"id":"legal-policy-retrieval","name":"legal-policy-retrieval","label":"Policy and obligation retrieval","desc":"P1 · very high risk","category":3,"symbolSize":4,"href":"","cliHref":""},{"id":"legal-control-watch","name":"legal-control-watch","label":"Obligation and control watchlist","desc":"P2 · very high risk","category":3,"symbolSize":5,"href":"","cliHref":""},{"id":"security-alert-triage","name":"security-alert-triage","label":"Security alert triage brief","desc":"P1 · very high risk","category":3,"symbolSize":4,"href":"","cliHref":""},{"id":"security-evidence-brain","name":"security-evidence-brain","label":"Security control evidence memory","desc":"P2 · very high risk","category":3,"symbolSize":5,"href":"","cliHref":""},{"id":"research-evidence-synthesis","name":"research-evidence-synthesis","label":"Research evidence synthesis","desc":"P1 · medium risk","category":3,"symbolSize":4,"href":"","cliHref":""},{"id":"research-experiment-brain","name":"research-experiment-brain","label":"Experiment memory and learning loop","desc":"P2 · medium risk","category":3,"symbolSize":5,"href":"","cliHref":""},{"id":"program-status-synthesis","name":"program-status-synthesis","label":"Program status synthesis","desc":"P1 · medium risk","category":3,"symbolSize":5,"href":"","cliHref":""},{"id":"program-dependency-monitor","name":"program-dependency-monitor","label":"Dependency and risk monitor","desc":"P2 · medium risk","category":3,"symbolSize":3,"href":"","cliHref":""},{"id":"quality-sampling-brief","name":"quality-sampling-brief","label":"Quality sampling and defect summary","desc":"P1 · high risk","category":3,"symbolSize":4,"href":"","cliHref":""},{"id":"quality-root-cause-brain","name":"quality-root-cause-brain","label":"Root-cause evidence memory","desc":"P2 · high risk","category":3,"symbolSize":5,"href":"","cliHref":""},{"id":"admin-request-triage","name":"admin-request-triage","label":"Internal request and scheduling triage","desc":"P1 · medium risk","category":3,"symbolSize":4,"href":"","cliHref":""},{"id":"admin-facility-monitor","name":"admin-facility-monitor","label":"Facility and service exception monitor","desc":"P2 · medium risk","category":3,"symbolSize":5,"href":"","cliHref":""},{"id":"sustainability-evidence-inventory","name":"sustainability-evidence-inventory","label":"Sustainability evidence inventory","desc":"P1 · high risk","category":3,"symbolSize":4,"href":"","cliHref":""},{"id":"sustainability-gap-monitor","name":"sustainability-gap-monitor","label":"Impact evidence gap monitor","desc":"P2 · high risk","category":3,"symbolSize":4,"href":"","cliHref":""},{"id":"crm","name":"crm","label":"CRM","desc":"Tool / integration","category":6,"symbolSize":4,"href":"","cliHref":""},{"id":"email","name":"email","label":"Email","desc":"Tool / integration","category":6,"symbolSize":2,"href":"","cliHref":""},{"id":"accounting","name":"accounting","label":"Accounting","desc":"Tool / integration","category":6,"symbolSize":3,"href":"","cliHref":""},{"id":"preflight","name":"preflight","label":"Pre-flight Gate","desc":"Blocks workflow if owner, data source, risk tier, or rollback path is missing.","category":1,"symbolSize":11,"href":"","cliHref":""},{"id":"revision","name":"revision","label":"Revision Gate","desc":"Routes draft output back for correction when quality or policy checks fail.","category":1,"symbolSize":11,"href":"","cliHref":""},{"id":"escalation","name":"escalation","label":"Escalation Gate","desc":"Pauses for human decision when risk, ambiguity, or authority is too high.","category":1,"symbolSize":11,"href":"","cliHref":""},{"id":"abort","name":"abort","label":"Abort Gate","desc":"Stops if safety invariant, privacy boundary, or system health is violated.","category":1,"symbolSize":2,"href":"","cliHref":""}],"links":[{"source":"chief-agent","target":"sales","relation":"coordinates"},{"source":"sales","target":"sales-lead","relation":"owned by"},{"source":"sales","target":"sales-copilot","relation":"phase 1 assist"},{"source":"sales","target":"sales-brain","relation":"phase 2 memory"},{"source":"sales","target":"sales-agent","relation":"phase 3 supervised action"},{"source":"sales-lead","target":"sales-agent","relation":"approves"},{"source":"chief-agent","target":"finance","relation":"coordinates"},{"source":"finance","target":"finance-lead","relation":"owned by"},{"source":"finance","target":"finance-copilot","relation":"phase 1 assist"},{"source":"finance","target":"finance-brain","relation":"phase 2 memory"},{"source":"finance","target":"finance-agent","relation":"phase 3 supervised action"},{"source":"finance-lead","target":"finance-agent","relation":"approves"},{"source":"sales","target":"sales-lead-research","relation":"owns workflow"},{"source":"sales-copilot","target":"sales-lead-research","relation":"executes as draft/recommendation"},{"source":"sales-lead-research","target":"preflight","relation":"checked by"},{"source":"chief-agent","target":"preflight","relation":"enforces gate"},{"source":"sales","target":"sales-proposal-agent","relation":"owns workflow"},{"source":"sales-agent","target":"sales-proposal-agent","relation":"executes as draft/recommendation"},{"source":"sales-proposal-agent","target":"escalation","relation":"checked by"},{"source":"chief-agent","target":"escalation","relation":"enforces gate"},{"source":"support-kb-drafts","target":"revision","relation":"checked by"},{"source":"chief-agent","target":"revision","relation":"enforces gate"},{"source":"support-triage-agent","target":"preflight","relation":"checked by"},{"source":"marketing-content-repurpose","target":"revision","relation":"checked by"},{"source":"marketing-signal-brain","target":"preflight","relation":"checked by"},{"source":"ops-exception-monitor","target":"preflight","relation":"checked by"},{"source":"data-dashboard-notes","target":"revision","relation":"checked by"},{"source":"tech-integration-sandbox","target":"preflight","relation":"checked by"},{"source":"tech-supervised-runner","target":"abort","relation":"checked by"},{"source":"chief-agent","target":"abort","relation":"enforces gate"},{"source":"finance","target":"finance-invoice-classifier","relation":"owns workflow"},{"source":"finance-copilot","target":"finance-invoice-classifier","relation":"executes as draft/recommendation"},{"source":"finance-invoice-classifier","target":"escalation","relation":"checked by"},{"source":"hr-policy-draft","target":"escalation","relation":"checked by"},{"source":"leadership-decision-brief","target":"revision","relation":"checked by"},{"source":"product-discovery-synthesis","target":"revision","relation":"checked by"},{"source":"product-roadmap-brain","target":"preflight","relation":"checked by"},{"source":"procurement-vendor-brief","target":"revision","relation":"checked by"},{"source":"procurement-risk-monitor","target":"escalation","relation":"checked by"},{"source":"legal-policy-retrieval","target":"escalation","relation":"checked by"},{"source":"legal-control-watch","target":"escalation","relation":"checked by"},{"source":"security-alert-triage","target":"escalation","relation":"checked by"},{"source":"security-evidence-brain","target":"preflight","relation":"checked by"},{"source":"research-evidence-synthesis","target":"revision","relation":"checked by"},{"source":"research-experiment-brain","target":"preflight","relation":"checked by"},{"source":"program-status-synthesis","target":"revision","relation":"checked by"},{"source":"program-dependency-monitor","target":"preflight","relation":"checked by"},{"source":"quality-sampling-brief","target":"revision","relation":"checked by"},{"source":"quality-root-cause-brain","target":"escalation","relation":"checked by"},{"source":"admin-request-triage","target":"preflight","relation":"checked by"},{"source":"admin-facility-monitor","target":"escalation","relation":"checked by"},{"source":"sustainability-evidence-inventory","target":"revision","relation":"checked by"},{"source":"sustainability-gap-monitor","target":"escalation","relation":"checked by"},{"source":"sales","target":"crm","relation":"uses tool"},{"source":"sales-brain","target":"crm","relation":"reads context from"},{"source":"sales","target":"email","relation":"uses tool"},{"source":"sales-brain","target":"email","relation":"reads context from"},{"source":"finance","target":"accounting","relation":"uses tool"},{"source":"finance-brain","target":"accounting","relation":"reads context from"},{"source":"sales-lead-research","target":"crm","relation":"uses"},{"source":"sales-proposal-agent","target":"crm","relation":"uses"},{"source":"finance-invoice-classifier","target":"accounting","relation":"uses"}]};</script>
+<script>'use strict';
+// AequAI site map, radial topic view. A centre page, its direct connections on
+// an accent ring, and every other page on an outer ring with radial labels.
+// Select a page to put it at the centre; history and back keep your path.
+(() => {
+  const D = window.SITE_MAP, NS = 'http://www.w3.org/2000/svg', $ = id => document.getElementById(id);
+  const byId = new Map(D.nodes.map(n => [n.id, n])), adj = new Map(D.nodes.map(n => [n.id, new Set()]));
+  for (const l of D.links) { adj.get(l.source)?.add(l.target); adj.get(l.target)?.add(l.source); }
+  const CAT = D.categories.map(c => c.name);
+  const ACR = {ai: 'AI', cli: 'CLI', dpp: 'DPP', eu: 'EU', faq: 'FAQ'};
+  const title = s => s.split('-').map(w => ACR[w] || w[0].toUpperCase() + w.slice(1)).join(' ');
+  const ROOT = D.root || 'index', NOUN = D.noun || ['pages', 'links'], MAXL = D.maxLabel || 26, FIELD = new URLSearchParams((window.MAP_Q ?? location.search)).has('field');
+  let fitK = 1; let ROT = 0; const COMPACT = () => new URLSearchParams((window.MAP_Q ?? location.search)).has('embed') && innerWidth < 560;
+  function label(n) {
+    if (n.label) return n.label;
+    if (n.id === 'index') return 'AequAI';
+    if (n.category === 5) return n.desc.replace(/ AI (Adoption|Evidence) Handbook$/, '').replace(' / ', ' & ');
+    if (n.id === 'services') return 'Services';
+    if (n.category === 1) return n.desc;
+    const clean = n.name.replace(/-review$/, '');
+    return title(clean);
+  }
+  const svg = $('svg'), gLinks = $('links'), gRings = $('rings'), gHub = $('hub'), gNodes = $('nodes');
+  const mk = (t, a = {}) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); return e; };
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  let W = 0, H = 0, cx = 0, cy = 0, R0 = 0, R1 = 0, R2 = 0;
+  let center = ROOT, history = [ROOT], hover = null, layout = null, from = new Map(), anim = 0, animStart = 0;
+  const els = new Map();
+
+  function computeLayout(c) {
+    const cat = byId.get(c).category;
+    let inner = [...adj.get(c)];
+    if (inner.length < 3) for (const n of D.nodes) { if (inner.length >= 6) break; if (n.id !== c && n.category === cat && !inner.includes(n.id)) inner.push(n.id); }
+    inner.sort((a, b) => byId.get(a).category - byId.get(b).category || byId.get(b).symbolSize - byId.get(a).symbolSize);
+    const outer = D.nodes.filter(n => n.id !== c && !inner.includes(n.id)).sort((a, b) => a.category - b.category || b.symbolSize - a.symbolSize).map(n => n.id);
+    const pos = new Map();
+    inner.forEach((id, i) => { const a = -Math.PI / 2 + (i + .5) / inner.length * Math.PI * 2; pos.set(id, {a, r: R1, ring: 'inner'}); });
+    outer.forEach((id, i) => { const a = -Math.PI / 2 + i / outer.length * Math.PI * 2; pos.set(id, {a, r: R2, ring: 'outer'}); });
+    if (D.groupOuter) { const grp = new Map(inner.map(x => [x, []])), rest = [];   // v19d: a key item's own items sit together on the outer ring, the key item at their middle, so its links open as one fan
+      for (const id of outer) { const h = inner.find(x => adj.get(id).has(x)); (h ? grp.get(h) : rest).push(id); }
+      const ord = [...inner.flatMap(x => grp.get(x)), ...rest], N = ord.length, A = i => -Math.PI / 2 + (i + .5) / N * Math.PI * 2;
+      ord.forEach((id, i) => pos.set(id, {a: A(i), r: R2, ring: 'outer'}));
+      let k = 0; for (const x of inner) { const n = grp.get(x).length; if (n) pos.set(x, {a: A(k + (n - 1) / 2) + (D.innerAhead ?? Math.PI / 4), r: R1, ring: 'inner'}); /* v19e (Ali, as the lab's Company): the key item sits a quarter turn ahead of its group, so on the left its fan opens to the bottom left */ k += n; }
+      const ia = inner.map(x => pos.get(x).a), gap = Math.PI * 2 / inner.length * .7;   // keep key items apart: a one-item group must not sit on its neighbour's name
+      for (let it = 0; it < 12; it++) for (let i = 0; i < ia.length; i++) { const j = (i + 1) % ia.length, d = ((ia[j] - ia[i]) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2); if (d < gap) { ia[i] -= (gap - d) / 2; ia[j] += (gap - d) / 2; } }
+      inner.forEach((x, i) => { pos.get(x).a = ia[i]; }); }
+    // Links: each key page to its neighbours and its category on the outer ring.
+    const links = [];
+    for (const id of inner) {
+      const cat2 = byId.get(id).category, targets = new Set([...adj.get(id)].filter(t => outer.includes(t)));
+      for (const t of outer) if (byId.get(t).category === cat2 && targets.size < 14) targets.add(t);
+      for (const t of targets) links.push([id, t]);
+    }
+    return {center: c, inner, outer, pos, links};
+  }
+  function measure() {
+    const r = svg.getBoundingClientRect(); W = r.width; H = r.height; cx = D.align === 'right' ? W - (window.MAP_GAP || 0) : W / 2; cy = H / 2 + 4;
+    const m = Math.min(W, H), lab = COMPACT() ? 12 : 16 + Math.min(MAXL, 24) * 6.4; R2 = Math.max(COMPACT() ? 60 : 110, Math.min(m * (COMPACT() ? .44 : .38), W / 2 - lab, H / 2 - lab * .82)) * fitK; if (D.align === 'right') { const Wf = W - (window.MAP_GAP || 0) - (window.MAP_EXT || 0), mf = Math.min(Wf, H); R2 = Math.max(COMPACT() ? 60 : 110, Math.min(mf * (COMPACT() ? .44 : .38), Wf / 2 - lab, H / 2 - lab * .82)) * fitK; } R1 = R2 * (D.ringK || (D.nodes.length > 80 ? .6 : .53)); R0 = R1 * .74;
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  }
+  const xy = p => [cx + Math.cos(p.a) * p.r, cy + Math.sin(p.a) * p.r];
+
+  // The hub: the AequAI mark made of the background's own mesh squares (7 px grid, 6 px squares), as on the
+  // website header — no disc behind it, no title. Another centre shows its name small under the mark.
+  function buildHub() {
+    gHub.replaceChildren();
+    const g = mk('g', {class: 'hub'}), k = 1, cell = 7 * k, sub = center !== ROOT;
+    const ox = Math.round((cx - cell * 3.5) / 7) * 7, oy = Math.round((cy - cell * 3.5 - (sub ? 8 : 0)) / 7) * 7;
+    for (let y = 0; y < 7; y++) for (let x = 0; x < 7; x++) {
+      const edge = x === 0 || y === 0 || x === 6 || y === 6, bar = (x === 2 || x === 4) && y >= 2 && y <= 4;
+      if (!edge && !bar) continue;
+      for (let j = 0; j < k; j++) for (let i = 0; i < k; i++) { const r = mk('rect', {x: ox + (x * k + i) * 7, y: oy + (y * k + j) * 7, width: 6, height: 6, fill: bar ? 'var(--gk-a)' : '#f2f2f3', class: 'hub-cell'});
+        r.dataset.base = bar ? 1 : [.34, .5, .66, .82, .95][(x * 3 + y * 5) % 5]; r.dataset.phase = ((x * k + i) * 1.7 + (y * k + j) * 2.3) % 6.28; r.style.opacity = r.dataset.base; g.append(r); }
+    }
+    if (sub) { const t = mk('text', {x: cx, y: oy + cell * 7 + 20, class: 'hub-sub'}); t.textContent = label(byId.get(center)); g.append(t); }
+    g.setAttribute('tabindex', '0'); g.setAttribute('role', 'button'); g.setAttribute('aria-label', 'Centre: ' + label(byId.get(center)) + '. Show its details.');
+    g.style.cursor = 'pointer';
+    g.addEventListener('click', () => setPanel(true));
+    g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setPanel(true); } });
+    gHub.append(g);
+  }
+  function node(id) {
+    if (els.has(id)) return els.get(id);
+    const n = byId.get(id), g = mk('g', {class: 'node', tabindex: '0', role: 'button'});
+    const mark = mk('rect', {class: 'mark'}), text = mk('text');
+    g.append(mark, text);
+    g.addEventListener('pointerenter', () => { hover = id; paintState(); });
+    g.addEventListener('pointerleave', () => { if (hover === id) { hover = null; paintState(); } });
+    g.addEventListener('focus', () => { hover = id; paintState(); });
+    g.addEventListener('blur', () => { if (hover === id) { hover = null; paintState(); } });
+    g.addEventListener('click', () => { if (!D.noRecenter) setCenter(id); });
+    g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setCenter(id); } });
+    gNodes.append(g);
+    const rec = {g, mark, text, n};
+    els.set(id, rec);
+    return rec;
+  }
+  function place(id, p, ring) {
+    const rec = node(id), [x, y] = xy(p), inner = ring === 'inner', s = COMPACT() ? (inner ? 14 : 5) : inner ? (D.innerSize || (layout && layout.inner.length > 10 ? 11 : 24)) : (layout && layout.outer.length > 80 ? 8 : 11);
+    rec.g.setAttribute('class', 'node ' + ring);
+    rec.g.setAttribute('aria-label', label(rec.n) + (inner ? ', directly connected' : '') + (D.noRecenter ? '.' : '. Put at the centre.'));
+    rec.mark.setAttribute('x', x - s / 2); rec.mark.setAttribute('y', y - s / 2); rec.mark.setAttribute('width', s); rec.mark.setAttribute('height', s);
+    const t = rec.text; t.replaceChildren();
+    const txt = label(rec.n);
+    if (inner) {
+      const right = Math.cos(p.a) >= -0.02, many = layout && layout.inner.length > 10, words = txt.split(' '), lines = [];
+      if (many) { const deg = p.a * 180 / Math.PI, r2 = Math.cos(p.a) >= 0, room = Math.floor((R2 - R1 - 26) / 6.2), tt = txt.length > room ? txt.slice(0, room - 1) + '…' : txt;   // crowded: radial labels between the rings
+        t.setAttribute('text-anchor', r2 ? 'start' : 'end'); t.setAttribute('font-size', 10.5); t.setAttribute('font-weight', 600); t.setAttribute('transform', `rotate(${r2 ? deg : deg + 180} ${x} ${y})`);
+        const ts = mk('tspan', {x: x + (r2 ? 11 : -11), y: y + 4}); ts.textContent = tt; t.append(ts); return; }                          // a crowded inner ring: one short line each
+      else { let cur = ''; for (const w of words) { if ((cur + ' ' + w).trim().length > (D.innerWrap || 16) && cur) { lines.push(cur); cur = w; } else cur = (cur + ' ' + w).trim(); } lines.push(cur); }
+      const IN = D.innerInside && !many, ic = Math.cos(p.a), is = Math.sin(p.a), ih = (lines.length - 1) * 17, iy = y - is * 24, IY = i => (is > .35 ? iy - ih : is < -.35 ? iy + 12 : iy + 5 - ih / 2) + i * 17;
+      t.setAttribute('transform', ''); t.setAttribute('text-anchor', IN ? (ic > .35 ? 'end' : ic < -.35 ? 'start' : 'middle') : right !== !!many ? 'start' : 'end'); t.setAttribute('font-size', many ? 11 : Math.max(13, Math.min(18, R1 * .085)));
+      lines.forEach((l, i) => { const ts = mk('tspan', {x: IN ? x - ic * 22 : x + (many ? (right ? -12 : 12) : (right ? 20 : -20)), y: IN ? IY(i) : D.innerAbove && !many ? y - 12 - (lines.length - 1 - i) * 17 : y + (many ? 4 : 6) + (i - (lines.length - 1) / 2) * 20}); ts.textContent = l; t.append(ts); });
+    } else {
+      const deg = p.a * 180 / Math.PI, right = Math.cos(p.a) >= 0;
+      t.setAttribute('text-anchor', right ? 'start' : 'end'); t.setAttribute('font-size', layout && layout.outer.length > 80 ? 9.5 : 11.5);
+      t.setAttribute('transform', `rotate(${right ? deg : deg + 180} ${x} ${y})`);
+      const ls = []; { let cur = ''; for (const w of txt.split(' ')) { if ((cur + ' ' + w).trim().length > MAXL && cur) { ls.push(cur); cur = w; } else cur = (cur + ' ' + w).trim(); } ls.push(cur); }   // v19: wrap, do not cut
+      ls.forEach((l, k) => { const ts = mk('tspan', {x: x + (right ? 14 : -14), y: y + 4 + (k - (ls.length - 1) / 2) * 11.5}); ts.textContent = l + (k < ls.length - 1 ? ' ' : ''); t.append(ts); });
+    }
+  }
+  function linkPath(a, b) {
+    const [x1, y1] = a, [x2, y2] = b, k = .42;
+    const c1 = [x1 + (x1 - cx) * k, y1 + (y1 - cy) * k], c2 = [x2 - (x2 - cx) * k * .6, y2 - (y2 - cy) * k * .6];
+    return `M${x1} ${y1}C${c1[0]} ${c1[1]} ${c2[0]} ${c2[1]} ${x2} ${y2}`;
+  }
+  function draw(q = 1) {
+    const L = layout;
+    const cur = new Map();
+    for (const [id, p] of L.pos) {
+      const f = from.get(id), e = q * q * (3 - 2 * q);
+      const a = f ? f.a + Math.atan2(Math.sin(p.a - f.a), Math.cos(p.a - f.a)) * e : p.a;
+      const r = f ? f.r + (p.r - f.r) * e : R0 * .4 + (p.r - R0 * .4) * e;
+      cur.set(id, {a: a + ROT, r});
+      place(id, {a: a + ROT, r}, p.ring);
+    }
+    gLinks.replaceChildren();
+    for (const [a, b] of L.links) { const path = mk('path', {class: 'link', d: linkPath(xy(cur.get(a)), xy(cur.get(b)))}); path.dataset.a = a; path.dataset.b = b; gLinks.append(path); }
+    paintState();
+  }
+  function paintState() {
+    const L = layout; if (!L) return;
+    const hotLinks = new Set(), hotNodes = new Set();
+    if (hover) { hotNodes.add(hover); for (const [a, b] of L.links) if (a === hover || b === hover) { hotLinks.add(a + '|' + b); hotNodes.add(a); hotNodes.add(b); } }
+    for (const [id, rec] of els) { const shown = L.pos.has(id); rec.g.style.display = shown ? '' : 'none'; rec.g.classList.toggle('hot', hover !== null && hotNodes.has(id)); rec.g.classList.toggle('dim', hover !== null && !hotNodes.has(id)); }
+    for (const p of gLinks.children) { const k = p.dataset.a + '|' + p.dataset.b; p.classList.toggle('hot', hotLinks.has(k)); p.classList.toggle('dim', hover !== null && !hotLinks.has(k)); }
+  }
+  function rings() {
+    layoutField();
+    gRings.replaceChildren(mk('circle', {class: 'ring-outer', cx, cy, r: R2}), mk('circle', {class: 'ring-inner', cx, cy, r: R1}));
+  }
+  function animate(now) {
+    const q = Math.min(1, (now - animStart) / 700);
+    draw(q);
+    if (q < 1) anim = requestAnimationFrame(animate); else { anim = 0; fit(); }
+  }
+  // Labels never leave the window: measure the drawn map and shrink the rings until it fits.
+  function fit() {
+    if (COMPACT() || D.align === 'right') return;
+    for (let it = 0; it < 5; it++) {
+      let b; try { b = gNodes.getBBox(); } catch { return; }
+      const m = 10, over = Math.max(0, m - b.x, b.x + b.width - (W - m), m - b.y, b.y + b.height - (H - m));
+      if (over < 1) return;
+      fitK *= Math.max(.7, 1 - over / Math.max(60, R2) - .015); measure(); rings(); buildHub(); layout = computeLayout(center); from = new Map([...layout.pos]); draw(1);
+    }
+  }
+  function relayout(tween) {
+    const prev = layout ? new Map([...layout.pos].map(([id, p]) => [id, {a: p.a, r: p.r}])) : new Map();
+    if (layout && layout.center !== center && prev.size) prev.set(layout.center, {a: 0, r: 0});
+    layout = computeLayout(center);
+    from = tween && !reduced.matches ? prev : new Map([...layout.pos].map(([id, p]) => [id, p]));
+    rings(); buildHub();
+    cancelAnimationFrame(anim);
+    if (tween && !reduced.matches) { animStart = performance.now(); anim = requestAnimationFrame(animate); } else { draw(1); fit(); }
+    fillPanel();
+    $('foot').textContent = `${D.nodes.length} ${NOUN[0]} · ${D.links.length} ${NOUN[1]} · centre: ${label(byId.get(center))} · ${layout.inner.length} directly connected`;
+    $('back').hidden = history.length < 2;
+    if (history.length > 1) $('backLabel').textContent = label(byId.get(history[history.length - 2]));
+    renderHistory();
+    $('live').textContent = `Centre: ${label(byId.get(center))}. ${layout.inner.length} pages directly connected.`;
+  }
+  function setCenter(id, push = true) {
+    if (!byId.has(id) || (D.noRecenter && id !== center)) return;
+    if (id === center) { setPanel(true); return; }
+    center = id; hover = null;
+    if (push) history.push(id);
+    relayout(true);
+  }
+  function renderHistory() {
+    const list = $('historyList'); list.replaceChildren();
+    const seen = []; for (let i = history.length - 1; i >= 0; i--) if (!seen.includes(history[i])) seen.push(history[i]);
+    for (const id of seen) { const li = document.createElement('li'), b = document.createElement('button'); b.textContent = label(byId.get(id)); b.setAttribute('aria-current', String(id === center)); b.onclick = () => { toggleHistory(false); setCenter(id); }; li.append(b); list.append(li); }
+  }
+  function toggleHistory(open) { $('historyList').hidden = !open; $('historyBtn').setAttribute('aria-expanded', String(open)); }
+  function fillPanel() {
+    const n = byId.get(center);
+    $('pKicker').textContent = CAT[n.category] + ' · ' + n.id;
+    $('pTitle').textContent = label(n);
+    $('pDesc').textContent = n.desc;
+    $('pOpen').hidden = !n.href; $('pCli').hidden = !n.cliHref; if (n.href) { $('pOpen').href = n.href; $('pCli').href = n.cliHref || n.href; }
+    const chips = $('pInner'); chips.replaceChildren();
+    for (const id of layout.inner) { const b = document.createElement('button'); b.type = 'button'; b.textContent = label(byId.get(id)); b.onclick = () => setCenter(id); chips.append(b); }
+    const cats = {}; for (const id of layout.outer) { const c = CAT[byId.get(id).category]; cats[c] = (cats[c] || 0) + 1; }
+    $('pOuter').textContent = Object.entries(cats).map(([c, k]) => `${k} ${c}`).join(' · ');
+  }
+  function setPanel(open) { $('app').classList.toggle('no-panel', !open); $('panelToggle').textContent = open ? 'Hide panel →' : '← Show panel'; $('panelToggle').setAttribute('aria-expanded', String(open)); }
+  // ?field: the header's animated pixel field behind the whole map (field-model: 7 px pitch, 6 px squares,
+  // density .22, seeded pulses), faded where labels and nodes sit so the map stays readable.
+  const fcan = FIELD ? document.createElement('canvas') : null, fctx = fcan?.getContext('2d'); let fcells = [], fdpr = 1;
+  if (fcan) { fcan.className = 'field'; $('map').prepend(fcan); document.documentElement.classList.add('with-field'); }
+  function layoutField() {
+    if (!fcan) return; fdpr = Math.min(devicePixelRatio || 1, 2); fcan.width = Math.round(W * fdpr); fcan.height = Math.round(H * fdpr);
+    let seed = 914; const rnd = () => ((seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0) / 4294967296); fcells = [];
+    for (let y = 0; y < H; y += 7) for (let x = 0; x < W; x += 7) { if (rnd() > .22) continue; const c = {x, y, period: 1.8 + rnd() * 5.2, phase: rnd() * 10, peak: .025 + Math.pow(rnd(), 3) * .28};
+      const d = Math.hypot(x - cx, y - cy); c.k = d < R0 * 1.25 ? .25 : d > R2 * .9 && d < R2 + 170 ? .35 : 1; fcells.push(c); }
+  }
+  function paintField(t) {
+    fctx.setTransform(fdpr, 0, 0, fdpr, 0, 0); fctx.clearRect(0, 0, W, H);
+    for (const c of fcells) { const ph = ((t * 1.7 + c.phase) % c.period) / c.period, a = c.peak * (ph < .42 ? Math.sin(ph / .42 * Math.PI) ** 2 : 0) * c.k; if (a < .01) continue;
+      fctx.fillStyle = `rgba(${FIELD_RGB},${a})`; fctx.fillRect(c.x, c.y, 6, 6); }
+  }
+  // v19 · embedded on the homepage: theme from the page, a walk through the key items, pause when off screen
+  const Q = new URLSearchParams((window.MAP_Q ?? location.search)), EMBED = Q.has('embed'); let FIELD_RGB = '242,242,243', PAUSED = false, userIn = false;
+  function theme(t, c = {}) { const light = t === 'light', r = document.documentElement; r.classList.toggle('light', light);
+    for (const [k, v] of Object.entries({'--bg': c.bg, '--tx': c.tx, '--tx2': c.tx2, '--gk-a': c.a})) if (v) r.style.setProperty(k, v);
+    FIELD_RGB = light ? '16,20,18' : '242,242,243'; }
+  if (EMBED) { document.documentElement.classList.add('embed'); theme(Q.get('theme') || 'dark');
+    addEventListener('message', e => { const d = e.data || {}; if (d.type === 'aequai-theme') theme(d.theme, d); if (d.type === 'aequai-pause') PAUSED = !!d.on; if (d.type === 'aequai-gap' && (d.gap !== window.MAP_GAP || (d.ext || 0) !== (window.MAP_EXT || 0))) { window.MAP_GAP = d.gap; window.MAP_EXT = d.ext || 0; measure(); relayout(false); } });
+    svg.addEventListener('pointerenter', () => { userIn = true; }); svg.addEventListener('pointerleave', () => { userIn = false; select(); });
+    // v19c (Ali: "turning like before"): as the v18 orbit, the whole map turns one key item at a time; the item that
+    // arrives on the left is the selected one; its fan opens below it, to the bottom left (Ali, v19e) (the lab's hover: its links amber, the rest stepping back)
+    const cap = document.createElement('p'); cap.className = 'cap'; cap.setAttribute('aria-hidden', 'true'); $('map').append(cap);   // phones: the selected key item's name, above the map
+    const SEL = Math.PI + (Q.get('detail') ? (D.innerAhead ?? Math.PI / 4) : 0), TAU = Math.PI * 2, nIn = () => layout.inner.length, angOf = id => layout.pos.get(id).a, inA = i => angOf(layout.inner[i]);
+    const pickSel = () => { let best = 0, bd = 9; layout.inner.forEach((id, i) => { const d = Math.abs(((inA(i) + ROT - SEL) % TAU + TAU * 1.5) % TAU - Math.PI); if (d < bd) { bd = d; best = i; } }); return layout.inner[best]; };
+    function select() { if (!layout) return; window.__selT0 = performance.now(); hover = pickSel(); paintState(); cap.textContent = label(byId.get(hover)); eAssign(hover); }
+    let rFrom = 0, rTo = 0, rT0 = 0, turning = false;
+    function turn(now) { if (!turning) return; const u = Math.min(1, (now - rT0) / 1100), e = u * u * (3 - 2 * u); ROT = rFrom + (rTo - rFrom) * e; draw(1); if (u < 1) requestAnimationFrame(turn); else { turning = false; select(); } }
+    setInterval(() => { if (PAUSED || userIn || turning || anim || reduced.matches || !layout) return; const j = (layout.inner.indexOf(pickSel()) + 1) % nIn(); let dl = ((ROT - (SEL - inA(j))) % TAU + TAU) % TAU; if (dl < .01) dl += TAU; hover = null; eAssign(null); rFrom = ROT; rTo = ROT - dl; /* the next item lands exactly on the left */ rT0 = performance.now(); turning = true; requestAnimationFrame(turn); }, Q.get('detail') ? (D.dwell || 3600) : 3600);
+    setTimeout(() => { if (!layout) return; ROT = SEL - inA(0); fitK = 1; measure(); relayout(false); select(); }, 0);
+    const _setCenter = setCenter; setCenter = (id, push) => { _setCenter(id, push); setTimeout(select, 760); };   // a new centre: the item on the left is selected once it has settled
+    const defs = svg.querySelector('defs'); defs.insertAdjacentHTML('beforeend', '<radialGradient id="fadeG"><stop offset=".6" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><mask id="fadeM" maskContentUnits="objectBoundingBox"><rect width="1" height="1" fill="url(#fadeG)"/></mask>');
+    svg.querySelector('.mesh').setAttribute('mask', 'url(#fadeM)');   // the mesh and the field fade out at the frame's edge: no box on the page
+    // v19d (Ali): the selected item, entropy to order. Film B's loose squares drift in the centre with thin lines between
+    // neighbours; when an item is selected nine of them leave the field and set into a 3×3 block beside it, one amber; when
+    // the ring turns again they scatter back. Small squares keep flowing along the selected item's links.
+    const ec = document.createElement('canvas'); ec.className = 'ent'; ec.setAttribute('aria-hidden', 'true'); $('map').append(ec); const ex = ec.getContext('2d');
+    let edpr = 1, eT0 = performance.now(), eLast = 0, lastGeo = ''; const FILM = Q.has('film'); document.documentElement.classList.toggle('film', FILM);
+    const rnd = (k, s) => { const v = Math.sin(k * 12.9898 + s * 78.233) * 43758.5453; return v - Math.floor(v); };   // v19f (Ali): Film B's entropy: hashed places, small squares of mixed weight, two slow orbits each, hairlines between near ones
+    const EP = Array.from({length: 96}, (_, k) => ({u: Math.sqrt(rnd(k, 1)), v: rnd(k, 2) * TAU, s: rnd(k, 3) * 40, z: rnd(k, 4), x: NaN, y: NaN, slot: -1}));
+    const eSize = () => { edpr = Math.min(2, devicePixelRatio || 1); ec.width = Math.round(W * edpr); ec.height = Math.round(H * edpr); };
+    new ResizeObserver(eSize).observe(svg);
+    const nodeXY = id => { const p = layout.pos.get(id), a = p.a + ROT; return [cx + Math.cos(p.a + ROT) * p.r, cy + Math.sin(a) * p.r, a]; };
+    function cell(id, s) { const [x, y, a] = nodeXY(id), c = COMPACT(), pitch = c ? 4 : 7, bx = x, by = y;   // v19g (Ali): the block forms inside the selected key item's own square
+      return [bx + (s % 3 - 1) * pitch, by + (Math.floor(s / 3) - 1) * pitch]; }
+    function eAssign(id) { EP.forEach(p => { p.slot = -1; }); if (!id || !layout || !layout.pos.has(id)) return; const [sx, sy] = nodeXY(id);
+      EP.map((p, i) => [Math.hypot(p.x - sx, p.y - sy) || 0, i]).sort((a, b) => a[0] - b[0]).slice(0, 9).forEach(([, i], s) => { EP[i].slot = s; }); }
+    function eFrame(now) {
+      requestAnimationFrame(eFrame); if (!layout || !W) return; const still = reduced.matches; if (PAUSED && !still) return;
+      if (ec.width !== Math.round(W * edpr)) eSize();
+      const T = still ? 0 : (now - eT0) / 1000, cs = getComputedStyle(document.documentElement), ink = cs.getPropertyValue('--tx').trim() || '#f2f2f3', amb = cs.getPropertyValue('--gk-a').trim() || '#ff8a3d';
+      const rc = R1 * .84, c = COMPACT(), P = c ? 4 : 7, bs = c ? 3 : 5.5, f = still ? 1 : 1 - Math.exp(-Math.min(.1, eLast ? (now - eLast) / 1000 : .016) * 5); eLast = now;   // time-based: the block settles in about half a second at any frame rate
+      ex.setTransform(edpr, 0, 0, edpr, 0, 0); ex.clearRect(0, 0, W, H);
+      EP.forEach(p => { const bx = cx + Math.cos(p.v) * p.u * rc, by = cy + Math.sin(p.v) * p.u * rc, hx = bx + Math.sin(T * .23 + p.s) * P * 2.4 + Math.sin(T * .61 + p.s * 2.1) * P * .9, hy = by + Math.cos(T * .19 + p.s * 1.3) * P * 2.1 + Math.sin(T * .47 + p.s * .7) * P * .8;
+        const [tx, ty] = p.slot >= 0 && hover ? cell(hover, p.slot) : [hx, hy];
+        if (Number.isNaN(p.x)) { p.x = hx; p.y = hy; } p.x += (tx - p.x) * f; p.y += (ty - p.y) * f; });
+      if (FILM) { const sel = hover && !turning && layout.inner.includes(hover) ? nodeXY(hover) : null, g = {type: 'aequai-map-geo', x: cx, y: cy, r: rc, p: c ? 4 : 7, sel: sel && {x: sel[0], y: sel[1], p: c ? 4 : 7, s: bs}};
+        const k = JSON.stringify(g); if (k !== lastGeo) { lastGeo = k; try { parent.postMessage(g, '*'); } catch {} } }   // v20b: the page's film draws the entropy here; the map says where
+      else if (D.noEntropy) { if (hover && !turning && layout.inner.includes(hover)) for (let s = 0; s < 9; s++) { const [x, y] = cell(hover, s); ex.fillStyle = s === 4 ? amb : ink; ex.globalAlpha = s === 4 ? 1 : .85; ex.fillRect(x - bs / 2, y - bs / 2, bs, bs); } }   // v28: no entropy; the block stands in the selected square
+      else {
+      ex.strokeStyle = ink; ex.lineWidth = .6;
+      for (let i = 0; i < EP.length; i++) for (let j = i + 1; j < EP.length; j++) { const a = EP[i], b = EP[j]; if (a.slot >= 0 || b.slot >= 0) continue; const d = (a.x - b.x) ** 2 + (a.y - b.y) ** 2, L = c ? 600 : 1400;
+        if (d < L) { ex.globalAlpha = Math.min(.26 + .44 * a.z, .26 + .44 * b.z) * .4 * (1 - d / L); ex.beginPath(); ex.moveTo(a.x, a.y); ex.lineTo(b.x, b.y); ex.stroke(); } }
+      EP.forEach(p => { const on = p.slot >= 0, s = on ? bs : (1.2 + 1.6 * p.z) * (c ? .85 : 1); ex.fillStyle = on && p.slot === 4 ? amb : ink; ex.globalAlpha = on ? (p.slot === 4 ? 1 : .85) : .26 + .44 * p.z; ex.fillRect(p.x - s / 2, p.y - s / 2, s, s); }); }
+      ex.fillStyle = amb; let q = 0;   // small squares flowing out along the selected item's links
+      for (const path of gLinks.querySelectorAll('.link.hot')) { const L = path.getTotalLength(); for (let j = 0; j < 2; j++) { const t = (T * .22 + j * .5 + q * .137) % 1, pt = path.getPointAtLength((path.dataset.a === hover ? t : 1 - t) * L);
+        ex.globalAlpha = .9 * Math.sin(t * Math.PI); ex.fillRect(pt.x - 2, pt.y - 2, 4, 4); } q++; }
+      ex.globalAlpha = 1; }
+    requestAnimationFrame(eFrame);
+    // v29 (Ali, 2026-10-05) · Partner map detail, only with ?detail=rows|note: the map is turned so the selected
+    // item's fan opens straight to the left and its names turn level; then a leader runs left with the review detail.
+    // v30 (Ali): the note is responsive to the room it has on its side. Under 260 px: title, decision, next. Up to
+    // 360 px: checked, changed, decision, next. Up to 620 px: a second line under each row, the owner and where the
+    // evidence sits. Wider: every name also gets its own status line (study A). Tablets (compact map, iframe 440 px or
+    // more): decision and next under the caption; phones: none. Levelled names stay on one line.
+    const DQ = Q.get('detail');
+    if (DQ && D.details) {
+      if (Q.has('gap')) { window.MAP_GAP = +Q.get('gap') || 0; const mp = $('map'), mg = `linear-gradient(to right,#000 calc(100% - ${window.MAP_GAP}px),transparent)`; mp.style.webkitMaskImage = mg; mp.style.maskImage = mg; }
+      const DET = mk('g', {class: 'det'}); svg.append(DET);
+      const cl = u => Math.max(0, Math.min(1, u)), ez = u => 1 - Math.pow(1 - cl(u), 3);
+      let shown = null, tier = '', parts = null;
+      const txt = (cls, anchor) => { const t = mk('text', {class: cls, 'text-anchor': anchor || 'start'}); DET.append(t); return t; };
+      const statusText = (t, s) => { const [v, st] = (s || '').split(' · '); const a = mk('tspan'); a.textContent = v + '  '; const b = mk('tspan', {class: 'det-st' + (/APPROVAL/.test(st || '') ? ' amb' : '')}); b.textContent = st || ''; t.append(a, b); };
+      function build(id, items, T) {
+        DET.replaceChildren(); parts = {rowL: [], rowT: [], noteL: null, note: []};
+        if ((DQ === 'rows' || T === 'wide') && D.details.rows) items.forEach(it => { const l = mk('path', {class: 'det-l'}); DET.append(l); const t = txt('det-r', 'end'); statusText(t, D.details.rows[it]); parts.rowL.push(l); parts.rowT.push(t); });
+        if (DQ !== 'note') return;
+        const n = D.details.note[id] || {}; parts.noteL = mk('path', {class: 'det-l'}); DET.append(parts.noteL);
+        const add = (cls, s, gap) => { const t = txt(cls); t.textContent = s || ''; parts.note.push({t, gap}); };
+        add('det-h', T === 'compact' ? '' : label(byId.get(id)) + ' · ' + (D.details.month || 'This month'), 0);   // compact: the map's own caption is the title
+        const big = T === 'wide' || T === 'plus', rows = T === 'short' || T === 'compact' ? [['Decision', 'decision'], ['Next', 'next']] : [['Checked', 'checked'], ['Changed', 'changed'], ['Decision', 'decision'], ['Next', 'next']];
+        if (big) rows.push(['Owner', 'owner'], ['Evidence', 'evidence']);
+        const LB = D.details.labels || {};   // 2026-10-05: the Control Map names its rows Mapped, Keep, Sources
+        rows.forEach(([k, f]) => { add('det-k', LB[f] || k, 22); add('det-v' + (k === 'Decision' ? ' amb' : ''), n[f], 15); if (big && n[f + 'More']) add('det-m', n[f + 'More'], 15); });
+        if (T !== 'compact') add('det-k det-foot', 'Synthetic example', 28);
+      }
+      function dFrame(now) {
+        requestAnimationFrame(dFrame); if (!layout || !W) return;
+        const still = reduced.matches, small = COMPACT(), on = hover && !turning && !anim && layout.inner.includes(hover) && (!small || innerWidth >= 440);   // tablets: a short note under the caption; phones: none
+        if (!on) { if (shown) { DET.replaceChildren(); shown = null; } return; }
+        const T0 = window.__selT0 || now, P = D.dwell || 3600, t = still ? 9 : (now - T0) / 1000, out = still || userIn ? 0 : cl((now - T0 - (P - 1100 - 450)) / 320);
+        const items = layout.links.filter(([a, b]) => a === hover || b === hover).map(([a, b]) => a === hover ? b : a).filter(id => layout.pos.has(id) && els.has(id) && !layout.inner.includes(id) && id !== center).sort((p, q) => nodeXY(p)[1] - nodeXY(q)[1]);   // 2026-10-05: links either way (the Control Map's run both ways), outer items only
+        if (small) { if (shown !== hover || tier !== 'compact') { shown = hover; tier = 'compact'; build(hover, items, 'compact'); }
+          let yy = 6; parts.note.forEach((p, i) => { yy = i ? yy + p.gap : 6; p.t.setAttribute('x', 2); p.t.setAttribute('y', yy); p.t.style.opacity = cl((t - .3 - i * .05) / .25) * (1 - out); }); return; }
+        const k = ez(t / .45) * (1 - out);   // the names turn level, on one line
+        const geo = items.map(id => { const rec = els.get(id), [x, y, a] = nodeXY(id), right = Math.cos(a) >= 0; let deg = a * 180 / Math.PI + (right ? 0 : 180); deg = ((deg % 360) + 540) % 360 - 180;
+          const ts = rec.text.querySelectorAll('tspan');
+          if (ts.length > 1 && k > .5) { ts[0].textContent = label(byId.get(id)); ts[0].setAttribute('y', y + 4); for (let i = 1; i < ts.length; i++) ts[i].remove(); }
+          rec.text.setAttribute('transform', `rotate(${(deg * (1 - k)).toFixed(2)} ${x} ${y})`);
+          let w = 0; for (const s of rec.text.querySelectorAll('tspan')) w = Math.max(w, s.getComputedTextLength());
+          return {x, y, left: x - 14 - w}; });
+        if (!geo.length) return;
+        const colR = Math.min(...geo.map(g => g.left)) - 26, room = colR - 12;
+        const T = DQ === 'rows' ? 'rows' : room > 620 ? 'wide' : room > 360 ? 'plus' : room > 260 ? 'mid' : 'short';
+        if (shown !== hover || tier !== T) { shown = hover; tier = T; build(hover, items, T); }
+        const dash = (l, d, L, u) => { l.setAttribute('d', d); l.style.strokeDasharray = L + 2; l.style.strokeDashoffset = (L + 2) * (1 - u); };
+        let rowsLeft = colR;
+        parts.rowT.forEach((tx, i) => { const g = geo[i], u = ez((t - .35 - i * .05) / .4) * (1 - out), o = cl((t - .65 - i * .06) / .25) * (1 - out);
+          dash(parts.rowL[i], `M${g.left - 8} ${g.y + .5}L${colR} ${g.y + .5}`, g.left - 8 - colR, u); tx.setAttribute('x', colR - 8); tx.setAttribute('y', g.y + 4); tx.style.opacity = o;
+          rowsLeft = Math.min(rowsLeft, colR - 8 - tx.getComputedTextLength()); });
+        if (!parts.noteL) return;
+        const top = geo[0], y0 = top.y, start = parts.rowT.length ? rowsLeft - 10 : top.left - 8, spine = parts.rowT.length ? rowsLeft - 34 : colR;
+        const width = T === 'wide' || T === 'plus' ? Math.min(340, spine - 40) : 250, colL = Math.max(10, spine - 24 - width);
+        let yy = y0 + 4; const ys = parts.note.map((p, i) => (yy = i ? yy + p.gap : y0 + 4));
+        const bottom = ys[ys.length - 1] - 6, u = ez((t - (parts.rowT.length ? .8 : .35)) / .5) * (1 - out);
+        dash(parts.noteL, `M${start} ${y0 + .5}H${spine}V${bottom}`, start - spine + bottom - y0, u);
+        parts.note.forEach((p, i) => { p.t.setAttribute('x', colL); p.t.setAttribute('y', ys[i]); p.t.style.opacity = cl((t - (parts.rowT.length ? 1.05 : .6) - i * .04) / .25) * (1 - out); });
+      }
+      requestAnimationFrame(dFrame);
+    }
+    const cpt = () => document.documentElement.classList.toggle('compact', COMPACT()); cpt(); addEventListener('resize', cpt);
+    }
+  // Header-field pulse inside the hub.
+  let t0 = performance.now(), pulse = 0;
+  function tick(now) {
+    if (!reduced.matches && !document.hidden && !PAUSED) { const t = (now - t0) / 1000;
+      for (const r of gHub.querySelectorAll('.hub-cell')) { const v = Math.max(0, Math.sin(t * 1.1 + +r.dataset.phase)) ** 6; r.style.opacity = Math.min(1, +r.dataset.base * (.72 + .28 * v)); }
+      if (FIELD) paintField(t); }
+    pulse = requestAnimationFrame(tick);
+  }
+  $('back').addEventListener('click', () => { if (history.length < 2) return; history.pop(); setCenter(history[history.length - 1], false); });
+  $('historyBtn').addEventListener('click', () => toggleHistory($('historyList').hidden));
+  $('panelToggle').addEventListener('click', () => setPanel($('app').classList.contains('no-panel')));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') toggleHistory(false); });
+  addEventListener('message', e => { if (e.data && e.data.type === 'aequai-accent' && /^#[0-9a-f]{6}$/i.test(e.data.hex)) document.documentElement.style.setProperty('--gk-a', e.data.hex); });
+  try { const q = new URLSearchParams((window.MAP_Q ?? location.search)).get('accent') || localStorage.getItem('aequai.lab.accent'); if (/^#?[0-9a-f]{6}$/i.test(q || '')) document.documentElement.style.setProperty('--gk-a', q.startsWith('#') ? q : '#' + q); } catch {}
+  new ResizeObserver(() => { fitK = 1; measure(); relayout(false); }).observe(svg);
+  measure();
+  if (new URLSearchParams((window.MAP_Q ?? location.search)).get('panel') === '0') setPanel(false);
+  const start = new URLSearchParams((window.MAP_Q ?? location.search)).get('page');
+  if (start && byId.has(start)) { center = start; history = [start]; }
+  document.title = 'AequAI · ' + (D.title || 'Site map') + (FIELD ? ' · field' : '');
+  if (D.title) { $('mapTitle').textContent = D.title; }
+  relayout(false);
+  pulse = requestAnimationFrame(tick);
+  window.AequaiSiteMap = {center: id => setCenter(id), hover: id => { hover = id; paintState(); }, inspect: () => ({center, inner: layout.inner, outer: layout.outer.length, links: layout.links.length, history: [...history]})};
+})();
+</script>
+</body></html>
